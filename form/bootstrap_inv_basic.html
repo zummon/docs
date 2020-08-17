@@ -1,0 +1,144 @@
+<div class="container-lg bg-white">
+    <br>
+    <div class="row">
+        <div class="col-3">
+            <img id="headlogo_img" src="" width="" height="" class="img-fluid">
+        </div>
+        <div class="col">
+            <div class="form-row">
+                <div class="col">
+                    <div id="vendor_name_label" class="text-truncate">vendor_name</div>
+                    <input id="vendor_name" type="text" class="form-control">
+                </div>
+                <div class="col-4">
+                    <div id="vendor_id_label" class="text-truncate">vendor_id</div>
+                    <input id="vendor_id" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div id="vendor_address_label" class="text-truncate">vendor_address</div>
+                    <input id="vendor_address" type="text" class="form-control form-control-sm">
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+    <br>
+    <div class="row">
+        <div class="col">
+            <h1 id="doc_title">Document</h1>
+            <div id="payment_label" class="text-truncate">payment</div>
+            <textarea id="payment" class="form-control" rows="2"></textarea>
+        </div>
+        <div class="col">
+            <div class="form-group row">
+                <div id="ref_label" class="col text-right text-truncate">ref</div>
+                <div class="col-7"><input id="ref" type="text" class="form-control"></div>
+            </div>
+            <div class="form-group row">
+                <div id="date_label" class="col text-right text-truncate">date</div>
+                <div class="col-7"><input id="date" type="date" class="form-control"></div>
+            </div>
+            <div class="form-group row">
+                <div id="duedate_label" class="col text-right text-truncate">duedate</div>
+                <div class="col-7"><input id="duedate" type="date" class="form-control"></div>
+            </div>
+        </div>
+    </div><!-- row -->
+
+    <div class="row">
+        <div class="col-9">
+            <div class="form-row">
+                <div class="col">
+                    <div id="client_name_label" class="text-truncate">client_name</div>
+                    <input id="client_name" type="text" class="form-control">
+                </div>
+                <div class="col-4">
+                    <div id="client_id_label" class="text-truncate">client_id</div>
+                    <input id="client_id" type="text" class="form-control">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div id="client_address_label" class="text-truncate">client_address</div>
+                    <input id="client_address" type="text" class="form-control form-control-sm">
+                </div>
+            </div>
+        </div>
+    </div><!-- row -->
+    <br>
+    <div id="subject_label">subject</div>
+    <input id="subject" type="text" class="form-control">
+    <br>
+    <div class="row">
+        <div id="line_label" class="col-1 text-truncate">line</div>
+        <div id="item_label" class="col text-truncate">item</div>
+        <div id="price_label" class="col-2 text-truncate">price</div>
+        <div id="qty_label" class="col-2 text-truncate">qty</div>
+        <div id="amount_label" class="col-3 text-truncate">amount</div>
+    </div>
+
+    <div id="tbody" class="mb-4">
+        <div name="tr" class="form-row mb-2">
+            <div class="col-1"><input name="line" type="text" class="form-control"></div>
+            <div class="col"><input name="item" type="text" class="form-control"></div>
+            <div class="col-2"><input name="price" type="text" class="form-control"></div>
+            <div class="col-2"><input name="qty" type="text" class="form-control"></div>
+            <div class="col-3"><input name="amount" type="text" class="form-control"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <div id="note_label" class="text-truncate">note</div>
+            <textarea id="note" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="col">
+            <div class="form-group row">
+                <div id="total_label" class="col text-right text-truncate">total</div>
+                <div class="col-7"><input id="total" type="text" class="form-control"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col text-right text-truncate">
+                    <text id="saletax_label">saletax</text> 
+                    <text id="saletax_rate">7%</text></div>
+                <div class="col-7"><input id="saletax" type="text" class="form-control"></div>
+            </div>
+            <div class="form-group row">
+                <div class="col text-right text-truncate">
+                    <text id="incometax_label">incometax</text> 
+                    <text id="incometax_rate">3%</text></div>
+                <div class="col-7"><input id="incometax" type="text" class="form-control"></div>
+            </div>
+            <div class="form-group row">
+                <div id="adjust_label" class="col text-right text-truncate">adjust</div>
+                <div class="col-7"><input id="adjust" type="text" class="form-control"></div>
+            </div>
+            <div class="form-group row">
+                <div id="finaltotal_label" class="col text-right text-truncate">finaltotal</div>
+                <div class="col-7"><input id="finaltotal" type="text" class="form-control"></div>
+            </div>
+        </div>
+    </div><!-- row -->
+    <br>
+    <div class="row">
+        <div class="col-4">
+            <div id="vendor_sign_label" class="text-truncate">vendor_sign</div>
+            <textarea id="vendor_sign" class="form-control" rows="2"></textarea>
+
+            <div id="vendor_rank_label" class="text-truncate">vendor_rank</div>
+            <input id="vendor_rank" type="text" class="form-control">
+        </div>
+        <div class="col">
+            <img id="footlogo_img" src="" width="" height="" class="img-fluid">
+        </div>
+        <div class="col-4">
+            <div id="client_sign_label" class="text-truncate">client_sign</div>
+            <textarea id="client_sign" class="form-control" rows="2"></textarea>
+
+            <div id="client_rank_label" class="text-truncate">client_rank</div>
+            <input id="client_rank" type="text" class="form-control">
+        </div>
+    </div><!-- row -->
+    <br>
+</div><!-- container -->

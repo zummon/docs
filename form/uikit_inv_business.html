@@ -1,0 +1,112 @@
+<div class="uk-container" style="background-color: #fff;">
+    <div class="uk-child-width-1-2 uk-flex-middle uk-margin-top uk-grid-small" uk-grid>
+        <div>
+            <img id="headlogo_img" src="" width="" height="" uk-img>
+
+            <input id="vendor_name" class="uk-text-lead uk-form-blank" value="My Company">
+            <span id="vendor_id" class="uk-text-small">#Register</span><br>
+            <span id="vendor_address" class="uk-text-small">#Address</span>
+        </div>
+        <div>
+            <div class="uk-flex uk-flex-center">
+                <h1 id="doc_title" class="uk-heading-medium uk-text-primary">Invoice</h1>
+            </div>
+            <div class="uk-flex uk-flex-right">
+                <span id="ref_label">Inv-Number</span>
+                <input id="ref" class="uk-form-blank uk-form-width-small" value="#9999">
+            </div>
+            <div class="uk-flex uk-flex-right">
+                <span id="date_label">Date</span>
+                <input id="date" class="uk-form-blank uk-form-width-small" type="date" value="2020-08-17">
+            </div>
+        </div>
+
+        <div>
+            <span id="client_name_label" class="uk-text-bold">Invoice to</span>
+            <input id="client_name" class="uk-text-lead uk-form-blank" value="Client Company">
+            <span id="client_id" class="uk-text-small">#Register</span><br>
+            <span id="client_address" class="uk-text-small">#Address</span>
+        </div>
+        <div>
+            <div class="uk-tile uk-tile-muted">
+                <span id="duedate_label">Due Date</span>
+                <input id="duedate" class="uk-input uk-form-small" type="date" value="2020-09-17">
+
+                <span id="payment_label">Payment</span>
+                <textarea id="payment" class="uk-textarea uk-form-small"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-flex uk-flex-bottom uk-flex-between">
+        <div>
+            <span id="subject_label" class="uk-text-bold">Project</span> 
+            <span id="subject" class="uk-text-lead uk-text-primary">zummon template</span>
+        </div>
+        <div>
+            <span id="finaltotal_shadow_label" class="uk-text-bold">Amount</span>
+            <span id="finaltotal_shadow" class="uk-heading-small uk-text-primary">$1,200</span>
+        </div>
+    </div>
+
+    <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-hover">
+        <thead class="uk-background-primary uk-text-bold">
+            <tr>
+                <td id="line_label" class="uk-table-shrink">No</td>
+                <td id="item_label" class="uk-table-expand">Description</td>
+                <td id="price_label" class="uk-table-shrink uk-text-nowrap">Unit Price</td>
+                <td id="qty_label" class="uk-table-shrink uk-text-nowrap">Qty</td>
+                <td id="amount_label" class="uk-table-shrink uk-text-nowrap">Total Price</td>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <tr name="tr">
+                <td name="line">1</td>
+                <td><input name="item" class="uk-input uk-form-blank"></td>
+                <td name="price" class="uk-text-center"></td>
+                <td name="qty" class="uk-text-center"></td>
+                <td name="amount" class="uk-text-right"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2" rowspan="5">
+                    <div class="uk-tile uk-tile-muted">
+                        <span id="client_sign_label">Client Signature</span>
+                        <textarea id="client_sign" class="uk-textarea uk-form-small"></textarea>
+                        <input id="client_rank" class="uk-input uk-form-small">
+                    </div>
+                </td>
+                <td id="total_label" colspan="2" class="uk-text-bold">Total</td>
+                <td id="total" class="uk-text-right uk-text-bold"></td>
+            </tr>
+            <tr class="uk-text-bold">
+                <td colspan="2">
+                    <span id="saletax_label">Sales tax</span>
+                    <span id="saletax_rate">7%</span>
+                </td>
+                <td id="saletax" class="uk-text-right"></td>
+            </tr>
+            <tr class="uk-text-bold">
+                <td colspan="2">
+                    <span id="incometax_label">Income tax</span>
+                    <span id="incometax_rate">3%</span>
+                </td>
+                <td id="incometax" class="uk-text-right"></td>
+            </tr>
+            <tr class="uk-text-bold">
+                <td id="adjust_label" colspan="2">Adjust</td>
+                <td id="adjust" class="uk-text-right"></td>
+            </tr>
+            <tr class="uk-text-bold">
+                <td id="finaltotal_label" colspan="2">Final total</td>
+                <td id="finaltotal" class="uk-text-right"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="uk-margin-bottom uk-form-blank">
+        <span id="note_label" class="uk-text-bold">Note</span>
+        <textarea id="note" class="uk-textarea uk-form-blank"></textarea>
+    </div>
+</div>

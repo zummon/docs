@@ -1,0 +1,23 @@
+#vendor_name, #vendor_id, #vendor_address,
+#client_name, #client_id, #client_address,
+[name="item"] {
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+#vendor_name:hover, #vendor_id:hover, #vendor_address:hover,
+#client_name:hover, #client_id:hover, #client_address:hover {
+    border-color: #3273dc;
+    box-shadow: 0 0 0 0.125em rgba(50, 115, 220, 0.25);
+}
+[id="line_label"] {
+    width: 1px;
+}
+[name="tr"] td {
+    vertical-align: middle;
+}
+.img_fields {
+    text-align: center;
+}

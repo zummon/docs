@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=K2D&display=swap" rel="stylesheet">
+    <style>
+        #main_header, #main_footer {
+            display: flex;
+            padding: 2% 4%;
+        }
+        #main_header, #main_footer,   #scr_main_config {
+            font-family: 'K2D', sans-serif;
+        }
+        #main_header, #main_footer, #main_footer [id*=_item_],   #scr_main_config {
+            color: #faebd7;
+        }
+        #main_header_title, #main_footer [id$=_head] {
+            font-size: 1.5em;
+            margin: .75em 0;
+        }
+        #main_header [id^=main_header_], #main_footer [id$=_head] {
+            cursor: default;
+        }
+        #main_header svg,   #scr_main_config svg {
+            cursor: pointer;
+        }
+        #main_header svg:hover, #main_footer [id*=_item_]:hover,   #scr_main_config svg:hover {
+            color: #ff7f50;
+        }
+        #scr_main_config select, #scr_main_config input {
+            width: 100%;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+        }
+        tfoot {
+            display: table-row-group;
+        }
+    </style>
+    <title>zummon webapp Docs</title>
+    <link id="scr_main_css_cdn" rel="stylesheet" href="">
+    <link id="scr_main_css_compat" rel="stylesheet" href="">
+    <link id="scr_main_css_form" rel="stylesheet" href="">
+</head>
+<body style="background-color: #222;">
+
+<div id="main_header">
+    <div style="flex: 1; text-overflow: ellipsis; white-space: nowrap;">
+        <span id="main_header_title">Docs zummon webapp</span><br>
+        <span id="main_header_subtitle"></span>
+    </div>
+    <div style="margin-left: 24px;">
+        <abbr id="main_header1" title="Choose a form">
+            <svg width="48" height="48" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 
+                0-.882L12.813 8l-1.063.567L14.438 10 8 13.433 1.562 10 4.25 8.567 3.187 8z"/>
+                <path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 
+                0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>
+            </svg>
+        </abbr>
+    </div>
+    <div style="margin-left: 24px;">
+        <abbr id="main_header2" title="Create a document">
+            <svg width="48" height="48" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 1h5v1H4a1 1 0 0 0-1 1H2a2 2 0 0 1 2-2zm10 7v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2h1a1 1 0 0 0 1 
+                1h8a1 1 0 0 0 1-1V8h1zM2 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2zm0 3v-.5a.5.5 0 0 1 1 
+                0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H2z"/>
+                <path fill-rule="evenodd" d="M13.5 1a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V1.5a.5.5 0 0 1 .5-.5z"/>
+                <path fill-rule="evenodd" d="M13 3.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z"/>
+            </svg>
+        </abbr>
+    </div>
+    <div style="margin-left: 24px;">
+        <abbr id="main_header3" title="Edit data list">
+            <svg width="48" height="48" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M0 12.5A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-6h-1v6a.5.5 0 0 
+                1-.5.5h-13a.5.5 0 0 1-.5-.5v-6H0v6z"/>
+                <path fill-rule="evenodd" d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5v2.384l-7.614 2.03a1.5 
+                1.5 0 0 1-.772 0L0 6.884V4.5zM1.5 4a.5.5 0 0 0-.5.5v1.616l6.871 1.832a.5.5 0 0 0 .258 0L15 
+                6.116V4.5a.5.5 0 0 0-.5-.5h-13zM5 2.5A1.5 1.5 0 0 1 6.5 1h3A1.5 1.5 0 0 1 11 
+                2.5V3h-1v-.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5V3H5v-.5z"/>
+            </svg>
+        </abbr>
+    </div>
+</div><!-- main_header -->
+
+    <div id="scr_main_config"></div>
+    <div id="scr_main_config1"></div>
+    <div id="scr_main_form"></div>
+
+<div id="main_footer">
+    <div style="flex: 1; text-align: right;">
+        <span id="main_footer1_head">Library tools</span><br>
+        
+        <a id="main_footer1_item_1" href="http://autonumeric.org" target="_blank">AutoNumeric</a>
+    </div>
+    <div style="flex: 1; margin-left: 24px; text-align: center;">
+        <span id="main_footer2_head">Made by</span><br>
+
+        <a id="main_footer2_item_1" href="https://github.com/zummon" target="_blank">zummon (Github)</a><br>
+        <a id="main_footer2_item_2" href="https://www.facebook.com/zummontt" target="_blank">zummon (Facebook)</a><br>
+        <a id="main_footer2_item_3" href="https://www.paypal.me/zummontt" target="_blank">donate to support</a>
+    </div>
+    <div style="flex: 1; margin-left: 24px;">
+        <span id="main_footer3_head">Style usage</span><br>
+        
+        <a id="main_footer3_item_1" href="https://getuikit.com/" target="_blank">UIkit</a><br>
+        <a id="main_footer3_item_2" href="https://getbootstrap.com/" target="_blank">Bootstrap</a><br>
+        <a id="main_footer3_item_3" href="https://get.foundation/" target="_blank">Foundation</a><br>
+        <a id="main_footer3_item_4" href="https://bulma.io/" target="_blank">Bulma</a><br>
+        <a id="main_footer3_item_5" href="https://materializecss.com/" target="_blank">Materialize</a>
+    </div>
+</div><!-- main_footer -->
+
+    <script src="source/core.js"></script>
+    <script src="source/data.js"></script>
+    
+    <script id="scr_main_scr_config" src=""></script>
+    <script id="scr_main_scr_form" src=""></script>
+    <script id="scr_main_scr_compat" src=""></script>
+    <script id="scr_main_scr_cdn" src=""></script>
+</body>
+</html>

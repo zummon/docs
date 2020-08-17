@@ -1,0 +1,140 @@
+<div class="grid-container" style="background-color: white;">
+    <br>
+    <h1 id="doc_title">Document</h1>
+
+    <div class="grid-x grid-margin-x">
+        <div class="cell small-4">
+            <span id="ref_label">ref</span>
+            <input id="ref" type="text">
+            <span id="date_label">date</span>
+            <input id="date" type="date">
+            <span id="duedate_label">duedate</span>
+            <input id="duedate" type="date">
+            <span id="payment_label">payment</span>
+            <textarea id="payment" rows="2"></textarea>
+            <span id="subject_label">subject</span>
+            <textarea id="subject" rows="2"></textarea>
+        </div>
+        <div class="cell small-8">
+            <div class="grid-x">
+                <div class="cell">
+                    <img id="headlogo_img" src="" class="radius float-right">
+                </div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-8">
+                    <span id="vendor_name_label">vendor_name</span>
+                    <input id="vendor_name" type="text">
+                </div>
+                <div class="cell small-4">
+                    <span id="vendor_id_label">vendor_id</span>
+                    <input id="vendor_id" type="text">
+                </div>
+
+                <div class="cell">
+                    <!-- <span id="vendor_address_label" class="float-right">vendor_address</span> -->
+                    <textarea id="vendor_address" rows="2"></textarea>
+                </div>
+            </div>
+            <div class="grid-x">
+                <div class="cell small-8">
+                    <span id="client_name_label">client_name</span>
+                    <input id="client_name" type="text">
+                </div>
+                <div class="cell small-4">
+                    <span id="client_id_label">client_id</span>
+                    <input id="client_id" type="text">
+                </div>
+
+                <div class="cell">
+                    <!-- <span id="client_address_label" class="float-right">client_address</span> -->
+                    <textarea id="client_address" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="unstriped hover">
+        <thead>
+            <tr>
+                <th id="line_label" width="1" class="text-center">line</th>
+                <th id="item_label" class="text-center">item</th>
+                <th id="price_label" width="10%" class="text-center">price</th>
+                <th id="qty_label" width="10%" class="text-center">qty</th>
+                <th id="amount_label" width="15%" class="text-center">amount</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+            <tr name="tr">
+                <td name="line"></td>
+                <td><input name="item" type="text"></td>
+                <td name="price"></td>
+                <td name="qty"></td>
+                <td name="amount"></td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td id="total_label" colspan="2" class="text-center">total</td>
+                <td id="total"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2" class="text-center">
+                    <span id="saletax_label">saletax</span> <span id="saletax_rate">7%</span>
+                </td>
+                <td id="saletax"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td colspan="2" class="text-center">
+                    <span id="incometax_label">incometax</span> <span id="incometax_rate">3%</span>
+                </td>
+                <td id="incometax"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td id="adjust_label" colspan="2" class="text-center">adjust</td>
+                <td id="adjust"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td id="finaltotal_label" colspan="2" class="text-center">finaltotal</td>
+                <td id="finaltotal"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="grid-x grid-margin-x">
+        <div class="cell small-4">
+            <img id="footlogo_img" src="" class="radius float-right">
+        </div>
+        <div class="cell small-8">
+            <div class="grid-x grid-margin-x">
+                <div class="cell small-6">
+                    <span id="vendor_sign_label">vendor_sign</span>
+                    <textarea id="vendor_sign" rows="2"></textarea>
+                    <!-- <span id="vendor_rank_label">vendor_rank</span> -->
+                    <input id="vendor_rank" type="text">
+                </div>
+                <div class="cell small-6">
+                    <span id="client_sign_label">client_sign</span>
+                    <textarea id="client_sign" rows="2"></textarea>
+                    <!-- <span id="client_rank_label">client_rank</span> -->
+                    <input id="client_rank" type="text">
+                </div>
+                <div class="cell">
+                    <span id="note_label">note</span>
+                    <textarea id="note" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
