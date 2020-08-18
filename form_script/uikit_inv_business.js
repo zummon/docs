@@ -22,15 +22,8 @@
     document.querySelector('#config_field_subject').addEventListener('change',function(e){
         configShowHideFields(document.querySelectorAll('#subject, #subject_label'), e.target.checked)
     })
-    document.querySelector('#config_fields_price').addEventListener('change',function(e){
-        configShowHideFields(document.querySelectorAll('[id="price_label"], [name="price"]'), e.target.checked)
-    })
-    document.querySelector('#config_fields_qty').addEventListener('change',function(e){
-        configShowHideFields(document.querySelectorAll('[id="qty_label"], [name="qty"]'), e.target.checked)
-    })
     document.querySelector('#config_fields_client_sign').addEventListener('change',function(e){
-        var elems = document.querySelector('#client_sign').parentElement
-        configShowHideFields(elems, e.target.checked)
+        configShowHideFields(document.querySelector('#client_sign').parentElement, e.target.checked)
     })
     document.querySelector('#config_field_saletax').addEventListener('change',function(e){
         configShowHideFields(document.querySelector('#saletax').parentElement, e.target.checked)
@@ -47,19 +40,52 @@
 
 })()
 
+// headlogo_img
+// vendor_name
+// vendor_id
+// vendor_address
+// doc_title
+// ref_label
+// ref
+// date_label
+// date
+// client_name_label
+// client_name
+// client_id
+// client_address
+// duedate_label
+// duedate
+// payment_label
+// payment
+// subject_label
+// subject
 // finaltotal_shadow_label
 // finaltotal_shadow
-
-
-// not used
-//     footlogo_img
-//     vendor_name_label
-//     vendor_id_label
-//     vendor_address_label
-//     client_id_label
-//     client_address_label
-//     vendor_sign_label
-//     vendor_sign
-//     vendor_rank_label
-//     vendor_rank
-//     client_rank_label
+// line_label
+// item_label
+// price_label
+// qty_label
+// amount_label
+// line
+// item
+// price
+// qty
+// amount
+// client_sign_label
+// client_sign
+// client_rank
+// total_label
+// total
+// saletax_label
+// saletax_rate
+// saletax
+// incometax_label
+// incometax_rate
+// incometax
+// adjust_label
+// adjust
+// finaltotal_label
+// finaltotal
+// note_label
+// note
+// thank_message
