@@ -1,0 +1,12 @@
+#vendor_name, #client_name, [name=item] {
+    border: none;
+    background-color: transparent;
+    width: 100%;
+}
+[name=item] {
+    font-size: 1em;
+    font-weight: 400;
+}
+[id=line_label] {
+    width: 1px;
+}

@@ -1,0 +1,10 @@
+@media print {
+    *,
+    *::before,
+    *::after {
+        color-adjust: exact !important;
+    }
+}
+textarea {
+    resize: vertical;
+}
