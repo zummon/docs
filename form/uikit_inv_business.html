@@ -45,7 +45,7 @@
         </div>
         <div>
             <span id="finaltotal_shadow_label" class="uk-text-bold">Amount</span>
-            <span id="finaltotal_shadow" class="uk-heading-small uk-text-primary">$1,200</span>
+            <span id="finaltotal_shadow" class="uk-heading-small uk-text-primary"></span>
         </div>
     </div>
 
@@ -62,7 +62,7 @@
         <tbody id="tbody">
             <tr name="tr">
                 <td name="line">1</td>
-                <td><input name="item" class="uk-input uk-form-blank"></td>
+                <td><input name="item" class="uk-input uk-form-blank" type="tel"></td>
                 <td name="price" class="uk-text-center"></td>
                 <td name="qty" class="uk-text-center"></td>
                 <td name="amount" class="uk-text-right"></td>
@@ -105,8 +105,13 @@
         </tfoot>
     </table>
 
-    <div class="uk-margin-bottom uk-form-blank">
-        <span id="note_label" class="uk-text-bold">Note</span>
-        <textarea id="note" class="uk-textarea uk-form-blank"></textarea>
+    <div class="uk-flex uk-flex-bottom uk-margin-bottom">
+        <div class="uk-flex-1">
+            <span id="note_label" class="uk-text-bold">Note</span>
+            <textarea id="note" class="uk-textarea uk-form-blank"></textarea>
+        </div>
+        <div>
+            <span id="thank_message" class="uk-text-large uk-text-bold uk-text-primary">Thank you</span>
+        </div>
     </div>
 </div>
