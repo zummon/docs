@@ -1,5 +1,51 @@
 // made by zummontt
 
+
+//   function userDataCreate() {
+//     userData.main = [main]
+//     userData.lang = [lang]
+//     userData.doc_title = [doc_title]
+//     userData.doc_style = [doc_style]
+//     userData.saletax_rate = [saletax_rate]
+//     userData.incometax_rate = [incometax_rate] 
+//     userData.an_price = [an_price]
+//     userData.an_qty = [an_qty]
+//     userData.vendor_name = [zummonGetElemText('#vendor_name')]
+//     userData.vendor_id = [zummonGetElemText('#vendor_id')]
+//     userData.vendor_address = [zummonGetElemText('#vendor_address')]
+//     userData.payment = [zummonGetElemText('#payment')]
+
+//     const cl = [
+//       zummonGetElemText('#client_name'),
+//       zummonGetElemText('#client_id'),
+//       zummonGetElemText('#client_address')
+//     ]
+    
+//     const index_client = userData.client_list.map(t => t[0]).indexOf(cl[0])
+//     if (index_client >= 0) {
+//       userData.client_list.splice(index_client, cl)
+//     } else if (cl[0] !== '') {
+//       userData.client_list.push(cl)
+//     }
+
+//     const items = document.querySelectorAll('[name="item"]')
+//     const prices = document.querySelectorAll('[name="price"]')
+//     for (var z = 0; z < items.length; z++) {
+//       var il = [
+//         zummonGetElemText(items[z]),
+//         zummonGetElemText(prices[z])
+//       ]
+//       if (items[z] !== '') {
+//         var index_item = userData.item_list.map(t => t[0]).indexOf(il[0])
+//         if (index_item >= 0) {
+//           userData.item_list.splice(index_item, il)
+//         } else if (il[0] !== '') {
+//           userData.item_list.push(il)
+//         }
+//       }
+//     }
+//   }
+
 function configShowHideFields(elems, boolean) {
     const set = boolean ? '' : 'display: none;'
     const array = elems.length == undefined ? [...[elems]] : [...elems]
@@ -16,6 +62,25 @@ function configUploadImage(img, upload) {
         elemImg.setAttribute('src', 'images/_logo_100x100.png')
     }
 }
+function docsLangSet() {
+    var lang_index = langs.indexOf(lang)+1
+    if (lang_index < 1) { lang_index = 1 }
+
+    docs_inv_text.all.map(function(t){ return [t[0], t[lang_index]] }).forEach(function(t){
+        var elem = document.querySelector(t[0])
+        var attr = 'textContent'
+        if (elem == null) { return }
+        else if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value' }
+        elem[attr] = t[1]
+    })
+    docs_inv_text[doc_title].map(function(t){ return [t[0], t[lang_index]] }).forEach(function(t){
+        var elem = document.querySelector(t[0])
+        var attr = 'textContent'
+        if (elem == null) { return }
+        else if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value' }
+        elem[attr] = t[1]
+    })
+}
 
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -24,18 +89,19 @@ document.addEventListener('DOMContentLoaded',function(){
     mainLoad()
     mainLangSet()
     document.querySelector('#main_header1').addEventListener('click',function(){
-        if (main == '_browse') { return }
-        main = '_browse'
+        if (main == 'browse') { return }
+        main = 'browse'
         mainLoad()
     })
     document.querySelector('#main_header2').addEventListener('click',function(){
-        if (['_browse','_list'].indexOf(main) >= 0) { return }
-        main = mains[2][0]
-        mainLoad()
+        if (['browse','list'].indexOf(main) >= 0) {
+            main = mains[2][0]
+            mainLoad()
+        }
     })
     document.querySelector('#main_header3').addEventListener('click',function(){
-        if (main == '_list') { return }
-        main = '_list'
+        if (main == 'list') { return }
+        main = 'list'
         mainLoad()
     })
 })
@@ -105,9 +171,9 @@ function userDataLoad() {
     if (userData.il == undefined) { item_list = zummonData.item_list }
     else { item_list = listToMatrix(userData.il, 2); delete userData.il }
 
-    main = userData.main == undefined ? '_browse' : userData.main
-    lang = userData.lang
-    doc_title = userData.doc_title
+    main = userData.main == undefined ? 'browse' : userData.main
+    lang = userData.lang == undefined ? 'English' : userData.lang
+    doc_title = userData.doc_title == undefined ? 'invoice' : userData.doc_title
     saletax_rate = isNaN(userData.saletax_rate) ? 0.07 : parseFloat(userData.saletax_rate)
     incometax_rate = isNaN(userData.incometax_rate) ? -0.03 : parseFloat(userData.incometax_rate)
     an_price = userData.an_price

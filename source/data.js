@@ -15,6 +15,9 @@ var form_tr_show, form_tr_hide
     // scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css',
     // scr_main_scr_cdn1:   'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
     // scr_main_scr_cdn2:   'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit-icons.min.js',
+// bulma
+    // scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css',
+
 // bootstrap
     // scr_main_css_cdn:    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css',
     // scr_main_scr_cdn1:   'https://code.jquery.com/jquery-3.5.1.slim.min.js',
@@ -23,76 +26,135 @@ var form_tr_show, form_tr_hide
 // foundation
     // scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css',
     // scr_main_scr_cdn1:   'https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js',
-// bulma
-    // scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css',
+// materialize
+    // scr_main_css_cdn1:   'https://fonts.googleapis.com/icon?family=Material+Icons'
+    // scr_main_css_cdn:    'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css'
+    // scr_main_scr_cdn:   'https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js'
 
 var mains = [
-    ['_browse', {
+    ['browse', {
         scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css',
-        scr_main_scr_cdn1:   'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
-        scr_main_form:       'form/_browse.html',
-        scr_main_scr_compat: 'form_script/_browse.js',
+        scr_main_form:       'source/browse.html',
+        scr_main_scr_form:   'source/browse.js',
+        scr_main_scr_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
     }],
-    ['_list', {
+    ['list', {
         scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css',
-        scr_main_scr_cdn1:   'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
-        scr_main_form:       'form/_list.html',
-        scr_main_scr_compat: 'form_script/_list.js',
+        scr_main_form:       'source/list.html',
+        scr_main_scr_form:   'source/list.js',
+        scr_main_scr_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
     }],
-
     ['uikit_inv_business', {
         scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css',
-        scr_main_scr_cdn1:   'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
-        scr_main_css_compat: 'form_style/_uikit.css',
+        scr_main_css_compat: 'form_style/uikit.css',
         scr_main_css_form:   'form_style/uikit_inv_business.css',
-        scr_main_form:       'form/uikit_inv_business.html',
-        scr_main_config:     'config/_inv.html',
+
+        scr_main_config:     'source/docs_inv.html',
         scr_main_config1:    'config/uikit_inv_business.html',
+        scr_main_form:       'form/uikit_inv_business.html',
+
         scr_main_scr_form:   'form_script/uikit_inv_business.js',
-        scr_main_scr_compat: 'source/_inv.js',
-        scr_main_scr_config: 'config/_inv.js',
+        scr_main_scr_compat: 'source/docs_inv.js',
+        scr_main_scr_cdn:    'https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js',
     }],
-
-    ['bootstrap_inv_basic', {
-        scr_main_css_cdn:    'https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css',
-        scr_main_form:       'form/bootstrap_inv_basic.html',
-        scr_main_scr_form:   'form_script/bootstrap_inv_basic.js',
-        scr_main_scr_compat: 'source/_inv.js',
-        scr_main_config:     'config/inv.html',
-        scr_main_scr_config: 'config/inv.js',
-    }],
-
-    ['foundation_inv_basic', {
-        scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css',
-        scr_main_css_compat: 'form_style/_foundation.css',
-        scr_main_css_form:   'form_style/foundation_inv_basic.css',
-        scr_main_form:       'form/foundation_inv_basic.html',
-        scr_main_scr_form:   'form_script/foundation_inv_basic.js',
-        scr_main_scr_compat: 'source/_inv.js',
-        scr_main_config:     'config/inv.html',
-        scr_main_scr_config: 'config/inv.js',
-    }],
-
-    ['bulma_inv_primary', {
+    ['bulma_inv_tiles', {
         scr_main_css_cdn:    'https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css',
-        scr_main_css_compat: 'form_style/_bulma.css',
-        scr_main_css_form:   'form_style/bulma_inv_primary.css',
-        scr_main_form:       'form/bulma_inv_primary.html',
-        scr_main_scr_form:   'form_script/bulma_inv_primary.js',
-        scr_main_scr_compat: 'source/_inv.js',
-        scr_main_config:     'config/inv.html',
-        scr_main_scr_config: 'config/inv.js',
+        scr_main_css_compat: 'form_style/bulma.css',
+        scr_main_css_form:   'form_style/bulma_inv_tiles.css',
+
+        scr_main_config:     'source/docs_inv.html',
+        scr_main_form:       'form/bulma_inv_tiles.html',
+
+        scr_main_scr_form:   'form_script/bulma_inv_tiles.js',
+        scr_main_scr_compat: 'source/docs_inv.js',
     }],
+
 ]
 
 var langs = ['English', 'Thai']
 
-var docs_inv_title = [
-    ['Invoice', {}],
-    ['Quotation', {}],
-    ['Receipt', {}],
-    ['TaxInvoice', {}],
-]
+var docs_inv_text = {
+    all: [
+        ['#doc_title', 
+            'Document', 'เอกสาร'],
+        ['#vendor_name_label',
+            'Vendor name','ชื่อผู้ขาย'],
+        ['#vendor_id_label',
+            'Vendor register','ทะเบียนเลขที่ผู้ขาย'],
+        ['#vendor_address_label',
+            'Vendor address','ที่อยู่ผู้ขาย'],
+        ['#vendor_sign_label',
+            'Vendor signature','ลายมือชื่อผู้ขาย'],
+        ['#vendor_rank_label',
+            'Vendor position','ตำแหน่งผู้ขาย'],
+        ['#client_name_label',
+            'Client name','ชื่อผู้ซื้อ'],
+        ['#client_id_label',
+            'Client register','ทะเบียนเลขที่ผู้ซื้อ'],
+        ['#client_address_label',
+            'Client address','ที่อยู่ผู้ซื้อ'],
+        ['#client_sign_label',
+            'Client signature','ลายมือชื่อผู้ซื้อ'],
+        ['#client_rank_label',
+            'Client position','ตำแหน่งผู้ซื้อ'],
+        ['#ref_label',
+            'Doc-no', 'เลขที่'],
+        ['#date_label',
+            'Date','วันที่'],
+        ['#duedate_label',
+            'Due date','ครบกำหนด'],
+        ['#payment_label',
+            'Payment','การชำระเงิน'],
+        ['#subject_label',
+            'Project','โครงการ'],
+        ['#note_label',
+            'Note','หมายเหตุ'],
+        ['#line_label',
+            'No','ลำดับ'],
+        ['#item_label',
+            'Description','รายการ'],
+        ['#price_label',
+            'Price','ราคา'],
+        ['#qty_label',
+            'Qty','จำนวน'],
+        ['#amount_label',
+            'Amount','รวม'],
+        ['#total_label',
+            'Subtotal','รวม'],
+        ['#saletax_label',
+            'Sales tax','ภาษีมูลค่าเพิ่ม'],
+        ['incometax_label',
+            'Income tax','ภาษีหัก ณ ที่จ่าย'],
+        ['adjust_label',
+            'Adjust','ปรับปรุง'],
+        ['finaltotal_label',
+            'Total','รวมทั้งสิ้น'],
+    ],
+    invoice: [
+        ['#doc_title', 
+            'Invoice', 'ใบแจ้งหนี้'],
+    ],
+    quotation: [
+        ['#doc_title', 
+            'Quotation', 'ใบเสนอราคา'],
+        ['#duedate_label',
+            'Order before', 'สั่งซื้อก่อนวันที่'],
+    ],
+    receipt: [
+        ['#doc_title', 
+            'Receipt', 'ใบเสร็จรับเงิน'],
+    ],
+    taxinvoice: [
+        ['#doc_title', 
+            'Tax Invoice', 'ใบกำกับภาษี'],
+        ['#vendor_id_label',
+            'Vendor register', 'เลขประจำตัวผู้เสียภาษีผู้ขาย'],
+        ['#client_id_label',
+            'Client register', 'เลขประจำตัวผู้เสียภาษีผู้ซื้อ'],
+        ['#ref_label',
+            'tax-inv-no', 'เลขที่ใบกำกับภาษี'],
+    ],
+}
 
 var ans_price = [
     ['num', {}],
@@ -108,7 +170,6 @@ var ans_qty = [
 ]
 
 var main_lang_tooltip = [
-        // langs
     ['#main_header1', 
         'Choose a form', 
         'เลือกฟอร์ม'
@@ -123,7 +184,6 @@ var main_lang_tooltip = [
     ]
 ]
 var main_lang_text = [
-        // langs
     ['#main_header_title', 
         'Docs zummon webapp', 
         'เอกสาร zummon webapp'],
