@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+    <link rel="stylesheet" href="../style/core.css">
+    <link rel="stylesheet" href="../style/docs.css">
+    <link rel="stylesheet" href="../style/bulma.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>DOCS zummon webapp</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <style>
+        .table tfoot th {
+            border-width: 0;
+        }
+        #vendor_name, 
+        #client_name, 
+        [name=item] {
+            border: none;
+            background-color: transparent;
+            width: 100%;
+        }
+        [name=item] {
+            font-size: 1em;
+            font-weight: 400;
+        }
+        #line_label,
+        #price_label,
+        #qty_label,
+        #amount_label {
+            width: 1px;
+        }
+    </style>
+</head>
+<body class="has-background-black">
+    <div id="header" class="container is-fluid section">
+        <div class="level">
+            <div class="level-left">
+                <p class="level-item has-text-white title is-4">zummon webapp</p>
+            </div>
+            <div class="level-right">
+                <nav class="breadcrumb has-bullet-separator is-medium" aria-label="breadcrumbs">
+                    <ul>
+                        <li><a href="../source/browse.html" class="has-text-white">Browse</a></li>
+                        <li class="is-active"><a aria-current="page" class="has-text-white">DOCS</a></li>
+                        <li><a href="../source/brief.html" class="has-text-white">Brief</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div id="action" class="container">
+        <div class="tabs is-fullwidth is-medium has-background-white">
+            <ul>
+                <li><a id="action_clear">Clear</a></li>
+                <li><a id="action_pop">Pop</a></li>
+                <li><a id="action_config">Config</a></li>
+                <li><a id="action_add">Add</a></li>
+                <li><a id="action_print">Print</a></li>
+            </ul>
+        </div>
+    </div>
+    <div id="config" class="container has-background-light section">
+        <div class="columns is-multiline">
+            <div class="column is-2">
+                <label for="config_saletax_rate" class="label">saletax_rate</label>
+                <input id="config_saletax_rate" class="input" type="number" step="0.01">
+            </div>
+            <div class="column is-2">
+                <label for="config_incometax_rate" class="label">saletax_rate</label>
+                <input id="config_incometax_rate" class="input" type="number" step="0.01">
+            </div>
+            <div class="column is-2">
+                <label for="config_headlogo" class="label">Logo</label>
+                <div class="file is-white">
+                    <label class="file-label">
+                        <input id="config_headlogo" class="file-input" type="file">
+                        <span class="file-cta">
+                            <span class="file-label">Upload</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_lang" class="label">lang</label>
+                <div class="select">
+                    <select id="config_lang"></select>
+                </div>
+            </div>
+            <div class="column is-4">
+                <label for="config_doc_title" class="label">doc_title</label>
+                <div class="select">
+                    <select id="config_doc_title"></select>
+                </div>
+            </div>
+            <div class="column is-4">
+                <label for="config_an_price" class="label">an_price</label>
+                <div class="select">
+                    <select id="config_an_price"></select>
+                </div>
+            </div>
+            <div class="column is-4">
+                <label for="config_an_qty" class="label">an_qty</label>
+                <div class="select">
+                    <select id="config_an_qty"></select>
+                </div>
+            </div>
+            <div class="column is-4">
+                <label for="config_date_type" class="label">date_type</label>
+                <div class="select">
+                    <select id="config_date_type"></select>
+                </div>
+            </div>
+        </div>
+        <div class="columns is-multiline">
+            <div class="column is-4">
+                <input id="config_headlogo_img" type="checkbox" checked>
+                <label for="config_headlogo_img" class="checkbox">headlogo_img</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_duedate" type="checkbox" checked>
+                <label for="config_duedate" class="checkbox">duedate</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_vendor_id" type="checkbox" checked>
+                <label for="config_vendor_id" class="checkbox">vendor_id</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_client_id" type="checkbox" checked>
+                <label for="config_client_id" class="checkbox">client_id</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_payment" type="checkbox" checked>
+                <label for="config_payment" class="checkbox">payment</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_subject" type="checkbox" checked>
+                <label for="config_subject" class="checkbox">subject</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_note" type="checkbox" checked>
+                <label for="config_note" class="checkbox">note</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_client_sign" type="checkbox" checked>
+                <label for="config_client_sign" class="checkbox">client_sign</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_saletax" type="checkbox" checked>
+                <label for="config_saletax" class="checkbox">saletax</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_incometax" type="checkbox" checked>
+                <label for="config_incometax" class="checkbox">incometax</label>
+            </div>
+        </div>
+    </div>
+
+<!--------------------------------------------------------------------------------------------------------------------->
+
+    <div id="doc" class="container has-background-white">
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <div class="tile is-child notification is-white has-text-centered">
+                    <img id="headlogo_img" src="">
+                </div>
+                <div class="tile is-child notification is-primary">
+                    <input id="vendor_name" type="text" class="subtitle has-text-weight-bold" value="Your company">
+                    <p id="vendor_id" >Register</p>
+                    <p id="vendor_address" >Address</p>
+                </div>
+            </div>
+        </div>
+    
+        <h1 id="doc_title" class="title is-1 has-text-centered">Invoice</h1>
+    
+        <div class="columns">
+            <div class="column">
+                <input id="ref" type="text" class="input is-small is-rounded has-text-centered">
+                <p id="ref_label" class="label is-small has-text-centered">Inv-no</p>
+            </div>
+            <div class="column">
+                <input id="date" type="date" class="input is-small is-rounded has-text-centered">
+                <p id="date_label" class="label is-small has-text-centered">Inv-date</p>
+            </div>
+            <div class="column">
+                <input id="duedate" type="date" class="input is-small is-rounded has-text-centered">
+                <p id="duedate_label" class="label is-small has-text-centered">Inv-duedate</p>
+            </div>
+        </div>
+    
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <div class="tile is-child notification is-primary">
+                    <span id="client_name_label" class="is-white has-text-weight-semibold">Bill to</span>
+                    <input id="client_name" type="text" class="subtitle has-text-weight-bold" value="Client company">
+                    <p id="client_id" >Register</p>
+                    <p id="client_address" >Address</p>
+                </div>
+                <div class="tile is-child notification is-white">
+                    <div class="field">
+                        <span id="payment_label" class="label is-small">payment</span>
+                        <textarea id="payment" rows="2" class="textarea is-small is-primary"></textarea>
+                    </div>
+                    <div class="field">
+                        <span id="subject_label" class="label is-small">subject</span>
+                        <input id="subject" class="input is-small is-primary">
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+        <table class="table is-fullwidth is-hoverable">
+            <thead>
+                <tr>
+                    <th id="line_label">line</th>
+                    <th id="item_label">item</th>
+                    <th id="price_label" class="is-primary">price</th>
+                    <th id="qty_label" class="is-primary">qty</th>
+                    <th id="amount_label" class="is-primary">amount</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+                <tr name="tr">
+                    <td name="line"></td>
+                    <td><input name="item" type="text"></td>
+                    <td name="price" class="has-text-centered"></td>
+                    <td name="qty" class="has-text-centered"></td>
+                    <td name="amount" class="has-text-right"></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th colspan="2" rowspan="4" style="padding-left: 3rem; padding-right: 1.5rem;">
+                        <div class="field">
+                            <span id="note_label" class="label is-small">note</span>
+                            <textarea id="note" rows="2" class="textarea is-small is-primary"></textarea>
+                        </div>
+                        <div class="field">
+                            <span id="client_sign_label" class="label is-small">client_sign</span>
+                            <textarea id="client_sign" rows="2" class="textarea is-small is-primary"></textarea>
+                            <input id="client_rank" type="text" class="input is-small">
+                        </div>
+                    </th>
+                    <th id="total_label" colspan="2" class="is-primary">total</th>
+                    <th id="total" class="is-primary has-text-right"></th>
+                </tr>
+                <tr>
+                    <th colspan="2" class="is-light">
+                        <span id="saletax_label">saletax</span>
+                        <span id="saletax_rate" class="tag is-primary">7%</span>
+                    </th>
+                    <th id="saletax" class="is-light has-text-right"></th>
+                </tr>
+                <tr>
+                    <th colspan="2" class="is-light">
+                        <span id="incometax_label">incometax</span>
+                        <span id="incometax_rate" class="tag is-primary">3%</span>
+                    </th>
+                    <th id="incometax" class="is-light has-text-right"></th>
+                </tr>
+                <tr>
+                    <th id="adjust_label" colspan="2" class="is-light">adjust</th>
+                    <th id="adjust" class="is-light has-text-right"></th>
+                </tr>
+            </tfoot>
+        </table>
+    
+        <div class="tile is-ancestor">
+            <div class="tile is-parent">
+                <div class="tile is-child notification is-white">
+                    <h4 id="thank_message" class="title is-4 has-text-right">Thank you</h4>
+                </div>
+                <div class="tile is-child notification is-primary">
+                    <div class="level">
+                        <div class="level-right has-text-left">
+                            <p id="finaltotal_label" class="subtitle has-text-weight-semibold">Total</p>
+                        </div>
+                        <div class="level-right has-text-right">
+                            <p id="finaltotal" class="title"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+<!--------------------------------------------------------------------------------------------------------------------->
+
+    <div id="footer" class="section">
+        <div class="columns">
+            <div class="column has-text-right">
+                <p class="has-text-white title is-4">Library Usage</p>
+                <ul>
+                    <li><a href="http://autonumeric.org" target="_blank" 
+                        class="has-text-white">AutoNumeric</a>
+                    </li>
+                    <li><a href="https://bulma.io/" target="_blank" 
+                        class="has-text-white">Bulma</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="column">
+                <p class="has-text-white title is-4">Made by</p>
+                <ul>
+                    <li><a href="https://github.com/zummon" target="_blank" 
+                        class="has-text-white">zummon (Github)</a></li>
+                    <li><a href="https://www.facebook.com/zummontt" target="_blank" 
+                        class="has-text-white">zummon (Facebook: zummontt)</a></li>
+                    <li><a href="https://www.paypal.me/zummontt" target="_blank" 
+                        class="has-text-white">donate to support (PayPal: zummontt)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            const content_editable = `
+            #vendor_name
+            ,#vendor_id
+            ,#vendor_address
+            ,#doc_title
+            ,#ref
+            ,#ref_label
+            ,#date
+            ,#date_label
+            ,#duedate
+            ,#duedate_label
+            ,#client_name_label
+            ,#client_name
+            ,#client_id
+            ,#client_address
+            ,#payment_label
+            ,#payment
+            ,#subject_label
+            ,#subject
+            ,#line_label
+            ,#item_label
+            ,#price_label
+            ,#qty_label
+            ,#amount_label
+            ,[name="line"]
+            ,[name="item"]
+            ,[name="price"]
+            ,[name="qty"]
+            ,[name="amount"]
+            ,#note_label
+            ,#note
+            ,#client_sign_label
+            ,#client_sign
+            ,#client_rank
+            ,#total_label
+            ,#total
+            ,#saletax_label
+            ,#saletax_rate
+            ,#saletax
+            ,#incometax_label
+            ,#incometax_rate
+            ,#incometax
+            ,#adjust_label
+            ,#adjust
+            ,#thank_message
+            ,#finaltotal_label
+            ,#finaltotal
+            `
+            document.querySelectorAll(content_editable).forEach(function(t){
+                if (input_tags.indexOf(t.tagName) >= 0) { return }
+                t.setAttribute('contenteditable', 'true')
+            })
+
+            const tr_show = 4
+            const tr_hide = 16
+
+            const doc_tbody = document.querySelector('#tbody')
+            const doc_tr = document.querySelector('[name="tr"]')
+
+            for (let z = 1; z <= tr_show + tr_hide; z++) {
+                if (z > tr_show ) { doc_tr.setAttribute('style', 'display: none;') }
+
+                var line = doc_tr.querySelector('[name="line"]')
+                var line_attr = 'textContent'
+                if (input_tags.indexOf(line.tagName) >= 0) { line_attr = 'value' }
+
+                line[line_attr] = z
+                doc_tbody.appendChild(doc_tr.cloneNode(true))
+            }
+            doc_tr.remove()
+
+            document.querySelectorAll('#headlogo_img').forEach(function(t){
+                t.setAttribute('src', '../source/logo_100x100.png')
+            })
+
+            // ---- initialize ----
+            userDataLoad()
+            configSetDocLang()
+
+            // ---- autoNumeric ----
+            
+            var option = ans_price.filter(function(t){ return t[0] == an_price })
+                option = option == '' ? ans_price[0][1] : option[0][1]
+
+an_price_obj = new AutoNumeric.multiple('[name="price"],[name="amount"],#total,#saletax,#incometax,#adjust,#finaltotal', option)
+
+            var option = ans_qty.filter(function(t){ return t[0] == an_qty })
+                option = option == '' ? ans_qty[0][1] : option[0][1]
+
+an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
+
+            document.querySelectorAll('[name="qty"]').forEach(function(t){
+                t.addEventListener('change',function(e){
+                    const elemPrice = e.target.closest('[name="tr"]').querySelector('[name="price"]')
+                    const elemAmount = e.target.closest('[name="tr"]').querySelector('[name="amount"]')
+                    AutoNumeric.set(elemAmount, AutoNumeric.getNumber(elemPrice) * AutoNumeric.getNumber(e.target))
+                    calculateTotal()
+                })
+            })
+            document.querySelectorAll('[name="amount"],#adjust').forEach(function(t){
+                t.addEventListener('change', calculateTotal)
+            })
+
+            // ---- config ----
+
+            const config_lang = document.querySelector('#config_lang')
+            const config_saletax_rate = document.querySelector('#config_saletax_rate')
+            const config_incometax_rate = document.querySelector('#config_incometax_rate')
+            const config_doc_title = document.querySelector('#config_doc_title')
+            const config_an_price = document.querySelector('#config_an_price')
+            const config_an_qty = document.querySelector('#config_an_qty')
+            const config_date_type =  document.querySelector('#config_date_type')
+
+            langs.forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t
+                op.textContent = t
+                config_lang.appendChild(op)
+            })
+            ans_price.forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t[0]
+                op.textContent = t[0]
+                config_an_price.appendChild(op)
+            })
+            ans_qty.forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t[0]
+                op.textContent = t[0]
+                config_an_qty.appendChild(op)
+            })
+            Object.keys(doc_text).forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t
+                op.textContent = t
+                config_doc_title.appendChild(op)
+            })
+            date_types.forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t[0]
+                op.textContent = t[1]
+                config_date_type.appendChild(op)
+            })
+
+            config_saletax_rate.value = saletax_rate
+            config_incometax_rate.value = incometax_rate
+
+            config_saletax_rate.addEventListener('change',function(e){
+                const value = e.target.value
+                saletax_rate = parseFloat(value)
+                userData.saletax_rate = parseFloat(value)
+
+                configSetTaxRate('#saletax_rate')
+                calculateTotal()
+            })
+            config_incometax_rate.addEventListener('change',function(e){
+                const value = e.target.value
+                incometax_rate = parseFloat(value)
+                userData.incometax_rate = parseFloat(value)
+
+                configSetTaxRate('#incometax_rate')
+                calculateTotal()
+            })
+            config_lang.addEventListener('change',function(e){
+                const value = e.target.value
+                lang = value
+                userData.lang = value
+
+                configSetDocLang()
+            })
+            config_doc_title.addEventListener('change',function(e){
+                const value = e.target.value
+                doc_title = value
+                userData.doc_title = value
+
+                configSetDocLang()
+            })
+            config_an_price.addEventListener('change',function(e){
+                const value = e.target.value
+                an_price = value
+                userData.an_price = value
+
+                var option = ans_price.filter(function(t){ return t[0] == an_price })
+                    option = option == '' ? ans_price[0][1] : option[0][1]
+                an_price_obj.forEach(function(t){
+                    t.options.reset()
+                    t.update(option)
+                })
+            })
+            config_an_qty.addEventListener('change',function(e){
+                const value = e.target.value
+                an_qty = value
+                userData.an_qty = value
+
+                var option = ans_qty.filter(function(t){ return t[0] == an_qty })
+                    option = option == '' ? ans_qty[0][1] : option[0][1]
+                an_qty_obj.forEach(function(t){
+                    t.options.reset()
+                    t.update(option)
+                })
+            })
+            config_date_type.addEventListener('change',function(e){
+                const v = e.target.value
+                document.querySelectorAll('#date, #duedate').forEach(function(t,v){
+                    t.type = v
+                })
+            })
+            document.querySelector('#config_headlogo').addEventListener('change',function(e){
+                const applyto = e.target.id
+                configUploadImage('#' + applyto.slice(7) + '_img','#' + applyto)
+            })
+
+            document.querySelectorAll('#config_headlogo_img, #config_vendor_id, #config_client_id').forEach(function(t){
+                t.addEventListener('change',function(e){
+                    const elem = document.querySelector('#' + e.target.id.slice(7))
+                    if (e.target.checked) {
+                        elem.setAttribute('style', '')
+                    } else {
+                        elem.setAttribute('style', 'display: none;')
+                    }
+                })
+            })
+document.querySelectorAll('#config_duedate, #config_payment, #config_subject, #config_note, #config_client_sign, #config_saletax, #config_incometax').forEach(function(t){
+    t.addEventListener('change',function(e){
+        const applyto = e.target.id.slice(7)
+        const elem = document.querySelector('#' + applyto).parentElement
+        if (e.target.checked) {
+            elem.setAttribute('style', '')
+            if (['saletax','incometax'].indexOf(applyto) >= 0) {
+                window[applyto + '_rate'] = userData[applyto + '_rate']
+                calculateTotal()
+            }
+        } else {
+            elem.setAttribute('style', 'display: none;')
+            if (['saletax','incometax'].indexOf(applyto) >= 0) {
+                window[applyto + '_rate'] = 0
+                calculateTotal()
+            }
+        }
+    })
+})
+
+            // #config_headlogo_img
+            // #config_duedate
+            // #config_vendor_id
+            // #config_client_id
+            // #config_payment
+            // #config_subject
+            // #config_note
+            // #config_client_sign
+            // #config_saletax
+            // #config_incometax
+        
+            // ---- action ----
+            document.querySelector('#action_clear').addEventListener('click',function(){
+                // actionClear
+            })
+            document.querySelector('#action_pop').addEventListener('click',actionPop)
+            document.querySelector('#action_config').addEventListener('click',actionConfig)
+            document.querySelector('#action_add').addEventListener('click',actionAdd)
+            document.querySelector('#action_print').addEventListener('click',function(){
+                window.print()
+            })
+
+        })
+        // #headlogo_img
+        // #tbody
+        // [name="tr"]
+        
+    </script>
+    <script src="../source/core.js"></script>
+    <script src="../source/docs.js"></script>
+    <script src="../source/docs_inv.js"></script>
+</body>
+</html>
