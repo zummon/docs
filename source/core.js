@@ -1,163 +1,93 @@
-// made by zummontt
+// created by zummontt & got helped from
+// https://stackoverflow.com/questions/805107/creating-multiline-strings-in-javascript
+// https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
+// https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
 
+var input_tags = ['INPUT','TEXTAREA']
+var an_price, an_qty, an_price_obj, an_qty_obj
+var userData = {}
+var zummonData = {
+    client_list: [['','','']],
+    item_list: [['','']]
+}
+// config_lang
+var langs = ['English', 'Thai']
+var lang ,doc_title ,saletax_rate ,incometax_rate ,an_price ,an_qty ,client_list ,item_list
 
-//   function userDataCreate() {
-//     userData.main = [main]
-//     userData.lang = [lang]
-//     userData.doc_title = [doc_title]
-//     userData.doc_style = [doc_style]
-//     userData.saletax_rate = [saletax_rate]
-//     userData.incometax_rate = [incometax_rate] 
-//     userData.an_price = [an_price]
-//     userData.an_qty = [an_qty]
-//     userData.vendor_name = [zummonGetElemText('#vendor_name')]
-//     userData.vendor_id = [zummonGetElemText('#vendor_id')]
-//     userData.vendor_address = [zummonGetElemText('#vendor_address')]
-//     userData.payment = [zummonGetElemText('#payment')]
-
-//     const cl = [
-//       zummonGetElemText('#client_name'),
-//       zummonGetElemText('#client_id'),
-//       zummonGetElemText('#client_address')
+// var head_foot_lang_tooltip = [
+//     ['#main_header1', 
+//         'Choose a form', 
+//         'เลือกฟอร์ม'
+//     ],
+//     ['#main_header2', 
+//         'Create a document', 
+//         'สร้างเอกสาร'
+//     ],
+//     ['#main_header3', 
+//         'Edit data list', 
+//         'แก้ไขข้อมูล'
 //     ]
-    
-//     const index_client = userData.client_list.map(t => t[0]).indexOf(cl[0])
-//     if (index_client >= 0) {
-//       userData.client_list.splice(index_client, cl)
-//     } else if (cl[0] !== '') {
-//       userData.client_list.push(cl)
-//     }
+// ]
+// var head_foot_lang_text = [
+//     ['#main_header_title', 
+//         'Docs zummon webapp', 
+//         'เอกสาร zummon webapp'],
 
-//     const items = document.querySelectorAll('[name="item"]')
-//     const prices = document.querySelectorAll('[name="price"]')
-//     for (var z = 0; z < items.length; z++) {
-//       var il = [
-//         zummonGetElemText(items[z]),
-//         zummonGetElemText(prices[z])
-//       ]
-//       if (items[z] !== '') {
-//         var index_item = userData.item_list.map(t => t[0]).indexOf(il[0])
-//         if (index_item >= 0) {
-//           userData.item_list.splice(index_item, il)
-//         } else if (il[0] !== '') {
-//           userData.item_list.push(il)
-//         }
-//       }
-//     }
-//   }
+//     ['#main_header_subtitle', 
+//         'First version on Github', 
+//         'เวอร์ชั่นแรกบน Github'],
 
-function configShowHideFields(elems, boolean) {
-    const set = boolean ? '' : 'display: none;'
-    const array = elems.length == undefined ? [...[elems]] : [...elems]
-    array.forEach(function(t){
-        t.setAttribute('style', set)
-    })
-}
-function configUploadImage(img, upload) {
-    var elemSet = document.querySelector(upload)
-    var elemImg = document.querySelector(img)
-    if (elemSet.files.length > 0) {
-        elemImg.setAttribute('src', window.URL.createObjectURL(elemSet.files[0]))
-    } else {
-        elemImg.setAttribute('src', 'images/_logo_100x100.png')
-    }
-}
-function docsLangSet() {
-    var lang_index = langs.indexOf(lang)+1
-    if (lang_index < 1) { lang_index = 1 }
+//     ['#main_footer1_head', 'Library tools', 'เครื่องมือใช้งาน'],
+//     ['#main_footer1_item_1', 
+//         'AutoNumeric', 
+//         'AutoNumeric'
+//     ],
 
-    docs_inv_text.all.map(function(t){ return [t[0], t[lang_index]] }).forEach(function(t){
-        var elem = document.querySelector(t[0])
-        var attr = 'textContent'
-        if (elem == null) { return }
-        else if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value' }
-        elem[attr] = t[1]
-    })
-    docs_inv_text[doc_title].map(function(t){ return [t[0], t[lang_index]] }).forEach(function(t){
-        var elem = document.querySelector(t[0])
-        var attr = 'textContent'
-        if (elem == null) { return }
-        else if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value' }
-        elem[attr] = t[1]
-    })
-}
+//     ['#main_footer2_head', 'Made by', 'สร้างโดย'],
+//     ['#main_footer2_item_1', 
+//         'zummon (Github)', 
+//         'zummon (Github)'
+//     ],
+//     ['#main_footer2_item_2', 
+//         'zummon (Facebook: zummontt)', 
+//         'zummon (เฟสบุค: zummontt)'
+//     ],
+//     ['#main_footer2_item_3', 
+//         'donate to support (PayPal: zummontt)', 
+//         'สนับสนุนโดยการโอนเงิน (PayPal: zummontt)'
+//     ],
 
-// --------------------------------------------------------------------------------------------------------------------
+//     ['#main_footer3_head', 'Style usage', 'รูปแบบเอกสาร'],
+//     ['#main_footer3_item_1', 
+//         'UIkit', 
+//         'UIkit'
+//     ],
+//     ['#main_footer3_item_2', 
+//         'Bootstrap', 
+//         'Bootstrap'
+//     ],
+//     ['#main_footer3_item_3', 
+//         'Foundation', 
+//         'Foundation'
+//     ],
+//     ['#main_footer3_item_4', 
+//         'Bulma', 
+//         'Bulma'
+//     ],
+//     ['#main_footer3_item_5', 
+//         'Materialize', 
+//         'Materialize'
+//     ],
+// ]
 
-document.addEventListener('DOMContentLoaded',function(){
-    userDataLoad()
-    mainLoad()
-    mainLangSet()
-    document.querySelector('#main_header1').addEventListener('click',function(){
-        if (main == 'browse') { return }
-        main = 'browse'
-        mainLoad()
-    })
-    document.querySelector('#main_header2').addEventListener('click',function(){
-        if (['browse','list'].indexOf(main) >= 0) {
-            main = mains[2][0]
-            mainLoad()
-        }
-    })
-    document.querySelector('#main_header3').addEventListener('click',function(){
-        if (main == 'list') { return }
-        main = 'list'
-        mainLoad()
-    })
-})
-
-function mainLoad() {
-    var connect = mains.filter(function(t) { return t[0] == main })
-    connect = connect == '' ? mains[0][1] : connect[0][1]
-
-    var elem_reset = '[id^="scr_main_css_"], [id^="scr_main_scr_"]'
-    document.querySelectorAll(elem_reset).forEach(function(t){
-        
-        t.parentNode.removeChild(t)
-    })
-    var elem_reset = '[id^="scr_main_config"]'
-    document.querySelectorAll(elem_reset).forEach(function(t){
-
-        t.innerHTML = ''
-    })
-    Object.keys(connect).forEach(function(t){
-        
-        if (t.startsWith('scr_main_css_')) {
-            var link = document.createElement('link')
-            link.id = t
-            link.rel = 'stylesheet'
-            link.href = connect[t]
-            document.head.appendChild(link)
-
-        } else if (t.startsWith('scr_main_scr_')) {
-            var script = document.createElement('script')
-            script.id = t
-            script.src = connect[t]
-            document.body.appendChild(script)
-
-        } else {
-            loadHtmltoElem('#' + t, connect[t])
-        }
-    })
-}
-function mainLangSet() {
-    var lang_index = langs.indexOf(lang)+1
-    if (lang_index < 1) { lang_index = 1 }
-
-    main_lang_text.map(function(t){ return [[t[0], t[lang_index]]] }).forEach(function(t){
-
-        document.querySelector(t[0][0]).textContent = t[0][1]
-    })
-    main_lang_tooltip.map(function(t){ return [[t[0], t[lang_index]]] }).forEach(function(t){
-
-        document.querySelector(t[0][0]).title = t[0][1]
-    })
-}
-    // ?lang=Thai&main=bootstrap_inv_basic&cl=Par&cl=123&cl=Mogo&il=jj&il=99&il=ee&il=88
+// ?main=uikit_inv_business&lang=Thai&cl=Par&cl=123&cl=Mogo&il=jj&il=99&il=ee&il=88
 function userDataLoad() {
     const urlParams = new URLSearchParams(window.location.search)
     const keys = urlParams.keys()
     const keys_list = ['cl','il']
+
+    userData.saletax_rate = 0.07
+    userData.incometax_rate = -0.03
     
     for (const key of keys) {
         var getby = 'get'
@@ -171,7 +101,6 @@ function userDataLoad() {
     if (userData.il == undefined) { item_list = zummonData.item_list }
     else { item_list = listToMatrix(userData.il, 2); delete userData.il }
 
-    main = userData.main == undefined ? 'browse' : userData.main
     lang = userData.lang == undefined ? 'English' : userData.lang
     doc_title = userData.doc_title == undefined ? 'invoice' : userData.doc_title
     saletax_rate = isNaN(userData.saletax_rate) ? 0.07 : parseFloat(userData.saletax_rate)
@@ -179,10 +108,6 @@ function userDataLoad() {
     an_price = userData.an_price
     an_qty = userData.an_qty
 }
-// https://www.sitepoint.com/get-url-parameters-with-javascript/
-
-// --------------------------------------------------------------------------------------------------------------------
-
 function listToMatrix(list, subArray) {
     var matrix = [], i, k
     for (i = 0, k = -1; i < list.length; i++) {
@@ -194,214 +119,22 @@ function listToMatrix(list, subArray) {
     }
     return matrix
 }
-// https://stackoverflow.com/questions/4492385/
-
-function loadHtmltoElem(selectElem, file) {
-    var xhr = typeof XMLHttpRequest != 'undefined' ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP')
-    xhr.open('get', file, true)
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            document.querySelector(selectElem).innerHTML = xhr.responseText
-        }
-    }
-    xhr.send()
-}
-// https://stackoverflow.com/questions/32938168/
-
+// func actionConfig 
 function isHidden(elem) {
-    var style = window.getComputedStyle(elem);
+    var style = window.getComputedStyle(elem)
     return (style.display === 'none')
 }
-// https://stackoverflow.com/questions/19669786/
 
-// --------------------------------------------------------------------------------------------------------------------
+// function configSetLang() {
+//     var lang_index = langs.indexOf(lang)+1
+//     if (lang_index < 1) { lang_index = 1 }
 
-function docActClear() {
-    document.querySelectorAll(text_fields).forEach(t => {
-        var attr = 'textContent'
-        if (input_tags.indexOf(t.tagName) >= 0) {
-            attr = 'value'
-        }
-        t[attr] = ''
-    })
-    document.querySelectorAll(number_fields).forEach(t => {
-        var attr = 'textContent'
-        if (AutoNumeric.isManagedByAutoNumeric(t) ) {
-            AutoNumeric.set(t, '')
-            return
-        } else if (input_tags.indexOf(t.tagName) >= 0) {
-            attr = 'value'
-        }
-        t[attr] = ''
-    })
-}
-function docActPop() {
-    const elems = document.querySelector('#tbody').children
+//     head_foot_lang_text.map(function(t){ return [[t[0], t[lang_index]]] }).forEach(function(t){
 
-    for (var z = elems.length-1; z > 0; z--) {
-        
-        if ( !isHidden(elems[z]) ) {
-            elems[z].style.display = ''
-            elems[z].querySelector('[name="item"]').value = ''
-            AutoNumeric.set(elems[z].querySelector('[name="price"]'), '')
-            AutoNumeric.set(elems[z].querySelector('[name="qty"]'), '')
-            AutoNumeric.set(elems[z].querySelector('[name="amount"]'), '')
-            calculateTotal()
-            return
-        }
-    }
-}
-function docActSet() {
-    const elems = document.querySelector('#config_doc_set')
-    const elems2 = document.querySelector('#scr_main_config1')
-    if ( isHidden(elems) ) {
-        elems.hidden = false
-        elems2.hidden = false
-        return
-    }
-    elems.hidden = true
-    elems2.hidden = true
-}
-function docActAdd() {
-    const elems = document.querySelector('#tbody').children
-    for (var z = 0; z < elems.length; z++) {
-        
-        if ( isHidden(elems[z]) ) {
-            elems[z].style.display = ''
-            return
-        }
-    }
-}
-function docActPrint() {
-    const main_configs = document.querySelectorAll('[id^="scr_main_config"]')
-    const main_header = document.querySelector('#main_header')
-    const main_footer = document.querySelector('#main_footer')
+//         document.querySelector(t[0][0]).textContent = t[0][1]
+//     })
+//     head_foot_lang_tooltip.map(function(t){ return [[t[0], t[lang_index]]] }).forEach(function(t){
 
-    main_configs.forEach(function(t){
-        t.style.display = 'none'
-    })
-    main_header.style.display = 'none'
-    main_footer.style.display = 'none'
-    document.body.setAttribute('style', "background-color: #fff;")
-
-    window.print()
-
-    main_configs.forEach(function(t){
-        t.style.display = ''
-    })
-    main_header.style.display = ''
-    main_footer.style.display = ''
-    document.body.setAttribute('style', "background-color: #222;")
-}
-
-// --------------------------------------------------------------------------------------------------------------------
-
-function docLangSet() {
-    lang
-    doc_title
-}
-function anPriceSet() {
-    const elems = document.querySelectorAll(price_fields)
-
-    var option = ans_price.filter(function(t){ return t[0] == an_price })
-    option = option == '' ? ans_price[0][1] : option[0][1]
-    
-    if (AutoNumeric.isManagedByAutoNumeric(elems[0])) {
-        an_price_obj.forEach(function(t){
-            t.options.reset()
-            t.update(option)
-        })
-    } else {
-        an_price_obj = new AutoNumeric.multiple(price_fields, option)
-    }
-}
-function anQtySet() {
-    const elems = document.querySelectorAll(qty_fields)
-
-    var option = ans_qty.filter(function(t){ return t[0] == an_qty })
-    option = option == '' ? ans_qty[0][1] : option[0][1]
-
-    if (AutoNumeric.isManagedByAutoNumeric(elems[0])) {
-        an_qty_obj.forEach(function(t){
-            t.options.reset()
-            t.update(option)
-        })
-    } else {
-        an_qty_obj = new AutoNumeric.multiple(qty_fields, option)
-    }
-}
-function saletaxRateSet() {
-    const rate_show = saletax_rate < 0 ? -saletax_rate : saletax_rate
-    const elem = document.querySelector('#saletax_rate')
-    var attr = 'textContent'
-    if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value'}
-    elem[attr] = (rate_show*100).toFixed(0) + '%'
-    calculateTotal()
-}
-function incometaxRateSet() {
-    const rate_show = incometax_rate < 0 ? -incometax_rate : incometax_rate
-    const elem = document.querySelector('#incometax_rate')
-    var attr = 'textContent'
-    if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value'}
-    elem[attr] = (rate_show*100).toFixed(0) + '%'
-    calculateTotal()
-}
-function dateTypeSet() {
-    var elem = document.querySelector("#config_doc_set_date_type")
-    var select = elem.options[elem.selectedIndex].value
-    document.querySelectorAll(date_fields).forEach(function(t){
-        t.type = select
-    })
-}
-
-// --------------------------------------------------------------------------------------------------------------------
-
-function calculateTotal() {
-    var elems = document.querySelectorAll('[name="amount"]')
-    var total = 0
-    for (var i = 0; i < elems.length; i++) {
-        total += AutoNumeric.getNumber(elems[i])
-    }
-    AutoNumeric.set('#total',total)
-    var saleTax = 0
-    var incomeTax = 0
-    if ( !isHidden(document.querySelector('#saletax')) ) {
-        saleTax = total * saletax_rate
-        AutoNumeric.set('#saletax',saleTax)
-    }
-    if ( !isHidden(document.querySelector('#incometax')) ) {
-        incomeTax = total * incometax_rate
-        AutoNumeric.set('#incometax',incomeTax)
-    }
-    AutoNumeric.set('#finaltotal',AutoNumeric.getNumber('#adjust') + total + saleTax + incomeTax)
-}
-function calculate(e) {
-    var elemPrice = e.target.closest('[name="tr"]').querySelector('[name="price"]')
-    var elemAmount = e.target.closest('[name="tr"]').querySelector('[name="amount"]')
-    AutoNumeric.set(elemAmount, AutoNumeric.getNumber(elemPrice) * AutoNumeric.getNumber(e.target))
-    calculateTotal()
-}
-function autofillClientIdAddress(e) {
-    const index = client_list.map(function(t){ return t[0] }).indexOf(e.target.value)
-    if (index >= 0) {
-        var elem = document.querySelector('#client_id')
-        var elem_attr = 'textContent'
-        if (input_tags.indexOf(elem.tagName) >= 0) { elem_attr = 'value' }
-        elem[elem_attr] = client_list[index][1]
-
-        var elem = document.querySelector('#client_address')
-        var elem_attr = 'textContent'
-        if (input_tags.indexOf(elem.tagName) >= 0) { elem_attr = 'value' }
-        elem[elem_attr] = client_list[index][2]
-    }
-}
-function autofillItemPrice(e) {
-    const tr = e.target.closest('[name="tr"]')
-    const index = item_list.map(function(t){ return t[0] }).indexOf(e.target.value)
-    if (index >= 0) {
-        var elem = tr.querySelector('[name="price"]')
-        AutoNumeric.set(elem, item_list[index][1])
-    }
-}
-
-// --------------------------------------------------------------------------------------------------------------------
+//         document.querySelector(t[0][0]).title = t[0][1]
+//     })
+// }

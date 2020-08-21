@@ -7,26 +7,26 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css">
 </head>
 <body class="uk-background-secondary">
-
+    
     <div id="header" class="uk-container uk-light">
         <div class="uk-flex-middle uk-margin-top uk-margin-large-bottom" uk-grid>
             <div class="uk-width-expand">
                 <h2 class="uk-heading-line"><span>zummon webapp</span></h2>
             </div>
             <div>
-                <a class="uk-link-reset">BROWSE</a>
+                <a href="../source/browse.html" class="uk-link-text">Browse</a>
             </div>
             <div>
                 <a href="../forms/bulma_inv_tiles.html" class="uk-link-text">Docs</a>
             </div>
             <div>
-                <a href="../source/brief.html" class="uk-link-text">Brief</a>
+                <a class="uk-link-reset">BRIEF</a>
             </div>
         </div>
     </div>
-
-    <div class="uk-container">
-        <div id="browse" class="uk-child-width-1-2@s uk-child-width-1-4@l" uk-grid="masonry: true"></div>
+    
+    <div class="uk-container uk-text-center uk-light">
+        UPDATING..
     </div>
 
     <div id="footer" class="uk-container uk-light uk-margin-large-top">
@@ -49,30 +49,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded',function(){
-            const main_elem = document.querySelector('#browse')
-// 'uikit_inv_business'
-            var browse_images = ['bulma_inv_tiles']
-
-            const originUrl = window.location.origin
-            const queryStr = window.location.search
-
-            browse_images.forEach(function(t){
-                var div = document.createElement('div')
-
-                var a = document.createElement('a')
-                a.className = 'uk-display-block uk-card uk-link-toggle'
-                a.href = originUrl + '/forms/' + t + '.html' + queryStr
-
-                var img = document.createElement('img')
-                img.src = '../images/' + t + '.png'
-                img.alt = t
-
-                a.appendChild(img)
-                div.appendChild(a)
-                main_elem.appendChild(div)
-            })
-        })
+       
     </script>
     <script src="../source/core.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js"></script>
