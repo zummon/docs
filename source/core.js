@@ -1,18 +1,25 @@
-// created by zummontt & got helped from
+// created by zummontt & searched for help from
 // https://stackoverflow.com/questions/805107/creating-multiline-strings-in-javascript
 // https://stackoverflow.com/questions/19669786/check-if-element-is-visible-in-dom
+// https://www.sitepoint.com/get-url-parameters-with-javascript/
 // https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
+// https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 
-var input_tags = ['INPUT','TEXTAREA']
-var an_price, an_qty, an_price_obj, an_qty_obj
-var userData = {}
-var zummonData = {
-    client_list: [['','','']],
-    item_list: [['','']]
-}
 // config_lang
 var langs = ['English', 'Thai']
-var lang ,doc_title ,saletax_rate ,incometax_rate ,an_price ,an_qty ,client_list ,item_list
+var input_tags = ['INPUT','TEXTAREA']
+var an_price_obj, an_qty_obj, cl, il
+var userData = {}
+var zummonData = {
+    lang: 'English',
+    doc_title: 'invoice',
+    saletax_rate: 0.07,
+    incometax_rate: -0.03,
+    an_price: 'num',
+    an_qty: 'integer',
+    cl: [['','','']],
+    il: [['','']],
+}
 
 // var head_foot_lang_tooltip = [
 //     ['#main_header1', 
@@ -80,51 +87,6 @@ var lang ,doc_title ,saletax_rate ,incometax_rate ,an_price ,an_qty ,client_list
 //     ],
 // ]
 
-// ?main=uikit_inv_business&lang=Thai&cl=Par&cl=123&cl=Mogo&il=jj&il=99&il=ee&il=88
-function userDataLoad() {
-    const urlParams = new URLSearchParams(window.location.search)
-    const keys = urlParams.keys()
-    const keys_list = ['cl','il']
-
-    userData.saletax_rate = 0.07
-    userData.incometax_rate = -0.03
-    
-    for (const key of keys) {
-        var getby = 'get'
-        if (keys_list.indexOf(key) >= 0) { getby = 'getAll' }
-        userData[key] = urlParams[getby](key)
-    }
-
-    if (userData.cl == undefined) { client_list = zummonData.client_list }
-    else { client_list = listToMatrix(userData.cl, 3); delete userData.cl }
-
-    if (userData.il == undefined) { item_list = zummonData.item_list }
-    else { item_list = listToMatrix(userData.il, 2); delete userData.il }
-
-    lang = userData.lang == undefined ? 'English' : userData.lang
-    doc_title = userData.doc_title == undefined ? 'invoice' : userData.doc_title
-    saletax_rate = isNaN(userData.saletax_rate) ? 0.07 : parseFloat(userData.saletax_rate)
-    incometax_rate = isNaN(userData.incometax_rate) ? -0.03 : parseFloat(userData.incometax_rate)
-    an_price = userData.an_price
-    an_qty = userData.an_qty
-}
-function listToMatrix(list, subArray) {
-    var matrix = [], i, k
-    for (i = 0, k = -1; i < list.length; i++) {
-        if (i % subArray === 0) {
-            k++
-            matrix[k] = []
-        }
-        matrix[k].push(list[i])
-    }
-    return matrix
-}
-// func actionConfig 
-function isHidden(elem) {
-    var style = window.getComputedStyle(elem)
-    return (style.display === 'none')
-}
-
 // function configSetLang() {
 //     var lang_index = langs.indexOf(lang)+1
 //     if (lang_index < 1) { lang_index = 1 }
@@ -138,3 +100,16 @@ function isHidden(elem) {
 //         document.querySelector(t[0][0]).title = t[0][1]
 //     })
 // }
+
+document.addEventListener('DOMContentLoaded',function(){
+    const queryStr = window.location.search
+
+    const browse = document.querySelector('#header_browse')
+    const docs = document.querySelector('#header_docs')
+    const brief = document.querySelector('#header_brief')
+
+    if (browse !== null) { browse.href = '../source/browse.html' + queryStr }
+    if (docs !== null) { docs.href = '../forms/bulma_inv_tiles.html' + queryStr }
+    if (brief !== null) { brief.href = '../source/brief.html' + queryStr }
+
+})

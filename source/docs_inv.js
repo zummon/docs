@@ -1,4 +1,5 @@
-// created by zummontt 
+// created by zummontt
+
 // config_an_price
 var ans_price = [
     ['num', {}],
@@ -18,7 +19,7 @@ var ans_qty = [
 // config_date_type
 var date_types = [
     ['date', 'default'],
-    ['', 'manual']
+    ['', 'manual'],
 ]
 
 // config_doc_title
@@ -108,6 +109,8 @@ var doc_text = {
 }
 
 function calculateTotal() {
+    const saletax_rate = userData.saletax_rate
+    const incometax_rate = userData.incometax_rate
     const elems = document.querySelectorAll('[name="amount"]')
     var total = 0
     for (let i = 0; i < elems.length; i++) {
@@ -120,6 +123,9 @@ function calculateTotal() {
     AutoNumeric.set('#incometax',incometax)
     AutoNumeric.set('#finaltotal',AutoNumeric.getNumber('#adjust') + total + saletax + incometax)
 }
+
+// ---- config ----
+
 function configUploadImage(img, upload) {
     var elemSet = document.querySelector(upload)
     var elemImg = document.querySelector(img)
@@ -130,13 +136,17 @@ function configUploadImage(img, upload) {
     }
 }
 function configSetTaxRate(label) {
-    const rate_show = incometax_rate < 0 ? -incometax_rate : incometax_rate
+    const key = label.slice(1)
+    const tax_rate = userData[key] == undefined ? zummonData[key] : userData[key]
+    const rate_show = tax_rate < 0 ? -tax_rate : tax_rate
     const elem = document.querySelector(label)
     var attr = 'textContent'
     if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value'}
     elem[attr] = (rate_show*100).toFixed(0) + '%'
 }
 function configSetDocLang() {
+    const doc_title = userData.doc_title == undefined ? zummonData.doc_title : userData.doc_title
+    const lang = userData.lang
     var lang_index = langs.indexOf(lang)+1
     if (lang_index < 1) { lang_index = 1 }
 
@@ -155,6 +165,8 @@ function configSetDocLang() {
         elem[attr] = t[1]
     })
 }
+
+// ---- action ----
 
 function actionClear(applyto) {
     document.querySelectorAll(applyto).forEach(function(t){
@@ -200,4 +212,89 @@ function actionAdd() {
             return
         }
     }
+}
+function actionPrint() {
+    window.print()
+    userDataCreate()
+    // userDataSend()
+    window.location.href = '../forms/bulma_inv_tiles.html?' + userDataSend()
+}
+
+// ---- datalist ----
+
+function autofillClient(e) {
+    const index = cl.map(function(t){ return t[0] }).indexOf(e.target.value)
+    if (index >= 0) {
+        var elem = document.querySelector('#client_id')
+        var elem_attr = 'textContent'
+        if (input_tags.indexOf(elem.tagName) >= 0) { elem_attr = 'value' }
+        elem[elem_attr] = cl[index][1]
+
+        var elem = document.querySelector('#client_address')
+        var elem_attr = 'textContent'
+        if (input_tags.indexOf(elem.tagName) >= 0) { elem_attr = 'value' }
+        elem[elem_attr] = cl[index][2]
+    }
+}
+function autofillItem(e) {
+    const tr = e.target.closest('[name="tr"]')
+    const index = il.map(function(t){ return t[0] }).indexOf(e.target.value)
+    if (index >= 0) {
+        var elem = tr.querySelector('[name="price"]')
+        AutoNumeric.set(elem, il[index][1])
+    }
+}
+
+// ----  ----
+
+function userDataCreate() {
+    ['#vendor_name', '#vendor_id', '#vendor_address', '#payment'].forEach(function(t){
+        var elem = document.querySelector(t)
+        var attr = 'textContent'
+        if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value' }
+        userData[t.slice(1)] = elem[attr]
+    })
+    var client_list = [];
+    ['#client_name', '#client_id', '#client_address'].forEach(function(t){
+        var elem = document.querySelector(t)
+        var attr = 'textContent'
+        if (input_tags.indexOf(elem.tagName) >= 0) { attr = 'value' }
+        client_list.push(elem[attr])
+    })
+    const index_client = cl.map(function(t){ return t[0] }).indexOf(client_list[0])
+    if (index_client >= 0) {
+        cl.splice(index_client, 1, client_list)
+    } else if (client_list[0] !== '') {
+        cl.push(client_list)
+    }
+    
+    const items = document.querySelectorAll('[name="item"]')
+    const prices = document.querySelectorAll('[name="price"]')
+    for (let z = 0; z < items.length; z++) {
+        var item, price, attr = 'textContent'
+        if (input_tags.indexOf(items[z].tagName) >= 0) { attr = 'value' }
+        if (items[z][attr] == '') { continue }
+        item = items[z][attr]
+        
+        if (AutoNumeric.isManagedByAutoNumeric(prices[z])) {
+            price = AutoNumeric.getNumericString(prices[z])
+        } else {
+            var attr = 'textContent'
+            if (input_tags.indexOf(prices[z].tagName) >= 0) { attr = 'value' }
+            price = prices[z][attr]
+        }
+        var item_list = [item, price]
+
+        var index_item = il.map(function(t){ return t[0] }).indexOf(item_list[0])
+        if (index_item >= 0) {
+            il.splice(index_item, 1, item_list)
+        } else if (item_list[0] !== '') {
+            il.push(item_list)
+        }
+    }
+}
+// func actionConfig 
+function isHidden(elem) {
+    var style = window.getComputedStyle(elem)
+    return (style.display === 'none')
 }

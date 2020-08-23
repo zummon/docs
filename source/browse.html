@@ -5,23 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOCS zummon webapp</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css">
+    <link rel="stylesheet" href="../style/core.css">
 </head>
-<body class="uk-background-secondary">
+<body>
 
     <div id="header" class="uk-container uk-light">
         <div class="uk-flex-middle uk-margin-top uk-margin-large-bottom" uk-grid>
             <div class="uk-width-expand">
                 <h2 class="uk-heading-line"><span>zummon webapp</span></h2>
             </div>
-            <div>
-                <a class="uk-link-reset">BROWSE</a>
-            </div>
-            <div>
-                <a href="../forms/bulma_inv_tiles.html" class="uk-link-text">Docs</a>
-            </div>
-            <div>
-                <a href="../source/brief.html" class="uk-link-text">Brief</a>
-            </div>
+            <div><a class="uk-link-reset">BROWSE</a></div>
+            <div><a id="header_docs" class="uk-link-text">Docs</a></div>
+            <div><a id="header_brief" class="uk-link-text">Brief</a></div>
         </div>
     </div>
 
@@ -53,8 +48,6 @@
             const main_elem = document.querySelector('#browse')
 // 'uikit_inv_business'
             var browse_images = ['bulma_inv_tiles']
-
-            const originUrl = window.location.origin
             const queryStr = window.location.search
 
             browse_images.forEach(function(t){
@@ -62,7 +55,7 @@
 
                 var a = document.createElement('a')
                 a.className = 'uk-display-block uk-card uk-link-toggle'
-                a.href = originUrl + '/docs/forms/' + t + '.html' + queryStr
+                a.href = '../forms/' + t + '.html' + queryStr
 
                 var img = document.createElement('img')
                 img.src = '../images/' + t + '.png'
@@ -75,6 +68,7 @@
         })
     </script>
     <script src="../source/core.js"></script>
+    <script src="../source/browse_docs.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js"></script>
 </body>
 </html>
