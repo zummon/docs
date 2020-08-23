@@ -1,0 +1,8 @@
+@media print {
+    #header,
+    #action,
+    #config,
+    #footer {
+        display: none;
+    }
+}
