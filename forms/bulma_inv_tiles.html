@@ -2,13 +2,13 @@
 <html>
 <head>
     <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
-    <link rel="stylesheet" href="../style/core.css">
-    <link rel="stylesheet" href="../style/docs.css">
-    <link rel="stylesheet" href="../style/bulma.css">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DOCS zummon webapp</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <link rel="stylesheet" href="../style/core.css">
+    <link rel="stylesheet" href="../style/docs.css">
+    <link rel="stylesheet" href="../style/bulma.css">
     <style>
         .table tfoot th {
             border-width: 0;
@@ -32,7 +32,7 @@
         }
     </style>
 </head>
-<body class="has-background-black">
+<body>
     <div id="header" class="container is-fluid section">
         <div class="level">
             <div class="level-left">
@@ -41,9 +41,9 @@
             <div class="level-right">
                 <nav class="breadcrumb has-bullet-separator is-medium" aria-label="breadcrumbs">
                     <ul>
-                        <li><a href="../source/browse.html" class="has-text-white">Browse</a></li>
+                        <li><a id="header_browse" class="has-text-white">Browse</a></li>
                         <li class="is-active"><a aria-current="page" class="has-text-white">DOCS</a></li>
-                        <li><a href="../source/brief.html" class="has-text-white">Brief</a></li>
+                        <li><a id="header_brief" class="has-text-white">Brief</a></li>
                     </ul>
                 </nav>
             </div>
@@ -63,14 +63,6 @@
     <div id="config" class="container has-background-light section">
         <div class="columns is-multiline">
             <div class="column is-2">
-                <label for="config_saletax_rate" class="label">saletax_rate</label>
-                <input id="config_saletax_rate" class="input" type="number" step="0.01">
-            </div>
-            <div class="column is-2">
-                <label for="config_incometax_rate" class="label">saletax_rate</label>
-                <input id="config_incometax_rate" class="input" type="number" step="0.01">
-            </div>
-            <div class="column is-2">
                 <label for="config_headlogo" class="label">Logo</label>
                 <div class="file is-white">
                     <label class="file-label">
@@ -80,6 +72,14 @@
                         </span>
                     </label>
                 </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_saletax_rate" class="label">saletax_rate</label>
+                <input id="config_saletax_rate" class="input" type="number" step="0.01">
+            </div>
+            <div class="column is-2">
+                <label for="config_incometax_rate" class="label">incometax_rate</label>
+                <input id="config_incometax_rate" class="input" type="number" step="0.01">
             </div>
             <div class="column is-2">
                 <label for="config_lang" class="label">lang</label>
@@ -286,29 +286,31 @@
     </div>
     
 <!--------------------------------------------------------------------------------------------------------------------->
+    <!-- <div style="display: none;"> -->
+        <datalist id="client_list"></datalist>
+        <datalist id="item_list"></datalist>
+    <!-- </div> -->
 
     <div id="footer" class="section">
         <div class="columns">
             <div class="column has-text-right">
                 <p class="has-text-white title is-4">Library Usage</p>
                 <ul>
-                    <li><a href="http://autonumeric.org" target="_blank" 
-                        class="has-text-white">AutoNumeric</a>
-                    </li>
-                    <li><a href="https://bulma.io/" target="_blank" 
-                        class="has-text-white">Bulma</a>
-                    </li>
+                    <li><a href="http://autonumeric.org" target="_blank"
+                           class="has-text-white">AutoNumeric</a></li>
+                    <li><a href="https://bulma.io/" target="_blank"
+                           class="has-text-white">Bulma</a></li>
                 </ul>
             </div>
             <div class="column">
                 <p class="has-text-white title is-4">Made by</p>
                 <ul>
                     <li><a href="https://github.com/zummon" target="_blank" 
-                        class="has-text-white">zummon (Github)</a></li>
+                           class="has-text-white">zummon (Github)</a></li>
                     <li><a href="https://www.facebook.com/zummontt" target="_blank" 
-                        class="has-text-white">zummon (Facebook: zummontt)</a></li>
+                           class="has-text-white">zummon (Facebook: zummontt)</a></li>
                     <li><a href="https://www.paypal.me/zummontt" target="_blank" 
-                        class="has-text-white">donate to support (PayPal: zummontt)</a></li>
+                           class="has-text-white">donate to support (PayPal: zummontt)</a></li>
                 </ul>
             </div>
         </div>
@@ -397,12 +399,12 @@
 
             // ---- autoNumeric ----
             
-            var option = ans_price.filter(function(t){ return t[0] == an_price })
+            var option = ans_price.filter(function(t){ return t[0] == userData.an_price })
                 option = option == '' ? ans_price[0][1] : option[0][1]
 
 an_price_obj = new AutoNumeric.multiple('[name="price"],[name="amount"],#total,#saletax,#incometax,#adjust,#finaltotal', option)
 
-            var option = ans_qty.filter(function(t){ return t[0] == an_qty })
+            var option = ans_qty.filter(function(t){ return t[0] == userData.an_qty })
                 option = option == '' ? ans_qty[0][1] : option[0][1]
 
 an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
@@ -415,7 +417,7 @@ an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
                     calculateTotal()
                 })
             })
-            document.querySelectorAll('[name="amount"],#adjust').forEach(function(t){
+            document.querySelectorAll('[name="amount"], #adjust').forEach(function(t){
                 t.addEventListener('change', calculateTotal)
             })
 
@@ -460,45 +462,35 @@ an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
                 config_date_type.appendChild(op)
             })
 
-            config_saletax_rate.value = saletax_rate
-            config_incometax_rate.value = incometax_rate
+            config_saletax_rate.value = userData.saletax_rate
+            config_incometax_rate.value = userData.incometax_rate
 
             config_saletax_rate.addEventListener('change',function(e){
-                const value = e.target.value
-                saletax_rate = parseFloat(value)
-                userData.saletax_rate = parseFloat(value)
+                userData.saletax_rate = parseFloat(e.target.value)
 
                 configSetTaxRate('#saletax_rate')
                 calculateTotal()
             })
             config_incometax_rate.addEventListener('change',function(e){
-                const value = e.target.value
-                incometax_rate = parseFloat(value)
-                userData.incometax_rate = parseFloat(value)
+                userData.incometax_rate = parseFloat(e.target.value)
 
                 configSetTaxRate('#incometax_rate')
                 calculateTotal()
             })
             config_lang.addEventListener('change',function(e){
-                const value = e.target.value
-                lang = value
-                userData.lang = value
+                userData.lang = e.target.value
 
                 configSetDocLang()
             })
             config_doc_title.addEventListener('change',function(e){
-                const value = e.target.value
-                doc_title = value
-                userData.doc_title = value
+                userData.doc_title = e.target.value
 
                 configSetDocLang()
             })
             config_an_price.addEventListener('change',function(e){
-                const value = e.target.value
-                an_price = value
-                userData.an_price = value
+                userData.an_price = e.target.value
 
-                var option = ans_price.filter(function(t){ return t[0] == an_price })
+                var option = ans_price.filter(function(t){ return t[0] == userData.an_price })
                     option = option == '' ? ans_price[0][1] : option[0][1]
                 an_price_obj.forEach(function(t){
                     t.options.reset()
@@ -506,11 +498,9 @@ an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
                 })
             })
             config_an_qty.addEventListener('change',function(e){
-                const value = e.target.value
-                an_qty = value
-                userData.an_qty = value
+                userData.an_qty = e.target.value
 
-                var option = ans_qty.filter(function(t){ return t[0] == an_qty })
+                var option = ans_qty.filter(function(t){ return t[0] == userData.an_qty })
                     option = option == '' ? ans_qty[0][1] : option[0][1]
                 an_qty_obj.forEach(function(t){
                     t.options.reset()
@@ -519,13 +509,13 @@ an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
             })
             config_date_type.addEventListener('change',function(e){
                 const v = e.target.value
-                document.querySelectorAll('#date, #duedate').forEach(function(t,v){
+                document.querySelectorAll('#date, #duedate').forEach(function(t){
                     t.type = v
                 })
             })
             document.querySelector('#config_headlogo').addEventListener('change',function(e){
                 const applyto = e.target.id
-                configUploadImage('#' + applyto.slice(7) + '_img','#' + applyto)
+                configUploadImage('#' + applyto.slice(7) + '_img', '#' + applyto)
             })
 
             document.querySelectorAll('#config_headlogo_img, #config_vendor_id, #config_client_id').forEach(function(t){
@@ -576,9 +566,29 @@ document.querySelectorAll('#config_duedate, #config_payment, #config_subject, #c
             document.querySelector('#action_pop').addEventListener('click',actionPop)
             document.querySelector('#action_config').addEventListener('click',actionConfig)
             document.querySelector('#action_add').addEventListener('click',actionAdd)
-            document.querySelector('#action_print').addEventListener('click',function(){
-                window.print()
+            document.querySelector('#action_print').addEventListener('click',actionPrint)
+
+            // ---- datalist ----
+
+            const client_list = document.querySelector('#client_list')
+            cl.forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t[0]
+                client_list.appendChild(op)
             })
+            const item_list = document.querySelector('#item_list')
+            il.forEach(function(t){
+                var op = document.createElement('option')
+                op.value = t[0]
+                item_list.appendChild(op)
+            })
+
+            document.querySelectorAll('[name="item"]').forEach(function(t){
+                t.setAttribute('list', 'item_list')
+                t.addEventListener('change', autofillItem)
+            })
+            document.querySelector('#client_name').setAttribute('list', 'client_list')
+            document.querySelector('#client_name').addEventListener('change', autofillClient)
 
         })
         // #headlogo_img
@@ -587,6 +597,8 @@ document.querySelectorAll('#config_duedate, #config_payment, #config_subject, #c
         
     </script>
     <script src="../source/core.js"></script>
+    <script src="../source/browse_docs.js"></script>
+    <script src="../source/brief_docs.js"></script>
     <script src="../source/docs.js"></script>
     <script src="../source/docs_inv.js"></script>
 </body>
