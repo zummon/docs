@@ -33,26 +33,18 @@
     </style>
 </head>
 <body>
-    <div id="header" class="container is-fluid section">
-        <div class="level">
-            <div class="level-left">
-                <p class="level-item has-text-white title is-4">zummon webapp</p>
-            </div>
-            <div class="level-right">
-                <nav class="breadcrumb has-bullet-separator is-medium" aria-label="breadcrumbs">
-                    <ul>
-                        <li><a id="header_browse" class="has-text-white">Browse</a></li>
-                        <li class="is-active"><a aria-current="page" class="has-text-white">DOCS</a></li>
-                        <li><a id="header_brief" class="has-text-white">Brief</a></li>
-                    </ul>
-                </nav>
-            </div>
+    <div id="header">
+        <div><a id="header_begin">?</a>
+            <span id="header_zummon">zummon webapp</span>
         </div>
+        <div><a id="header_browse">Browse</a></div>
+        <div><a id="header_brief">Brief</a></div>
     </div>
+
     <div id="action" class="container">
-        <div class="tabs is-fullwidth is-medium has-background-white">
+        <div class="tabs is-fullwidth is-medium has-background-white has-text-weight-semibold">
             <ul>
-                <li><a id="action_clear">Clear</a></li>
+                <li><a id="action_clear">Clear*</a></li>
                 <li><a id="action_pop">Pop</a></li>
                 <li><a id="action_config">Config</a></li>
                 <li><a id="action_add">Add</a></li>
@@ -62,6 +54,50 @@
     </div>
     <div id="config" class="container has-background-light section">
         <div class="columns is-multiline">
+            <div class="column is-2">
+                <label for="config_saletax_rate" class="label">sales tax</label>
+                <input id="config_saletax_rate" class="input" type="number" step="0.01">
+            </div>
+            <div class="column is-2">
+                <label for="config_incometax_rate" class="label">income tax</label>
+                <input id="config_incometax_rate" class="input" type="number" step="0.01">
+            </div>
+            <div class="column is-2">
+                <label for="config_lang" class="label">language</label>
+                <div class="select">
+                    <select id="config_lang"></select>
+                </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_doc_title" class="label">title*</label>
+                <div class="select">
+                    <select id="config_doc_title"></select>
+                </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_an_price" class="label">price</label>
+                <div class="select">
+                    <select id="config_an_price"></select>
+                </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_an_qty" class="label">qty</label>
+                <div class="select">
+                    <select id="config_an_qty"></select>
+                </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_date_type" class="label">date type</label>
+                <div class="select">
+                    <select id="config_date_type"></select>
+                </div>
+            </div>
+            <div class="column is-2">
+                <label for="config_color" class="label">color</label>
+                <div class="select">
+                    <select id="config_color"></select>
+                </div>
+            </div>
             <div class="column is-2">
                 <label for="config_headlogo" class="label">Logo</label>
                 <div class="file is-white">
@@ -73,61 +109,23 @@
                     </label>
                 </div>
             </div>
-            <div class="column is-2">
-                <label for="config_saletax_rate" class="label">saletax_rate</label>
-                <input id="config_saletax_rate" class="input" type="number" step="0.01">
-            </div>
-            <div class="column is-2">
-                <label for="config_incometax_rate" class="label">incometax_rate</label>
-                <input id="config_incometax_rate" class="input" type="number" step="0.01">
-            </div>
-            <div class="column is-2">
-                <label for="config_lang" class="label">lang</label>
-                <div class="select">
-                    <select id="config_lang"></select>
-                </div>
-            </div>
-            <div class="column is-4">
-                <label for="config_doc_title" class="label">doc_title</label>
-                <div class="select">
-                    <select id="config_doc_title"></select>
-                </div>
-            </div>
-            <div class="column is-4">
-                <label for="config_an_price" class="label">an_price</label>
-                <div class="select">
-                    <select id="config_an_price"></select>
-                </div>
-            </div>
-            <div class="column is-4">
-                <label for="config_an_qty" class="label">an_qty</label>
-                <div class="select">
-                    <select id="config_an_qty"></select>
-                </div>
-            </div>
-            <div class="column is-4">
-                <label for="config_date_type" class="label">date_type</label>
-                <div class="select">
-                    <select id="config_date_type"></select>
-                </div>
-            </div>
         </div>
         <div class="columns is-multiline">
             <div class="column is-4">
                 <input id="config_headlogo_img" type="checkbox" checked>
-                <label for="config_headlogo_img" class="checkbox">headlogo_img</label>
+                <label for="config_headlogo_img" class="checkbox">head logo</label>
             </div>
             <div class="column is-4">
                 <input id="config_duedate" type="checkbox" checked>
-                <label for="config_duedate" class="checkbox">duedate</label>
+                <label for="config_duedate" class="checkbox">due date</label>
             </div>
             <div class="column is-4">
                 <input id="config_vendor_id" type="checkbox" checked>
-                <label for="config_vendor_id" class="checkbox">vendor_id</label>
+                <label for="config_vendor_id" class="checkbox">vendor register</label>
             </div>
             <div class="column is-4">
                 <input id="config_client_id" type="checkbox" checked>
-                <label for="config_client_id" class="checkbox">client_id</label>
+                <label for="config_client_id" class="checkbox">client register</label>
             </div>
             <div class="column is-4">
                 <input id="config_payment" type="checkbox" checked>
@@ -135,7 +133,7 @@
             </div>
             <div class="column is-4">
                 <input id="config_subject" type="checkbox" checked>
-                <label for="config_subject" class="checkbox">subject</label>
+                <label for="config_subject" class="checkbox">project</label>
             </div>
             <div class="column is-4">
                 <input id="config_note" type="checkbox" checked>
@@ -143,15 +141,15 @@
             </div>
             <div class="column is-4">
                 <input id="config_client_sign" type="checkbox" checked>
-                <label for="config_client_sign" class="checkbox">client_sign</label>
+                <label for="config_client_sign" class="checkbox">client sign</label>
             </div>
             <div class="column is-4">
                 <input id="config_saletax" type="checkbox" checked>
-                <label for="config_saletax" class="checkbox">saletax</label>
+                <label for="config_saletax" class="checkbox">sale tax</label>
             </div>
             <div class="column is-4">
                 <input id="config_incometax" type="checkbox" checked>
-                <label for="config_incometax" class="checkbox">incometax</label>
+                <label for="config_incometax" class="checkbox">income tax</label>
             </div>
         </div>
     </div>
@@ -286,39 +284,38 @@
     </div>
     
 <!--------------------------------------------------------------------------------------------------------------------->
-    <!-- <div style="display: none;"> -->
-        <datalist id="client_list"></datalist>
-        <datalist id="item_list"></datalist>
-    <!-- </div> -->
-
-    <div id="footer" class="section">
-        <div class="columns">
-            <div class="column has-text-right">
-                <p class="has-text-white title is-4">Library Usage</p>
-                <ul>
-                    <li><a href="http://autonumeric.org" target="_blank"
-                           class="has-text-white">AutoNumeric</a></li>
-                    <li><a href="https://bulma.io/" target="_blank"
-                           class="has-text-white">Bulma</a></li>
-                </ul>
-            </div>
-            <div class="column">
-                <p class="has-text-white title is-4">Made by</p>
-                <ul>
-                    <li><a href="https://github.com/zummon" target="_blank" 
-                           class="has-text-white">zummon (Github)</a></li>
-                    <li><a href="https://www.facebook.com/zummontt" target="_blank" 
-                           class="has-text-white">zummon (Facebook: zummontt)</a></li>
-                    <li><a href="https://www.paypal.me/zummontt" target="_blank" 
-                           class="has-text-white">donate to support (PayPal: zummontt)</a></li>
-                </ul>
-            </div>
+    
+    <datalist id="client_list"></datalist>
+    <datalist id="item_list"></datalist>
+    
+    <div id="footer">
+        <div>
+            <h2 id="footer_library">Library usage</h2>
+            <ul>
+                <li><a id="footer_autonumeric"></a></li>
+                <li><a id="footer_bulma"></a></li>
+            </ul>
+        </div>
+        <div>
+            <h2 id="footer_madeby">Made by</h2>
+            <ul>
+                <li><a id="footer_github">zummon (Github)</a></li>
+                <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
+                <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
+            </ul>
         </div>
     </div>
 
+    <script src="../source/core.js"></script>
+    <script src="../source/browse_docs.js"></script>
+    <script src="../source/brief_docs.js"></script>
+    <script src="../source/docs.js"></script>
+    <script src="../source/docs_inv.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded',function(){
-            const content_editable = `
+        
+        tr_show = 4
+        tr_hide = 16
+        content_editable = `
             #vendor_name
             ,#vendor_id
             ,#vendor_address
@@ -365,37 +362,12 @@
             ,#thank_message
             ,#finaltotal_label
             ,#finaltotal
-            `
-            document.querySelectorAll(content_editable).forEach(function(t){
-                if (input_tags.indexOf(t.tagName) >= 0) { return }
-                t.setAttribute('contenteditable', 'true')
-            })
+        `
+        // #headlogo_img
+        // #tbody
+        // [name="tr"]
 
-            const tr_show = 4
-            const tr_hide = 16
-
-            const doc_tbody = document.querySelector('#tbody')
-            const doc_tr = document.querySelector('[name="tr"]')
-
-            for (let z = 1; z <= tr_show + tr_hide; z++) {
-                if (z > tr_show ) { doc_tr.setAttribute('style', 'display: none;') }
-
-                var line = doc_tr.querySelector('[name="line"]')
-                var line_attr = 'textContent'
-                if (input_tags.indexOf(line.tagName) >= 0) { line_attr = 'value' }
-
-                line[line_attr] = z
-                doc_tbody.appendChild(doc_tr.cloneNode(true))
-            }
-            doc_tr.remove()
-
-            document.querySelectorAll('#headlogo_img').forEach(function(t){
-                t.setAttribute('src', '../source/logo_100x100.png')
-            })
-
-            // ---- initialize ----
-            userDataLoad()
-            configSetDocLang()
+        document.addEventListener('DOMContentLoaded',function(){
 
             // ---- autoNumeric ----
             
@@ -409,110 +381,34 @@ an_price_obj = new AutoNumeric.multiple('[name="price"],[name="amount"],#total,#
 
 an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
 
-            document.querySelectorAll('[name="qty"]').forEach(function(t){
-                t.addEventListener('change',function(e){
-                    const elemPrice = e.target.closest('[name="tr"]').querySelector('[name="price"]')
-                    const elemAmount = e.target.closest('[name="tr"]').querySelector('[name="amount"]')
-                    AutoNumeric.set(elemAmount, AutoNumeric.getNumber(elemPrice) * AutoNumeric.getNumber(e.target))
-                    calculateTotal()
-                })
-            })
-            document.querySelectorAll('[name="amount"], #adjust').forEach(function(t){
-                t.addEventListener('change', calculateTotal)
-            })
-
             // ---- config ----
 
-            const config_lang = document.querySelector('#config_lang')
-            const config_saletax_rate = document.querySelector('#config_saletax_rate')
-            const config_incometax_rate = document.querySelector('#config_incometax_rate')
-            const config_doc_title = document.querySelector('#config_doc_title')
-            const config_an_price = document.querySelector('#config_an_price')
-            const config_an_qty = document.querySelector('#config_an_qty')
-            const config_date_type =  document.querySelector('#config_date_type')
-
-            langs.forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t
-                op.textContent = t
-                config_lang.appendChild(op)
-            })
-            ans_price.forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t[0]
-                op.textContent = t[0]
-                config_an_price.appendChild(op)
-            })
-            ans_qty.forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t[0]
-                op.textContent = t[0]
-                config_an_qty.appendChild(op)
-            })
-            Object.keys(doc_text).forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t
-                op.textContent = t
-                config_doc_title.appendChild(op)
-            })
-            date_types.forEach(function(t){
+            const config_color = document.querySelector('#config_color')
+            ;[
+                ['is-primary','turquoise'],
+                ['is-link','blue'],
+                ['is-info','cyan'],
+                ['is-success','green'],
+                ['is-warning','yellow'],
+                ['is-danger','red'],
+                ['is-dark','grey-darker'],
+                ['is-black','black'],
+            ].forEach(function(t){
                 var op = document.createElement('option')
                 op.value = t[0]
                 op.textContent = t[1]
-                config_date_type.appendChild(op)
+                config_color.appendChild(op)
             })
 
-            config_saletax_rate.value = userData.saletax_rate
-            config_incometax_rate.value = userData.incometax_rate
-
-            config_saletax_rate.addEventListener('change',function(e){
-                userData.saletax_rate = parseFloat(e.target.value)
-
-                configSetTaxRate('#saletax_rate')
-                calculateTotal()
-            })
-            config_incometax_rate.addEventListener('change',function(e){
-                userData.incometax_rate = parseFloat(e.target.value)
-
-                configSetTaxRate('#incometax_rate')
-                calculateTotal()
-            })
-            config_lang.addEventListener('change',function(e){
-                userData.lang = e.target.value
-
-                configSetDocLang()
-            })
-            config_doc_title.addEventListener('change',function(e){
-                userData.doc_title = e.target.value
-
-                configSetDocLang()
-            })
-            config_an_price.addEventListener('change',function(e){
-                userData.an_price = e.target.value
-
-                var option = ans_price.filter(function(t){ return t[0] == userData.an_price })
-                    option = option == '' ? ans_price[0][1] : option[0][1]
-                an_price_obj.forEach(function(t){
-                    t.options.reset()
-                    t.update(option)
+            config_color.addEventListener('change',function(e){
+                const older = document.querySelector('#amount_label').className
+                const newer = e.target.value
+                document.querySelectorAll('[class*="' + older + '"]').forEach(function(t){
+                    t.classList.remove(older)
+                    t.classList.add(newer)
                 })
             })
-            config_an_qty.addEventListener('change',function(e){
-                userData.an_qty = e.target.value
 
-                var option = ans_qty.filter(function(t){ return t[0] == userData.an_qty })
-                    option = option == '' ? ans_qty[0][1] : option[0][1]
-                an_qty_obj.forEach(function(t){
-                    t.options.reset()
-                    t.update(option)
-                })
-            })
-            config_date_type.addEventListener('change',function(e){
-                const v = e.target.value
-                document.querySelectorAll('#date, #duedate').forEach(function(t){
-                    t.type = v
-                })
-            })
             document.querySelector('#config_headlogo').addEventListener('change',function(e){
                 const applyto = e.target.id
                 configUploadImage('#' + applyto.slice(7) + '_img', '#' + applyto)
@@ -535,71 +431,28 @@ document.querySelectorAll('#config_duedate, #config_payment, #config_subject, #c
         if (e.target.checked) {
             elem.setAttribute('style', '')
             if (['saletax','incometax'].indexOf(applyto) >= 0) {
-                window[applyto + '_rate'] = userData[applyto + '_rate']
                 calculateTotal()
             }
         } else {
             elem.setAttribute('style', 'display: none;')
             if (['saletax','incometax'].indexOf(applyto) >= 0) {
-                window[applyto + '_rate'] = 0
+                userData[applyto + '_rate'] = 0
                 calculateTotal()
             }
         }
     })
 })
 
-            // #config_headlogo_img
-            // #config_duedate
-            // #config_vendor_id
-            // #config_client_id
-            // #config_payment
-            // #config_subject
-            // #config_note
-            // #config_client_sign
-            // #config_saletax
-            // #config_incometax
-        
-            // ---- action ----
-            document.querySelector('#action_clear').addEventListener('click',function(){
-                // actionClear
-            })
-            document.querySelector('#action_pop').addEventListener('click',actionPop)
-            document.querySelector('#action_config').addEventListener('click',actionConfig)
-            document.querySelector('#action_add').addEventListener('click',actionAdd)
-            document.querySelector('#action_print').addEventListener('click',actionPrint)
+            // untitled
+            // invoice
+            // quotation
+            // receipt
+            // taxinvoice
 
-            // ---- datalist ----
-
-            const client_list = document.querySelector('#client_list')
-            cl.forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t[0]
-                client_list.appendChild(op)
-            })
-            const item_list = document.querySelector('#item_list')
-            il.forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t[0]
-                item_list.appendChild(op)
-            })
-
-            document.querySelectorAll('[name="item"]').forEach(function(t){
-                t.setAttribute('list', 'item_list')
-                t.addEventListener('change', autofillItem)
-            })
-            document.querySelector('#client_name').setAttribute('list', 'client_list')
-            document.querySelector('#client_name').addEventListener('change', autofillClient)
 
         })
-        // #headlogo_img
-        // #tbody
-        // [name="tr"]
+        
         
     </script>
-    <script src="../source/core.js"></script>
-    <script src="../source/browse_docs.js"></script>
-    <script src="../source/brief_docs.js"></script>
-    <script src="../source/docs.js"></script>
-    <script src="../source/docs_inv.js"></script>
 </body>
 </html>
