@@ -5,88 +5,68 @@
 // https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
 // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 
-// config_lang
-var langs = ['English', 'Thai']
-var input_tags = ['INPUT','TEXTAREA']
-var an_price_obj, an_qty_obj, cl, il
-var userData = {}
-var zummonData = {
-    lang: 'English',
-    doc_title: 'invoice',
-    saletax_rate: 0.07,
-    incometax_rate: -0.03,
-    an_price: 'num',
-    an_qty: 'integer',
-    cl: [['','','']],
-    il: [['','']],
-}
+document.addEventListener('DOMContentLoaded',function(){
+    const queryStr = window.location.search
+    ;[
+        ['#header_begin', '../index.html' + queryStr,
+            '📖*'
+        ],
+        ['#header_browse', '../source/browse.html' + queryStr,
+            'Templates'
+        ],
+        ['#header_docs', '../forms/bulma_inv_tiles.html' + queryStr,
+            'Create'
+        ],
+        ['#header_brief', '../source/brief.html' + queryStr,
+            'Data*'
+        ],
+    ].forEach(function(t){
+        var elem = document.querySelector(t[0])
+        if (elem == null) { return }
+        elem.href = t[1]
+        elem.textContent = t[2]
+    })
 
-// var head_foot_lang_tooltip = [
-//     ['#main_header1', 
-//         'Choose a form', 
-//         'เลือกฟอร์ม'
-//     ],
-//     ['#main_header2', 
-//         'Create a document', 
-//         'สร้างเอกสาร'
-//     ],
-//     ['#main_header3', 
-//         'Edit data list', 
-//         'แก้ไขข้อมูล'
-//     ]
-// ]
-// var head_foot_lang_text = [
-//     ['#main_header_title', 
-//         'Docs zummon webapp', 
-//         'เอกสาร zummon webapp'],
+    ;[
+            ['#footer_library', false,
+                'Library usage',
+            ],
 
-//     ['#main_header_subtitle', 
-//         'First version on Github', 
-//         'เวอร์ชั่นแรกบน Github'],
+        ['#footer_github', 'https://github.com/zummon',
+            'zummon (Github)',
+        ],
+        ['#footer_facebook', 'https://www.facebook.com/zummontt',
+            'zummon (Facebook: zummontt)',
+        ],
+        ['#footer_paypal', 'https://www.paypal.me/zummontt',
+            'donate to support (PayPal: zummontt)',
+        ],
 
-//     ['#main_footer1_head', 'Library tools', 'เครื่องมือใช้งาน'],
-//     ['#main_footer1_item_1', 
-//         'AutoNumeric', 
-//         'AutoNumeric'
-//     ],
+            ['#footer_madeby', false,
+                'Made by',
+            ],
 
-//     ['#main_footer2_head', 'Made by', 'สร้างโดย'],
-//     ['#main_footer2_item_1', 
-//         'zummon (Github)', 
-//         'zummon (Github)'
-//     ],
-//     ['#main_footer2_item_2', 
-//         'zummon (Facebook: zummontt)', 
-//         'zummon (เฟสบุค: zummontt)'
-//     ],
-//     ['#main_footer2_item_3', 
-//         'donate to support (PayPal: zummontt)', 
-//         'สนับสนุนโดยการโอนเงิน (PayPal: zummontt)'
-//     ],
+        ['#footer_uikit', 'https://getuikit.com',
+            'UIkit',
+        ],
+        ['#footer_autonumeric', 'http://autonumeric.org',
+            'AutoNumeric',
+        ],
+        ['#footer_bulma', 'https://bulma.io/',
+            'Bulma',
+        ],
+    ].forEach(function(t){
+        var elem = document.querySelector(t[0])
+        if (elem == null) { return }
+        elem.textContent = t[2]
+        if (t[1] == false) { return }
+        elem.href = t[1]
+        elem.target = '_blank'
+    })
+    
+})
 
-//     ['#main_footer3_head', 'Style usage', 'รูปแบบเอกสาร'],
-//     ['#main_footer3_item_1', 
-//         'UIkit', 
-//         'UIkit'
-//     ],
-//     ['#main_footer3_item_2', 
-//         'Bootstrap', 
-//         'Bootstrap'
-//     ],
-//     ['#main_footer3_item_3', 
-//         'Foundation', 
-//         'Foundation'
-//     ],
-//     ['#main_footer3_item_4', 
-//         'Bulma', 
-//         'Bulma'
-//     ],
-//     ['#main_footer3_item_5', 
-//         'Materialize', 
-//         'Materialize'
-//     ],
-// ]
-
+// future plan
 // function configSetLang() {
 //     var lang_index = langs.indexOf(lang)+1
 //     if (lang_index < 1) { lang_index = 1 }
@@ -100,16 +80,3 @@ var zummonData = {
 //         document.querySelector(t[0][0]).title = t[0][1]
 //     })
 // }
-
-document.addEventListener('DOMContentLoaded',function(){
-    const queryStr = window.location.search
-
-    const browse = document.querySelector('#header_browse')
-    const docs = document.querySelector('#header_docs')
-    const brief = document.querySelector('#header_brief')
-
-    if (browse !== null) { browse.href = '../source/browse.html' + queryStr }
-    if (docs !== null) { docs.href = '../forms/bulma_inv_tiles.html' + queryStr }
-    if (brief !== null) { brief.href = '../source/brief.html' + queryStr }
-
-})
