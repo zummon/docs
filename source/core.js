@@ -5,26 +5,29 @@
 // https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
 // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 
+var main
+
 document.addEventListener('DOMContentLoaded',function(){
     const queryStr = window.location.search
     ;[
-        ['#header_begin', '../index.html' + queryStr,
-            '📖*'
+        ['begin', '#header_begin', '../index.html' + queryStr,
+            'How to*'
         ],
-        ['#header_browse', '../source/browse.html' + queryStr,
+        ['browse', '#header_browse', '../source/browse.html' + queryStr,
             'Templates'
         ],
-        ['#header_docs', '../forms/bulma_inv_tiles.html' + queryStr,
+        ['docs', '#header_docs', '../forms/bulma_inv_tiles.html' + queryStr,
             'Create'
         ],
-        ['#header_brief', '../source/brief.html' + queryStr,
+        ['brief', '#header_brief', '../source/brief.html' + queryStr,
             'Data*'
         ],
     ].forEach(function(t){
-        var elem = document.querySelector(t[0])
-        if (elem == null) { return }
-        elem.href = t[1]
-        elem.textContent = t[2]
+        var elem = document.querySelector(t[1])
+        // if (elem == null) { return }
+        elem.textContent = t[3]
+        if (main == t[0]) { return }
+        elem.href = t[2]
     })
 
     ;[
@@ -54,6 +57,9 @@ document.addEventListener('DOMContentLoaded',function(){
         ],
         ['#footer_bulma', 'https://bulma.io/',
             'Bulma',
+        ],
+        ['#footer_bootstrap', 'https://getbootstrap.com/',
+            'Bootstrap',
         ],
     ].forEach(function(t){
         var elem = document.querySelector(t[0])

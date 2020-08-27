@@ -1,8 +1,5 @@
 // created by zummontt
 
-// func startDoc
-var tr_show, tr_hide, content_editable
-
 // config_an_price
 var ans_price = [
     ['num', {}],
@@ -33,15 +30,15 @@ var doc_text = {
             'เอกสาร',
         ],
         ['#vendor_name_label',
-            'Vendor name',
-            'ชื่อผู้ขาย',
+            'Vendor',
+            'ผู้ขาย',
         ],
         ['#vendor_id_label',
-            'Vendor register',
+            'Register',
             'ทะเบียนเลขที่',
         ],
         ['#vendor_address_label',
-            'Vendor address',
+            'Address',
             'ที่อยู่ผู้ขาย',
         ],
         ['#vendor_sign_label',
@@ -53,15 +50,15 @@ var doc_text = {
             'ตำแหน่งผู้ขาย',
         ],
         ['#client_name_label',
-            'Client name',
-            'ชื่อผู้ซื้อ',
+            'Client',
+            'ผู้ซื้อ',
         ],
         ['#client_id_label',
-            'Client register',
+            'Register',
             'ทะเบียนเลขที่',
         ],
         ['#client_address_label',
-            'Client address',
+            'Address',
             'ที่อยู่ผู้ซื้อ',
         ],
         ['#client_sign_label',
@@ -199,7 +196,6 @@ var doc_text = {
 }
 
 document.addEventListener('DOMContentLoaded',function(){
-    startDoc()
     // ---- userDataSet ----
 
     ;['#vendor_name', '#vendor_id', '#vendor_address', '#payment', '#thank_message'].forEach(function(t){
@@ -321,6 +317,23 @@ document.addEventListener('DOMContentLoaded',function(){
     configSetTaxRate('#saletax_rate')
     configSetTaxRate('#incometax_rate')
 
+    document.querySelector('#config_saletax').addEventListener('change',function(e){
+        if (e.target.checked == false) {
+            userData.saletax_rate = 0
+        } else {
+            userData.saletax_rate = parseFloat(document.querySelector('#config_saletax_rate').value)
+        }
+        calculateTotal()
+    })
+    document.querySelector('#config_incometax').addEventListener('change',function(e){
+        if (e.target.checked == false) {
+            userData.incometax_rate = 0
+        } else {
+            userData.incometax_rate = parseFloat(document.querySelector('#config_incometax_rate').value)
+        }
+        calculateTotal()
+    })
+    
     // ---- autoNumeric ----
 
     document.querySelectorAll('[name="qty"]').forEach(function(t){
@@ -358,12 +371,12 @@ document.addEventListener('DOMContentLoaded',function(){
     document.querySelector('#client_name').addEventListener('change', autofillClient)
 })
 
-function startDoc() {
+function docInit(opt) {
     const doc_tbody = document.querySelector('#tbody')
     const doc_tr = document.querySelector('[name="tr"]')
 
-    for (let z = 1; z <= tr_show + tr_hide; z++) {
-        if (z > tr_show ) { doc_tr.setAttribute('style', 'display: none;') }
+    for (let z = 1; z <= opt.tr_show + opt.tr_hide; z++) {
+        if (z > opt.tr_show ) { doc_tr.setAttribute('style', 'display: none;') }
 
         var line = doc_tr.querySelector('[name="line"]')
         var line_attr = 'textContent'
@@ -374,17 +387,38 @@ function startDoc() {
     }
     doc_tr.remove()
 
-    document.querySelectorAll(content_editable).forEach(function(t){
-        if (input_tags.indexOf(t.tagName) >= 0) { return }
+    document.querySelectorAll(opt.content_editable).forEach(function(t){
+        // console.log(t)
         t.setAttribute('contenteditable', 'true')
     })
 
-    document.querySelectorAll('#headlogo_img').forEach(function(t){
+    document.querySelectorAll(opt.logos_img).forEach(function(t){
         t.setAttribute('src', '../source/logo_100x100.png')
     })
+
+    autoNumericInit(ans_price, userData.an_price, an_price_obj, opt.price)
+    autoNumericInit(ans_qty, userData.an_qty, an_qty_obj, opt.qty)
+
+    // ---- config ----
+
+    opt.config_fields.forEach(function(t){
+        configShowHideField(t[0], t[1])
+    })
+    opt.logos_upload.forEach(function(t){
+        document.querySelector(t[0]).addEventListener('change',function(e){
+            configUploadImage(t[1], t[0])
+        })
+    })
+    
 }
 
 // ---- autoNumeric ----
+
+function autoNumericInit(ans_arr, an_str, an_obj, elems_str) {
+    var option = ans_arr.filter(function(t){ return t[0] == an_str })
+        option = option == '' ? ans_arr[0][1] : option[0][1]
+    an_obj = new AutoNumeric.multiple(elems_str, option)
+}
 
 function calculateTotal() {
     const saletax_rate = userData.saletax_rate
@@ -403,6 +437,16 @@ function calculateTotal() {
 }
 
 // ---- config ----
+
+function configShowHideField(cfel_str, target_elem) {
+    document.querySelector(cfel_str).addEventListener('change',function(e){
+        if (e.target.checked == false) {
+            target_elem.setAttribute('style', 'display: none;')
+        } else {
+            target_elem.setAttribute('style', '')
+        }
+    })
+}
 
 function configUploadImage(img, upload) {
     var elemSet = document.querySelector(upload)
@@ -495,7 +539,7 @@ function actionPrint() {
     window.print()
     userDataCreate()
     // userDataSend()
-    window.location.href = '../forms/bulma_inv_tiles.html?' + userDataSend()
+    window.location.href = window.location.href.split('?')[0] + '?' + userDataSend()
 }
 
 // ---- datalist ----

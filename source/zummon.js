@@ -57,6 +57,13 @@ function headerFooterLoad() {
 
 // --------------------------------------------------------------------------------------------------------------------
 
+// var doc = document.querySelector('#doc')
+//             var arr = []
+//             doc.querySelectorAll('[id]').forEach(function(t){
+//                 arr.push('#' + t.id)
+//             })
+
+//             console.log(arr.join(','));
 
 function loadHtmltoElem(elem, html) {
     var xhr = XMLHttpRequest == undefined ? new ActiveXObject('Microsoft.XMLHTTP') : new XMLHttpRequest()

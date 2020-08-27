@@ -9,9 +9,8 @@
 </head>
 <body>
     <div id="header">
-        <div><a id="header_begin">?</a>
-            <span id="header_zummon">zummon webapp</span>
-        </div>
+        <div><a id="header_begin">?</a></div>
+        <div><a id="header_browse">Browse</a></div>
         <div><a id="header_docs">Docs</a></div>
         <div><a id="header_brief">Brief</a></div>
     </div>
@@ -24,6 +23,8 @@
         <div>
             <h2 id="footer_library">Library usage</h2>
             <ul>
+                <li><a id="footer_bootstrap"></a></li>
+                <li><a id="footer_bulma"></a></li>
                 <li><a id="footer_uikit"></a></li>
             </ul>
         </div>
@@ -38,10 +39,11 @@
     </div>
 
     <script>
+        main = 'browse'
         document.addEventListener('DOMContentLoaded',function(){
             const main_elem = document.querySelector('#browse')
-// 'uikit_inv_business'
-            var browse_images = ['bulma_inv_tiles']
+
+            var browse_images = ['bulma_inv_tiles','bootstrap_inv_majors']
             const queryStr = window.location.search
 
             browse_images.forEach(function(t){
