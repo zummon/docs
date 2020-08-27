@@ -1,4 +1,7 @@
 @media print {
+    body {
+        background-color: #fff;
+    }
     #header,
     #action,
     #config,
