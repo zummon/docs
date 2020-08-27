@@ -5,34 +5,50 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>DOCS zummon webapp</title>
-    <link rel="stylesheet" href="../style/bulma09cdn.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <link rel="stylesheet" href="../style/core.css">
     <link rel="stylesheet" href="../style/docs.css">
+    <link rel="stylesheet" href="../style/bulma.css">
     <style>
-        body { min-width: 640px; }
-        .table tfoot th { border-width: 0; }
-        #line_label { width: 1px; }
-        #price_label,
-        #qty_label { width: 90px; }
-        #amount_label { width: 140px; }
-        #vendor_name, 
-        #client_name, 
+        body {
+            min-width: 640px;
+        }
+        #vendor_name,
+        #client_name,
+        #ref,
+        #date,
+        #duedate,
+        #client_sign,
         [name=item] {
             border: none;
             background-color: transparent;
+        }
+        #vendor_name,
+        #client_name,
+        #client_sign,
+        [name=item] {
             width: 100%;
         }
-        [name=item] {
-            font-size: 1em;
-            font-weight: 400;
+        #line_label,
+        #price_label,
+        #qty_label,
+        #amount_label {
+            width: 1px;
+        }
+        #client_sign {
+            resize: vertical;
+        }
+        .table tfoot th {
+            border-top-width: 1px;
         }
     </style>
 </head>
 <body>
     <div id="header">
-        <div><a id="header_begin">?</a></div>
+        <div><a id="header_begin">?</a>
+            <span id="header_zummon">zummon webapp</span>
+        </div>
         <div><a id="header_browse">Browse</a></div>
-        <div><a id="header_docs">Docs</a></div>
         <div><a id="header_brief">Brief</a></div>
     </div>
 
@@ -146,79 +162,55 @@
                 <input id="config_incometax" type="checkbox" checked>
                 <label for="config_incometax" class="checkbox">income tax</label>
             </div>
-            <div class="column is-4">
-                <input id="config_adjust" type="checkbox" checked>
-                <label for="config_adjust" class="checkbox">adjust</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_thank_message" type="checkbox" checked>
-                <label for="config_thank_message" class="checkbox">thank message</label>
-            </div>
         </div>
     </div>
 
 <!--------------------------------------------------------------------------------------------------------------------->
 
     <div id="doc" class="container has-background-white">
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <div class="tile is-child notification is-white has-text-centered">
-                    <img id="headlogo_img" src="">
-                </div>
-                <div class="tile is-child notification is-primary">
-                    <input id="vendor_name" type="text" class="subtitle has-text-weight-bold" value="Your company">
-                    <p id="vendor_id" >Register</p>
-                    <p id="vendor_address" >Address</p>
-                </div>
-            </div>
-        </div>
-    
-        <h1 id="doc_title" class="title is-1 has-text-centered">Invoice</h1>
-    
         <div class="columns is-mobile">
             <div class="column">
-                <input id="ref" type="text" class="input is-small is-rounded has-text-centered">
-                <p id="ref_label" class="label is-small has-text-centered">Inv-no</p>
+                <img id="headlogo_img" src="">
+                <input id="vendor_name" type="text" class="subtitle has-text-weight-bold" value="Your company">
+                <p id="vendor_id">Register</p>
+                <p id="vendor_address">Address</p>
             </div>
             <div class="column">
-                <input id="date" type="date" class="input is-small is-rounded has-text-centered">
-                <p id="date_label" class="label is-small has-text-centered">Inv-date</p>
-            </div>
-            <div class="column">
-                <input id="duedate" type="date" class="input is-small is-rounded has-text-centered">
-                <p id="duedate_label" class="label is-small has-text-centered">Inv-duedate</p>
-            </div>
-        </div>
-    
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <div class="tile is-child notification is-primary">
-                    <span id="client_name_label" class="is-white has-text-weight-semibold">Bill to</span>
-                    <input id="client_name" type="text" class="subtitle has-text-weight-bold" value="Client company">
-                    <p id="client_id" >Register</p>
-                    <p id="client_address" >Address</p>
-                </div>
-                <div class="tile is-child notification is-white">
-                    <div class="field">
-                        <span id="payment_label" class="label is-small">payment</span>
-                        <textarea id="payment" rows="2" class="textarea is-small is-primary"></textarea>
-                    </div>
-                    <div class="field">
-                        <span id="subject_label" class="label is-small">subject</span>
-                        <input id="subject" class="input is-small is-primary">
-                    </div>
+                <div class="has-background-info has-text-white has-text-right">
+                    <h1 id="doc_title" class="title is-1">Invoice</h1>
+                    <p><span id="ref_label">inv-no</span><input id="ref" type="text"></p>
+                    <p><span id="date_label">inv-date</span><input id="date" type="date"></p>
+                    <p><span id="duedate_label">inv-date</span><input id="duedate" type="date"></p>
                 </div>
             </div>
         </div>
-    
+        <div class="columns is-mobile">
+            <div class="column">
+                <div class="field">
+                    <span id="payment_label">payment</span>
+                    <p id="payment" class="has-text-weight-bold">Tell client how to pay</p>
+                </div>
+                <div class="field">
+                    <span id="subject_label">subject</span>
+                    <p id="subject" class="has-text-weight-bold">Fill the project name</p>
+                </div>
+            </div>
+            <div class="column">
+                <span id="client_name_label" class="is-white has-text-weight-semibold">Bill to</span>
+                <input id="client_name" type="text" class="subtitle has-text-weight-bold" value="Client company">
+                <p id="client_id" >Register</p>
+                <p id="client_address" >Address</p>
+            </div>
+        </div>
+
         <table class="table is-fullwidth is-hoverable">
             <thead>
                 <tr>
-                    <th id="line_label">line</th>
-                    <th id="item_label">item</th>
-                    <th id="price_label" class="is-primary">price</th>
-                    <th id="qty_label" class="is-primary">qty</th>
-                    <th id="amount_label" class="is-primary">amount</th>
+                    <th id="line_label" class="is-info">line</th>
+                    <th id="item_label" class="is-info">item</th>
+                    <th id="price_label" class="is-info">price</th>
+                    <th id="qty_label" class="is-info">qty</th>
+                    <th id="amount_label" class="is-info">amount</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -232,60 +224,51 @@
             </tbody>
             <tfoot>
                 <tr>
-                    <th colspan="2" rowspan="4" style="padding-left: 3rem; padding-right: 1.5rem;">
-                        <div class="field">
-                            <span id="note_label" class="label is-small">note</span>
-                            <textarea id="note" rows="2" class="textarea is-small is-primary"></textarea>
-                        </div>
-                        <div class="field">
-                            <span id="client_sign_label" class="label is-small">client_sign</span>
-                            <textarea id="client_sign" rows="2" class="textarea is-small is-primary"></textarea>
-                            <input id="client_rank" type="text" class="input is-small">
-                        </div>
+                    <th colspan="2" rowspan="5">
+                        <span id="note_label">note</span>
+                        <p id="note" class="has-text-weight-normal">Tell client more information</p>
                     </th>
-                    <th id="total_label" colspan="2" class="is-primary">total</th>
-                    <th id="total" class="is-primary has-text-right"></th>
+                    <th id="total_label" colspan="2" class="">subtotal</th>
+                    <th id="total" class="has-text-right"></th>
                 </tr>
                 <tr>
-                    <th colspan="2" class="is-light">
+                    <th colspan="2" class="">
                         <span id="saletax_label">saletax</span>
-                        <span id="saletax_rate" class="tag is-primary">7%</span>
+                        <span id="saletax_rate" class="tag is-info">7%</span>
                     </th>
-                    <th id="saletax" class="is-light has-text-right"></th>
+                    <th id="saletax" class=" has-text-right"></th>
                 </tr>
                 <tr>
-                    <th colspan="2" class="is-light">
+                    <th colspan="2" class="">
                         <span id="incometax_label">incometax</span>
-                        <span id="incometax_rate" class="tag is-primary">3%</span>
+                        <span id="incometax_rate" class="tag is-info">3%</span>
                     </th>
-                    <th id="incometax" class="is-light has-text-right"></th>
+                    <th id="incometax" class=" has-text-right"></th>
                 </tr>
                 <tr>
-                    <th id="adjust_label" colspan="2" class="is-light">adjust</th>
-                    <th id="adjust" class="is-light has-text-right"></th>
+                    <th id="adjust_label" colspan="2" class="">adjust</th>
+                    <th id="adjust" class=" has-text-right"></th>
+                </tr>
+                <tr>
+                    <th id="finaltotal_label" colspan="2" class="is-info">Total</th>
+                    <th id="finaltotal" class="is-info has-text-right"></th>
                 </tr>
             </tfoot>
         </table>
-    
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <div class="tile is-child notification is-white">
-                    <h4 id="thank_message" class="title is-4 has-text-right">Thank you</h4>
-                </div>
-                <div class="tile is-child notification is-primary">
-                    <div class="level is-mobile">
-                        <div class="level-left has-text-left">
-                            <p id="finaltotal_label" class="subtitle has-text-weight-semibold">Total</p>
-                        </div>
-                        <div class="level-right has-text-right">
-                            <p id="finaltotal" class="title"></p>
-                        </div>
-                    </div>
-                </div>
+
+        <div class="columns is-mobile">
+            <div class="column">
+                <h4 id="thank_message" class="title is-4 has-text-centered">Thank you</h4>
+            </div>
+            <div class="column">
+                <span id="client_sign_label">client_sign</span>
+                <textarea id="client_sign" rows="2" class=""></textarea>
+                <p id="client_rank" class=""></p>
             </div>
         </div>
-    </div>
 
+    </div>
+    
 <!--------------------------------------------------------------------------------------------------------------------->
     
     <datalist id="client_list"></datalist>
@@ -309,39 +292,80 @@
         </div>
     </div>
 
+    <script src="../source/core.js"></script>
+    <script src="../source/browse_docs.js"></script>
+    <script src="../source/brief_docs.js"></script>
+    <script src="../source/docs.js"></script>
+    <script src="../source/docs_inv.js"></script>
     <script>
         
+        tr_show = 4
+        tr_hide = 16
+        content_editable = `
+            #vendor_name
+            ,#vendor_id
+            ,#vendor_address
+            ,#doc_title
+            ,#ref
+            ,#ref_label
+            ,#date
+            ,#date_label
+            ,#duedate
+            ,#duedate_label
+            ,#client_name_label
+            ,#client_name
+            ,#client_id
+            ,#client_address
+            ,#payment_label
+            ,#payment
+            ,#subject_label
+            ,#subject
+            ,#line_label
+            ,#item_label
+            ,#price_label
+            ,#qty_label
+            ,#amount_label
+            ,[name="line"]
+            ,[name="item"]
+            ,[name="price"]
+            ,[name="qty"]
+            ,[name="amount"]
+            ,#note_label
+            ,#note
+            ,#client_sign_label
+            ,#client_sign
+            ,#client_rank
+            ,#total_label
+            ,#total
+            ,#saletax_label
+            ,#saletax_rate
+            ,#saletax
+            ,#incometax_label
+            ,#incometax_rate
+            ,#incometax
+            ,#adjust_label
+            ,#adjust
+            ,#thank_message
+            ,#finaltotal_label
+            ,#finaltotal
+        `
         // #headlogo_img
         // #tbody
         // [name="tr"]
 
         document.addEventListener('DOMContentLoaded',function(){
+
+            // ---- autoNumeric ----
             
-            docInit({
-                tr_show: 4, 
-                tr_hide: 16, 
-                content_editable: '#vendor_id,#vendor_address,#doc_title,#ref_label,#date_label,#duedate_label,#client_name_label,#client_id,#client_address,#payment_label,#subject_label,#line_label,#item_label,#price_label,#qty_label,#amount_label,#note_label,#client_sign_label,#total_label,#total,#saletax_label,#saletax_rate,#saletax,#incometax_label,#incometax_rate,#incometax,#adjust_label,#adjust,#thank_message,#finaltotal_label,#finaltotal,[name=line],[name=price],[name=qty],[name=amount]',
-                logos_img: '#headlogo_img, #footlogo_img',
-                price: '[name=price],[name=amount],#total,#saletax,#incometax,#adjust,#finaltotal',
-                qty: '[name="qty"]',
-                config_fields: [
-                    ['#config_headlogo_img', document.querySelector('#headlogo_img')],
-                    ['#config_vendor_id', document.querySelector('#vendor_id')],
-                    ['#config_client_id', document.querySelector('#client_id')],
-                    ['#config_thank_message', document.querySelector('#thank_message')],
-                    ['#config_subject', document.querySelector('#subject').parentElement],
-                    ['#config_duedate', document.querySelector('#duedate').parentElement],
-                    ['#config_payment', document.querySelector('#payment').parentElement],
-                    ['#config_note', document.querySelector('#note').parentElement],
-                    ['#config_client_sign', document.querySelector('#client_sign').parentElement],
-                    ['#config_adjust', document.querySelector('#adjust').parentElement],
-                    ['#config_saletax', document.querySelector('#saletax').parentElement],
-                    ['#config_incometax', document.querySelector('#incometax').parentElement],
-                ],
-                logos_upload: [
-                    ['#config_headlogo', '#headlogo_img'],
-                ],
-            })
+            var option = ans_price.filter(function(t){ return t[0] == userData.an_price })
+                option = option == '' ? ans_price[0][1] : option[0][1]
+
+an_price_obj = new AutoNumeric.multiple('[name="price"],[name="amount"],#total,#saletax,#incometax,#adjust,#finaltotal', option)
+
+            var option = ans_qty.filter(function(t){ return t[0] == userData.an_qty })
+                option = option == '' ? ans_qty[0][1] : option[0][1]
+
+an_qty_obj = new AutoNumeric.multiple('[name="qty"]', option)
 
             // ---- config ----
 
@@ -371,19 +395,50 @@
                 })
             })
 
+            document.querySelector('#config_headlogo').addEventListener('change',function(e){
+                const applyto = e.target.id
+                configUploadImage('#' + applyto.slice(7) + '_img', '#' + applyto)
+            })
+
+            document.querySelectorAll('#config_headlogo_img, #config_vendor_id, #config_client_id').forEach(function(t){
+                t.addEventListener('change',function(e){
+                    const elem = document.querySelector('#' + e.target.id.slice(7))
+                    if (e.target.checked) {
+                        elem.setAttribute('style', '')
+                    } else {
+                        elem.setAttribute('style', 'display: none;')
+                    }
+                })
+            })
+document.querySelectorAll('#config_duedate, #config_payment, #config_subject, #config_note, #config_client_sign, #config_saletax, #config_incometax').forEach(function(t){
+    t.addEventListener('change',function(e){
+        const applyto = e.target.id.slice(7)
+        const elem = document.querySelector('#' + applyto).parentElement
+        if (e.target.checked) {
+            elem.setAttribute('style', '')
+            if (['saletax','incometax'].indexOf(applyto) >= 0) {
+                calculateTotal()
+            }
+        } else {
+            elem.setAttribute('style', 'display: none;')
+            if (['saletax','incometax'].indexOf(applyto) >= 0) {
+                userData[applyto + '_rate'] = 0
+                calculateTotal()
+            }
+        }
+    })
+})
+
             // untitled
             // invoice
             // quotation
             // receipt
             // taxinvoice
 
+
         })
         
+        
     </script>
-    <script src="../source/core.js"></script>
-    <script src="../source/browse_docs.js"></script>
-    <script src="../source/brief_docs.js"></script>
-    <script src="../source/docs.js"></script>
-    <script src="../source/docs_inv.js"></script>
 </body>
 </html>
