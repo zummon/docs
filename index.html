@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOCS zummon webapp</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css">
+    <link rel="stylesheet" href="style/uikit35cdn.css">
     <link rel="stylesheet" href="style/core.css">
 </head>
 <body>
     <div id="header">
-        <div><a id="header_begin">?</a></div>
-        <div><a id="header_browse">Browse</a></div>
-        <div><a id="header_docs">Docs</a></div>
-        <div><a id="header_brief">Brief</a></div>
+        <div><a>How to*</a></div>
+        <div><a id="header_browse"></a></div>
+        <div><a id="header_docs"></a></div>
+        <div><a id="header_brief"></a></div>
     </div>
 
     <div class="uk-container uk-background-muted">
@@ -68,14 +68,15 @@
         </div>
     </div>
     
-    <script src="source/core.js"></script>
     <script>
-        main = 'begin'
         document.addEventListener('DOMContentLoaded',function(){
             const queryStr = window.location.search
             document.querySelector('#header_browse').href = 'source/browse.html' + queryStr
+            document.querySelector('#header_docs').href = 'forms/bootstrap_inv_majors.html' + queryStr
+            document.querySelector('#header_brief').href = 'source/brief.html' + queryStr
         })
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js"></script>
+    <script src="source/core.js"></script>
+    <script src="script/uikit35cdn.js"></script>
 </body>
 </html>
