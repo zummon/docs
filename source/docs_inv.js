@@ -106,7 +106,7 @@ var doc_text = {
             'ราคา',
         ],
         ['#qty_label',
-            'Quantity',
+            'Qty',
             'จำนวน',
         ],
         ['#amount_label',
@@ -393,7 +393,7 @@ function docInit(opt) {
     })
 
     document.querySelectorAll(opt.logos_img).forEach(function(t){
-        t.setAttribute('src', '../source/logo_100x100.png')
+        t.setAttribute('src', '../images/logo_100x100.png')
     })
 
     autoNumericInit(ans_price, userData.an_price, an_price_obj, opt.price)
@@ -409,7 +409,7 @@ function docInit(opt) {
             configUploadImage(t[1], t[0])
         })
     })
-    
+
 }
 
 // ---- autoNumeric ----
@@ -454,7 +454,7 @@ function configUploadImage(img, upload) {
     if (elemSet.files.length > 0) {
         elemImg.setAttribute('src', window.URL.createObjectURL(elemSet.files[0]))
     } else {
-        elemImg.setAttribute('src', '../source/logo_100x100.png')
+        elemImg.setAttribute('src', '../images/logo_100x100.png')
     }
 }
 function configSetTaxRate(label) {

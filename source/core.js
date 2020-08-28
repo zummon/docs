@@ -5,36 +5,26 @@
 // https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
 // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 
-var main
-
 document.addEventListener('DOMContentLoaded',function(){
     const queryStr = window.location.search
-    ;[
-        ['begin', '#header_begin', '../index.html' + queryStr,
+    const header = [
+        ['#header_begin', '../index.html' + queryStr,
             'How to*'
         ],
-        ['browse', '#header_browse', '../source/browse.html' + queryStr,
+        ['#header_browse', '../source/browse.html' + queryStr,
             'Templates'
         ],
-        ['docs', '#header_docs', '../forms/bulma_inv_tiles.html' + queryStr,
+        ['#header_docs', '../forms/bulma_inv_tiles.html' + queryStr,
             'Create'
         ],
-        ['brief', '#header_brief', '../source/brief.html' + queryStr,
+        ['#header_brief', '../source/brief.html' + queryStr,
             'Data*'
         ],
-    ].forEach(function(t){
-        var elem = document.querySelector(t[1])
-        // if (elem == null) { return }
-        elem.textContent = t[3]
-        if (main == t[0]) { return }
-        elem.href = t[2]
-    })
-
-    ;[
+    ]
+    const footer = [
             ['#footer_library', false,
                 'Library usage',
             ],
-
         ['#footer_github', 'https://github.com/zummon',
             'zummon (Github)',
         ],
@@ -48,7 +38,6 @@ document.addEventListener('DOMContentLoaded',function(){
             ['#footer_madeby', false,
                 'Made by',
             ],
-
         ['#footer_uikit', 'https://getuikit.com',
             'UIkit',
         ],
@@ -61,7 +50,15 @@ document.addEventListener('DOMContentLoaded',function(){
         ['#footer_bootstrap', 'https://getbootstrap.com/',
             'Bootstrap',
         ],
-    ].forEach(function(t){
+    ]
+
+    header.forEach(function(t){
+        var elem = document.querySelector(t[0])
+        if (elem == null) { return }
+        elem.textContent = t[2]
+        elem.href = t[1]
+    })
+    footer.forEach(function(t){
         var elem = document.querySelector(t[0])
         if (elem == null) { return }
         elem.textContent = t[2]
