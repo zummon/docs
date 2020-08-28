@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="../style/core.css">
     <link rel="stylesheet" href="../style/docs.css">
     <style>
-        body { min-width: 640px; }
         .table tfoot th { border-width: 0; }
         #line_label { width: 1px; }
         #price_label,
@@ -30,12 +29,11 @@
 </head>
 <body>
     <div id="header">
-        <div><a id="header_begin">?</a></div>
-        <div><a id="header_browse">Browse</a></div>
-        <div><a id="header_docs">Docs</a></div>
-        <div><a id="header_brief">Brief</a></div>
+        <div><a id="header_begin"></a></div>
+        <div><a id="header_browse"></a></div>
+        <div><a>Create</a></div>
+        <div><a id="header_brief"></a></div>
     </div>
-
     <div id="action" class="container">
         <div class="tabs is-fullwidth is-medium has-background-white has-text-weight-semibold">
             <ul>
@@ -59,48 +57,35 @@
             </div>
             <div class="column is-4">
                 <label for="config_lang" class="label">language</label>
-                <div class="select">
-                    <select id="config_lang"></select>
-                </div>
+                <div class="select is-fullwidth"><select id="config_lang"></select></div>
             </div>
             <div class="column is-4">
                 <label for="config_doc_title" class="label">title*</label>
-                <div class="select">
-                    <select id="config_doc_title"></select>
-                </div>
+                <div class="select is-fullwidth"><select id="config_doc_title"></select></div>
             </div>
             <div class="column is-4">
                 <label for="config_an_price" class="label">price</label>
-                <div class="select">
-                    <select id="config_an_price"></select>
-                </div>
+                <div class="select is-fullwidth"><select id="config_an_price"></select></div>
             </div>
             <div class="column is-4">
                 <label for="config_an_qty" class="label">qty</label>
-                <div class="select">
-                    <select id="config_an_qty"></select>
-                </div>
+                <div class="select is-fullwidth"><select id="config_an_qty"></select></div>
             </div>
             <div class="column is-4">
                 <label for="config_date_type" class="label">date type</label>
-                <div class="select">
-                    <select id="config_date_type"></select>
-                </div>
+                <div class="select is-fullwidth"><select id="config_date_type"></select></div>
             </div>
             <div class="column is-4">
                 <label for="config_color" class="label">color</label>
-                <div class="select">
-                    <select id="config_color"></select>
-                </div>
+                <div class="select is-fullwidth"><select id="config_color"></select></div>
             </div>
             <div class="column is-4">
-                <label for="config_headlogo" class="label">Logo</label>
-                <div class="file is-white">
+                <label for="config_headlogo" class="label">logo</label>
+                <div class="file has-name is-fullwidth is-right">
                     <label class="file-label">
                         <input id="config_headlogo" class="file-input" type="file">
-                        <span class="file-cta">
-                            <span class="file-label">Upload</span>
-                        </span>
+                        <span class="file-cta"><span class="file-label">Browse</span></span>
+                        <span class="file-name has-background-white">Image</span>
                     </label>
                 </div>
             </div>
@@ -111,16 +96,16 @@
                 <label for="config_headlogo_img" class="checkbox">head logo</label>
             </div>
             <div class="column is-4">
-                <input id="config_duedate" type="checkbox" checked>
-                <label for="config_duedate" class="checkbox">due date</label>
-            </div>
-            <div class="column is-4">
                 <input id="config_vendor_id" type="checkbox" checked>
                 <label for="config_vendor_id" class="checkbox">vendor register</label>
             </div>
             <div class="column is-4">
                 <input id="config_client_id" type="checkbox" checked>
                 <label for="config_client_id" class="checkbox">client register</label>
+            </div>
+            <div class="column is-4">
+                <input id="config_duedate" type="checkbox" checked>
+                <label for="config_duedate" class="checkbox">due date</label>
             </div>
             <div class="column is-4">
                 <input id="config_payment" type="checkbox" checked>
@@ -172,9 +157,7 @@
                 </div>
             </div>
         </div>
-    
         <h1 id="doc_title" class="title is-1 has-text-centered">Invoice</h1>
-    
         <div class="columns is-mobile">
             <div class="column">
                 <input id="ref" type="text" class="input is-small is-rounded has-text-centered">
@@ -189,7 +172,6 @@
                 <p id="duedate_label" class="label is-small has-text-centered">Inv-duedate</p>
             </div>
         </div>
-    
         <div class="tile is-ancestor">
             <div class="tile is-parent">
                 <div class="tile is-child notification is-primary">
@@ -210,7 +192,6 @@
                 </div>
             </div>
         </div>
-    
         <table class="table is-fullwidth is-hoverable">
             <thead>
                 <tr>
@@ -225,8 +206,8 @@
                 <tr name="tr">
                     <td name="line"></td>
                     <td><input name="item" type="text"></td>
-                    <td name="price" class="has-text-centered"></td>
-                    <td name="qty" class="has-text-centered"></td>
+                    <td name="price" class="has-text-right"></td>
+                    <td name="qty" class="has-text-right"></td>
                     <td name="amount" class="has-text-right"></td>
                 </tr>
             </tbody>
@@ -266,7 +247,6 @@
                 </tr>
             </tfoot>
         </table>
-    
         <div class="tile is-ancestor">
             <div class="tile is-parent">
                 <div class="tile is-child notification is-white">
@@ -310,18 +290,12 @@
     </div>
 
     <script>
-        
-        // #headlogo_img
-        // #tbody
-        // [name="tr"]
-
         document.addEventListener('DOMContentLoaded',function(){
-            
             docInit({
                 tr_show: 4, 
                 tr_hide: 16, 
                 content_editable: '#vendor_id,#vendor_address,#doc_title,#ref_label,#date_label,#duedate_label,#client_name_label,#client_id,#client_address,#payment_label,#subject_label,#line_label,#item_label,#price_label,#qty_label,#amount_label,#note_label,#client_sign_label,#total_label,#total,#saletax_label,#saletax_rate,#saletax,#incometax_label,#incometax_rate,#incometax,#adjust_label,#adjust,#thank_message,#finaltotal_label,#finaltotal,[name=line],[name=price],[name=qty],[name=amount]',
-                logos_img: '#headlogo_img, #footlogo_img',
+                logos_img: '#headlogo_img',
                 price: '[name=price],[name=amount],#total,#saletax,#incometax,#adjust,#finaltotal',
                 qty: '[name="qty"]',
                 config_fields: [
@@ -378,7 +352,6 @@
             // taxinvoice
 
         })
-        
     </script>
     <script src="../source/core.js"></script>
     <script src="../source/browse_docs.js"></script>

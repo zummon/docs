@@ -1,166 +1,88 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DOCS zummon webapp</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/css/uikit.min.css">
+    <link rel="stylesheet" href="../style/uikit35cdn.css">
+    <link rel="stylesheet" href="../style/core.css">
+    <link rel="stylesheet" href="../style/docs.css">
     <style>
-        textarea {
-            resize: vertical;
-        }
         #vendor_name,
-        #client_name {
-            width: 100%;
-        }
+        #client_name { width: 100%; }
         #line_label,
         #item_label,
         #price_label,
         #qty_label,
-        #amount_label {
-            color: #fff;
-        }
-        [name="item"] {
-            height: 30px;
-        }
+        #amount_label { color: #fff; }
+        [name="item"] { height: 30px; }
     </style>
 </head>
-<body class="uk-background-secondary">
-    
-    <div class="uk-container uk-background-muted">
-        <div id="config_doc_act" style="display: flex;">
+<body>
+    <div id="header">
+        <div><a id="header_begin"></a></div>
+        <div><a id="header_browse"></a></div>
+        <div><a>Create</a></div>
+        <div><a id="header_brief"></a></div>
+    </div>
+    <div id="action" class="uk-container uk-background-default">
+        <ul class="uk-child-width-expand uk-text-large uk-text-bold" uk-tab>
+            <li><a id="action_clear">Clear*</a></li>
+            <li><a id="action_pop">Pop</a></li>
+            <li><a id="action_config">Config</a></li>
+            <li><a id="action_add">Add</a></li>
+            <li><a id="action_print">Print</a></li>
+        </ul>
+    </div>
+    <div id="config" class="uk-container uk-background-muted">
+        <div class="uk-child-width-1-3" uk-grid>
             <div>
-                <abbr id="config_doc_act_clear" title="Clear input fields">&#10008;</abbr>
+                <label for="config_saletax_rate" class="uk-form-label">sales tax</label>
+                <input id="config_saletax_rate" class="uk-input" type="number" step="0.01">
             </div>
             <div>
-                <abbr id="config_doc_act_pop" title="Remove line">-</abbr>
+                <label for="config_incometax_rate" class="uk-form-label">income tax</label>
+                <input id="config_incometax_rate" class="uk-input" type="number" step="0.01">
             </div>
             <div>
-                <abbr id="config_doc_act_set" title="Show/hide">?</abbr>
+                <label for="config_lang" class="uk-form-label">language</label>
+                <select id="config_lang" class="uk-select"></select>
             </div>
             <div>
-                <abbr id="config_doc_act_add" title="Add line">+</abbr>
+                <label for="config_doc_title" class="uk-form-label">title*</label>
+                <select id="config_doc_title" class="uk-select"></select>
             </div>
             <div>
-                <abbr id="config_doc_act_print" title="Print">&#10004;</abbr>
+                <label for="config_an_price" class="uk-form-label">price</label>
+                <select id="config_an_price" class="uk-select"></select>
             </div>
-        </div><!-- act -->
-
-        <div id="config">
-            <div class="uk-child-width-1-3@s uk-child-width-1-5@l uk-grid-small uk-margin-top uk-margin-bottom" uk-grid>
-                <div>
-                    <label class="uk-form-label"></label>
-                    <div for="config_doc_set_lang">Lang</div>
-                    <select id="config_doc_set_lang" class="uk-select"></select>
-                </div>
-                <div>
-                    <div for="config_doc_set_title">Title</div>
-                    <select id="config_doc_set_title"></select>
-                </div>
-                <div>
-                    <div for="config_doc_set_saletax_rate">Sales tax rate</div>
-                    <input id="config_doc_set_saletax_rate" type="number" step="0.01">
-                </div>
-                <div>
-                    <div for="config_doc_set_incometax_rate">Income tax rate</div>
-                    <input id="config_doc_set_incometax_rate" type="number" step="0.01">
-                </div>
-                <div>
-                    <div for="config_doc_set_date_type">Date type</div>
-                    <select id="config_doc_set_date_type">
-                        <option value="date">default</option>
-                        <option value="text">manual</option>
-                    </select>
-                </div>
-                <div>
-                    <div for="config_doc_set_an_price">Currency</div>
-                    <select id="config_doc_set_an_price"></select>
-                </div>
-                <div>
-                    <div for="config_doc_set_an_qty">Qty</div>
-                    <select id="config_doc_set_an_qty"></select>
-                </div>
-                <div class="uk-margin-top">
-                    <div uk-form-custom="target: true">
-                        <input id="config_insert_headlogo_img" type="file">
-                        <input class="uk-input uk-form-width-medium" type="text" placeholder="Select head logo" disabled>
-                    </div>
+            <div>
+                <label for="config_an_qty" class="uk-form-label">qty</label>
+                <select id="config_an_qty" class="uk-select"></select>
+            </div>
+            <div>
+                <label for="config_date_type" class="uk-form-label">date type</label>
+                <select id="config_date_type" class="uk-select"></select>
+            </div>
+            <div>
+                <label for="config_color" class="uk-form-label">color*</label>
+                <select id="config_color" class="uk-select"></select>
+            </div>
+            <div>
+                <label for="config_headlogo" class="uk-form-label">Head logo</label>
+                <div uk-form-custom>
+                    <input id="config_headlogo" type="file">
+                    <button type="button" class="uk-button">Browse</button>
                 </div>
             </div>
-
-            <div class="uk-child-width-1-3@s uk-child-width-1-5@l uk-grid-small uk-margin-top uk-margin-bottom" uk-grid>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_headlogo_img" class="uk-checkbox" type="checkbox" checked>
-                        <span>Head logo</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_vendor_id" class="uk-checkbox" type="checkbox" checked>
-                        <span>Vendor register</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_client_id" class="uk-checkbox" type="checkbox" checked>
-                        <span>Client register</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_duedate" class="uk-checkbox" type="checkbox" checked>
-                        <span>Due Date</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_subject" class="uk-checkbox" type="checkbox" checked>
-                        <span>Project (subject)</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_fields_price" class="uk-checkbox" type="checkbox" checked>
-                        <span>Column Unit Price</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_fields_qty" class="uk-checkbox" type="checkbox" checked>
-                        <span>Column Qty</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_fields_client_sign" class="uk-checkbox" type="checkbox" checked>
-                        <span>Client signature fields</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_saletax" class="uk-checkbox" type="checkbox" checked>
-                        <span>Sales tax</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_incometax" class="uk-checkbox" type="checkbox" checked>
-                        <span>Income tax</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_adjust" class="uk-checkbox" type="checkbox" checked>
-                        <span>Adjust</span>
-                    </label>
-                </div>
-                <div class="uk-text-truncate">
-                    <label>
-                        <input id="config_field_finaltotal" class="uk-checkbox" type="checkbox" checked>
-                        <span>Final total</span>
-                    </label>
-                </div>
+        </div>
+        <div class="uk-child-width-1-3" uk-grid>
+            <div>
+                <label>
+                    <input id="config_headlogo_img" class="uk-checkbox" type="checkbox" checked>
+                    <span>Vendor register</span>
+                </label>
             </div>
         </div>
     </div>
@@ -189,7 +111,6 @@
                     <input id="date" class="uk-form-blank uk-form-width-small" type="date" value="2020-08-17">
                 </div>
             </div>
-
             <div>
                 <span id="client_name_label" class="uk-text-bold">Invoice to</span>
                 <input id="client_name" class="uk-text-lead uk-form-blank" value="Client Company">
@@ -202,11 +123,10 @@
                     <input id="duedate" class="uk-input uk-form-small" type="date" value="2020-09-17">
 
                     <span id="payment_label">Payment</span>
-                    <textarea id="payment" class="uk-textarea uk-form-small"></textarea>
+                    <textarea id="payment" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
                 </div>
             </div>
         </div>
-
         <div class="uk-flex uk-flex-bottom uk-flex-between">
             <div>
                 <span id="subject_label" class="uk-text-bold">Project</span> 
@@ -217,7 +137,6 @@
                 <span id="finaltotal" class="uk-heading-small uk-text-primary"></span>
             </div>
         </div>
-
         <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-hover">
             <thead class="uk-background-primary uk-text-bold">
                 <tr>
@@ -242,7 +161,7 @@
                     <td colspan="2" rowspan="5">
                         <div class="uk-tile uk-tile-muted">
                             <span id="client_sign_label">Client Signature</span>
-                            <textarea id="client_sign" class="uk-textarea uk-form-small"></textarea>
+                            <textarea id="client_sign" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
                             <input id="client_rank" class="uk-input uk-form-small">
                         </div>
                     </td>
@@ -269,11 +188,10 @@
                 </tr>
             </tfoot>
         </table>
-
         <div class="uk-flex uk-flex-bottom uk-margin-bottom">
             <div class="uk-flex-1">
                 <span id="note_label" class="uk-text-bold">Note</span>
-                <textarea id="note" class="uk-textarea uk-form-blank"></textarea>
+                <textarea id="note" class="uk-textarea uk-form-blank uk-resize-vertical"></textarea>
             </div>
             <div>
                 <span id="thank_message" class="uk-text-large uk-text-bold uk-text-primary">Thank you</span>
@@ -281,98 +199,66 @@
         </div>
     </div>
 
+<!--------------------------------------------------------------------------------------------------------------------->
+        
+    <datalist id="client_list"></datalist>
+    <datalist id="item_list"></datalist>
+
+    <div id="footer">
+        <div>
+            <h2 id="footer_library">Library usage</h2>
+            <ul>
+                <li><a id="footer_autonumeric"></a></li>
+                <li><a id="footer_uikit"></a></li>
+            </ul>
+        </div>
+        <div>
+            <h2 id="footer_madeby">Made by</h2>
+            <ul>
+                <li><a id="footer_github">zummon (Github)</a></li>
+                <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
+                <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
+            </ul>
+        </div>
+    </div>
+
     <script>
-        (function(){
-            form_tr_show = 4
-            form_tr_hide = 16
-
-            document.querySelector('#config_insert_headlogo_img').addEventListener('change',function(){
-                configUploadImage('#headlogo_img', '#config_insert_headlogo_img')
+        document.addEventListener('DOMContentLoaded',function(){
+            docInit({
+                tr_show: 4,
+                tr_hide: 16,
+                content_editable: '#vendor_id,#vendor_address,#doc_title,#ref_label,#date_label,#client_name_label,#client_id,#client_address,#duedate_label,#payment_label,#subject_label,#subject,#finaltotal_label,#finaltotal,#line_label,#item_label,#price_label,#qty_label,#amount_label,#client_sign_label,#total_label,#total,#saletax_label,#saletax_rate,#saletax,#incometax_label,#incometax_rate,#incometax,#adjust_label,#adjust,#note_label,#thank_message,[name=line],[name=price],[name=qty],[name=amount]',
+                logos_img: '#headlogo_img, #footlogo_img',
+                price: '[name=price],[name=amount],#total,#saletax,#incometax,#adjust,#finaltotal',
+                qty: '[name="qty"]',
+                config_fields: [
+                    ['#config_headlogo_img', document.querySelector('#headlogo_img')],
+                    // ['#config_vendor_id', document.querySelector('#vendor_id')],
+                    // ['#config_client_id', document.querySelector('#client_id')],
+                    // ['#config_thank_message', document.querySelector('#thank_message')],
+                    // ['#config_footlogo_img', document.querySelector('#footlogo_img')],
+                    // ['#config_subject', document.querySelector('#subject').parentElement],
+                    // ['#config_duedate', document.querySelector('#duedate_label').parentElement],
+                    // ['#config_payment', document.querySelector('#payment').parentElement],
+                    // ['#config_note', document.querySelector('#note').parentElement],
+                    // ['#config_client_sign', document.querySelector('#client_sign_label').parentElement],
+                    // ['#config_adjust', document.querySelector('#adjust_label').parentElement],
+                    // ['#config_saletax', document.querySelector('#saletax').parentElement.parentElement],
+                    // ['#config_incometax', document.querySelector('#incometax').parentElement.parentElement],
+                    // ['#config_vendor_sign', document.querySelector('#vendor_sign_label')],
+                    // ['#config_vendor_sign', document.querySelector('#vendor_sign').parentElement],
+                ],
+                logos_upload: [
+                    ['#config_headlogo', '#headlogo_img'],
+                ],
             })
-            document.querySelector('#config_field_headlogo_img').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#headlogo_img'), e.target.checked)
-            })
-            document.querySelector('#config_field_vendor_id').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#vendor_id'), e.target.checked)
-            })
-            document.querySelector('#config_field_client_id').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#client_id'), e.target.checked)
-            })
-            document.querySelector('#config_field_duedate').addEventListener('change',function(e){
-                configShowHideFields(document.querySelectorAll('#duedate, #duedate_label'), e.target.checked)
-            })
-            document.querySelector('#config_field_subject').addEventListener('change',function(e){
-                configShowHideFields(document.querySelectorAll('#subject, #subject_label'), e.target.checked)
-            })
-            document.querySelector('#config_fields_client_sign').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#client_sign').parentElement, e.target.checked)
-            })
-            document.querySelector('#config_field_saletax').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#saletax').parentElement, e.target.checked)
-            })
-            document.querySelector('#config_field_incometax').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#incometax').parentElement, e.target.checked)
-            })
-            document.querySelector('#config_field_adjust').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#adjust').parentElement, e.target.checked)
-            })
-            document.querySelector('#config_field_finaltotal').addEventListener('change',function(e){
-                configShowHideFields(document.querySelector('#finaltotal').parentElement, e.target.checked)
-            })
-
-        })()
-
-        // headlogo_img
-        // vendor_name
-        // vendor_id
-        // vendor_address
-        // doc_title
-        // ref_label
-        // ref
-        // date_label
-        // date
-        // client_name_label
-        // client_name
-        // client_id
-        // client_address
-        // duedate_label
-        // duedate
-        // payment_label
-        // payment
-        // subject_label
-        // subject
-        // line_label
-        // item_label
-        // price_label
-        // qty_label
-        // amount_label
-        // line
-        // item
-        // price
-        // qty
-        // amount
-        // client_sign_label
-        // client_sign
-        // client_rank
-        // total_label
-        // total
-        // saletax_label
-        // saletax_rate
-        // saletax
-        // incometax_label
-        // incometax_rate
-        // incometax
-        // adjust_label
-        // adjust
-        // finaltotal_label
-        // finaltotal
-        // note_label
-        // note
-        // thank_message
+        })
     </script>
     <script src="../source/core.js"></script>
+    <script src="../source/browse_docs.js"></script>
+    <script src="../source/brief_docs.js"></script>
     <script src="../source/docs.js"></script>
     <script src="../source/docs_inv.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.6/dist/js/uikit.min.js"></script>
+    <script src="../script/uikit35cdn.js"></script>
 </body>
 </html>
