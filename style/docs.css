@@ -9,3 +9,6 @@
         display: none;
     }
 }
+body {
+    min-width: 640px;
+}
