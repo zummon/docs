@@ -1,362 +1,331 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>DOCS zummon webapp</title>
-    <link rel="stylesheet" href="../style/bulma09cdn.css">
-    <link rel="stylesheet" href="../style/core.css">
-    <link rel="stylesheet" href="../style/docs.css">
-    <style>
-        .table tfoot th { border-width: 0; }
-        #line_label { width: 1px; }
-        #price_label,
-        #qty_label { width: 90px; }
-        #amount_label { width: 140px; }
-        #vendor_name, 
-        #client_name, 
-        [name=item] {
-            border: none;
-            background-color: transparent;
-            width: 100%;
-        }
-        [name=item] {
-            font-size: 1em;
-            font-weight: 400;
-        }
-    </style>
+  <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DOCS zummon webapp</title>
+  <link rel="stylesheet" href="../style/bulma09cdn.css">
+  <link rel="stylesheet" href="../style/core.css">
+  <link rel="stylesheet" href="../style/docs.css">
+  <link rel="stylesheet" href="../style/docs_inv.css">
+  <style>
+    .table tfoot th { border-width: 0; }
+    #line_label { width: 1px; }
+    #price_label,
+    #qty_label { width: 90px; }
+    #amount_label { width: 140px; }
+    #vendor_name,
+    #client_name,
+    [name=item] {
+      border: none;
+      background-color: transparent;
+      width: 100%;
+    }
+    [name=item] {
+      font-size: 1em;
+      font-weight: 400;
+    }
+  </style>
 </head>
 <body>
-    <div id="header">
-        <div><a id="header_begin"></a></div>
-        <div><a id="header_browse"></a></div>
-        <div><a>Create</a></div>
-        <div><a id="header_brief"></a></div>
-    </div>
-    <div id="action" class="container">
-        <div class="tabs is-fullwidth is-medium has-background-white has-text-weight-semibold">
-            <ul>
-                <li><a id="action_clear">Clear*</a></li>
-                <li><a id="action_pop">Pop</a></li>
-                <li><a id="action_config">Config</a></li>
-                <li><a id="action_add">Add</a></li>
-                <li><a id="action_print">Print</a></li>
-            </ul>
-        </div>
-    </div>
-    <div id="config" class="container has-background-light section">
-        <div class="columns is-mobile is-multiline">
-            <div class="column is-4">
-                <label for="config_saletax_rate" class="label">sales tax</label>
-                <input id="config_saletax_rate" class="input" type="number" step="0.01">
-            </div>
-            <div class="column is-4">
-                <label for="config_incometax_rate" class="label">income tax</label>
-                <input id="config_incometax_rate" class="input" type="number" step="0.01">
-            </div>
-            <div class="column is-4">
-                <label for="config_lang" class="label">language</label>
-                <div class="select is-fullwidth"><select id="config_lang"></select></div>
-            </div>
-            <div class="column is-4">
-                <label for="config_doc_title" class="label">title*</label>
-                <div class="select is-fullwidth"><select id="config_doc_title"></select></div>
-            </div>
-            <div class="column is-4">
-                <label for="config_an_price" class="label">price</label>
-                <div class="select is-fullwidth"><select id="config_an_price"></select></div>
-            </div>
-            <div class="column is-4">
-                <label for="config_an_qty" class="label">qty</label>
-                <div class="select is-fullwidth"><select id="config_an_qty"></select></div>
-            </div>
-            <div class="column is-4">
-                <label for="config_date_type" class="label">date type</label>
-                <div class="select is-fullwidth"><select id="config_date_type"></select></div>
-            </div>
-            <div class="column is-4">
-                <label for="config_color" class="label">color</label>
-                <div class="select is-fullwidth"><select id="config_color"></select></div>
-            </div>
-            <div class="column is-4">
-                <label for="config_headlogo" class="label">logo</label>
-                <div class="file has-name is-fullwidth is-right">
-                    <label class="file-label">
-                        <input id="config_headlogo" class="file-input" type="file">
-                        <span class="file-cta"><span class="file-label">Browse</span></span>
-                        <span class="file-name has-background-white">Image</span>
-                    </label>
-                </div>
-            </div>
-        </div>
-        <div class="columns is-mobile is-multiline">
-            <div class="column is-4">
-                <input id="config_headlogo_img" type="checkbox" checked>
-                <label for="config_headlogo_img" class="checkbox">head logo</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_vendor_id" type="checkbox" checked>
-                <label for="config_vendor_id" class="checkbox">vendor register</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_client_id" type="checkbox" checked>
-                <label for="config_client_id" class="checkbox">client register</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_duedate" type="checkbox" checked>
-                <label for="config_duedate" class="checkbox">due date</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_payment" type="checkbox" checked>
-                <label for="config_payment" class="checkbox">payment</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_subject" type="checkbox" checked>
-                <label for="config_subject" class="checkbox">project</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_note" type="checkbox" checked>
-                <label for="config_note" class="checkbox">note</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_client_sign" type="checkbox" checked>
-                <label for="config_client_sign" class="checkbox">client sign</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_saletax" type="checkbox" checked>
-                <label for="config_saletax" class="checkbox">sale tax</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_incometax" type="checkbox" checked>
-                <label for="config_incometax" class="checkbox">income tax</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_adjust" type="checkbox" checked>
-                <label for="config_adjust" class="checkbox">adjust</label>
-            </div>
-            <div class="column is-4">
-                <input id="config_thank_message" type="checkbox" checked>
-                <label for="config_thank_message" class="checkbox">thank message</label>
-            </div>
-        </div>
-    </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-
-    <div id="doc" class="container has-background-white">
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <div class="tile is-child notification is-white has-text-centered">
-                    <img id="headlogo_img" src="">
-                </div>
-                <div class="tile is-child notification is-primary">
-                    <input id="vendor_name" type="text" class="subtitle has-text-weight-bold" value="Your company">
-                    <p id="vendor_id" >Register</p>
-                    <p id="vendor_address" >Address</p>
-                </div>
-            </div>
-        </div>
-        <h1 id="doc_title" class="title is-1 has-text-centered">Invoice</h1>
-        <div class="columns is-mobile">
-            <div class="column">
-                <input id="ref" type="text" class="input is-small is-rounded has-text-centered">
-                <p id="ref_label" class="label is-small has-text-centered">Inv-no</p>
-            </div>
-            <div class="column">
-                <input id="date" type="date" class="input is-small is-rounded has-text-centered">
-                <p id="date_label" class="label is-small has-text-centered">Inv-date</p>
-            </div>
-            <div class="column">
-                <input id="duedate" type="date" class="input is-small is-rounded has-text-centered">
-                <p id="duedate_label" class="label is-small has-text-centered">Inv-duedate</p>
-            </div>
-        </div>
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <div class="tile is-child notification is-primary">
-                    <span id="client_name_label" class="is-white has-text-weight-semibold">Bill to</span>
-                    <input id="client_name" type="text" class="subtitle has-text-weight-bold" value="Client company">
-                    <p id="client_id" >Register</p>
-                    <p id="client_address" >Address</p>
-                </div>
-                <div class="tile is-child notification is-white">
-                    <div class="field">
-                        <span id="payment_label" class="label is-small">payment</span>
-                        <textarea id="payment" rows="2" class="textarea is-small is-primary"></textarea>
-                    </div>
-                    <div class="field">
-                        <span id="subject_label" class="label is-small">subject</span>
-                        <input id="subject" class="input is-small is-primary">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <table class="table is-fullwidth is-hoverable">
-            <thead>
-                <tr>
-                    <th id="line_label">line</th>
-                    <th id="item_label">item</th>
-                    <th id="price_label" class="is-primary">price</th>
-                    <th id="qty_label" class="is-primary">qty</th>
-                    <th id="amount_label" class="is-primary">amount</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-                <tr name="tr">
-                    <td name="line"></td>
-                    <td><input name="item" type="text"></td>
-                    <td name="price" class="has-text-right"></td>
-                    <td name="qty" class="has-text-right"></td>
-                    <td name="amount" class="has-text-right"></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="2" rowspan="4" style="padding-left: 3rem; padding-right: 1.5rem;">
-                        <div class="field">
-                            <span id="note_label" class="label is-small">note</span>
-                            <textarea id="note" rows="2" class="textarea is-small is-primary"></textarea>
-                        </div>
-                        <div class="field">
-                            <span id="client_sign_label" class="label is-small">client_sign</span>
-                            <textarea id="client_sign" rows="2" class="textarea is-small is-primary"></textarea>
-                            <input id="client_rank" type="text" class="input is-small">
-                        </div>
-                    </th>
-                    <th id="total_label" colspan="2" class="is-primary">total</th>
-                    <th id="total" class="is-primary has-text-right"></th>
-                </tr>
-                <tr>
-                    <th colspan="2" class="is-light">
-                        <span id="saletax_label">saletax</span>
-                        <span id="saletax_rate" class="tag is-primary">7%</span>
-                    </th>
-                    <th id="saletax" class="is-light has-text-right"></th>
-                </tr>
-                <tr>
-                    <th colspan="2" class="is-light">
-                        <span id="incometax_label">incometax</span>
-                        <span id="incometax_rate" class="tag is-primary">3%</span>
-                    </th>
-                    <th id="incometax" class="is-light has-text-right"></th>
-                </tr>
-                <tr>
-                    <th id="adjust_label" colspan="2" class="is-light">adjust</th>
-                    <th id="adjust" class="is-light has-text-right"></th>
-                </tr>
-            </tfoot>
-        </table>
-        <div class="tile is-ancestor">
-            <div class="tile is-parent">
-                <div class="tile is-child notification is-white">
-                    <h4 id="thank_message" class="title is-4 has-text-right">Thank you</h4>
-                </div>
-                <div class="tile is-child notification is-primary">
-                    <div class="level is-mobile">
-                        <div class="level-left has-text-left">
-                            <p id="finaltotal_label" class="subtitle has-text-weight-semibold">Total</p>
-                        </div>
-                        <div class="level-right has-text-right">
-                            <p id="finaltotal" class="title"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-    
+  <div id="header">
+    <div><a id="header_begin"></a></div>
+    <div><a id="header_browse"></a></div>
+    <div><a>Create</a></div>
+    <div><a id="header_brief"></a></div>
+  </div>
+  <div id="action" class="container">
     <datalist id="client_list"></datalist>
     <datalist id="item_list"></datalist>
-    
-    <div id="footer">
-        <div>
-            <h2 id="footer_library">Library usage</h2>
-            <ul>
-                <li><a id="footer_autonumeric"></a></li>
-                <li><a id="footer_bulma"></a></li>
-            </ul>
-        </div>
-        <div>
-            <h2 id="footer_madeby">Made by</h2>
-            <ul>
-                <li><a id="footer_github">zummon (Github)</a></li>
-                <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
-                <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
-            </ul>
-        </div>
+    <div class="tabs is-fullwidth is-medium has-background-white has-text-weight-semibold">
+      <ul>
+        <li><a id="action_clear">Clear*</a></li>
+        <li><a id="action_pop">Pop</a></li>
+        <li><a id="action_config">Config</a></li>
+        <li><a id="action_add">Add</a></li>
+        <li><a id="action_print">Print</a></li>
+      </ul>
     </div>
+  </div>
+  <div id="config" class="container has-background-light section">
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-4">
+        <label for="config_saletax_rate" class="label">sales tax</label>
+        <input id="config_saletax_rate" class="input" type="number" step="0.01">
+      </div>
+      <div class="column is-4">
+        <label for="config_incometax_rate" class="label">income tax</label>
+        <input id="config_incometax_rate" class="input" type="number" step="0.01">
+      </div>
+      <div class="column is-4">
+        <label for="config_lang" class="label">language</label>
+        <div class="select is-fullwidth"><select id="config_lang"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_doc_title" class="label">title*</label>
+        <div class="select is-fullwidth"><select id="config_doc_title"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_an_price" class="label">price</label>
+        <div class="select is-fullwidth"><select id="config_an_price"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_an_qty" class="label">qty</label>
+        <div class="select is-fullwidth"><select id="config_an_qty"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_date_type" class="label">date type</label>
+        <div class="select is-fullwidth"><select id="config_date_type"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_color" class="label">color</label>
+        <div class="select is-fullwidth"><select id="config_color"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_headlogo" class="label">logo</label>
+        <div class="file has-name is-fullwidth is-right">
+          <label class="file-label">
+            <input id="config_headlogo" class="file-input" type="file">
+            <span class="file-cta"><span class="file-label">Browse</span></span>
+            <span class="file-name has-background-white">Image</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-4">
+        <input id="config_headlogo_img" type="checkbox" checked>
+        <label for="config_headlogo_img" class="checkbox">head logo</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_vendor_id" type="checkbox" checked>
+        <label for="config_vendor_id" class="checkbox">vendor register</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_client_id" type="checkbox" checked>
+        <label for="config_client_id" class="checkbox">client register</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_duedate" type="checkbox" checked>
+        <label for="config_duedate" class="checkbox">due date</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_payment" type="checkbox" checked>
+        <label for="config_payment" class="checkbox">payment</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_subject" type="checkbox" checked>
+        <label for="config_subject" class="checkbox">project</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_note" type="checkbox" checked>
+        <label for="config_note" class="checkbox">note</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_client_sign" type="checkbox" checked>
+        <label for="config_client_sign" class="checkbox">client sign</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_saletax" type="checkbox" checked>
+        <label for="config_saletax" class="checkbox">sale tax</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_incometax" type="checkbox" checked>
+        <label for="config_incometax" class="checkbox">income tax</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_adjust" type="checkbox" checked>
+        <label for="config_adjust" class="checkbox">adjust</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_thank_message" type="checkbox" checked>
+        <label for="config_thank_message" class="checkbox">thank message</label>
+      </div>
+    </div>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded',function(){
-            docInit({
-                tr_show: 4, 
-                tr_hide: 16, 
-                content_editable: '#vendor_id,#vendor_address,#doc_title,#ref_label,#date_label,#duedate_label,#client_name_label,#client_id,#client_address,#payment_label,#subject_label,#line_label,#item_label,#price_label,#qty_label,#amount_label,#note_label,#client_sign_label,#total_label,#total,#saletax_label,#saletax_rate,#saletax,#incometax_label,#incometax_rate,#incometax,#adjust_label,#adjust,#thank_message,#finaltotal_label,#finaltotal,[name=line],[name=price],[name=qty],[name=amount]',
-                logos_img: '#headlogo_img',
-                price: '[name=price],[name=amount],#total,#saletax,#incometax,#adjust,#finaltotal',
-                qty: '[name="qty"]',
-                config_fields: [
-                    ['#config_headlogo_img', document.querySelector('#headlogo_img')],
-                    ['#config_vendor_id', document.querySelector('#vendor_id')],
-                    ['#config_client_id', document.querySelector('#client_id')],
-                    ['#config_thank_message', document.querySelector('#thank_message')],
-                    ['#config_subject', document.querySelector('#subject').parentElement],
-                    ['#config_duedate', document.querySelector('#duedate').parentElement],
-                    ['#config_payment', document.querySelector('#payment').parentElement],
-                    ['#config_note', document.querySelector('#note').parentElement],
-                    ['#config_client_sign', document.querySelector('#client_sign').parentElement],
-                    ['#config_adjust', document.querySelector('#adjust').parentElement],
-                    ['#config_saletax', document.querySelector('#saletax').parentElement],
-                    ['#config_incometax', document.querySelector('#incometax').parentElement],
-                ],
-                logos_upload: [
-                    ['#config_headlogo', '#headlogo_img'],
-                ],
-            })
+<!--------------------------------------------------------------------------------------------------------------------->
 
-            // ---- config ----
+  <div id="doc" class="container has-background-white">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="tile is-child notification is-white has-text-centered">
+          <img id="headlogo_img" src="">
+        </div>
+        <div class="tile is-child notification bgcolor" style="background-color: #00d1b2; color: #fff;">
+          <input id="vendor_name" type="text" class="subtitle has-text-weight-bold" value="Your company">
+          <p id="vendor_id" contenteditable="true">Register</p>
+          <p id="vendor_address" contenteditable="true">Address</p>
+        </div>
+      </div>
+    </div>
+    <h1 id="doc_title" class="title is-1 has-text-centered">Invoice</h1>
+    <div class="columns is-mobile">
+      <div class="column">
+        <input id="ref" type="text" class="input is-small is-rounded has-text-centered">
+        <p id="ref_label" class="label is-small has-text-centered" contenteditable="true">Inv-no</p>
+      </div>
+      <div class="column">
+        <input id="date" type="date" class="input is-small is-rounded has-text-centered">
+        <p id="date_label" class="label is-small has-text-centered" contenteditable="true">Inv-date</p>
+      </div>
+      <div class="column">
+        <input id="duedate" type="date" class="input is-small is-rounded has-text-centered">
+        <p id="duedate_label" class="label is-small has-text-centered" contenteditable="true">Inv-duedate</p>
+      </div>
+    </div>
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="tile is-child notification bgcolor" style="background-color: #00d1b2; color: #fff;">
+          <span id="client_name_label" class="is-white has-text-weight-semibold">Bill to</span>
+          <input id="client_name" type="text" class="subtitle has-text-weight-bold" value="Client company">
+          <p id="client_id" contenteditable="true">Register</p>
+          <p id="client_address" contenteditable="true">Address</p>
+        </div>
+        <div class="tile is-child notification is-white">
+          <div class="field">
+            <span id="payment_label" class="label is-small" contenteditable="true">payment</span>
+            <textarea id="payment" rows="2" class="textarea is-small bordercolor" style="border-color: #00d1b2;"></textarea>
+          </div>
+          <div class="field">
+            <span id="subject_label" class="label is-small" contenteditable="true">subject</span>
+            <input id="subject" class="input is-small bordercolor" style="border-color: #00d1b2;">
+          </div>
+        </div>
+      </div>
+    </div>
+    <table class="table is-fullwidth is-hoverable">
+      <thead>
+        <tr>
+          <th id="line_label" contenteditable="true">line</th>
+          <th id="item_label" contenteditable="true">item</th>
+          <th id="price_label" class="bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">price</th>
+          <th id="qty_label" class="bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">qty</th>
+          <th id="amount_label" class="bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">amount</th>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr name="tr">
+          <td name="line" contenteditable="true"></td>
+          <td><input name="item" type="text"></td>
+          <td name="price" class="has-text-right" contenteditable="true"></td>
+          <td name="qty" class="has-text-right" contenteditable="true"></td>
+          <td name="amount" class="has-text-right" contenteditable="true"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="2" rowspan="4" style="padding-left: 3rem; padding-right: 1.5rem;">
+            <div class="field">
+              <span id="note_label" class="label is-small" contenteditable="true">note</span>
+              <textarea id="note" rows="2" class="textarea is-small bordercolor" style="border-color: #00d1b2;"></textarea>
+            </div>
+            <div class="field">
+              <span id="client_sign_label" class="label is-small" contenteditable="true">client_sign</span>
+              <textarea id="client_sign" rows="2" class="textarea is-small bordercolor" style="border-color: #00d1b2;"></textarea>
+              <input id="client_rank" type="text" class="input is-small">
+            </div>
+          </th>
+          <th id="total_label" colspan="2" class="bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">total</th>
+          <th id="total" class="has-text-right bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true"></th>
+        </tr>
+        <tr>
+          <th colspan="2" class="is-light">
+            <span id="saletax_label" contenteditable="true">saletax</span>
+            <span id="saletax_rate" class="tag bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">7%</span>
+          </th>
+          <th id="saletax" class="is-light has-text-right"></th>
+        </tr>
+        <tr>
+          <th colspan="2" class="is-light">
+            <span id="incometax_label" contenteditable="true">incometax</span>
+            <span id="incometax_rate" class="tag bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">3%</span>
+          </th>
+          <th id="incometax" class="is-light has-text-right" contenteditable="true"></th>
+        </tr>
+        <tr>
+          <th id="adjust_label" colspan="2" class="is-light" contenteditable="true">adjust</th>
+          <th id="adjust" class="is-light has-text-right" contenteditable="true"></th>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="tile is-child notification is-white">
+          <h4 id="thank_message" class="title is-4 has-text-right" contenteditable="true">Thank you</h4>
+        </div>
+        <div class="tile is-child notification bgcolor" style="background-color: #00d1b2; color: #fff;">
+          <div class="level is-mobile">
+            <div class="level-left has-text-left">
+              <p id="finaltotal_label" class="subtitle has-text-weight-semibold" contenteditable="true">Total</p>
+            </div>
+            <div class="level-right has-text-right">
+              <p id="finaltotal" class="title" contenteditable="true"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-            const config_color = document.querySelector('#config_color')
-            ;[
-                ['is-primary','turquoise'],
-                ['is-link','blue'],
-                ['is-info','cyan'],
-                ['is-success','green'],
-                ['is-warning','yellow'],
-                ['is-danger','red'],
-                ['is-dark','grey-darker'],
-                ['is-black','black'],
-            ].forEach(function(t){
-                var op = document.createElement('option')
-                op.value = t[0]
-                op.textContent = t[1]
-                config_color.appendChild(op)
-            })
+<!--------------------------------------------------------------------------------------------------------------------->
+  
+  <div id="footer">
+    <div>
+      <h2 id="footer_library">Library usage</h2>
+      <ul>
+        <li><a id="footer_autonumeric"></a></li>
+        <li><a id="footer_bulma"></a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 id="footer_madeby">Made by</h2>
+      <ul>
+        <li><a id="footer_github">zummon (Github)</a></li>
+        <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
+        <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
+      </ul>
+    </div>
+  </div>
 
-            config_color.addEventListener('change',function(e){
-                const older = document.querySelector('#amount_label').className
-                const newer = e.target.value
-                document.querySelectorAll('[class*="' + older + '"]').forEach(function(t){
-                    t.classList.remove(older)
-                    t.classList.add(newer)
-                })
-            })
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      starter({
+        tr_show: 4,
+        tr_hide: 16,
+        logos_img: [
+          ['#config_headlogo', '#headlogo_img'],
+        ],
+        price: '[name=price], [name=amount], #total, #saletax, #incometax, #adjust, #finaltotal',
+        qty: '[name="qty"]',
+        config_fields: [
+          ['#config_headlogo_img', document.querySelector('#headlogo_img')],
+          ['#config_vendor_id', document.querySelector('#vendor_id')],
+          ['#config_client_id', document.querySelector('#client_id')],
+          ['#config_thank_message', document.querySelector('#thank_message')],
+          ['#config_subject', document.querySelector('#subject').parentElement],
+          ['#config_duedate', document.querySelector('#duedate').parentElement],
+          ['#config_payment', document.querySelector('#payment').parentElement],
+          ['#config_note', document.querySelector('#note').parentElement],
+          ['#config_client_sign', document.querySelector('#client_sign').parentElement],
+          ['#config_adjust', document.querySelector('#adjust').parentElement],
+          ['#config_saletax', document.querySelector('#saletax').parentElement],
+          ['#config_incometax', document.querySelector('#incometax').parentElement],
+        ],
+      })
 
-            // untitled
-            // invoice
-            // quotation
-            // receipt
-            // taxinvoice
+      // untitled
+      // invoice
+      // quotation
+      // receipt
+      // taxinvoice
 
-        })
-    </script>
-    <script src="../source/core.js"></script>
-    <script src="../source/browse_docs.js"></script>
-    <script src="../source/brief_docs.js"></script>
-    <script src="../source/docs.js"></script>
-    <script src="../source/docs_inv.js"></script>
+    })
+  </script>
+  <script src="../source/core.js"></script>
+  <script src="../source/brief_docs.js"></script>
+  <script src="../source/docs.js"></script>
+  <script src="../source/docs_inv.js"></script>
 </body>
 </html>

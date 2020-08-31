@@ -1,264 +1,312 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DOCS zummon webapp</title>
-    <link rel="stylesheet" href="../style/uikit35cdn.css">
-    <link rel="stylesheet" href="../style/core.css">
-    <link rel="stylesheet" href="../style/docs.css">
-    <style>
-        #vendor_name,
-        #client_name { width: 100%; }
-        #line_label,
-        #item_label,
-        #price_label,
-        #qty_label,
-        #amount_label { color: #fff; }
-        [name="item"] { height: 30px; }
-    </style>
+  <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOCS zummon webapp</title>
+  <link rel="stylesheet" href="../style/uikit35cdn.css">
+  <link rel="stylesheet" href="../style/core.css">
+  <link rel="stylesheet" href="../style/docs.css">
+  <link rel="stylesheet" href="../style/docs_inv.css">
+  <style>
+    #vendor_name,
+    #client_name { width: 100%; }
+    #price_label,
+    #qty_label { width: 50px; }
+    #amount_label { width: 70px; }
+    [name="item"] { height: 30px; }
+  </style>
 </head>
 <body>
-    <div id="header">
-        <div><a id="header_begin"></a></div>
-        <div><a id="header_browse"></a></div>
-        <div><a>Create</a></div>
-        <div><a id="header_brief"></a></div>
+  <div id="header">
+    <div><a id="header_begin"></a></div>
+    <div><a id="header_browse"></a></div>
+    <div><a>Create</a></div>
+    <div><a id="header_brief"></a></div>
+  </div>
+  <div id="action" class="uk-container uk-container-small uk-background-default">
+    <ul class="uk-child-width-expand uk-text-large uk-text-bold" uk-tab>
+      <li><a id="action_clear">Clear*</a></li>
+      <li><a id="action_pop">Pop</a></li>
+      <li><a id="action_config">Config</a></li>
+      <li><a id="action_add">Add</a></li>
+      <li><a id="action_print">Print</a></li>
+    </ul>
+  </div>
+  <div id="config" class="uk-container uk-container-small uk-background-muted">
+    <div class="uk-child-width-1-3 uk-margin-top" uk-grid>
+      <div>
+        <label for="config_saletax_rate" class="uk-form-label">sales tax</label>
+        <input id="config_saletax_rate" class="uk-input" type="number" step="0.01">
+      </div>
+      <div>
+        <label for="config_incometax_rate" class="uk-form-label">income tax</label>
+        <input id="config_incometax_rate" class="uk-input" type="number" step="0.01">
+      </div>
+      <div>
+        <label for="config_lang" class="uk-form-label">language</label>
+        <select id="config_lang" class="uk-select"></select>
+      </div>
+      <div>
+        <label for="config_doc_title" class="uk-form-label">title*</label>
+        <select id="config_doc_title" class="uk-select"></select>
+      </div>
+      <div>
+        <label for="config_an_price" class="uk-form-label">price</label>
+        <select id="config_an_price" class="uk-select"></select>
+      </div>
+      <div>
+        <label for="config_an_qty" class="uk-form-label">qty</label>
+        <select id="config_an_qty" class="uk-select"></select>
+      </div>
+      <div>
+        <label for="config_date_type" class="uk-form-label">date type</label>
+        <select id="config_date_type" class="uk-select"></select>
+      </div>
+      <div>
+        <label for="config_color" class="uk-form-label">color</label>
+        <select id="config_color" class="uk-select"></select>
+      </div>
+      <div>
+        <label for="config_headlogo" class="uk-form-label">Head logo</label>
+        <div uk-form-custom="target: true">
+          <input id="config_headlogo" type="file">
+          <input class="uk-input" type="text" placeholder="Image Browse" disabled>
+        </div>
+      </div>
+      <div>
+        <label for="config_footlogo" class="uk-form-label">Foot logo</label>
+        <div uk-form-custom="target: true">
+          <input id="config_footlogo" type="file">
+          <input class="uk-input" type="text" placeholder="Image Browse" disabled>
+        </div>
+      </div>
     </div>
-    <div id="action" class="uk-container uk-background-default">
-        <ul class="uk-child-width-expand uk-text-large uk-text-bold" uk-tab>
-            <li><a id="action_clear">Clear*</a></li>
-            <li><a id="action_pop">Pop</a></li>
-            <li><a id="action_config">Config</a></li>
-            <li><a id="action_add">Add</a></li>
-            <li><a id="action_print">Print</a></li>
-        </ul>
+    <div class="uk-child-width-1-3 uk-margin-bottom" uk-grid>
+      <div>
+        <input id="config_headlogo_img" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_headlogo_img">Head logo</label>
+      </div>
+      <div>
+        <input id="config_vendor_id" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_vendor_id">Vendor register</label>
+      </div>
+      <div>
+        <input id="config_client_id" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_client_id">Client register</label>
+      </div>
+      <div>
+        <input id="config_subject" class="uk-checkbox" type="checkbox">
+        <label for="config_subject">Project</label>
+      </div>
+      <div>
+        <input id="config_duedate" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_duedate">Due date</label>
+      </div>
+      <div>
+        <input id="config_payment" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_payment">Payment</label>
+      </div>
+      <div>
+        <input id="config_client_sign" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_client_sign">Client tax</label>
+      </div>
+      <div>
+        <input id="config_saletax" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_saletax">Sales tax</label>
+      </div>
+      <div>
+        <input id="config_incometax" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_incometax">Income tax</label>
+      </div>
+      <div>
+        <input id="config_adjust" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_adjust">Adjust</label>
+      </div>
+      <div>
+        <input id="config_footlogo_img" class="uk-checkbox" type="checkbox">
+        <label for="config_footlogo_img">Foot logo</label>
+      </div>
+      <div>
+        <input id="config_vendor_sign" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_vendor_sign">Vendor sign</label>
+      </div>
+      <div>
+        <input id="config_note" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_note">Note</label>
+      </div>
+      <div>
+        <input id="config_thank_message" class="uk-checkbox" type="checkbox" checked>
+        <label for="config_thank_message">Thank message</label>
+      </div>
     </div>
-    <div id="config" class="uk-container uk-background-muted">
-        <div class="uk-child-width-1-3" uk-grid>
-            <div>
-                <label for="config_saletax_rate" class="uk-form-label">sales tax</label>
-                <input id="config_saletax_rate" class="uk-input" type="number" step="0.01">
-            </div>
-            <div>
-                <label for="config_incometax_rate" class="uk-form-label">income tax</label>
-                <input id="config_incometax_rate" class="uk-input" type="number" step="0.01">
-            </div>
-            <div>
-                <label for="config_lang" class="uk-form-label">language</label>
-                <select id="config_lang" class="uk-select"></select>
-            </div>
-            <div>
-                <label for="config_doc_title" class="uk-form-label">title*</label>
-                <select id="config_doc_title" class="uk-select"></select>
-            </div>
-            <div>
-                <label for="config_an_price" class="uk-form-label">price</label>
-                <select id="config_an_price" class="uk-select"></select>
-            </div>
-            <div>
-                <label for="config_an_qty" class="uk-form-label">qty</label>
-                <select id="config_an_qty" class="uk-select"></select>
-            </div>
-            <div>
-                <label for="config_date_type" class="uk-form-label">date type</label>
-                <select id="config_date_type" class="uk-select"></select>
-            </div>
-            <div>
-                <label for="config_color" class="uk-form-label">color*</label>
-                <select id="config_color" class="uk-select"></select>
-            </div>
-            <div>
-                <label for="config_headlogo" class="uk-form-label">Head logo</label>
-                <div uk-form-custom>
-                    <input id="config_headlogo" type="file">
-                    <button type="button" class="uk-button">Browse</button>
-                </div>
-            </div>
-        </div>
-        <div class="uk-child-width-1-3" uk-grid>
-            <div>
-                <label>
-                    <input id="config_headlogo_img" class="uk-checkbox" type="checkbox" checked>
-                    <span>Vendor register</span>
-                </label>
-            </div>
-        </div>
-    </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-
-    <div id="doc" class="uk-container uk-background-default">
-        <div class="uk-child-width-1-2 uk-flex-middle uk-margin-top uk-grid-small" uk-grid>
-            <div>
-                <img id="headlogo_img" src="" width="" height="" uk-img>
-
-                <input id="vendor_name" class="uk-text-lead uk-form-blank" value="My Company">
-                <span id="vendor_id" class="uk-text-small">#Register</span><br>
-                <span id="vendor_address" class="uk-text-small">#Address</span>
-            </div>
-            <div>
-                <div class="uk-flex uk-flex-center">
-                    <h1 id="doc_title" class="uk-heading-medium uk-text-primary">Invoice</h1>
-                </div>
-                <div class="uk-flex uk-flex-right">
-                    <span id="ref_label">Inv-Number</span>
-                    <input id="ref" class="uk-form-blank uk-form-width-small" value="#9999">
-                </div>
-                <div class="uk-flex uk-flex-right">
-                    <span id="date_label">Date</span>
-                    <input id="date" class="uk-form-blank uk-form-width-small" type="date" value="2020-08-17">
-                </div>
-            </div>
-            <div>
-                <span id="client_name_label" class="uk-text-bold">Invoice to</span>
-                <input id="client_name" class="uk-text-lead uk-form-blank" value="Client Company">
-                <span id="client_id" class="uk-text-small">#Register</span><br>
-                <span id="client_address" class="uk-text-small">#Address</span>
-            </div>
-            <div>
-                <div class="uk-tile uk-tile-muted">
-                    <span id="duedate_label">Due Date</span>
-                    <input id="duedate" class="uk-input uk-form-small" type="date" value="2020-09-17">
-
-                    <span id="payment_label">Payment</span>
-                    <textarea id="payment" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
-                </div>
-            </div>
-        </div>
-        <div class="uk-flex uk-flex-bottom uk-flex-between">
-            <div>
-                <span id="subject_label" class="uk-text-bold">Project</span> 
-                <span id="subject" class="uk-text-lead uk-text-primary">zummon template</span>
-            </div>
-            <div>
-                <span id="finaltotal_label" class="uk-text-bold">Total</span>
-                <span id="finaltotal" class="uk-heading-small uk-text-primary"></span>
-            </div>
-        </div>
-        <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-hover">
-            <thead class="uk-background-primary uk-text-bold">
-                <tr>
-                    <td id="line_label" class="uk-table-shrink">No</td>
-                    <td id="item_label" class="uk-table-expand">Description</td>
-                    <td id="price_label" class="uk-table-shrink uk-text-nowrap">Unit Price</td>
-                    <td id="qty_label" class="uk-table-shrink uk-text-nowrap">Qty</td>
-                    <td id="amount_label" class="uk-table-shrink uk-text-nowrap">Total Price</td>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-                <tr name="tr">
-                    <td name="line">1</td>
-                    <td><input name="item" class="uk-input uk-form-blank" type="tel"></td>
-                    <td name="price" class="uk-text-center"></td>
-                    <td name="qty" class="uk-text-center"></td>
-                    <td name="amount" class="uk-text-right"></td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="2" rowspan="5">
-                        <div class="uk-tile uk-tile-muted">
-                            <span id="client_sign_label">Client Signature</span>
-                            <textarea id="client_sign" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
-                            <input id="client_rank" class="uk-input uk-form-small">
-                        </div>
-                    </td>
-                    <td id="total_label" colspan="2" class="uk-text-bold">Subtotal</td>
-                    <td id="total" class="uk-text-right uk-text-bold"></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <span id="saletax_label">Sales tax</span>
-                        <span id="saletax_rate">7%</span>
-                    </td>
-                    <td id="saletax" class="uk-text-right"></td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <span id="incometax_label">Income tax</span>
-                        <span id="incometax_rate">3%</span>
-                    </td>
-                    <td id="incometax" class="uk-text-right"></td>
-                </tr>
-                <tr>
-                    <td id="adjust_label" colspan="2">Adjust</td>
-                    <td id="adjust" class="uk-text-right"></td>
-                </tr>
-            </tfoot>
-        </table>
-        <div class="uk-flex uk-flex-bottom uk-margin-bottom">
-            <div class="uk-flex-1">
-                <span id="note_label" class="uk-text-bold">Note</span>
-                <textarea id="note" class="uk-textarea uk-form-blank uk-resize-vertical"></textarea>
-            </div>
-            <div>
-                <span id="thank_message" class="uk-text-large uk-text-bold uk-text-primary">Thank you</span>
-            </div>
-        </div>
-    </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
-        
     <datalist id="client_list"></datalist>
     <datalist id="item_list"></datalist>
+  </div>
 
-    <div id="footer">
-        <div>
-            <h2 id="footer_library">Library usage</h2>
-            <ul>
-                <li><a id="footer_autonumeric"></a></li>
-                <li><a id="footer_uikit"></a></li>
-            </ul>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+  <div id="doc" class="uk-container uk-container-small uk-background-default">
+    <div class="uk-child-width-1-2 uk-flex-middle uk-margin-top uk-grid-small" uk-grid>
+      <div>
+        <img id="headlogo_img" src="" width="" height="" uk-img>
+        <input id="vendor_name" class="uk-text-lead uk-form-blank" value="My company">
+        <input id="vendor_id" class="uk-input uk-form-small uk-form-blank" value="Register">
+        <textarea id="vendor_address" class="uk-textarea uk-form-small uk-form-blank uk-resize-vertical">Address</textarea>
+
+        <label id="client_name_label" class="uk-form-label" contenteditable="true">Invoice to</label>
+        <input id="client_name" class="uk-text-lead uk-form-blank" value="Client Company">
+        <input id="client_id" class="uk-input uk-form-small uk-form-blank" value="Register">
+        <textarea id="client_address" class="uk-textarea uk-form-small uk-form-blank uk-resize-vertical">Address</textarea>
+
+        <label id="subject_label" class="uk-text-bold" style="display: none;">Project</label>
+        <span id="subject" class="uk-text-lead textcolor" style="color: #1e87f0; display: none;" contenteditable="true">name</span>
+      </div>
+      <div>
+        <h1 id="doc_title" class="uk-heading-medium uk-margin-small textcolor" style="color: #1e87f0;" contenteditable="true">Invoice</h1>
+        <input id="ref" class="uk-input uk-form-small uk-form-blank" value="#inv-0000">
+        <input id="date" class="uk-input uk-form-small uk-form-blank" type="date">
+
+        <div class="uk-tile uk-tile-muted uk-margin-small-top">
+          <label id="duedate_label" class="uk-form-label" contenteditable="true">Due Date</label>
+          <input id="duedate" class="uk-input uk-form-small" type="date">
+          <label id="payment_label" class="uk-form-label" contenteditable="true">Payment</label>
+          <textarea id="payment" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
         </div>
-        <div>
-            <h2 id="footer_madeby">Made by</h2>
-            <ul>
-                <li><a id="footer_github">zummon (Github)</a></li>
-                <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
-                <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
-            </ul>
+        <div class="uk-text-right">
+          <label id="finaltotal_label" class="uk-text-bold" contenteditable="true">Total</label>
+          <span id="finaltotal" class="uk-text-lead textcolor" style="color: #1e87f0;" contenteditable="true"></span>
         </div>
+        
+      </div>
     </div>
+    <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-hover uk-margin-small">
+      <thead class="uk-text-bold bgcolor" style="background-color: #1e87f0; color: #fff;">
+        <tr>
+          <td id="line_label" class="uk-table-shrink" contenteditable="true">No</td>
+          <td id="item_label" class="uk-table-expand" contenteditable="true">Description</td>
+          <td id="price_label" class="uk-text-right" contenteditable="true">Unit Price</td>
+          <td id="qty_label" class="uk-text-right" contenteditable="true">Qty</td>
+          <td id="amount_label" class="uk-text-right" contenteditable="true">Total Price</td>
+        </tr>
+      </thead>
+      <tbody id="tbody">
+        <tr name="tr">
+          <td name="line" contenteditable="true">1</td>
+          <td><input name="item" class="uk-input uk-form-blank"></td>
+          <td name="price" class="uk-text-right" contenteditable="true"></td>
+          <td name="qty" class="uk-text-right" contenteditable="true"></td>
+          <td name="amount" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" rowspan="5">
+            <div class="uk-tile uk-tile-muted">
+              <label id="client_sign_label" class="uk-form-label" contenteditable="true">Client Signature</label>
+              <textarea id="client_sign" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
+              <input id="client_rank" class="uk-input uk-form-small">
+            </div>
+          </td>
+          <td id="total_label" colspan="2" class="uk-text-bold" contenteditable="true">Subtotal</td>
+          <td id="total" class="uk-text-right uk-text-bold" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <span id="saletax_label" contenteditable="true">Sales tax</span>
+            <span id="saletax_rate" contenteditable="true">7%</span>
+          </td>
+          <td id="saletax" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <span id="incometax_label" contenteditable="true">Income tax</span>
+            <span id="incometax_rate" contenteditable="true">3%</span>
+          </td>
+          <td id="incometax" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td id="adjust_label" colspan="2" contenteditable="true">Adjust</td>
+          <td id="adjust" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td colspan="3" class="uk-text-center"><img id="footlogo_img" src="" width="" height="" uk-img style="display: none;"></td>
+        </tr>
+      </tfoot>
+    </table>
+    <div class="uk-child-width-1-2 uk-margin-bottom uk-grid-small" uk-grid>
+      <div>
+        <label id="note_label" class="uk-text-bold" contenteditable="true">Note</label>
+        <textarea id="note" class="uk-textarea uk-form-blank uk-resize-vertical"></textarea>
+        <span id="thank_message" class="uk-text-large uk-text-bold textcolor" style="color: #1e87f0;" contenteditable="true">Thank you</span>
+      </div>
+      <div>
+        <label id="vendor_sign_label" class="uk-form-label" contenteditable="true">Vendor Signature</label>
+        <textarea id="vendor_sign" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
+        <input id="vendor_rank" class="uk-input uk-form-small">
+      </div>
+    </div>
+  </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded',function(){
-            docInit({
-                tr_show: 4,
-                tr_hide: 16,
-                content_editable: '#vendor_id,#vendor_address,#doc_title,#ref_label,#date_label,#client_name_label,#client_id,#client_address,#duedate_label,#payment_label,#subject_label,#subject,#finaltotal_label,#finaltotal,#line_label,#item_label,#price_label,#qty_label,#amount_label,#client_sign_label,#total_label,#total,#saletax_label,#saletax_rate,#saletax,#incometax_label,#incometax_rate,#incometax,#adjust_label,#adjust,#note_label,#thank_message,[name=line],[name=price],[name=qty],[name=amount]',
-                logos_img: '#headlogo_img, #footlogo_img',
-                price: '[name=price],[name=amount],#total,#saletax,#incometax,#adjust,#finaltotal',
-                qty: '[name="qty"]',
-                config_fields: [
-                    ['#config_headlogo_img', document.querySelector('#headlogo_img')],
-                    // ['#config_vendor_id', document.querySelector('#vendor_id')],
-                    // ['#config_client_id', document.querySelector('#client_id')],
-                    // ['#config_thank_message', document.querySelector('#thank_message')],
-                    // ['#config_footlogo_img', document.querySelector('#footlogo_img')],
-                    // ['#config_subject', document.querySelector('#subject').parentElement],
-                    // ['#config_duedate', document.querySelector('#duedate_label').parentElement],
-                    // ['#config_payment', document.querySelector('#payment').parentElement],
-                    // ['#config_note', document.querySelector('#note').parentElement],
-                    // ['#config_client_sign', document.querySelector('#client_sign_label').parentElement],
-                    // ['#config_adjust', document.querySelector('#adjust_label').parentElement],
-                    // ['#config_saletax', document.querySelector('#saletax').parentElement.parentElement],
-                    // ['#config_incometax', document.querySelector('#incometax').parentElement.parentElement],
-                    // ['#config_vendor_sign', document.querySelector('#vendor_sign_label')],
-                    // ['#config_vendor_sign', document.querySelector('#vendor_sign').parentElement],
-                ],
-                logos_upload: [
-                    ['#config_headlogo', '#headlogo_img'],
-                ],
-            })
-        })
-    </script>
-    <script src="../source/core.js"></script>
-    <script src="../source/browse_docs.js"></script>
-    <script src="../source/brief_docs.js"></script>
-    <script src="../source/docs.js"></script>
-    <script src="../source/docs_inv.js"></script>
-    <script src="../script/uikit35cdn.js"></script>
+<!--------------------------------------------------------------------------------------------------------------------->
+
+  <div id="footer">
+    <div>
+      <h2 id="footer_library">Library usage</h2>
+      <ul>
+        <li><a id="footer_autonumeric"></a></li>
+        <li><a id="footer_uikit"></a></li>
+      </ul>
+    </div>
+    <div>
+      <h2 id="footer_madeby">Made by</h2>
+      <ul>
+        <li><a id="footer_github">zummon (Github)</a></li>
+        <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
+        <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      starter({
+        tr_show: 4,
+        tr_hide: 16,
+        logos_img: [
+          ['#config_headlogo', '#headlogo_img'],
+          ['#config_footlogo', '#footlogo_img'],
+        ],
+        price: '[name=price], [name=amount], #total, #saletax, #incometax, #adjust, #finaltotal',
+        qty: '[name="qty"]',
+        config_fields: [
+          ['#config_headlogo_img', document.querySelector('#headlogo_img')],
+          ['#config_vendor_id', document.querySelector('#vendor_id')],
+          ['#config_client_id', document.querySelector('#client_id')],
+          ['#config_thank_message', document.querySelector('#thank_message')],
+          ['#config_subject', document.querySelector('#subject_label')],
+          ['#config_subject', document.querySelector('#subject')],
+          ['#config_duedate', document.querySelector('#duedate')],
+          ['#config_duedate', document.querySelector('#duedate_label')],
+          ['#config_note', document.querySelector('#note_label')],
+          ['#config_note', document.querySelector('#note')],
+          ['#config_footlogo_img', document.querySelector('#footlogo_img')],
+          ['#config_payment', document.querySelector('#payment_label').parentElement],
+          ['#config_client_sign', document.querySelector('#client_sign_label').parentElement],
+          ['#config_adjust', document.querySelector('#adjust_label').parentElement],
+          ['#config_saletax', document.querySelector('#saletax').parentElement],
+          ['#config_incometax', document.querySelector('#incometax').parentElement],
+          ['#config_vendor_sign', document.querySelector('#vendor_sign_label').parentElement],
+        ],
+      })
+    
+    })
+  </script>
+  <script src="../source/core.js"></script>
+  <script src="../source/brief_docs.js"></script>
+  <script src="../source/docs.js"></script>
+  <script src="../source/docs_inv.js"></script>
+  <script src="../script/uikit35cdn.js"></script>
 </body>
 </html>
