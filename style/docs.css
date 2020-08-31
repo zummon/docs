@@ -1,14 +1,1 @@
-@media print {
-    body {
-        background-color: #fff;
-    }
-    #header,
-    #action,
-    #config,
-    #footer {
-        display: none;
-    }
-}
-body {
-    min-width: 640px;
-}
+/* might be useful in the future */
