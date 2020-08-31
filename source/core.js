@@ -5,6 +5,9 @@
 // https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
 // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 
+// config_lang
+var langs = ['English', 'Thai']
+
 document.addEventListener('DOMContentLoaded',function(){
     const queryStr = window.location.search
     const header = [

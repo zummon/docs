@@ -42,7 +42,11 @@
         document.addEventListener('DOMContentLoaded',function(){
             const main_elem = document.querySelector('#browse')
 
-            var browse_images = ['bulma_inv_tiles','bootstrap_inv_majors']
+            var browse_images = [
+                'bootstrap_inv_majors',
+                'bulma_inv_tiles',
+                'uikit_inv_business',
+            ]
             const queryStr = window.location.search
 
             browse_images.forEach(function(t){
@@ -63,7 +67,6 @@
         })
     </script>
     <script src="../source/core.js"></script>
-    <script src="../source/browse_docs.js"></script>
     <script src="../script/uikit35cdn.js"></script>
 </body>
 </html>
