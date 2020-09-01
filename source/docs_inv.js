@@ -24,22 +24,35 @@ var ans_price = [
 
 // config_color
 var theme_colors = [
-    ['Dodger blue', ['#1e87f0', '#fff']],
-    ['Light gray', ['#999', '#fff']],
-    ['Lime green', ['#32d296', '#fff']],
-    ['Orange', ['#faa05a', '#fff']],
-    ['Rose pearl', ['#f0506e', '#fff']],
-    ['Dark charcoal', ['#333', '#fff']],
-    ['Black (UIkit)', ['#222', '#fff']],
+    ['Bootstrap - Blue', ['#007bff', '#fff']],
+    ['Bootstrap - indigo', ['#6610f2', '#fff']],
+    ['Bootstrap - purple', ['#6f42c1', '#fff']],
+    ['Bootstrap - pink', ['#e83e8c', '#fff']],
+    ['Bootstrap - red', ['#dc3545', '#fff']],
+    ['Bootstrap - orange', ['#fd7e14', '#fff']],
+    ['Bootstrap - yellow', ['#ffc107', '#343a40']],
+    ['Bootstrap - green', ['#28a745', '#fff']],
+    ['Bootstrap - teal', ['#20c997', '#fff']],
+    ['Bootstrap - cyan', ['#17a2b8', '#fff']],
+    ['Bootstrap - gray', ['#6c757d', '#fff']],
+    ['Bootstrap - gray-dark', ['#343a40', '#fff']],
     
-    ['Turquoise', ['#00d1b2', '#fff']],
-    ['Blue', ['#3273dc', '#fff']],
-    ['Cyan', ['#3298dc', '#fff']],
-    ['Green', ['#48c774', '#fff']],
-    ['Yellow', ['#ffdd57', 'rgba(0, 0, 0, 0.7)']],
-    ['Red', ['#f14668', '#fff']],
-    ['Grey darker', ['#363636', '#fff']],
-    ['Black (Bulma)', ['#0a0a0a', '#fff']],
+    ['Bulma - Turquoise', ['#00d1b2', '#fff']],
+    ['Bulma - Blue', ['#3273dc', '#fff']],
+    ['Bulma - Cyan', ['#3298dc', '#fff']],
+    ['Bulma - Green', ['#48c774', '#fff']],
+    ['Bulma - Yellow', ['#ffdd57', 'rgba(0, 0, 0, 0.7)']],
+    ['Bulma - Red', ['#f14668', '#fff']],
+    ['Bulma - Grey darker', ['#363636', '#fff']],
+    ['Bulma - Black', ['#0a0a0a', '#fff']],
+
+    ['UIkit - Dodger blue', ['#1e87f0', '#fff']],
+    ['UIkit - Lime green', ['#32d296', '#fff']],
+    ['UIkit - Orange', ['#faa05a', '#fff']],
+    ['UIkit - Rose pearl', ['#f0506e', '#fff']],
+    ['UIkit - Light gray', ['#999', '#fff']],
+    ['UIkit - Dark charcoal', ['#333', '#fff']],
+    ['UIkit - Black', ['#222', '#fff']],
 ]
 
 // config_doc_title
@@ -356,6 +369,7 @@ function starter(opt) {
         userData.lang = e.target.value
 
         configSetDocLang()
+        configHeadFootLang(userData.lang)
     })
     config_doc_title.addEventListener('change',function(e){
         userData.doc_title = e.target.value
@@ -427,6 +441,12 @@ function starter(opt) {
         }
         calculateTotal()
     })
+    document.querySelector('#config_adjust').addEventListener('change',function(e){
+        if (e.target.checked == false) {
+            AutoNumeric.set('#adjust', '')
+            calculateTotal()
+        }
+    })
 
     // ---- datalist ----
 
@@ -443,7 +463,7 @@ function starter(opt) {
         item_list.appendChild(op)
     })
 
-    document.querySelectorAll('[name="item"]').forEach(function(t){
+    document.querySelectorAll('[name=item]').forEach(function(t){
         t.setAttribute('list', 'item_list')
         t.addEventListener('change', autofillItem)
     })
@@ -457,7 +477,7 @@ function starter(opt) {
 function calculateTotal() {
     const saletax_rate = userData.saletax_rate
     const incometax_rate = userData.incometax_rate
-    const elems = document.querySelectorAll('[name="amount"]')
+    const elems = document.querySelectorAll('[name=amount]')
     var total = 0
     for (let i = 0; i < elems.length; i++) {
         total += AutoNumeric.getNumber(elems[i])
@@ -572,10 +592,12 @@ function actionAdd() {
     }
 }
 function actionPrint() {
-    window.print()
     userDataCreate()
-    // userDataSend()
-    window.location.href = window.location.href.split('?')[0] + '?' + userDataSend()
+    var copy = window.prompt('Copy this link to use next time', window.location.href.split('?')[0] + '?' + userDataSend())
+    if (copy !== null) {
+        // copy
+    }
+    window.print()
 }
 
 // ---- datalist ----
@@ -595,7 +617,7 @@ function autofillClient(e) {
     }
 }
 function autofillItem(e) {
-    const tr = e.target.closest('[name="tr"]')
+    const tr = e.target.closest('[name=tr]')
     const index = il.map(function(t){ return t[0] }).indexOf(e.target.value)
     if (index >= 0) {
         var elem = tr.querySelector('[name=price]')
