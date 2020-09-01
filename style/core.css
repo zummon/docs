@@ -5,62 +5,66 @@ a {
     cursor: pointer;
 }
 /* header & footer */
-#header, 
+#header,
+#footer {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 1rem;
+    font-weight: normal;
+}
+#header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
 #footer {
     display: flex;
     flex-wrap: wrap;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1.5;
-    margin: 0 auto;
-    max-width: 1200px;
-    padding: 20px 15px;
-}
-
-#header div, 
-#footer div {
-    margin-right: 30px;
-}
-#header div:last-of-type, 
-#footer div:last-of-type {
-    margin-right: 0;
-}
-
-#header div,
-#footer div {
-    flex: 1;
-}
-#header div {
-    text-align: center;
-}
-#footer div:first-of-type {
-    text-align: right;
-}
-
-#footer ul {
-    list-style: none;
-    padding: 0;
-}
-#footer li {
-    margin: 10px 0;
+    margin-top: 3rem;
 }
 
 #header a,
 #footer a {
     color: #fff;
-    cursor: pointer;
     text-decoration: none;
+}
+#header a {
+    font-size: 3rem;
+}
+#footer a {
+    font-size: 1rem;
+}
+
+#header a,
+#footer div {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+@media (min-width: 480px) {
+    #header a,
+    #footer div {
+        margin-left: 1.25rem;
+        margin-right: 1.25rem;
+    }
 }
 #header a:hover,
 #footer a:hover {
-    text-decoration: underline;
+    color: #d6ff00;
 }
 
-#header_begin, #header_browse, #header_docs, #header_brief,
-#footer_library, #footer_madeby {
+#footer h2 {
     color: #fff;
     font-size: 1.7rem;
-    font-weight: normal;
-    text-transform: none;
+}
+#footer div {
+    flex: 1;
+}
+#footer div:first-of-type {
+    text-align: right;
+}
+#footer ul {
+    list-style: none;
+    padding: 0;
+}
+#footer li {
+    margin: 0.625rem 0;
+    padding: 0;
 }
