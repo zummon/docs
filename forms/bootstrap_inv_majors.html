@@ -18,12 +18,6 @@
   </style>
 </head>
 <body>
-  <div id="header">
-    <div><a id="header_begin"></a></div>
-    <div><a id="header_browse"></a></div>
-    <div><a>Create</a></div>
-    <div><a id="header_brief"></a></div>
-  </div>
   <div id="action" class="container-lg bg-white">
     <datalist id="client_list"></datalist>
     <datalist id="item_list"></datalist>
@@ -66,7 +60,7 @@
         <select id="config_date_type" class="form-control"></select>
       </div>
       <div class="col mb-4">
-        <label for="config_color">color*</label>
+        <label for="config_color">color</label>
         <select id="config_color" class="form-control"></select>
       </div>
       <div class="col mb-4">
@@ -177,7 +171,7 @@
   <div id="doc" class="container-lg bg-white">
     <div class="row py-3">
       <div class="col">
-        <div class="card border-primary shadow mb-4">
+        <div class="card shadow mb-4 bordercolor" style="border-color: #007bff;">
           <div class="card-body">
             <img id="headlogo_img" src="">
             <input id="vendor_name" type="text" class="form-control-lg form-control-plaintext" value="Vendor company">
@@ -185,27 +179,27 @@
             <p id="vendor_address" class="mb-0" contenteditable="true">address</p>
           </div>
         </div>
-        <div class="card border-primary shadow mb-4">
-          <div id="client_name_label" class="card-header text-center text-white bg-primary h5" contenteditable="true">Client</div>
+        <div class="card shadow mb-4 bordercolor" style="border-color: #007bff;">
+          <div id="client_name_label" class="card-header text-center h5 bgcolor" style="background-color: #007bff; color: #fff;" contenteditable="true">Client</div>
           <div class="card-body">
             <input id="client_name" type="text" class="form-control-lg form-control-plaintext" value="Client company">
             <p id="client_id" class="mb-0" contenteditable="true">register</p>
             <p id="client_address" class="mb-0" contenteditable="true">address</p>
           </div>
         </div>
-        <div class="card border-primary shadow">
-          <div id="subject_label" class="card-header text-center text-white bg-primary h5" contenteditable="true">subject</div>
+        <div class="card shadow bordercolor" style="border-color: #007bff;">
+          <div id="subject_label" class="card-header text-center h5 bgcolor" style="background-color: #007bff; color: #fff;" contenteditable="true">subject</div>
           <div id="subject" class="card-body text-center" contenteditable="true"></div>
         </div>
       </div>
       <div class="col">
-        <div class="card border-primary shadow mb-4">
-          <div id="payment_label" class="card-header text-center text-white bg-primary h5" contenteditable="true">payment</div>
+        <div class="card shadow mb-4 bordercolor" style="border-color: #007bff;">
+          <div id="payment_label" class="card-header text-center h5 bgcolor" style="background-color: #007bff; color: #fff;" contenteditable="true">payment</div>
           <div id="payment" class="card-body text-center" contenteditable="true"></div>
         </div>
-        <div class="card border-primary shadow mb-4">
+        <div class="card shadow mb-4 bordercolor" style="border-color: #007bff;">
           <div class="card-body">
-            <h1 id="doc_title" class="text-center text-primary" contenteditable="true">Invoice</h1>
+            <h1 id="doc_title" class="text-center textcolor" style="color: #007bff;" contenteditable="true">Invoice</h1>
             <div class="form-group row mb-0">
               <label id="ref_label" class="col-6 col-form-label text-right" contenteditable="true">Inv-no</label>
               <div class="col-6"><input id="ref" type="text" class="form-control-plaintext"></div>
@@ -220,15 +214,15 @@
             </div>
           </div>
         </div>
-        <div class="card border-primary shadow">
-          <div id="finaltotal_label" class="card-header text-center text-white bg-primary h5" contenteditable="true">Total</div>
+        <div class="card shadow bordercolor" style="border-color: #007bff;">
+          <div id="finaltotal_label" class="card-header text-center h5 bgcolor" style="background-color: #007bff; color: #fff;" contenteditable="true">Total</div>
           <div id="finaltotal" class="card-body h3 text-center mb-0" contenteditable="true"></div>
         </div>
       </div>
     </div>
     <table class="table table-hover table-bordered mt-3">
       <thead>
-        <tr class="text-center text-primary">
+        <tr class="text-center textcolor" style="color: #007bff;">
           <th id="line_label" contenteditable="true">line</th>
           <th id="item_label" contenteditable="true">item</th>
           <th id="price_label" contenteditable="true">price</th>
@@ -238,7 +232,7 @@
       </thead>
       <tbody id="tbody">
         <tr name="tr">
-          <th name="line" class="text-primary" contenteditable="true">1</th>
+          <th name="line" class="textcolor" style="color: #007bff;" contenteditable="true">1</th>
           <td><input name="item" type="text" class="form-control-plaintext"></td>
           <td name="price" class="text-right" contenteditable="true"></td>
           <td name="qty" class="text-right" contenteditable="true"></td>
@@ -246,7 +240,7 @@
         </tr>
       </tbody>
       <tfoot>
-        <tr class="text-primary">
+        <tr class="textcolor" style="color: #007bff;">
           <th colspan="2" rowspan="4"></th>
           <th id="total_label" colspan="2" class="text-center" contenteditable="true">total</th>
           <th id="total" class="text-right" contenteditable="true"></th>
@@ -255,12 +249,12 @@
     </table>
     <div class="row py-3">
       <div class="col">
-        <div class="card border-primary shadow mb-4">
-          <div id="note_label" class="card-header text-center text-white bg-primary h5" contenteditable="true">note</div>
+        <div class="card shadow mb-4 bordercolor" style="border-color: #007bff;">
+          <div id="note_label" class="card-header text-center h5 bgcolor" style="background-color: #007bff; color: #fff;" contenteditable="true">note</div>
           <div id="note" class="card-body text-center" contenteditable="true"></div>
         </div>
-        <div class="card border-primary shadow">
-          <div id="client_sign_label" class="card-header text-center text-white bg-primary h5" contenteditable="true">client sign</div>
+        <div class="card shadow bordercolor" style="border-color: #007bff;">
+          <div id="client_sign_label" class="card-header text-center h5 bgcolor" style="background-color: #007bff; color: #fff;" contenteditable="true">client sign</div>
           <div class="card-body">
             <blockquote class="blockquote mb-0">
               <p id="client_sign" class="text-center" contenteditable="true"></p>
@@ -270,7 +264,7 @@
         </div>
       </div>
       <div class="col">
-        <div class="card border-primary shadow mb-4">
+        <div class="card shadow mb-4 bordercolor" style="border-color: #007bff;">
           <div class="card-body">
             <div class="form-group row mb-0">
               <label class="col-6 col-form-label text-right">
@@ -292,10 +286,10 @@
             </div>
           </div>
         </div>
-        <div class="card border-primary shadow">
+        <div class="card shadow bordercolor" style="border-color: #007bff;">
           <div class="card-body text-center">
             <img id="footlogo_img" src="">
-            <p id="vendor_sign_label" class="text-primary h5 mb-0" contenteditable="true">vendor sign</p>
+            <p id="vendor_sign_label" class="h5 mb-0 textcolor" style="color: #007bff;" contenteditable="true">vendor sign</p>
             <blockquote class="blockquote mb-0">
               <p id="vendor_sign" contenteditable="true"></p>
               <footer id="vendor_rank" class="blockquote-footer text-right" contenteditable="true">vendor name</footer>
@@ -304,29 +298,9 @@
         </div>
       </div>
     </div>
-    <h4 id="thank_message" class="text-center text-primary pb-3" contenteditable="true">Thank you</h4>
+    <h4 id="thank_message" class="text-center pb-3 textcolor" style="color: #007bff;" contenteditable="true">Thank you</h4>
   </div>
   
-<!--------------------------------------------------------------------------------------------------------------------->
-  
-  <div id="footer">
-    <div>
-      <h2 id="footer_library">Library usage</h2>
-      <ul>
-        <li><a id="footer_autonumeric"></a></li>
-        <li><a id="footer_bootstrap"></a></li>
-      </ul>
-    </div>
-    <div>
-      <h2 id="footer_madeby">Made by</h2>
-      <ul>
-        <li><a id="footer_github">zummon (Github)</a></li>
-        <li><a id="footer_facebook">zummon (Facebook: zummontt)</a></li>
-        <li><a id="footer_paypal">donate to support (PayPal: zummontt)</a></li>
-      </ul>
-    </div>
-  </div>
-
   <script>
     document.addEventListener('DOMContentLoaded',function(){
       starter({
@@ -356,43 +330,6 @@
           ['#config_vendor_sign', document.querySelector('#vendor_sign').parentElement],
         ],
       })
-
-      // const config_color = document.querySelector('#config_color')
-      // ;[
-      //   ['is-primary','turquoise'],
-      //   ['is-link','blue'],
-      //   ['is-info','cyan'],
-      //   ['is-success','green'],
-      //   ['is-warning','yellow'],
-      //   ['is-danger','red'],
-      //   ['is-dark','grey-darker'],
-      //   ['is-black','black'],
-      // ].forEach(function(t){
-      //   var op = document.createElement('option')
-      //   op.value = t[0]
-      //   op.textContent = t[1]
-      //   config_color.appendChild(op)
-      // })
-      // border-primary
-      // bg-primary text-white
-      // text-primary
-
-      // text-primary
-      // text-secondary
-      // text-success
-      // text-danger
-      // text-warning
-      // text-info
-      // text-dark
-
-      // config_color.addEventListener('change',function(e){
-      //   const older = document.querySelector('#amount_label').className
-      //   const newer = e.target.value
-      //   document.querySelectorAll('[class*="' + older + '"]').forEach(function(t){
-      //     t.classList.remove(older)
-      //     t.classList.add(newer)
-      //   })
-      // })
 
       // untitled
       // invoice
