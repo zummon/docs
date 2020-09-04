@@ -8755,7 +8755,7 @@ label.panel-block:hover {
   margin-bottom: 1.5rem !important;
 }
 
-@media screen and (min-width: 769px), print {
+/* @media screen and (min-width: 769px), print { */
   .tile:not(.is-child) {
     display: flex;
   }
@@ -8807,7 +8807,7 @@ label.panel-block:hover {
     flex: none;
     width: 100%;
   }
-}
+/* } */
 
 .has-text-white {
   color: white !important;
