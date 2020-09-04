@@ -4,11 +4,12 @@
   <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/x-icon" href="">
   <title>DOCS zummon webapp</title>
   <link rel="stylesheet" href="../style/uikit35cdn.css">
-  <link rel="stylesheet" href="../style/core.css">
-  <link rel="stylesheet" href="../style/docs.css">
-  <link rel="stylesheet" href="../style/docs_inv.css">
+  <link rel="stylesheet" href="../source/core.css">
+  <link rel="stylesheet" href="../source/docs.css">
+  <link rel="stylesheet" href="../source/docs_inv.css">
   <style>
     #vendor_name,
     #client_name { width: 100%; }
@@ -20,16 +21,16 @@
 </head>
 <body>
   <div id="action" class="uk-container uk-container-small uk-background-default">
-    <ul class="uk-child-width-expand uk-text-large uk-text-bold" uk-tab>
-      <li><a id="action_clear">Clear*</a></li>
-      <li><a id="action_pop">Pop</a></li>
-      <li><a id="action_config">Config</a></li>
-      <li><a id="action_add">Add</a></li>
-      <li><a id="action_print">Print</a></li>
-    </ul>
+    <div class="uk-child-width-expand uk-text-lead uk-text-center uk-padding-small" uk-grid>
+      <div><a id="action_clear">Clear</a></div>
+      <div><a id="action_pop">Pop</a></div>
+      <div><a id="action_config">Config</a></div>
+      <div><a id="action_add">Add</a></div>
+      <div><a id="action_print">Print</a></div>
+    </div>
   </div>
-  <div id="config" class="uk-container uk-container-small uk-background-muted">
-    <div class="uk-child-width-1-3 uk-margin-top" uk-grid>
+  <div id="config" class="uk-container uk-container-small uk-background-muted"><br>
+    <div class="uk-child-width-1-3" uk-grid>
       <div>
         <label for="config_saletax_rate" class="uk-form-label">sales tax</label>
         <input id="config_saletax_rate" class="uk-input" type="number" step="0.01">
@@ -77,7 +78,7 @@
         </div>
       </div>
     </div>
-    <div class="uk-child-width-1-3 uk-margin-bottom" uk-grid>
+    <div class="uk-child-width-1-3" uk-grid>
       <div>
         <input id="config_headlogo_img" class="uk-checkbox" type="checkbox" checked>
         <label for="config_headlogo_img">Head logo</label>
@@ -136,10 +137,8 @@
       </div>
     </div>
     <datalist id="client_list"></datalist>
-    <datalist id="item_list"></datalist>
+    <datalist id="item_list"></datalist><br>
   </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
 
   <div id="doc" class="uk-container uk-container-small uk-background-default">
     <div class="uk-child-width-1-2 uk-flex-middle uk-margin-top uk-grid-small" uk-grid>
@@ -278,7 +277,6 @@
     })
   </script>
   <script src="../source/core.js"></script>
-  <script src="../source/brief_docs.js"></script>
   <script src="../source/docs.js"></script>
   <script src="../source/docs_inv.js"></script>
   <script src="../script/uikit35cdn.js"></script>

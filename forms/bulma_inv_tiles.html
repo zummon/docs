@@ -4,11 +4,12 @@
   <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="">
   <title>DOCS zummon webapp</title>
   <link rel="stylesheet" href="../style/bulma09cdn.css">
-  <link rel="stylesheet" href="../style/core.css">
-  <link rel="stylesheet" href="../style/docs.css">
-  <link rel="stylesheet" href="../style/docs_inv.css">
+  <link rel="stylesheet" href="../source/core.css">
+  <link rel="stylesheet" href="../source/docs.css">
+  <link rel="stylesheet" href="../source/docs_inv.css">
   <style>
     .table tfoot th { border-width: 0; }
     #line_label { width: 1px; }
@@ -30,11 +31,9 @@
 </head>
 <body>
   <div id="action" class="container">
-    <datalist id="client_list"></datalist>
-    <datalist id="item_list"></datalist>
     <div class="tabs is-fullwidth is-medium has-background-white has-text-weight-semibold">
       <ul>
-        <li><a id="action_clear">Clear*</a></li>
+        <li><a id="action_clear">Clear</a></li>
         <li><a id="action_pop">Pop</a></li>
         <li><a id="action_config">Config</a></li>
         <li><a id="action_add">Add</a></li>
@@ -137,9 +136,9 @@
         <label for="config_thank_message" class="checkbox">thank message</label>
       </div>
     </div>
+    <datalist id="client_list"></datalist>
+    <datalist id="item_list"></datalist>
   </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
 
   <div id="doc" class="container has-background-white">
     <div class="tile is-ancestor">
@@ -154,7 +153,7 @@
         </div>
       </div>
     </div>
-    <h1 id="doc_title" class="title is-1 has-text-centered">Invoice</h1>
+    <h1 id="doc_title" class="title is-1 has-text-centered" contenteditable="true">Invoice</h1>
     <div class="columns is-mobile">
       <div class="column">
         <input id="ref" type="text" class="input is-small is-rounded has-text-centered">
@@ -172,7 +171,7 @@
     <div class="tile is-ancestor">
       <div class="tile is-parent">
         <div class="tile is-child notification bgcolor" style="background-color: #00d1b2; color: #fff;">
-          <span id="client_name_label" class="is-white has-text-weight-semibold">Bill to</span>
+          <span id="client_name_label" class="is-white has-text-weight-semibold" contenteditable="true">Bill to</span>
           <input id="client_name" type="text" class="subtitle has-text-weight-bold" value="Client company">
           <p id="client_id" contenteditable="true">Register</p>
           <p id="client_address" contenteditable="true">Address</p>
@@ -229,7 +228,7 @@
             <span id="saletax_label" contenteditable="true">saletax</span>
             <span id="saletax_rate" class="tag bgcolor" style="background-color: #00d1b2; color: #fff;" contenteditable="true">7%</span>
           </th>
-          <th id="saletax" class="is-light has-text-right"></th>
+          <th id="saletax" class="is-light has-text-right" contenteditable="true"></th>
         </tr>
         <tr>
           <th colspan="2" class="is-light">
@@ -298,7 +297,6 @@
     })
   </script>
   <script src="../source/core.js"></script>
-  <script src="../source/brief_docs.js"></script>
   <script src="../source/docs.js"></script>
   <script src="../source/docs_inv.js"></script>
 </body>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="">
+  <title>DOCS zummon webapp</title>
+  <link rel="stylesheet" href="../style/bulma09cdn.css">
+  <link rel="stylesheet" href="../source/core.css">
+  <link rel="stylesheet" href="../source/docs.css">
+  <link rel="stylesheet" href="../source/docs_inv.css">
+  <style>
+    #doc .section { padding: 1rem 1.5rem 0 1.5rem; }
+    #ref,
+    #date,
+    #duedate,
+    #vendor_name,
+    [name=item] {
+      border: none;
+      background-color: transparent;
+    }
+    #vendor_name,
+    [name=item] { width: 100%; }
+    #ref,
+    #date,
+    #duedate,
+    [name=item] {
+      font-size: 1em;
+      font-weight: 400;
+    }
+    #saletax,
+    #line_label,
+    #price_label,
+    #qty_label,
+    #amount_label { width: 1px; }
+  </style>
+</head>
+<body>
+  <div id="action" class="container">
+    <div class="tabs is-fullwidth is-medium has-background-white has-text-weight-semibold">
+      <ul>
+        <li><a id="action_clear">Clear</a></li>
+        <li><a id="action_pop">Pop</a></li>
+        <li><a id="action_config">Config</a></li>
+        <li><a id="action_add">Add</a></li>
+        <li><a id="action_print">Print</a></li>
+      </ul>
+    </div>
+  </div>
+  <div id="config" class="container has-background-light section">
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-4">
+        <label for="config_saletax_rate" class="label">sales tax</label>
+        <input id="config_saletax_rate" class="input" type="number" step="0.01">
+      </div>
+      <div class="column is-4">
+        <label for="config_incometax_rate" class="label">income tax</label>
+        <input id="config_incometax_rate" class="input" type="number" step="0.01">
+      </div>
+      <div class="column is-4">
+        <label for="config_lang" class="label">language</label>
+        <div class="select is-fullwidth"><select id="config_lang"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_doc_title" class="label">title*</label>
+        <div class="select is-fullwidth"><select id="config_doc_title"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_an_price" class="label">price</label>
+        <div class="select is-fullwidth"><select id="config_an_price"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_an_qty" class="label">qty</label>
+        <div class="select is-fullwidth"><select id="config_an_qty"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_date_type" class="label">date type</label>
+        <div class="select is-fullwidth"><select id="config_date_type"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_color" class="label">color</label>
+        <div class="select is-fullwidth"><select id="config_color"></select></div>
+      </div>
+      <div class="column is-4">
+        <label for="config_headlogo" class="label">Head logo</label>
+        <div class="file has-name is-fullwidth is-right">
+          <label class="file-label">
+            <input id="config_headlogo" class="file-input" type="file">
+            <span class="file-cta"><span class="file-label">Browse</span></span>
+            <span class="file-name has-background-white">Image</span>
+          </label>
+        </div>
+      </div>
+      <div class="column is-4">
+        <label for="config_footlogo" class="label">Foot logo</label>
+        <div class="file has-name is-fullwidth is-right">
+          <label class="file-label">
+            <input id="config_footlogo" class="file-input" type="file">
+            <span class="file-cta"><span class="file-label">Browse</span></span>
+            <span class="file-name has-background-white">Image</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="columns is-mobile is-multiline">
+      <div class="column is-4">
+        <input id="config_headlogo_img" type="checkbox">
+        <label for="config_headlogo_img" class="checkbox">head logo</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_vendor_id" type="checkbox" checked>
+        <label for="config_vendor_id" class="checkbox">vendor register</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_client_id" type="checkbox" checked>
+        <label for="config_client_id" class="checkbox">client register</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_duedate" type="checkbox" checked>
+        <label for="config_duedate" class="checkbox">due date</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_payment" type="checkbox" checked>
+        <label for="config_payment" class="checkbox">payment</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_subject" type="checkbox">
+        <label for="config_subject" class="checkbox">project</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_note" type="checkbox" checked>
+        <label for="config_note" class="checkbox">note</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_client_sign" type="checkbox" checked>
+        <label for="config_client_sign" class="checkbox">client sign</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_vendor_sign" type="checkbox" checked>
+        <label for="config_vendor_sign" class="checkbox">vendor sign</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_saletax" type="checkbox" checked>
+        <label for="config_saletax" class="checkbox">sale tax</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_incometax" type="checkbox" checked>
+        <label for="config_incometax" class="checkbox">income tax</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_adjust" type="checkbox" checked>
+        <label for="config_adjust" class="checkbox">adjust</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_thank_message" type="checkbox" checked>
+        <label for="config_thank_message" class="checkbox">thank message</label>
+      </div>
+      <div class="column is-4">
+        <input id="config_footlogo_img" type="checkbox" checked>
+        <label for="config_footlogo_img" class="checkbox">foot logo</label>
+      </div>
+    </div>
+    <datalist id="client_list"></datalist>
+    <datalist id="item_list"></datalist>
+  </div>
+
+  <div id="doc" class="container has-background-white">
+    <section class="hero bgcolor" style="background-color: #3298dc; color: #fff;">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-mobile">
+            <div class="column">
+              <h1 id="doc_title" class="title is-1 bgcolor" style="background-color: #3298dc; color: #fff;" contenteditable="true">Invoice</h1>
+              <table>
+                <tbody>
+                  <tr>
+                    <td id="ref_label" contenteditable="true"></td>
+                    <td><input id="ref" class="bgcolor" style="background-color: #3298dc; color: #fff;"></input></td>
+                  </tr>
+                  <tr>
+                    <td id="date_label" contenteditable="true"></td>
+                    <td><input id="date" class="bgcolor" style="background-color: #3298dc; color: #fff;" type="date"></input></td>
+                  </tr>
+                  <tr>
+                    <td id="duedate_label" contenteditable="true"></td>
+                    <td><input id="duedate" class="bgcolor" style="background-color: #3298dc; color: #fff;" type="date"></input></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="column has-text-right">
+              <img id="headlogo_img" src="" style="display: none;">
+              <input id="vendor_name" class="title is-4 is-marginless has-text-right bgcolor" style="background-color: #3298dc; color: #fff;" value="Your company">
+              <p id="vendor_id" contenteditable="true">Register</p>
+              <p id="vendor_address" contenteditable="true">Address</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="columns is-mobile">
+          <div class="column">
+            <div class="field">
+              <label id="payment_label" class="label" contenteditable="true">payment</label>
+              <textarea id="payment" rows="2" class="textarea bordercolor" style="border-color: #3298dc;"></textarea>
+            </div>
+            <div class="field" style="display: none;">
+              <label id="subject_label" class="label" contenteditable="true">subject</label>
+              <input id="subject" class="input bordercolor" style="border-color: #3298dc;">
+            </div>
+          </div>
+          <div class="column">
+            <label id="client_name_label" class="label">Bill to</label>
+            <input id="client_name" class="input bordercolor" style="border-color: #3298dc;">
+            <input id="client_id" class="input is-small">
+            <textarea id="client_address" rows="2" class="textarea is-small"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <table class="table is-hoverable is-narrow is-fullwidth">
+          <thead>
+            <tr>
+              <th id="line_label" class="bordercolor" style="border-color: #3298dc;" contenteditable="true">line</th>
+              <th id="item_label" class="bordercolor" style="border-color: #3298dc;" contenteditable="true">item</th>
+              <th id="price_label" class="bordercolor has-text-right" style="border-color: #3298dc;" contenteditable="true">price</th>
+              <th id="qty_label" class="bordercolor has-text-right" style="border-color: #3298dc;" contenteditable="true">qty</th>
+              <th id="amount_label" class="bordercolor has-text-right" style="border-color: #3298dc;" contenteditable="true">amount</th>
+            </tr>
+          </thead>
+          <tbody id="tbody">
+            <tr name="tr">
+              <td name="line" contenteditable="true"></td>
+              <td><input name="item" type="text"></td>
+              <td name="price" class="has-text-right" contenteditable="true"></td>
+              <td name="qty" class="has-text-right" contenteditable="true"></td>
+              <td name="amount" class="has-text-right" contenteditable="true"></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="2" class="bordercolor" style="border-color: #3298dc;"></th>
+              <th id="total_label" colspan="2" class="has-text-right bordercolor" style="border-color: #3298dc;" contenteditable="true">total</th>
+              <th id="total" class="has-text-right bordercolor" style="border-color: #3298dc;" contenteditable="true"></th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </section>
+
+    <section class="section is-marginless">
+      <div class="container">
+        <div class="columns is-mobile">
+          <div class="column">
+            <div class="field">
+              <label id="note_label" class="label" contenteditable="true">note</label>
+              <textarea id="note" rows="2" class="textarea bordercolor" style="border-color: #3298dc;"></textarea>
+            </div>
+          </div>
+          <div class="column">
+            <table class="table is-fullwidth is-narrow has-text-right">
+              <tbody>
+                <tr>
+                  <th colspan="2">
+                    <span id="saletax_label" contenteditable="true">saletax</span>
+                    <span id="saletax_rate" contenteditable="true">7%</span>
+                  </th>
+                  <th id="saletax" contenteditable="true"></th>
+                </tr>
+                <tr>
+                  <th colspan="2">
+                    <span id="incometax_label" contenteditable="true">incometax</span>
+                    <span id="incometax_rate" contenteditable="true">3%</span>
+                  </th>
+                  <th id="incometax" contenteditable="true"></th>
+                </tr>
+                <tr>
+                  <th id="adjust_label" colspan="2" contenteditable="true">adjust</th>
+                  <th id="adjust" contenteditable="true"></th>
+                </tr>
+                <tr>
+                  <th id="finaltotal_label" colspan="2" contenteditable="true">Total</th>
+                  <th id="finaltotal" contenteditable="true"></th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section is-marginless">
+      <div class="container">
+        <div class="columns is-mobile">
+          <div class="column">
+            <label id="vendor_sign_label" class="label is-small" contenteditable="true">vendor sign</label>
+            <textarea id="vendor_sign" rows="2" class="textarea is-small bordercolor" style="border-color: #3298dc;"></textarea>
+            <input id="vendor_rank" class="input is-small">
+          </div>
+          <div class="column">
+            <label id="client_sign_label" class="label is-small" contenteditable="true">client sign</label>
+            <textarea id="client_sign" rows="2" class="textarea is-small bordercolor" style="border-color: #3298dc;"></textarea>
+            <input id="client_rank" class="input is-small">
+          </div>
+          <div class="column has-text-centered">
+            <h4 id="thank_message" class="title is-4 textcolor" style="color: #3298dc;" contenteditable="true">Thank you</h4>
+            <img id="footlogo_img" src="">
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded',function(){
+      starter({
+        tr_show: 6,
+        tr_hide: 14,
+        logos_img: [
+          ['#config_headlogo', '#headlogo_img'],
+          ['#config_footlogo', '#footlogo_img'],
+        ],
+        price: '[name=price], [name=amount], #total, #saletax, #incometax, #adjust, #finaltotal',
+        qty: '[name="qty"]',
+        config_fields: [
+          ['#config_duedate', document.querySelector('#duedate_label').parentElement],
+          ['#config_headlogo_img', document.querySelector('#headlogo_img')],
+          ['#config_vendor_id', document.querySelector('#vendor_id')],
+          ['#config_client_id', document.querySelector('#client_id')],
+          ['#config_payment', document.querySelector('#payment').parentElement],
+          ['#config_subject', document.querySelector('#subject').parentElement],
+          ['#config_note', document.querySelector('#note').parentElement],
+          ['#config_saletax', document.querySelector('#saletax').parentElement],
+          ['#config_incometax', document.querySelector('#incometax').parentElement],
+          ['#config_adjust', document.querySelector('#adjust').parentElement],
+          ['#config_vendor_sign', document.querySelector('#vendor_sign').parentElement],
+          ['#config_client_sign', document.querySelector('#client_sign').parentElement],
+          ['#config_footlogo_img', document.querySelector('#footlogo_img')],
+          ['#config_thank_message', document.querySelector('#thank_message')],
+        ],
+      })
+
+      // untitled
+      // invoice
+      // quotation
+      // receipt
+      // taxinvoice
+
+    })
+  </script>
+  <script src="../source/core.js"></script>
+  <script src="../source/docs.js"></script>
+  <script src="../source/docs_inv.js"></script>
+</body>
+</html>

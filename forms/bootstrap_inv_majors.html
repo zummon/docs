@@ -4,11 +4,12 @@
   <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" type="image/x-icon" href="">
   <title>DOCS zummon webapp</title>
   <link rel="stylesheet" href="../style/bootstrap45cdn.css">
-  <link rel="stylesheet" href="../style/core.css">
-  <link rel="stylesheet" href="../style/docs.css">
-  <link rel="stylesheet" href="../style/docs_inv.css">
+  <link rel="stylesheet" href="../source/core.css">
+  <link rel="stylesheet" href="../source/docs.css">
+  <link rel="stylesheet" href="../source/docs_inv.css">
   <style>
     #line_label { width: 1px; }
     #price_label,
@@ -19,10 +20,8 @@
 </head>
 <body>
   <div id="action" class="container-lg bg-white">
-    <datalist id="client_list"></datalist>
-    <datalist id="item_list"></datalist>
-    <nav class="nav nav-fill font-weight-bold">
-      <a id="action_clear" class="nav-link">Clear*</a>
+    <nav class="nav nav-fill h4 py-2">
+      <a id="action_clear" class="nav-link">Clear</a>
       <a id="action_pop" class="nav-link">Pop</a>
       <a id="action_config" class="nav-link">Config</a>
       <a id="action_add" class="nav-link">Add</a>
@@ -164,9 +163,9 @@
         </div>
       </div>
     </div>
+    <datalist id="client_list"></datalist>
+    <datalist id="item_list"></datalist>
   </div>
-
-<!--------------------------------------------------------------------------------------------------------------------->
 
   <div id="doc" class="container-lg bg-white">
     <div class="row py-3">
@@ -304,8 +303,8 @@
   <script>
     document.addEventListener('DOMContentLoaded',function(){
       starter({
-        tr_show: 5,
-        tr_hide: 15,
+        tr_show: 4,
+        tr_hide: 16,
         logos_img: [
           ['#config_headlogo', '#headlogo_img'],
           ['#config_footlogo', '#footlogo_img'],
@@ -331,16 +330,31 @@
         ],
       })
 
-      // untitled
-      // invoice
-      // quotation
-      // receipt
-      // taxinvoice
+    // document.querySelector('#config_doc_title').addEventListener('change',function(e){
+    //   const bring = [
+    //     ['untitled', ],
+    //     ['invoice', ],
+    //     ['quotation', ],
+    //     ['receipt', ],
+    //     ['taxinvoice', ],
+    //   ].filter(function(t){ return t[0] == e.target.value })
+
+    //   var cfel_str = t[0]
+    //   var target_elem = t[2]
+
+    //   if (e.target.value == false) {
+    //     document.querySelector(cfel_str)
+    //     target_elem.style.display = 'none'
+    //   } else {
+    //     target_elem.style.display = ''
+    //   }
+    // })
+
+     
     })
     
   </script>
   <script src="../source/core.js"></script>
-  <script src="../source/brief_docs.js"></script>
   <script src="../source/docs.js"></script>
   <script src="../source/docs_inv.js"></script>
 </body>
