@@ -281,7 +281,9 @@ function starter(opt) {
     // ---- action ----
 
     document.querySelector('#action_clear').addEventListener('click',function(){
-        // actionClear
+        actionClear('#vendor_name,#vendor_id,#vendor_address,#client_name,#client_id,#client_address,#subject,#ref,#date,#duedate,#payment,#finaltotal,#client_sign,#client_rank,#total,#saletax,#incometax,#adjust,#footlogo_img,#note,#vendor_sign,#vendor_rank,[name=item],[name=price],[name=qty],[name=amount]')
+        configUploadImage('#headlogo_img')
+        configUploadImage('#footlogo_img')
     })
     document.querySelector('#action_pop').addEventListener('click',actionPop)
     document.querySelector('#action_config').addEventListener('click',actionConfig)
@@ -312,7 +314,7 @@ function starter(opt) {
     langs.forEach(function(t){
         var op = document.createElement('option')
         op.value = t
-        op.textContent = t
+        op.textContent = t.toUpperCase()
         config_lang.appendChild(op)
     })
     ans_price.forEach(function(t){
@@ -330,7 +332,7 @@ function starter(opt) {
     Object.keys(doc_text).forEach(function(t){
         var op = document.createElement('option')
         op.value = t
-        op.textContent = t
+        op.textContent = t.toUpperCase()
         config_doc_title.appendChild(op)
     })
     date_types.forEach(function(t){
@@ -344,7 +346,7 @@ function starter(opt) {
         op.value = t[0]
         op.textContent = t[0]
         config_color.appendChild(op)
-    })  
+    })
 
     config_saletax_rate.value = userData.saletax_rate
     config_incometax_rate.value = userData.incometax_rate
@@ -352,6 +354,7 @@ function starter(opt) {
     config_doc_title.value = userData.doc_title
     config_an_price.value = userData.an_price
     config_an_qty.value = userData.an_qty
+    config_color.value = ''
 
     config_saletax_rate.addEventListener('change',function(e){
         userData.saletax_rate = parseFloat(e.target.value)
@@ -414,10 +417,10 @@ function starter(opt) {
         })
         document.querySelectorAll('[class*=bgcolor]').forEach(function(t){
             t.style.color = option[1]
-            t.style['background-color'] = option[0]
+            t.style.backgroundColor = option[0]
         })
         document.querySelectorAll('[class*=bordercolor]').forEach(function(t){
-            t.style['border-color'] = option[0]
+            t.style.borderColor = option[0]
         })
     })
 
@@ -470,6 +473,21 @@ function starter(opt) {
     document.querySelector('#client_name').setAttribute('list', 'client_list')
     document.querySelector('#client_name').addEventListener('change', autofillClient)
 
+    // actionPrint
+    window.onafterprint = function(){
+        userDataCreate()
+        var lang_index = langs.indexOf(userData.lang)
+        if (lang_index < 0) { lang_index = 0 }
+        const hint = [
+            'Copy this link to use next time, ok to reset',
+            'คัดลอกลิงค์นี้เก็บไว้ใช้งานครั้งต่อไป, ตกลงเพื่อสร้างใหม่'
+        ]
+        var link = window.location.href.split('?')[0] + '?' + userDataSend()
+        var copy = window.prompt(hint[lang_index], link)
+        if (copy !== null) {
+            window.location.href = link
+        }
+    }
 }
 
 // ---- autoNumeric ----
@@ -503,6 +521,7 @@ function configShowHideField(cfel_str, target_elem) {
 }
 function configUploadImage(img, upload) {
     const elemImg = document.querySelector(img)
+    if (elemImg == null) { return }
     var imgSrc = '../images/logo_100x100.png'
     if (upload !== undefined) {
         const elemSet = document.querySelector(upload)
@@ -551,6 +570,7 @@ function actionClear(applyto) {
         var attr = 'textContent'
         if (AutoNumeric.isManagedByAutoNumeric(t) ) {
             AutoNumeric.set(t, '')
+            return
         } else if (input_tags.indexOf(t.tagName) >= 0) {
             attr = 'value'
         }
@@ -592,11 +612,6 @@ function actionAdd() {
     }
 }
 function actionPrint() {
-    userDataCreate()
-    var copy = window.prompt('Copy this link to use next time', window.location.href.split('?')[0] + '?' + userDataSend())
-    if (copy !== null) {
-        // copy
-    }
     window.print()
 }
 

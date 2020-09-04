@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOCS zummon webapp</title>
   <link rel="stylesheet" href="../style/uikit35cdn.css">
-  <link rel="stylesheet" href="../style/core.css">
+  <link rel="stylesheet" href="../source/core.css">
 </head>
 <body>
   <div class="uk-container">
-    <div id="browse" class="uk-child-width-1-2@s uk-child-width-1-4@l" uk-grid="masonry: true"></div>
+    <div id="browse" class="uk-child-width-1-2@s uk-child-width-1-4@l" uk-grid></div>
   </div>
 
   <script>
@@ -17,8 +17,9 @@
       const main_elem = document.querySelector('#browse')
 
       var browse_images = [
-        'bulma_inv_tiles',
         'bootstrap_inv_majors',
+        'bulma_inv_hero',
+        'bulma_inv_tiles',
         'uikit_inv_business',
       ]
       const queryStr = window.location.search

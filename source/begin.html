@@ -5,30 +5,208 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>DOCS zummon webapp</title>
   <link rel="stylesheet" href="../style/uikit35cdn.css">
-  <link rel="stylesheet" href="../style/core.css">
+  <link rel="stylesheet" href="../source/core.css">
 </head>
 <body>
-  <div class="uk-container uk-container-small">
-    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow>
-      <ul class="uk-slideshow-items">
-        <li><img src="../images/How to_009.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_001.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_002.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_003.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_004.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_005.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_006.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_007.png" alt="" uk-cover></li>
-        <li><img src="../images/How to_008.png" alt="" uk-cover></li>
-      </ul>
-
-      <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
-      <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
-  
+  <div id="begin" class="uk-container uk-container-small uk-background-default uk-padding">
+    <div class="uk-margin" uk-grid>
+      <div class="uk-width-expand">
+        <p class="uk-h1 uk-text-truncate">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1 2.828v9.923c.918-.35 2.107-.692 3.287-.81 1.094-.111 2.278-.039 3.213.492V2.687c-.654-.689-1.782-.886-3.112-.752-1.234.124-2.503.523-3.388.893zm7.5-.141v9.746c.935-.53 2.12-.603 3.213-.493 1.18.12 2.37.461 3.287.811V2.828c-.885-.37-2.154-.769-3.388-.893-1.33-.134-2.458.063-3.112.752zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+          </svg>
+          <span id="title_begin" class="uk-h2">Introduction</span>
+        </p>
+      </div>
+      <div class="uk-width-auto">
+        <select id="config_article_lang" class="uk-select"></select>
+      </div>
     </div>
+    <div id="text_begin"></div>
+      
+    <p class="uk-h1">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M3.188 8L.264 9.559a.5.5 0 0 0 0 .882l7.5 4a.5.5 0 0 0 .47 0l7.5-4a.5.5 0 0 0 0-.882L12.813 8l-1.063.567L14.438 10 8 13.433 1.562 10 4.25 8.567 3.187 8z"/>
+        <path fill-rule="evenodd" d="M7.765 1.559a.5.5 0 0 1 .47 0l7.5 4a.5.5 0 0 1 0 .882l-7.5 4a.5.5 0 0 1-.47 0l-7.5-4a.5.5 0 0 1 0-.882l7.5-4zM1.563 6L8 9.433 14.438 6 8 2.567 1.562 6z"/>
+      </svg>
+      <span id="title_browse" class="uk-h2">Templates</span>
+    </p>
+    <div id="text_browse"></div>
+    <p class="uk-h1">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M1 2.5A1.5 1.5 0 0 1 2.5 1h11A1.5 1.5 0 0 1 15 2.5v6.086a1.5 1.5 0 0 1-.44 1.06l-4.914 4.915a1.5 1.5 0 0 1-1.06.439H2.5A1.5 1.5 0 0 1 1 13.5v-11zM2.5 2a.5.5 0 0 0-.5.5v11a.5.5 0 0 0 .5.5h6.086a.5.5 0 0 0 .353-.146l4.915-4.915A.5.5 0 0 0 14 8.586V2.5a.5.5 0 0 0-.5-.5h-11z"/>
+        <path fill-rule="evenodd" d="M9.5 9a.5.5 0 0 0-.5.5v5H8v-5A1.5 1.5 0 0 1 9.5 8h5v1h-5z"/>
+      </svg>
+      <span id="title_doc" class="uk-h2">Document</span>
+    </p>
+    <div id="text_doc"></div>
+    <div class="uk-child-width-1-2 uk-padding-small" uk-grid>
+      <div class="uk-text-lead uk-text-right"><a>Clear</a></div><div id="action_clear"></div>
+      <div class="uk-text-lead uk-text-right"><a>Pop</a></div><div id="action_pop"></div>
+      <div class="uk-text-lead uk-text-right"><a>Config</a></div><div id="action_config"></div>
+      <div class="uk-text-lead uk-text-right"><a>Add</a></div><div id="action_add"></div>
+      <div class="uk-text-lead uk-text-right"><a>Print</a></div><div id="action_print"></div>
+    </div>
+    <div class="uk-child-width-1-3" uk-grid>
+      <div>
+        <label id="config_saletax_rate" class="uk-form-label"></label>
+        <input class="uk-input" disabled>
+      </div>
+      <div>
+        <label id="config_incometax_rate" class="uk-form-label"></label>
+        <input class="uk-input" disabled>
+      </div>
+      <div>
+        <label id="config_lang" class="uk-form-label"></label>
+        <select class="uk-select" disabled></select>
+      </div>
+      <div>
+        <label id="config_doc_title" class="uk-form-label"></label>
+        <select class="uk-select" disabled></select>
+      </div>
+      <div>
+        <label id="config_an_price" class="uk-form-label"></label>
+        <select class="uk-select" disabled></select>
+      </div>
+      <div>
+        <label id="config_an_qty" class="uk-form-label"></label>
+        <select class="uk-select" disabled></select>
+      </div>
+      <div>
+        <label id="config_date_type" class="uk-form-label"></label>
+        <select class="uk-select" disabled></select>
+      </div>
+      <div>
+        <label id="config_color" class="uk-form-label"></label>
+        <select class="uk-select" disabled></select>
+      </div>
+      <div>
+        <label id="config_logo" class="uk-form-label"></label>
+        <div uk-form-custom="target: true">
+          <input type="file" disabled>
+          <input class="uk-input" type="text" placeholder="Image Browse" disabled>
+        </div>
+      </div>
+      <div>
+        <input class="uk-checkbox" type="checkbox" checked>
+        <label id="config_showhide"></label>
+      </div>
+      <div>
+        <input class="uk-checkbox" type="checkbox" checked disabled>
+        <label id="config_showhide1"></label>
+      </div>
+      <div>
+        <input class="uk-checkbox" type="checkbox" disabled>
+        <label id="config_showhide2"></label>
+      </div>
+    </div>
+    <p class="uk-h1">
+      <svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" d="M8.186 1.113a.5.5 0 0 0-.372 0L1.846 3.5 8 5.961 14.154 3.5 8.186 1.113zM15 4.239l-6.5 2.6v7.922l6.5-2.6V4.24zM7.5 14.762V6.838L1 4.239v7.923l6.5 2.6zM7.443.184a1.5 1.5 0 0 1 1.114 0l7.129 2.852A.5.5 0 0 1 16 3.5v8.662a1 1 0 0 1-.629.928l-7.185 2.874a.5.5 0 0 1-.372 0L.63 13.09a1 1 0 0 1-.63-.928V3.5a.5.5 0 0 1 .314-.464L7.443.184z"/>
+      </svg>
+      <span id="title_brief" class="uk-h2">Datalist</span>
+    </p>
+    <div id="text_brief"></div>
   </div>
 
   <script>
+  document.addEventListener('DOMContentLoaded',function(){
+    const config_lang = document.querySelector('#config_article_lang')
+    langs.forEach(function(t){
+      var op = document.createElement('option')
+      op.value = t
+      op.textContent = t.toUpperCase()
+      config_lang.appendChild(op)
+    })
+    config_lang.addEventListener('change',function(e){
+      userData.lang = e.target.value
+      configSetArticleLang()
+      configHeadFootLang(userData.lang)
+    })
+    configSetArticleLang()
+  })
+
+  function configSetArticleLang() {
+    var lang_index = langs.indexOf(userData.lang)+1
+    if (lang_index < 1) { lang_index = 1 }
+
+const Github = '<a href="https://github.com/zummon" target="_blank">Github</a>'
+const Facebook = '<a href="https://www.facebook.com/zummontt" target="_blank">Facebook</a>'
+const PayPal = '<a href="https://www.paypal.me/zummontt" target="_blank">PayPal: zummontt</a>'
+
+const title = [
+  ['#title_begin','Introduction','เริ่มต้น'],
+  ['#title_browse','Templates','เทมเพลต'],
+  ['#title_doc','Document','สร้างเอกสาร'],
+  ['#title_brief','Datalist','ข้อมูล'],
+
+  ['#action_clear','Clear fields','ล้างข้อมูล'],
+  ['#action_pop','Remove item line','ลบบรรทัด'],
+  ['#action_config','Show/hide config','แสดง/ซ่อนการตั้งค่า'],
+  ['#action_add','Add item line','เพิ่มบรรทัด'],
+  ['#action_print','The result Print','ผลลัพธ์คือพิมพ์'],
+
+  ['#text_browse',
+'Choose the template you want to use',
+'เลือกเทมเพลตที่ต้องการจะใช้งาน',
+  ],
+  ['#text_doc',
+'Create the document you have chosen',
+'สร้างเอกสารที่เลือก',
+  ],
+  ['#text_brief',
+'*Under Construction* Add, Edit, and Remove datalist',
+'*กำลังสร้าง* เพิ่ม แก้ไข และลบข้อมูล',
+  ],
+
+  ['#config_saletax_rate','tax rate','อัตราภาษี'],
+  ['#config_incometax_rate','tax rate','อัตราภาษี'],
+  ['#config_lang','language','ภาษา'],
+  ['#config_doc_title','title','หัวเอกสาร'],
+  ['#config_an_price','currency','เงินตรา'],
+  ['#config_an_qty','qty','หน่วย'],
+  ['#config_date_type','date type','แบบวันที่'],
+  ['#config_color','color','ธีมสี'],
+  ['#config_logo','Upload','ลงรูปโลโก้'],
+  ['#config_showhide','Toggle show/hide','แสดง/ซ่อน'],
+  ['#config_showhide1','Toggle show','แสดง'],
+  ['#config_showhide2','Toggle hide','ซ่อน'],
+
+]
+
+const article = [
+  ['#text_begin',
+`<p>This FREE website application (web app) will help you create Invoice, Receipt,... fast and decent. The result will print out as a wonderful document.</p>
+<ul class="uk-list uk-list-hyphen">
+<li>Beautiful templates to choose, be able to change theme color as your wish</li>
+<li>Auto calculates total amount, also have currency symbol attached</li>
+<li>Your customers list and item list will come as a *link, you will understand more if you're done creating the first one</li>
+<li>Compatible to use on a mobile, if the mobile be able to print</li>
+</ul>
+<p>This is kinda my first web app and try to update a better version, as the current version is usable as well. As doing so I've been finding what my truly passion is about, and this is the one</p>
+<p>If anything seems not to work properly please let me know on ` + Github + ` or ` + Facebook + `. Also any ideas from you would be able to help me improve this web app (such as template ideas, appropriate text labels, more languages)</p>
+<p>I hope this is going to help you with document stuff. If you like it and want to support me, you can donate to my ` + PayPal + `, thank you</p>
+</div>`,
+`<p>เว็บไซต์แอปพลิเคชั่นใช้งานฟรี (เว็บแอป) นี้จะช่วยให้คุณสร้างใบแจ้งหนี้, ใบเสร็จ,... ได้อย่างดี และรวดเร็ว ผลลัพธ์จากการใช้งานจะพิมพ์ออกมาเป็นเอกสารที่สวยงาม</p>
+<ul class="uk-list uk-list-hyphen">
+<li>มีเทมเพลตสวยๆ ให้เลือก และสามารถเปลี่ยนสีธีมได้อีกด้วย</li>
+<li>คำนวณยอดเงินรวมให้อัตโนมัติ และมีสัญลักษณ์สกุลเงินแสดง</li>
+<li>รายชื่อลูกค้า และรายการสินค้า ของคุณจะเป็น*ลิงค์ คุณจะเข้าใจมากขึ้นหากคุณสร้างเอกสารใบแรกเสร็จแล้ว</li>
+<li>สามารถใช้งานบนมือถือได้ ถ้ามือถือมีคำสั่งพิมพ์</li>
+</ul>
+<p>เว็บแอปที่สร้างขึ้นนี้ จะพยายามอัปเดตเวอร์ชันให้ดีขึ้น และเวอร์ชันปัจจุบันสามารถใช้งานได้เช่นกัน จากการทดลองสร้างสิ่งเหล่านี้ ผมได้ค้นพบว่าสิ่งที่ตนเองชอบจริงๆ คือ การสร้างเว็บแอป</p>
+<p>หากมีสิ่งใดทำงานไม่ถูกต้อง การแสดงผลแปลกๆ โปรดแจ้งผ่าน ` + Github + ` หรือ ` + Facebook + ` นอกจากนี้ความคิดเห็น จากคุณก็สามารถช่วยปรับปรุงเว็บแอปนี้ได้ (เช่น ความคิดเห็นเทมเพลตใหม่ๆ แก้ไขข้อความบนเอกสารเหมาะสม เพิ่มภาษา)</p>
+<p>หวังว่าเว็บแอปนี่จะช่วยคุณทำงานเกี่ยวกับเอกสารง่ายขึ้น หากคุณชอบ และต้องการจะสนับสนุน สามารถโอนเงินผ่าน ` + PayPal + ` ของผมได้ครับ</p>`,
+  ]
+]
+
+    title.map(function(t){ return [t[0], t[lang_index]] }).forEach(function(t){
+      document.querySelector(t[0]).textContent = t[1]
+    })
+    article.map(function(t){ return [t[0], t[lang_index]] }).forEach(function(t){
+      document.querySelector(t[0]).innerHTML = t[1]
+    })
+  }
 
   </script>
   <script src="../source/core.js"></script>
