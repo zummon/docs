@@ -474,7 +474,7 @@ function starter(opt) {
     document.querySelector('#client_name').addEventListener('change', autofillClient)
 
     // actionPrint
-    window.onafterprint = function(){
+    var afterPrint = function(){
         userDataCreate()
         var lang_index = langs.indexOf(userData.lang)
         if (lang_index < 0) { lang_index = 0 }
@@ -488,6 +488,19 @@ function starter(opt) {
             window.location.href = link
         }
     }
+    
+    if (window.matchMedia) {
+        var mediaQueryList = window.matchMedia('print')
+        mediaQueryList.addListener(function(mql) {
+            if (mql.matches) {
+                
+            } else {
+                afterPrint()
+            }
+        })
+    }
+
+    window.onafterprint = afterPrint
 }
 
 // ---- autoNumeric ----
