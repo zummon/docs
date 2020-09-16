@@ -1,1 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document zummon webapp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/2f21ce91e3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../uikit/uikit.css">
+  <link rel="stylesheet" href="../source/core.css">
+</head>
+<body class="uk-background-secondary">
+  <div class="uk-container uk-container-small uk-padding uk-background-muted">
+    <p class="uk-text-center">
+      <i class="fas fa-info fa-3x"></i>
+      <span id="title_begin" class="uk-h3"></span>
+    </p>
+    <p id="begin_p1"></p>
+    <ul class="uk-list uk-list-hyphen">
+      <li id="begin_li1"></li>
+      <li id="begin_li2"></li>
+      <li id="begin_li3"></li>
+      <li id="begin_li4"></li>
+    </ul>
+    <p id="begin_p2"></p>
+    <p id="begin_p3"></p>
+    <p id="begin_p4"></p>
 
+    <p class="uk-text-center">
+      <i class="fas fa-tags fa-3x"></i>
+      <span id="title_browse" class="uk-h3"></span>
+    </p>
+    <p></p>
+
+    <p class="uk-text-center">
+      <i class="fas fa-edit fa-3x"></i>
+      <span id="title_doc" class="uk-h3"></span>
+    </p>
+    <p></p>
+    
+    <p class="uk-text-center">
+      <i class="fas fa-project-diagram fa-3x"></i>
+      <span id="title_brief" class="uk-h3"></span>
+    </p>
+    <p id="brief_p1"></p>
+  </div>
+
+  <script src="../source/core.js"></script><script src="../source/begin.js"></script>
+  <script src="../uikit/core.js"></script>
+  <script>
+var html_option = `<div id="option" class="uk-container uk-container-small uk-light">
+<div class="uk-flex-center uk-flex-middle uk-child-width-auto uk-margin-bottom" uk-grid>
+<div><label for="config_lang"></label></div>
+<div><select id="config_lang" class="uk-select">` + htmlOptions(langs,userData.lang) + `</select></div>
+</div>
+</div>`
+  </script>
+
+  <script src="../uikit/uikit.js"></script><script src="../uikit/uikit-icons.js"></script>
+</body>
+</html>

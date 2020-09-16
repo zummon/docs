@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document zummon webapp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/2f21ce91e3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../uikit/uikit.css">
+  <link rel="stylesheet" href="../source/core.css">
+</head>
+<body class="uk-background-secondary">
+  <div class="uk-container uk-container-small uk-padding uk-background-muted">
+    <table id="brief" class="uk-table uk-table-small uk-table-divider uk-table-hover">
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="../source/core.js"></script><script src="../source/brief.js"></script>
+  <script src="../uikit/core.js"></script>
+  <script>
+opts.on = ''
+head_textopt.forEach(t=>{
+  opts.on += '<option value='+ t[0] +'>'+ t[lang_index] +'</option>'
+})
+var html_option = `<div id="option" class="uk-container uk-container-small uk-light">
+<div class="uk-flex-center uk-child-width-auto uk-margin-bottom" uk-grid>
+<div>
+<label for="config_onlist"></label>
+<select id="config_onlist" class="uk-select">` + opts.on + `</select>
+</div>
+<div>
+<label for="config_lang"></label>
+<select id="config_lang" class="uk-select">` + htmlOptions(langs,userData.lang) + `</select>
+</div>
+</div>
+<p id="hint" class="uk-text-center"></p>
+</div>`
+  </script>
+
+  <script src="../uikit/uikit.js"></script><script src="../uikit/uikit-icons.js"></script>
+</body>
+</html>

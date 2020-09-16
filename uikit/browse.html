@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document zummon webapp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/2f21ce91e3.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../uikit/uikit.css">
+  <link rel="stylesheet" href="../source/core.css">
+</head>
+<body class="uk-background-secondary">
+  <div class="uk-container uk-container-small uk-padding">
+    <div id="browse" class="uk-child-width-1-2@s uk-child-width-1-4@l" uk-grid></div>
+  </div>
+
+  <script src="../source/core.js"></script><script src="../source/browse.js"></script>
+  <script src="../uikit/core.js"></script>
+  <script>
+var html_option = `<div id="option" class="uk-container uk-container-small uk-light" style="display: none;">
+<div class="uk-flex-center uk-flex-middle uk-child-width-auto uk-margin-bottom" uk-grid>
+<div><label for="config_lang"></label></div>
+<div><select id="config_lang" class="uk-select">` + htmlOptions(langs,userData.lang) + `</select></div>
+</div>
+</div>`
+document.addEventListener('DOMContentLoaded',()=>{
+  const dataurl = window.location.search
+  var strhtml = ''
+  templates.forEach(t=>{
+    strhtml += '<a class="uk-display-block uk-card uk-link-toggle" href="../forms/'+ t +'.html'+ dataurl +'"><img src="../images/'+ t +'.png" alt="'+ t +'"></img></a>'
+  })
+  document.querySelector('#browse').innerHTML = strhtml
+})
+  </script>
+
+  <script src="../uikit/uikit.js"></script><script src="../uikit/uikit-icons.js"></script>
+</body>
+</html>
