@@ -1,4 +1,4 @@
-var userData = {}, cl, il
+var userData = {}, cl=[], il=[]
 var opts = {}
 var elems_text
 var lang_index = 1
