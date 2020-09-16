@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document zummon webapp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/2f21ce91e3.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+  <link rel="stylesheet" href="../uikit/uikit.css">
+  <link rel="stylesheet" href="../source/core.css">
+  <link href="https://fonts.googleapis.com/css2?family=Srisakdi:wght@700&display=swap" rel="stylesheet">
+</head>
+<body class="uk-background-secondary">
+  <div id="doc" class="uk-container uk-container-small uk-background-default" data-font style="font-family: Srisakdi;">
+    <div class="uk-card uk-card-small uk-card-body uk-box-shadow-medium" data-color="bg" style="background-color: #f8f8f8; color: #000;">
+      <div class="uk-grid-small" uk-grid>
+        <div class="uk-width-auto">
+          <img data-image="headlogo_img" uk-img>
+        </div>
+        <div class="uk-width-expand uk-text-right">
+          <p data-fill="vendor_name" class="uk-card-title uk-margin-remove" contenteditable="true" data-font style="font-family: Srisakdi;">My Company</p>
+          <hr class="uk-margin-remove">
+          <p data-fill="vendor_id" class="uk-margin-remove" contenteditable="true">Register</p>
+          <p data-fill="vendor_address" class="uk-margin-remove" contenteditable="true">Address</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="uk-child-width-1-2 uk-margin-top" uk-grid>
+      <div>
+        <h1 data-label="title" class="uk-heading-small" data-font data-color2="text" style="font-family: Srisakdi; color: #222;"></h1>
+        <span data-fill="ref" class="uk-badge" contenteditable="true" data-color2="bg" style="background-color: #222; color: #fff;">#inv200911</span>
+        <span data-fill="date" class="uk-badge" contenteditable="true" data-color2="bg" style="background-color: #222; color: #fff;">11 Sep 2020</span>
+
+        <div class="uk-margin-top">
+          <span data-label="client_label" class="uk-badge" data-color2="bg" style="background-color: #222; color: #fff;""></span>
+        </div>
+        <div class="uk-margin-small-top uk-margin-small-left">
+          <h4 data-fill="client_name" class="uk-margin-remove" data-font style="font-family: Srisakdi;" contenteditable="true">Client Company</h4>
+          <p data-fill="client_id" class="uk-margin-remove" contenteditable="true">Register</p>
+          <p data-fill="client_address" class="uk-margin-remove" contenteditable="true">Address</p>
+        </div>
+      </div>
+      <div>
+        <div>
+          <span data-label="duedate_label" class="uk-badge" data-color2="bg" style="background-color: #222; color: #fff;"></span>
+          <input data-fill="duedate" class="uk-input uk-form-blank" value="22 Sep 2020">
+        </div>
+        <div>
+          <span data-label="payment_label" class="uk-badge" data-color2="bg" style="background-color: #222; color: #fff;"></span>
+          <textarea data-fill="payment" class="uk-textarea uk-form-blank uk-resize-vertical" rows="2">PayPal zummontt</textarea>
+        </div>
+        <div class="uk-card uk-card-small uk-card-body uk-margin uk-text-right uk-box-shadow-medium" data-color2="bg" style="background-color: #222; color: #fff;">
+          <p data-fill="finaltotal" class="uk-card-title uk-margin-remove" data-font style="font-family: Srisakdi;" contenteditable="true"></p>
+          <hr class="uk-margin-remove">
+          <p data-label="finaltotal_label" class="uk-margin-remove"></p>
+        </div>
+      </div>
+    </div>
+    
+    <table class="uk-table uk-table-small uk-table-hover uk-table-striped">
+      <thead>
+        <tr>
+          <td data-label="line_label" class="uk-table-shrink"></td>
+          <td data-label="item_label" class="uk-table-expand" colspan="2"></td>
+          <td data-label="price_label" class="uk-table-shrink"></td>
+          <td data-label="qty_label" class="uk-table-shrink"></td>
+          <td data-label="amount_label" class="uk-table-shrink"></td>
+        </tr>
+      </thead>
+      <tbody data-ut="lines">
+        <tr data-ut="line">
+          <td data-label="line" contenteditable="true"></td>
+          <td data-fill="item" contenteditable="true" colspan="2"></td>
+          <td data-fill="price" class="uk-text-right" contenteditable="true"></td>
+          <td data-fill="qty" class="uk-text-right" contenteditable="true"></td>
+          <td data-fill="amount" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="2" rowspan="4">
+            <div>
+              <span data-label="note_label" class="uk-badge" data-color2="bg" style="background-color: #222; color: #fff;"></span>
+              <textarea data-fill="note" class="uk-textarea uk-form-blank uk-resize-vertical" rows="3">....</textarea>
+            </div>
+          </td>
+          <td data-label="total_label" class="uk-text-right" colspan="3"></td>
+          <td data-fill="total" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="uk-text-right" colspan="3">
+            <span data-label="saletax_label"></span>
+            <span data-label="saletax_rate" class="uk-badge" contenteditable="true" data-color2="bg" style="background-color: #222; color: #fff;"></span>
+          </td>
+          <td data-fill="saletax" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="uk-text-right" colspan="3">
+            <span data-label="incometax_label"></span>
+            <span data-label="incometax_rate" class="uk-badge" contenteditable="true" data-color2="bg" style="background-color: #222; color: #fff;"></span>
+          </td>
+          <td data-fill="incometax" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td data-label="adjust_label" class="uk-text-right" colspan="3"></td>
+          <td data-fill="adjust" class="uk-text-right" contenteditable="true"></td>
+        </tr>
+      </tfoot>
+    </table>
+    
+    <div class="uk-child-width-1-2 uk-margin-top" uk-grid>
+      <div>
+        <div class="uk-card uk-card-small uk-card-body uk-box-shadow-medium" data-color="bg" style="background-color: #f8f8f8; color: #000;">
+          <label data-label="vendor_sign_label"></label>
+          <p data-fill="vendor_sign" class="uk-margin-remove" contenteditable="true"><br><br></p>
+          <hr class="uk-margin-remove">
+          <p data-fill="vendor_rank" class="uk-margin-remove uk-text-right" contenteditable="true">Name & Position</p>
+        </div>
+      </div>
+      <div>
+        <div class="uk-card uk-card-small uk-card-body uk-box-shadow-medium" data-color="bg" style="background-color: #f8f8f8; color: #000;">
+          <label data-label="client_sign_label"></label>
+          <p data-fill="client_sign" class="uk-margin-remove" contenteditable="true"><br><br></p>
+          <hr class="uk-margin-remove">
+          <p data-fill="client_rank" class="uk-margin-remove uk-text-right" contenteditable="true">Name & Position</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+var host = 'uikit'
+var line_show = 4, line_hide = 16
+var config_addon = {color:'whitesmoke',color2:'darkgray',font:[
+  ['Srisakdi','Srisakdi,cursive'],
+  ['Default',''],
+]}
+var fields = {
+  duedate: document.querySelector('[data-fill=duedate]').parentElement,
+  payment: document.querySelector('[data-fill=payment]').parentElement,
+  incometax: document.querySelector('[data-fill=incometax]').parentElement,
+  adjust: document.querySelector('[data-fill=adjust]').parentElement,
+  client_sign: document.querySelector('[data-fill=client_sign]').parentElement,
+}
+  </script>
+  <script src="../source/core.js"></script><script src="../source/docs_inv.js"></script>
+  <script src="../uikit/core.js"></script><script src="../uikit/docs_inv.js"></script>
+  
+  <script src="../uikit/uikit.js"></script><script src="../uikit/uikit-icons.js"></script>
+</body>
+</html>
