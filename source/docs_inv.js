@@ -331,6 +331,7 @@ function userDataCreate(){
   ;['[data-fill=client_name]','[data-fill=client_id]','[data-fill=client_address]'].forEach(t=>{
     client_list.push(elemValue(t))
   })
+
   if(cl){
     const index_client = cl.map(t=>t[0]).indexOf(client_list[0])
     if (index_client >= 0){
@@ -467,6 +468,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       active_fill = m.target
       document.querySelector('#fill_date_result').value = elemValue(active_fill)
       openFillModal('#fill_date')
+      document.querySelector('#fill_date_date').focus()
     })
   })
   document.querySelector('#fill_date_date').addEventListener('change',z=>{
@@ -485,9 +487,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-fill=item]').forEach(t=>{
     t.addEventListener('focus',m=>{
       active_fill = [m.target, m.target.closest('[data-ut=line]').querySelector('[data-fill=price]')]
-      document.querySelector('#fill_il_item').value = elemValue(active_fill[0])
+      const doing = document.querySelector('#fill_il_item')
+      doing.value = elemValue(active_fill[0])
       AutoNumeric.set('#fill_il_price', AutoNumeric.getNumber(active_fill[1]))
       openFillModal('#fill_il')
+      doing.focus()
     })
   })
   if(il){
@@ -510,10 +514,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('[data-fill=client_name]').forEach(t=>{
     t.addEventListener('focus',m=>{
       active_fill = [m.target,document.querySelector('[data-fill=client_id]'),document.querySelector('[data-fill=client_address]')]
-      document.querySelector('#fill_cl_name').value = elemValue(active_fill[0])
+      const doing = document.querySelector('#fill_cl_name')
+      doing.value = elemValue(active_fill[0])
       document.querySelector('#fill_cl_id').value = elemValue(active_fill[1])
       document.querySelector('#fill_cl_address').value = elemValue(active_fill[2])
       openFillModal('#fill_cl')
+      doing.focus()
     })
   })
   if(cl){
