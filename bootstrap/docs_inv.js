@@ -82,14 +82,10 @@ var html_option = `<div id="option" class="container-lg">
 <div class="modal-body">
 <datalist id="fill_il_data">`+ opts.il +`</datalist>
 <div class="row no-gutters text-center">
-<div class="col-9 mb-3">
-<label for="fill_il_item"></label>
-<input id="fill_il_item" class="form-control" list="fill_il_data">
-</div>
-<div class="col-3 mb-3">
-<label for="fill_il_price"></label>
-<input id="fill_il_price" class="form-control">
-</div>
+<div class="col-4 mb-3"><label for="fill_il_item"></label></div>
+<div class="col-8 mb-3"><input id="fill_il_item" class="form-control" list="fill_il_data"></div>
+<div class="col-4 mb-3"><label for="fill_il_price"></label></div>
+<div class="col-8 mb-3"><input id="fill_il_price" class="form-control"></div>
 </div>
 </div>
 <div class="text-center pb-3">

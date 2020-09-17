@@ -74,15 +74,11 @@ var html_option = `<div id="option" class="container">
 <div class="modal-card">
 <section class="modal-card-body has-text-centered">
 <datalist id="fill_il_data">`+ opts.il +`</datalist>
-<div class="columns is-mobile">
-<div class="column is-9">
-<label for="fill_il_item" class="label"></label>
-<input id="fill_il_item" class="input" list="fill_il_data">
-</div>
-<div class="column is-3">
-<label for="fill_il_price" class="label"></label>
-<input id="fill_il_price" class="input">
-</div>
+<div class="columns is-mobile is-multiline">
+<div class="column is-4"><label for="fill_il_item" class="label"></label></div>
+<div class="column is-8"><input id="fill_il_item" class="input" list="fill_il_data"></div>
+<div class="column is-4"><label for="fill_il_price" class="label"></label></div>
+<div class="column is-8"><input id="fill_il_price" class="input"></div>
 </div>
 <button id="fill_il_cancel" class="button" type="button"></button>
 <button id="fill_il_done" class="button is-dark" type="button"></button>

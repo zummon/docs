@@ -74,14 +74,10 @@ var html_option = `<div id="option" class="uk-container uk-container-small">
 <div class="uk-modal-dialog uk-modal-body uk-background-secondary uk-light">
 <datalist id="fill_il_data">`+ opts.il +`</datalist>
 <div class="uk-grid-small uk-text-center" uk-grid>
-<div class="uk-width-3-4">
-<label for="fill_il_item"></label>
-<input id="fill_il_item" class="uk-input" list="fill_il_data">
-</div>
-<div class="uk-width-1-4">
-<label for="fill_il_price"></label>
-<input id="fill_il_price" class="uk-input">
-</div>
+<div class="uk-width-1-3"><label for="fill_il_item"></label></div>
+<div class="uk-width-2-3"><input id="fill_il_item" class="uk-input" list="fill_il_data"></div>
+<div class="uk-width-1-3"><label for="fill_il_price"></label></div>
+<div class="uk-width-2-3"><input id="fill_il_price" class="uk-input"></div>
 </div>
 <p class="uk-text-center uk-margin-large-top">
 <button id="fill_il_cancel" class="uk-button uk-button-default" type="button"></button>
