@@ -34,7 +34,7 @@ if(config_addon.font){
   </div>`
 }
 var html_option = `<div id="option" class="uk-container uk-container-small">
-<div id="action" class="uk-child-width-expand uk-text-lead uk-text-center uk-padding-small uk-light" uk-grid>
+<div class="uk-child-width-expand uk-text-lead uk-text-center uk-padding-small uk-light" uk-grid>
 <div><a id="action_reset"></a></div>
 <div><a id="action_pop"></a></div>
 <div><a id="action_config"></a></div>
@@ -46,7 +46,7 @@ var html_option = `<div id="option" class="uk-container uk-container-small">
 <div class="uk-modal-dialog uk-modal-body uk-background-secondary uk-light uk-text-center">
 <label for="dialog_print_link"></label>
 <div class="uk-margin">
-<textarea id="dialog_print_link" class="uk-textarea uk-resize-vertical" rows="4" onfocus="this.select()" readonly></textarea>
+<textarea id="dialog_print_link" class="uk-textarea uk-resize-vertical" rows="3" onfocus="this.select()" readonly></textarea>
 </div>
 <p class="uk-text-center uk-margin-large-top">
 <button id="dialog_print_cancel" class="uk-button uk-button-default" type="button"></button>

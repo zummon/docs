@@ -18,6 +18,9 @@ var colors = [
   ['green','Green','เขียว','#48c774','#fff'],
   ['yellow','Yellow','เหลือง','#ffdd57','rgba(0,0,0,0.7)'],
   ['red','Red','แดง','#f14668','#fff'],
+  // bootstrap
+  ['indigo','Indigo','ม่วง','#6610f2','#fff'],
+  ['pink','Pink','ชมพู','#e83e8c','#fff'],
 ]
 // var colors_bulma = [
 //   ['Grey darker', '#363636', '#fff'],
@@ -25,9 +28,7 @@ var colors = [
 // ]
 // var colors_bootstrap = [
 //   ['Blue',      '#007bff', '#fff'],
-//   ['Indigo',    '#6610f2', '#fff'],
-//   ['Purple',    '#6f42c1', '#fff'],
-//   ['Pink',      '#e83e8c', '#fff'],
+// ['purple','Purple','ม่วงอ่อน','#6f42c1','#fff'],
 //   ['Red',       '#dc3545', '#fff'],
 //   ['Orange',    '#fd7e14', '#fff'],
 //   ['Yellow',    '#ffc107', '#343a40'],
@@ -131,14 +132,18 @@ var docs_field = {
 var ans_price = [
   ['num','9,999.99','9,999.99',{}],
   ['integer','9,999','9,999',{ decimalPlaces: 0 }],
-  ['dollarsuffix','9,999.00$','9,999.00$',{ currencySymbol: '$', currencySymbolPlacement: 's' }],
-  ['dollar','$9,999.00','$9,999.00',{ currencySymbol: '$' }],
-  ['bahtsuffix','9,999.00฿','9,999.00฿',{ currencySymbol: '฿', currencySymbolPlacement: 's' }],
-  ['baht','฿9,999.00','฿9,999.00',{ currencySymbol: '฿' }],
+  ['dollarsuffix','Dollar 9,999.00$','Dollar 9,999.00$',{ currencySymbol: '$', currencySymbolPlacement: 's' }],
+  ['dollar','Dollar $9,999.00','Dollar $9,999.00',{ currencySymbol: '$' }],
+  ['bahtsuffix','Thai Baht 9,999.00฿','ไทยบาท 9,999.00฿',{ currencySymbol: '฿', currencySymbolPlacement: 's' }],
+  ['baht','Thai Baht ฿9,999.00','ไทยบาท ฿9,999.00',{ currencySymbol: '฿' }],
+  ['poundsuffix','Pound 9,999.00£','Pound 9,999.00£',{ currencySymbol: '£', currencySymbolPlacement: 's' }],
+  ['pound','Pound £9,999.00','Pound £9,999.00',{ currencySymbol: '£' }],
+  ['yensuffix','Yen 9,999.00¥','Yen 9,999.00¥',{ currencySymbol: '¥', currencySymbolPlacement: 's' }],
+  ['yen','Yen ¥9,999.00','Yen ¥9,999.00',{ currencySymbol: '¥' }],
 ]
 var ans_qty = [
-  ['num','99.00','99.00',{}],
-  ['integer','99','99',{ decimalPlaces: 0 }],
+  ['num','9,999.00','9,999.00',{}],
+  ['integer','9,999','9,999',{ decimalPlaces: 0 }],
 ]
 var date_types = [
   ['short','Jan, Feb','ม.ค., ก.พ.'],
@@ -184,12 +189,12 @@ elem_text = elem_text.concat([
   ['#action_print', 'Print', 'พิมพ์',],
   
   ['[for=dialog_print_link]',
-    'Copy this link to use next time, [Done] to start new one',
-    'คัดลอกลิงค์นี้เก็บไว้ใช้งานครั้งต่อไป, [ตกลง] เพื่อสร้างใหม่',],
+    'Copy and save this link to use next time (just in case) then click [Done] to start new one',
+    'คัดลอก และเก็บลิงค์นี้ ไว้ใช้งานครั้งต่อไป (ป้องกันข้อมูลหาย) จากนั้นกด [ตกลง] เพื่อสร้างใหม่',],
 
   ['[for=config_title]', 'Title', 'เอกสาร',],
-  ['[for=config_saletax_rate]', 'Value added tax RATE', 'อัตราภาษีมูลค่าเพิ่ม',],
-  ['[for=config_incometax_rate]', 'Tax Withheld RATE', 'อัตราหัก ณ ที่จ่าย',],
+  ['[for=config_saletax_rate]', 'Vat RATE', 'อัตราภาษีมูลค่าเพิ่ม',],
+  ['[for=config_incometax_rate]', 'WHT RATE', 'อัตราหัก ณ ที่จ่าย',],
   ['[for=config_an_price]', 'Currency', 'เงินตรา',],
   ['[for=config_an_qty]', 'Qty', 'หน่วย',],
   ['[for=config_date_type]', 'Date format', 'วันที่',],

@@ -34,15 +34,15 @@
     <div class="columns is-mobile">
       <div class="column">
         <input data-fill="ref" class="input is-small is-rounded has-text-centered">
-        <p data-label="ref_label" class="label is-small has-text-centered"></p>
+        <label data-label="ref_label" class="label is-small has-text-centered"></label>
       </div>
       <div class="column">
         <input data-fill="date" class="input is-small is-rounded has-text-centered">
-        <p data-label="date_label" class="label is-small has-text-centered"></p>
+        <label data-label="date_label" class="label is-small has-text-centered"></label>
       </div>
       <div class="column">
         <input data-fill="duedate" class="input is-small is-rounded has-text-centered">
-        <p data-label="duedate_label" class="label is-small has-text-centered"></p>
+        <label data-label="duedate_label" class="label is-small has-text-centered"></label>
       </div>
     </div>
     <div class="tile is-ancestor">
@@ -55,11 +55,11 @@
         </div>
         <div class="tile is-child notification is-white">
           <div class="field">
-            <span data-label="payment_label" class="label is-small"></span>
+            <label data-label="payment_label" class="label is-small"></label>
             <textarea data-fill="payment" rows="2" class="textarea is-small" data-color="border" style="border-color: #00d1b2;"></textarea>
           </div>
           <div class="field">
-            <span data-label="subject_label" class="label is-small"></span>
+            <label data-label="subject_label" class="label is-small"></label>
             <input data-fill="subject" class="input is-small" data-color="border" style="border-color: #00d1b2;">
           </div>
         </div>
@@ -88,11 +88,11 @@
         <tr>
           <th colspan="2" rowspan="4" style="padding-left: 3rem; padding-right: 1.5rem;">
             <div class="field">
-              <span data-label="note_label" class="label is-small"></span>
+              <label data-label="note_label" class="label is-small"></label>
               <textarea data-fill="note" rows="2" class="textarea is-small" data-color="border" style="border-color: #00d1b2;"></textarea>
             </div>
             <div class="field">
-              <span data-label="client_sign_label" class="label is-small"></span>
+              <label data-label="client_sign_label" class="label is-small"></label>
               <textarea data-fill="client_sign" rows="2" class="textarea is-small" data-color="border" style="border-color: #00d1b2;"></textarea>
               <input data-fill="client_rank" class="input is-small">
             </div>
@@ -140,7 +140,7 @@
   </div>
   
   <script>
-var host = 'bulma'
+// var host = 'bulma'
 var line_show = 4, line_hide = 16
 var config_addon = {color:'turquoise'}
 var fields = {

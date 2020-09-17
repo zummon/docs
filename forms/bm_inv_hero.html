@@ -10,18 +10,12 @@
   <link rel="stylesheet" href="../source/core.css">
   <style>
     #doc .section { padding: 1rem 1.5rem 0 1.5rem; }
-    [data-fill=ref],
-    [data-fill=date],
-    [data-fill=duedate],
-    [data-fill=vendor_name] {
-      border: none;
-      background-color: transparent;
+    [data-label=title] {
+      font-size: 3rem;
+      font-weight: 600;
     }
-    [data-fill=vendor_name] { width: 100%; }
-    [data-fill=ref],
-    [data-fill=date],
-    [data-fill=duedate] {
-      font-size: 1em;
+    [data-fill=vendor_name] {
+      font-size: 1.25rem;
       font-weight: 400;
     }
     [data-fill=saletax],
@@ -38,26 +32,26 @@
         <div class="container">
           <div class="columns is-mobile">
             <div class="column">
-              <h1 data-label="title" class="title is-1" data-color="bg" style="background-color: #3298dc; color: #fff;"></h1>
+              <h1 data-label="title"></h1>
               <table>
                 <tbody>
                   <tr>
                     <td data-label="ref_label"></td>
-                    <td><input data-fill="ref" data-color="bg" style="background-color: #3298dc; color: #fff;"></input></td>
+                    <td data-fill="ref" contenteditable="true">#0000</td>
                   </tr>
                   <tr>
                     <td data-label="date_label"></td>
-                    <td><input data-fill="date" data-color="bg" style="background-color: #3298dc; color: #fff;" value="16 Sep 2020"></input></td>
+                    <td data-fill="date" contenteditable="true">16 Sep 2020</td>
                   </tr>
                   <tr>
                     <td data-label="duedate_label"></td>
-                    <td><input data-fill="duedate" data-color="bg" style="background-color: #3298dc; color: #fff;" value="26 Sep 2020"></input></td>
+                    <td data-fill="duedate" contenteditable="true">26 Sep 2020</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div class="column has-text-right">
-              <input data-fill="vendor_name" class="title is-4 is-marginless has-text-right" data-color="bg" style="background-color: #3298dc; color: #fff;" value="Your company">
+              <p data-fill="vendor_name" class="has-text-weight-bold mb-3" contenteditable="true">Your Company</p>
               <p data-fill="vendor_id" contenteditable="true">Register</p>
               <p data-fill="vendor_address" contenteditable="true">Address</p>
             </div>
@@ -94,11 +88,11 @@
         <table class="table is-hoverable is-narrow is-fullwidth">
           <thead>
             <tr>
-              <th data-label="line_label" data-color="border" style="border-color: #3298dc;"></th>
-              <th data-label="item_label" data-color="border" style="border-color: #3298dc;"></th>
-              <th data-label="price_label" class="has-text-right" data-color="border" style="border-color: #3298dc;"></th>
-              <th data-label="qty_label" class="has-text-right" data-color="border" style="border-color: #3298dc;"></th>
-              <th data-label="amount_label" class="has-text-right" data-color="border" style="border-color: #3298dc;"></th>
+              <th data-label="line_label" data-color2="border" style="border-color: #3298dc;"></th>
+              <th data-label="item_label" data-color2="border" style="border-color: #3298dc;"></th>
+              <th data-label="price_label" class="has-text-right" data-color2="border" style="border-color: #3298dc;"></th>
+              <th data-label="qty_label" class="has-text-right" data-color2="border" style="border-color: #3298dc;"></th>
+              <th data-label="amount_label" class="has-text-right" data-color2="border" style="border-color: #3298dc;"></th>
             </tr>
           </thead>
           <tbody data-ut="lines">
@@ -111,10 +105,9 @@
             </tr>
           </tbody>
           <tfoot>
-            <tr>
-              <th colspan="2" data-color="border" style="border-color: #3298dc;"></th>
-              <th data-label="total_label" colspan="2" class="has-text-right" data-color="border" style="border-color: #3298dc;"></th>
-              <th data-fill="total" class="has-text-right" data-color="border" style="border-color: #3298dc;" contenteditable="true"></th>
+            <tr class="has-text-right">
+              <th data-label="total_label" colspan="4"  data-color2="border" style="border-color: #3298dc;"></th>
+              <th data-fill="total" data-color2="border" style="border-color: #3298dc;" contenteditable="true"></th>
             </tr>
           </tfoot>
         </table>
@@ -176,7 +169,7 @@
             <input data-fill="client_rank" class="input is-small">
           </div>
           <div class="column has-text-centered">
-            <h4 data-fill="thank_message" class="title is-4" data-color="text" style="color: #3298dc;" contenteditable="true">Thank you</h4>
+            <h4 data-fill="thank_message" class="title is-4" data-color2="text" style="color: #3298dc;" contenteditable="true">Thank you</h4>
             <img data-image="footlogo_img">
           </div>
         </div>
@@ -185,11 +178,11 @@
   </div>
   
   <script>
-var host = 'bulma'
+// var host = 'bulma'
 var line_show = 6, line_hide = 14
-var config_addon = {color:'summersky'}
+var config_addon = {color:'summersky',color2:'summersky'}
 var fields = {
-  duedate: document.querySelector('[data-fill=duedate]').parentElement.parentElement,
+  duedate: document.querySelector('[data-fill=duedate]').parentElement,
   payment: document.querySelector('[data-fill=payment]').parentElement,
   incometax: document.querySelector('[data-fill=incometax]').parentElement,
   adjust: document.querySelector('[data-fill=adjust]').parentElement,

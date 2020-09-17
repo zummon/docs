@@ -3,7 +3,7 @@ body{
 }
 @media print{
   body{
-    background-color: #fff;
+    background-color: #fff !important;
   }
   #header,
   #option,

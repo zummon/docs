@@ -34,7 +34,7 @@ if(config_addon.font){
 </div>`
 }
 var html_option = `<div id="option" class="container">
-<div id="action" class="columns is-mobile has-text-centered py-2">
+<div class="columns is-mobile has-text-centered py-2">
 <div class="column"><a id="action_reset" class="title is-4 has-text-white"></a></div>
 <div class="column"><a id="action_pop" class="title is-4 has-text-white"></a></div>
 <div class="column"><a id="action_config" class="title is-4 has-text-white"></a></div>
@@ -47,7 +47,7 @@ var html_option = `<div id="option" class="container">
 <section class="modal-card-body has-text-centered">
 <div class="field">
 <label for="dialog_print_link" class="label"></label>
-<textarea id="dialog_print_link" class="textarea" onfocus="this.select()" readonly></textarea>
+<textarea id="dialog_print_link" class="textarea" rows="3" onfocus="this.select()" readonly></textarea>
 </div>
 <button id="dialog_print_cancel" class="button" type="button"></button>
 <button id="dialog_print_done" class="button is-dark" type="button"></button>
@@ -100,7 +100,7 @@ var html_option = `<div id="option" class="container">
 <div class="column is-4"><label for="fill_cl_id" class="label"></label></div>
 <div class="column is-8"><input id="fill_cl_id" class="input"></div>
 <div class="column is-4"><label for="fill_cl_address" class="label"></label></div>
-<div class="column is-8"><textarea id="fill_cl_address" class="textarea"></textarea></div>
+<div class="column is-8"><textarea id="fill_cl_address" class="textarea" rows="2"></textarea></div>
 </div>
 <button id="fill_cl_cancel" class="button" type="button"></button>
 <button id="fill_cl_done" class="button is-dark" type="button"></button>
@@ -164,8 +164,10 @@ var html_option = `<div id="option" class="container">
 <div class="select is-fullwidth"><select id="config_date_type">`+ htmlOptions(date_types,date_types[0][0]) +`</select></div>
 </div>
 `+ configs_addon +`</div>
+<div class="has-text-centered">
 <button id="config_cancel" class="button" type="button"></button>
 <button id="config_done" class="button is-dark" type="button"></button>
+</div>
 </section>
 </div>
 </div>

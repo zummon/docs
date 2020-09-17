@@ -25,7 +25,7 @@ var elem_href = [
 var footer_links = { library: [
   ['Font Awesome','https://fontawesome.com/'],
   ['AutoNumeric','http://autonumeric.org'],
-  // ['Bootstrap','https://getbootstrap.com/'],
+  ['Bootstrap','https://getbootstrap.com/'],
   ['Bulma','https://bulma.io/'],
   ['UIkit','https://getuikit.com'],
 ], madeby: [
