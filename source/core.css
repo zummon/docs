@@ -14,3 +14,8 @@ body{
     display: table-row-group;
   }
 }
+/* keep in mind for outsource css. put comment to unwanted style part to occur, also to keep the original
+- clear !important out of background-color. so when print, black color won't appear
+- check out @print and get rid of unwanted style, print out should be the same as display
+- check out @media screen size, so the display won't change when on different screen size
+created by zummontt */

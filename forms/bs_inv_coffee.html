@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Document zummon webapp</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/2f21ce91e3.js" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
+  <link rel="stylesheet" href="../bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="../source/core.css">
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    [data-label=line_label],
+    [data-label=price_label],
+    [data-label=qty_label],
+    [data-label=amount_label]{width: 1px;}
+  </style>
+</head>
+<body class="bg-dark">
+  <div id="doc" class="container-lg bg-white" data-font style="font-family: Itim;"><br>
+    <div class="row align-items-center">
+      <div class="col">
+        <h1 data-label="title" class="text-center display-4 mb-0" data-color="text" style="color: #8B4513;"></h1>
+        <hr class="mt-0" data-color2="border" style="border-width: 2px; border-color: #ffdd57;">
+        <div class="row">
+          <div data-label="ref_label" class="col text-right"></div>
+          <div data-fill="ref" class="col" contenteditable="true">#99999</div>
+        </div>
+        <div class="row">
+          <div data-label="date_label" class="col text-right"></div>
+          <div data-fill="date" class="col" contenteditable="true">18 Sep 2020</div>
+        </div>
+        <div class="row">
+          <div data-label="duedate_label" class="col text-right"></div>
+          <div data-fill="duedate" class="col" contenteditable="true">27 Sep 2020</div>
+        </div>
+      </div>
+      <div class="col-auto text-right">
+        <img data-image="headlogo_img">
+        <h5 data-fill="vendor_name" contenteditable="true">Vendor Company</h5>
+        <p data-fill="vendor_id" class="mb-0" contenteditable="true">register</p>
+        <p data-fill="vendor_address" contenteditable="true">address</p>
+      </div>
+    </div>
+
+    <div class="row row-cols-2 mb-4">
+      <div class="col">
+        <div class="row">
+          <div class="col-auto h5"><span data-label="client_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></div>
+          <div class="col">
+            <h5 data-fill="client_name" contenteditable="true">Client company</h5>
+            <p data-fill="client_id" class="mb-0" contenteditable="true">register</p>
+            <p data-fill="client_address" contenteditable="true">address</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col-auto h5">
+            <span data-label="payment_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></div>
+          <div class="col" data-fill="payment" contenteditable="true">...</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col-auto h5">
+            <span data-label="subject_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></div>
+          <div class="col" data-fill="subject" contenteditable="true">...</div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <div class="col-auto h5">
+            <span data-label="finaltotal_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></div>
+          <div class="col"><h5 data-fill="finaltotal" contenteditable="true"></h5></div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table table-sm">
+      <thead>
+        <tr class="text-center" data-color2="bg" style="background-color: #ffdd57; color: rgba(0,0,0,0.7);">
+          <th data-label="line_label" class="border-0"></th>
+          <th data-label="item_label" class="border-0"></th>
+          <th data-label="price_label" class="border-0"></th>
+          <th data-label="qty_label" class="border-0"></th>
+          <th data-label="amount_label" class="border-0"></th>
+        </tr>
+      </thead>
+      <tbody data-ut="lines">
+        <tr data-ut="line">
+          <td data-label="line"></td>
+          <td data-fill="item" contenteditable="true"></td>
+          <td data-fill="price" class="text-right" contenteditable="true"></td>
+          <td data-fill="qty" class="text-right" contenteditable="true"></td>
+          <td data-fill="amount" class="text-right" contenteditable="true"></td>
+        </tr>
+      </tbody>
+      <tfoot class="text-right">
+        <tr data-color2="bg" style="background-color: #ffdd57; color: rgba(0,0,0,0.7);">
+          <th data-label="total_label" colspan="4"></th>
+          <th data-fill="total" contenteditable="true"></th>
+        </tr>
+        <tr>
+          <th colspan="4" class="border-0">
+            <span data-label="saletax_label"></span>
+            <span data-label="saletax_rate" contenteditable="true"></span>
+          </th>
+          <th data-fill="saletax" class="border-0" contenteditable="true"></th>
+        </tr>
+        <tr>
+          <th colspan="4" class="border-0">
+            <span data-label="incometax_label"></span>
+            <span data-label="incometax_rate" contenteditable="true"></span>
+          </th>
+          <th data-fill="incometax" class="border-0" contenteditable="true"></th>
+        </tr>
+        <tr>
+          <th data-label="adjust_label" class="border-0" colspan="4"></th>
+          <th data-fill="adjust" class="border-0" contenteditable="true"></th>
+        </tr>
+      </tfoot>
+    </table>
+
+    <div class="row row-cols-2 pb-4">
+      <div class="col">
+        <div class="row">
+          <div class="col-auto h5">
+            <span data-label="note_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></div>
+          <div class="col" data-fill="note" contenteditable="true">...</div>
+        </div>
+        <h5><span data-label="vendor_sign_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></h5>
+        <p data-fill="vendor_sign" class="text-center" contenteditable="true"></p>
+        <p data-fill="vendor_rank" class="text-right" contenteditable="true">Vendor Name...</p>
+      </div>
+      <div class="col">
+        <div>
+          <h5><span data-label="client_sign_label" class="badge" data-color="bg" style="background-color: #8B4513; color: #fff;"></span></h5>
+          <p data-fill="client_sign" class="text-center" contenteditable="true"></p>
+          <p data-fill="client_rank" class="text-right" contenteditable="true">Client Name...</p>
+        </div>
+        
+        <h4 data-fill="thank_message" class="text-center mt-4" data-color="text" style="color: #8B4513;" contenteditable="true">Thank you</h4>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+// var host = 'bootstrap'
+var line_show = 6, line_hide = 14
+var config_addon = {color:'saddlebrown',color2:'yellow',font:[
+  ['Itim','Itim,cursive'],
+  ['Pacifico','Pacifico,cursive'],
+  ['Default',''],
+]}
+var fields = {
+  duedate: document.querySelector('[data-fill=duedate]').parentElement,
+  payment: document.querySelector('[data-fill=payment]').parentElement,
+  incometax: document.querySelector('[data-fill=incometax]').parentElement,
+  adjust: document.querySelector('[data-fill=adjust]').parentElement,
+  client_sign: document.querySelector('[data-fill=client_sign]').parentElement,
+}
+  </script>
+  <script src="../source/core.js"></script><script src="../source/docs_inv.js"></script>
+  <script src="../bootstrap/core.js"></script><script src="../bootstrap/docs_inv.js"></script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

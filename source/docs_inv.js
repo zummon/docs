@@ -4,6 +4,7 @@ var colors = [
   ['davysgrey','Davys grey','เทา','#555','#fff'],
   ['darkgray','Dark gray','เทาเข้ม','#222','#fff'],
   ['black','Black','ดำ','#000','#fff'],
+  ['saddlebrown','Saddle Brown','น้ำตาล','#8B4513','#fff'],
   // uikit
   ['dodgerblue','Dodger blue','ฟ้าหลบ','#1e87f0','#fff'],
   ['limegreen','Lime green','เขียวมะนาว','#32d296','#fff'],

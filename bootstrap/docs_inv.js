@@ -107,7 +107,7 @@ var html_option = `<div id="option" class="container-lg">
 <div class="col-4 mb-3"><label for="fill_cl_id"></label></div>
 <div class="col-8 mb-3"><input id="fill_cl_id" class="form-control"></div>
 <div class="col-4 mb-3"><label for="fill_cl_address"></label></div>
-<div class="col-8 mb-3"><input id="fill_cl_address" class="form-control"></div>
+<div class="col-8 mb-3"><textarea id="fill_cl_address" class="form-control"></textarea></div>
 </div>
 </div>
 <div class="text-center pb-3">
