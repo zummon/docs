@@ -33,7 +33,6 @@ var footer_links = { library: [
   ['footer_facebook','https://www.facebook.com/zummontt'],
   ['footer_paypal','https://www.paypal.me/zummontt'],
 ] }
-// https://www.sitepoint.com/get-url-parameters-with-javascript/
 function userDataLoad(){
   const urlParams = new URLSearchParams(window.location.search)
   const keys = urlParams.keys()
@@ -55,11 +54,10 @@ function userDataLoad(){
     userData[t] = values
   })
 }
-// https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
 function userDataString(){
   const keys_list = ['cl','il']
   keys_list.forEach(t=>{
-    if (window[t] == undefined) { return }
+    if (window[t] == undefined){return}
     var arr = []
     window[t].forEach(m=>{
       m.forEach(z=>{
@@ -69,11 +67,11 @@ function userDataString(){
     userData[t] = arr
   })
   var str = []
-  for (var values in userData) {
-    if (userData.hasOwnProperty(values)) {
+  for(var values in userData){
+    if(userData.hasOwnProperty(values)){
       var paste = userData[values]
-      if (paste.constructor !== Array) { paste = [paste] }
-      for (let z = 0; z < paste.length; z++) {
+      if(paste.constructor !== Array){paste = [paste]}
+      for(let z = 0; z < paste.length; z++){
         str.push(encodeURIComponent(values) + "=" + encodeURIComponent(paste[z]))   
       }
     }
@@ -81,10 +79,10 @@ function userDataString(){
   return '?' + str.join("&")
 }
 // https://stackoverflow.com/questions/4492385/how-to-convert-simple-array-into-two-dimensional-array-matrix-with-javascript
-function listToMatrix(list, subArray){
+function listToMatrix(list,subArray){
   var matrix = [], i, k
-  for (i = 0, k = -1; i < list.length; i++) {
-    if (i % subArray === 0) {
+  for(i = 0, k = -1; i < list.length; i++){
+    if(i % subArray === 0){
       k++
       matrix[k] = []
     }
