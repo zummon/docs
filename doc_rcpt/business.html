@@ -1,0 +1,96 @@
+<div id="doc" class="uk-background-default uk-padding-small" data-font>
+  <div class="uk-child-width-1-2 uk-flex-middle uk-margin-top uk-grid-small uk-grid" uk-grid>
+    <div>
+      <img data-img="vendorImage">
+      <p data-docs="vendorName" class="uk-text-lead uk-margin-remove"></p>
+      <input data-docs="vendorId" class="uk-input uk-form-small uk-form-blank"></input>
+      <textarea data-docs="vendorAddress" class="uk-textarea uk-form-small uk-form-blank uk-resize-vertical"></textarea>
+
+      <label data-label="client" class="uk-form-label"></label>
+      <p data-docs="clientName" class="uk-text-lead uk-margin-remove"></p>
+      <input data-docs="clientId" class="uk-input uk-form-small uk-form-blank"></input>
+      <textarea data-docs="clientAddress" class="uk-textarea uk-form-small uk-form-blank uk-resize-vertical"></textarea>
+
+      <label data-label="subject" class="uk-text-bold"></label>
+      <span data-docs="subject" class="uk-text-lead uk-text-primary"></span>
+    </div>
+    <div>
+      <h1 data-label="title" class="uk-heading-medium uk-margin-small uk-text-primary"></h1>
+      <input data-docs="ref" class="uk-input uk-form-small uk-form-blank">
+      <input data-docs="date" class="uk-input uk-form-small uk-form-blank">
+      <div class="uk-tile uk-tile-muted uk-margin-small-top">
+        <div>
+          <label data-label="paymethod" class="uk-form-label"></label>
+          <textarea data-docs="paymethod" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
+        </div>
+      </div>
+      <div class="uk-text-right">
+        <label data-label="totalFinal" class="uk-text-bold"></label>
+        <span data-docs="totalFinal" class="uk-text-lead uk-text-primary"></span>
+      </div>
+    </div>
+  </div>
+  <table class="uk-table uk-table-small uk-table-divider uk-table-middle uk-table-hover uk-margin-small">
+    <thead class="uk-text-bold uk-background-primary" style="color: #fff;">
+      <tr>
+        <td data-label="line" class="uk-table-shrink uk-text-nowrap"></td>
+        <td data-label="itemDesc" class="uk-table-expand"></td>
+        <td data-label="itemPrice" class="uk-text-right uk-text-nowrap" style="width: 50px;"></td>
+        <td data-label="itemQty" class="uk-text-right uk-text-nowrap" style="width: 50px;"></td>
+        <td data-label="itemAmount" class="uk-text-right uk-text-nowrap" style="width: 70px;"></td>
+      </tr>
+    </thead>
+    <tbody data-zm="lines">
+      <tr data-zm="line">
+        <td data-zm="lineNum"></td>
+        <td data-docs="itemDesc"></td>
+        <td data-docs="itemPrice" class="uk-text-right"></td>
+        <td data-docs="itemQty" class="uk-text-right"></td>
+        <td data-docs="itemAmount" class="uk-text-right"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" rowspan="5">
+          <div class="uk-tile uk-tile-muted">
+            <label data-label="clientSign" class="uk-form-label"></label>
+            <textarea data-docs="clientSignName" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
+            <input data-docs="clientSignDate" class="uk-input uk-form-small">
+          </div>
+        </td>
+        <td data-label="totalAmount" colspan="2" class="uk-text-bold"></td>
+        <td data-docs="totalAmount" class="uk-text-right uk-text-bold"></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <span data-label="totalVat"></span>
+          <span data-zm="vatRate"></span>
+        </td>
+        <td data-docs="totalVat" class="uk-text-right"></td>
+      </tr>
+      <tr>
+        <td colspan="2">
+          <span data-label="totalWht"></span>
+          <span data-zm="whtRate"></span>
+        </td>
+        <td data-docs="totalWht" class="uk-text-right"></td>
+      </tr>
+      <tr>
+        <td data-label="totalAdjust" colspan="2"></td>
+        <td data-docs="totalAdjust" class="uk-text-right"></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="uk-child-width-1-2 uk-margin-bottom uk-grid-small uk-grid" uk-grid>
+    <div>
+      <label data-label="note" class="uk-text-bold"></label>
+      <textarea data-docs="note" class="uk-textarea uk-form-blank uk-resize-vertical"></textarea>
+      <span data-label="thankMessage" class="uk-text-large uk-text-bold uk-text-primary"></span>
+    </div>
+    <div>
+      <label data-label="vendorSign" class="uk-form-label"></label>
+      <textarea data-docs="vendorSignName" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
+      <input data-docs="vendorSignDate" class="uk-input uk-form-small">
+    </div>
+  </div>
+</div>

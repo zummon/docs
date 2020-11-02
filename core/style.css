@@ -1,0 +1,25 @@
+html {
+  min-width: 640px;
+}
+body {
+  margin: 0;
+}
+a, select {
+  cursor: pointer;
+}
+@media print {
+  html {
+    background-color: #fff !important;
+  }
+  tfoot {
+    display: table-row-group;
+  }
+  #above, #nav, #end {
+    display: none;
+  }
+  #display {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    box-shadow: none;
+  }
+}

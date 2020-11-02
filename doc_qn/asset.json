@@ -1,0 +1,45 @@
+{
+    "label": {
+        "title": ["Quotation","ใบเสนอราคา"],
+        "ref": ["Qn-No","เลขที่"],
+        "date": ["Qn-Date","วันที่"],
+        "duedate": ["Offer Until","สั่งซื้อก่อนวันที่"],
+        "client": ["Offer to","ส่งถึง"],
+        "clientName": ["Customer Name","ผู้ซื้อ"],
+        "clientId": ["Register","เลขประจำตัว"],
+        "clientAddress": ["Address","ที่อยู่"],
+        "clientSign": ["Client Sign","ลายเซ็นต์ผู้ซื้อ"],
+        "clientSignName": ["Client Name","ชื่อผู้ซื้อ"],
+        "clientSignRank": ["Position","ตำแหน่ง"],
+        "clientSignDate": ["Date","วันที่"],
+        "paymethod": ["Payment","วิธีชำระเงิน"],
+        "note": ["Note","บันทึก"],
+        "subject": ["Project","งาน"],
+        "line": ["No","#"],
+        "itemDesc": ["Description","รายการ"],
+        "itemPrice": ["Price","ราคา"],
+        "itemQty": ["Qty","จำนวน"],
+        "itemAmount": ["Amount","รวมเป็น"],
+        "totalAmount": ["Subtotal","รวม"],
+        "totalVat": ["Vat","ภาษีมูลค่าเพิ่ม"],
+
+        "totalAdjust": ["Adjust","ปรับปรุง"],
+        "totalFinal": ["Total Amount","รวมเป็นมูลค่า"],
+        "vendor": ["Vendor","ผู้ขาย"],
+        "vendorName": ["Vendor Name","ชื่อผู้ขาย"],
+        "vendorId": ["Register","เลขประจำตัว"],
+        "vendorAddress": ["Address","ที่อยู่"],
+        "vendorSign": ["Vendor Sign","ลายเซ็นต์ผู้ขาย"],
+        "vendorSignName": ["Vendor Name","ชื่อผู้ขาย"],
+        "vendorSignRank": ["Position","ตำแหน่ง"],
+        "vendorSignDate": ["Date","วันที่"],
+        "thankMessage": ["Thank You!",""]
+    },
+    "image": {
+        "clientSignImage": ["",""],
+        "itemImage": ["",""],
+        "vendorImage": ["",""],
+        "vendorStamp": ["",""],
+        "vendorSignImage": ["",""]
+    }
+}
