@@ -1,8 +1,8 @@
 {
     "label": {
-        "title": ["Document","เอกสาร"],
-        "ref": ["No","เลขที่"],
-        "date": ["Date","วันที่"],
+        "title": ["Invoice","ใบแจ้งหนี้"],
+        "ref": ["Inv-No","เลขที่"],
+        "date": ["Inv-Date","วันที่"],
         "duedate": ["Due Date","ชำระภายใน"],
         "client": ["Bill to","ส่งถึง"],
         "clientName": ["Customer Name","ผู้ซื้อ"],
