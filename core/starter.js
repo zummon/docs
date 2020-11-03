@@ -44,77 +44,50 @@ user = { lang: '', theme: '', view: 'inv',
   whtRate: -0.03,
 }
 /* get link pasting */
-const
-// https://www.sitepoint.com/get-url-parameters-with-javascript/
-getStrObj = function(url) {
-
-  // get query string from url (optional) or window
+const userLinkObj = (function(url){
+  // https://www.sitepoint.com/get-url-parameters-with-javascript/
   var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
-
-  // we'll store the parameters here
   var obj = {};
-
-  // if query string exists
   if (queryString) {
-
-    // stuff after # is not part of query string, so get rid of it
     queryString = queryString.split('#')[0];
-
-    // split our query string into its component parts
     var arr = queryString.split('&');
-
     for (var i = 0; i < arr.length; i++) {
-      // separate the keys and the values
       var a = arr[i].split('=');
-
-      // set parameter name and value (use '' if empty)
       var paramName = a[0];
       var paramValue = typeof (a[1]) === 'undefined' ? '' : decodeURIComponent(a[1]);
-
-      // if the paramName ends with square brackets, e.g. colors[] or colors[2]
       if (paramName.match(/\[(\d+)?\]$/)) {
-
-        // create key if it doesn't exist
         var key = paramName.replace(/\[(\d+)?\]/, '');
         if (!obj[key]) obj[key] = [];
-
-        // if it's an indexed array e.g. colors[2]
         if (paramName.match(/\[\d+\]$/)) {
-          // get the index value and add the entry at the appropriate position
           var index = /\[(\d+)\]/.exec(paramName)[1];
           obj[key][index] = paramValue;
         } else {
-          // otherwise add the value to the end of the array
           obj[key].push(paramValue);
         }
       } else {
-        // we're dealing with a string
         if (!obj[paramName]) {
-          // if it doesn't exist, create property
           obj[paramName] = paramValue;
         } else if (obj[paramName] && typeof obj[paramName] === 'string'){
-          // if property does exist and it's a string, convert it to an array
           obj[paramName] = [obj[paramName]];
           obj[paramName].push(paramValue);
         } else {
-          // otherwise add the property
           obj[paramName].push(paramValue);
         }
       }
     }
   }
-
   return obj;
-},
-userLinkObj = getStrObj()
-
+})()
+if (userLinkObj) {
 for (const key in userLinkObj) {
   if (userLinkObj.hasOwnProperty(key)) {
     user[key] = userLinkObj[key]
   }
-}; delete user.fbclid;
+}
+delete user.fbclid
+}
 /* set the existing option */
-const setDisc = function(key){
+function setDisc(key){
   // force user data to be existed value, and for getting index easily
   disc[key] = zm[key].map(function(t){return t.type}).indexOf(user[key])
   if (disc[key] == -1) {
@@ -189,7 +162,7 @@ for(let z = 0; z < elsOutsource.length; z++){
 for(let z = 0; z < elsCreateby.length; z++){
   elsCreateby[z].href = createby.content[z].link
 }
-/* template */
+/* build setting options */
 let options = [];
 for (const key in tmps) {
   if (tmps.hasOwnProperty(key)) {
@@ -241,14 +214,14 @@ elsView = elView.querySelectorAll('option'),
 elActBackLabel = elDocActBack.querySelector('label'),
 elActPrintLabel = elDocActPrint.querySelector('label');
 /* setup language */
-const setLang = function(i){
-  for(let z = 0; z < elsTheme.length; z++){
+function setLang(i){
+  for (let z = 0; z < elsTheme.length; z++) {
     elsTheme[z].textContent = zm.theme[z].text[i]
   }
-  for(let z = 0; z < elsView.length; z++){
+  for (let z = 0; z < elsView.length; z++) {
     elsView[z].textContent = zm.view[z].text[i]
   }
-  for(let z = 0; z < elsCreateby.length; z++){
+  for (let z = 0; z < elsCreateby.length; z++) {
     elsCreateby[z].textContent = createby.content[z].text[i]
   }
   document.title = title[i]
@@ -285,7 +258,7 @@ const setLang = function(i){
 const
 elsCssModal = document.querySelectorAll('.uk-modal-dialog');
 /* setup Theme */
-const setTheme = function(i){
+function setTheme(i){
   for (let z = 0; z < elsCssModal.length; z++) {
     elsCssModal[z].className = [
       'uk-modal-dialog uk-modal-body',
@@ -310,7 +283,7 @@ const setTheme = function(i){
   ][i]
 }; setTheme(disc.theme);
 /* setup current URL */
-const setUrl = function (){
+function setUrl(){
   const userStr = getObjStr(user)
   window.history.replaceState('','','?'+ userStr)
   /* connect and paste URL parameters to zummon web creations */
