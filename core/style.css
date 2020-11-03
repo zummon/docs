@@ -1,11 +1,11 @@
 html {
   min-width: 640px;
 }
-body {
-  margin: 0;
-}
-a, select {
+select {
   cursor: pointer;
+}
+select:disabled {
+  cursor: default;
 }
 @media print {
   html {
@@ -18,8 +18,8 @@ a, select {
     display: none;
   }
   #display {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
     box-shadow: none;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 }

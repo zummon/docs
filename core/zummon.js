@@ -169,17 +169,19 @@ tmps = {
       '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
     ],
   },
-  // majors: {
-  //   name: 'Majors',
-  //   css: './tmp_css/majors.css',
-  //   doc: ['inv','rcpt','qn','tinv'],
-  //   img: './tmp_img/majors.png',
-  //   type: 'Standard',
-  //   font: '',
-  //   fontStyle: [
-  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-  //   ],
-  // },
+  bookmark: {
+    name: 'Bookmark',
+    css: '',
+    doc: ['inv','rcpt','qn','tinv'],
+    img: './tmp_img/bookmark.png',
+    type: 'Standard',
+    // https://fonts.google.com/?category=Sans+Serif&selection.family=Athiti|Major+Mono+Display&subset=thai
+    font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
+    fontStyle: [
+      'Athiti, sans-serif',
+      'Major Mono Display, monospace',
+    ],
+  },
   // chocchip: {
   //   name: 'ChocChip',
   //   css: './tmp_css/chocchip.css',
@@ -245,8 +247,12 @@ browse = {
     'เลือกแบบที่คุณต้องการใช้'
   ],
 }
-/* for taking a pic
-http://127.0.0.1:5500/?lang=english&theme=dark&view=inv&docType=Standard&dateFormat=dmmmyyyy&anPrice=num&anQty=integer&lines=5&vatRate=0.07&whtRate=-0.03&itemDesc=creative%20fee&itemPrice=1000&itemQty=10&itemAmount=10000&vendorName=example%20zummon%20co%20ltd&vendorId=register%20%23%23%23&vendorAddress=address%20...&ref=NO%20%23%23%23&date=2%20Nov%202020&clientName=Customer%20name&clientId=register%20%23%23%23&clientAddress=address%20...&duedate=30%20Nov%202020&paymethod=pay%20to%20my%20PayPal...&totalFinal=10600&note=Adjust%20-100%20is%20discount...&totalAmount=10000&totalVat=700&totalAdjust=-100&vendorSignName=zummon&clientSignName=Customer
+/* to do
+Fix to reset user data, when create the next doc some data still showing
+
+* for taking a pic
+
+http://127.0.0.1:5500/?lang=english&theme=dark&view=inv&docType=Standard&dateFormat=dmmmyyyy&anPrice=num&anQty=integer&lines=5&vatRate=0.07&whtRate=-0.03&itemDesc=creative%20fee&itemPrice=1000&itemQty=10&itemAmount=10000&vendorName=example%20zummon%20co%20ltd&vendorId=register%20%23%23%23&vendorAddress=address%20...&ref=NO%20%23%23%23&date=2%20Nov%202020&clientName=Customer%20name&clientId=register%20%23%23%23&clientAddress=address%20...&duedate=30%20Nov%202020&paymethod=pay%20to%20my%20PayPal...&totalFinal=10600&note=Adjust%20-100%20is%20discount...&totalAmount=10000&totalVat=700&totalAdjust=-100&vendorSignName=zummon&clientSignName=Customer&vendorSignDate=3%20Nov%202020&clientSignDate=3%20Nov%202020&subject=Create%20a%20template
 
 http://127.0.0.1:5500/?lang=thai&theme=dark&view=rcpt&docType=Standard&dateFormat=dmmmyyyy&anPrice=num&anQty=integer&lines=5&vatRate=0.07&whtRate=-0.03&itemDesc=%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%20%E0%B8%A5%E0%B8%A7%E0%B8%94%E0%B8%A5%E0%B8%B2%E0%B8%A2&itemPrice=1000&itemQty=10&itemAmount=10000&vendorName=%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97%20%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%20%E0%B8%8B%E0%B8%B1%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%99%20%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94&vendorId=%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99%20%23%23%23&vendorAddress=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88...&ref=%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%97%E0%B8%B5%E0%B9%88%20%23%23%23&date=2%20%E0%B8%9E.%E0%B8%A2.%202020&clientName=%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%84%E0%B9%89%E0%B8%B2&clientId=%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99...&clientAddress=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88&paymethod=%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%82%E0%B8%AD%E0%B8%99%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99%20PayPal...&totalFinal=10200&note=%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%9B%E0%B8%A3%E0%B8%B8%E0%B8%87%20-200%20%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%A5%E0%B8%94&totalAmount=10000&totalVat=700&totalWht=-300&totalAdjust=-200&vendorSignName=%E0%B8%8B%E0%B8%B1%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%99&clientSignName=%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%84%E0%B9%89%E0%B8%B2
 
@@ -257,6 +263,5 @@ http://127.0.0.1:5500/?lang=thai&theme=dark&view=rcpt&docType=Standard&dateForma
   "title": ["Invoice","ใบแจ้งหนี้"],
   "ref": ["Inv-No","เลขที่"],
   "date": ["Inv-Date","วันที่"],
-*/
 
-/* created by zummontt */
+created by zummontt */

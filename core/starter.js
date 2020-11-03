@@ -23,6 +23,12 @@ elSetLinesInput = elSetLines.querySelector('input'),
 elSetVatRateInput = elSetVatRate.querySelector('input'),
 elSetWhtRateInput = elSetWhtRate.querySelector('input'),
 elDocSetFontSelect = elDocSetFont.querySelector('select'),
+/* select modal elements */
+elMdUpload = document.querySelector('#modal-upload'),
+elMdDate = document.querySelector('#modal-date'),
+
+elMdUpInput = elMdUpload.querySelector('#modal-upload-input'),
+elMdDateInput = elMdDate.querySelector('#modal-date-input'),
 /* other */
 nodeOption = document.createElement('option');
 
@@ -140,12 +146,9 @@ elSetVatRateLabel = elSetVatRate.querySelector('label'),
 elSetWhtRateLabel = elSetWhtRate.querySelector('label'),
 elDocSetFontLabel = elDocSetFont.querySelector('label'),
 /* select modal elements */
-elMdUpload = document.querySelector('#modal-upload'),
-elMdDate = document.querySelector('#modal-date'),
 elMdPrint = document.querySelector('#modal-print'),
 
 elMdUpTitle = elMdUpload.querySelector('.uk-modal-title'),
-elMdUpInput = elMdUpload.querySelector('#modal-upload-input'),
 elMdUpInputLabel = elMdUpload.querySelector('[for=modal-upload-input]'),
 elMdUpWidth = elMdUpload.querySelector('#modal-upload-width'),
 elMdUpWidthLabel = elMdUpload.querySelector('[for=modal-upload-width]'),
@@ -154,7 +157,6 @@ elMdUpHeightLabel = elMdUpload.querySelector('[for=modal-upload-height]'),
 elMdUpDone = elMdUpload.querySelector('#modal-upload-done'),
 
 elMdDateTitle = elMdDate.querySelector('.uk-modal-title'),
-elMdDateInput = elMdDate.querySelector('#modal-date-input'),
 elMdDateInputLabel = elMdDate.querySelector('[for=modal-date-input]'),
 elMdDateOutput = elMdDate.querySelector('#modal-date-output'),
 elMdDateOutputLabel = elMdDate.querySelector('[for=modal-date-output]'),
@@ -369,6 +371,7 @@ elMdDateInput.addEventListener('change',function(){
 elMdDateDone.addEventListener('click',function(){
   setElemValue(activeFillup, elMdDateOutput.value)
   UIkit.modal('#modal-date').hide()
+  activeFillup.focus()
   activeFillup = undefined
 })
 
@@ -383,6 +386,7 @@ elMdUpDone.addEventListener('click',function(){
   if(width){activeFillup.width = width}else{activeFillup.removeAttribute('width')}
   if(height){activeFillup.height = height}else{activeFillup.removeAttribute('height')}
   UIkit.modal('#modal-upload').hide()
+  activeFillup.focus()
   activeFillup = undefined
 })
 

@@ -153,7 +153,8 @@ docLoad = function(key){
   elDataZmWhtRate = elDoc.querySelector('[data-zm=whtRate]')
   /* build rows */
   for (let z = 1; z <= user.lines; z++) {
-    setElemValue(elDataZmLine.querySelector('[data-zm=lineNum]'), z)
+    const lineNum = elDataZmLine.querySelector('[data-zm=lineNum]')
+    if (lineNum) setElemValue(lineNum, z)
     elDataZmLines.appendChild(elDataZmLine.cloneNode(true))
   }
   elDataZmLines.removeChild(elDataZmLine)
@@ -201,6 +202,7 @@ docLoad = function(key){
     elsDate[z].addEventListener('click',function(){
       activeFillup = this
       UIkit.modal('#modal-date').show()
+      elMdDateInput.focus()
     })
   }
   /* build logos, source: https://imgur.com/WzWR2nA */
@@ -209,6 +211,7 @@ docLoad = function(key){
     elsImgLogo[z].addEventListener('click',function(){
       activeFillup = this
       UIkit.modal('#modal-upload').show()
+      elMdUpInput.focus()
     })
   }
   /* fill up from user data */
@@ -313,6 +316,7 @@ getElemValue = function(elem){
   }
 },
 setElemValue = function(elem,val){
+  // console.log(elem);
   if (AutoNumeric.isManagedByAutoNumeric(elem)) {
     AutoNumeric.set(elem, val)
   } else {
