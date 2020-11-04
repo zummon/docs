@@ -102,9 +102,9 @@ elAbove = document.querySelector('#above'),
 elNav = document.querySelector('#nav'),
   elGreet = document.querySelector('#greet'),
 elEnd = document.querySelector('#end'),
-  elOutsource = document.querySelector('#outsource span'),
+  elsourceused = document.querySelector('#sourceused span'),
   elCreateby = document.querySelector('#createby span'),
-  elsOutsource = document.querySelectorAll('#outsource [target]'),
+  elssourceused = document.querySelectorAll('#sourceused [target]'),
   elsCreateby = document.querySelectorAll('#createby [target]'),
   /* get specific connect elements */
   elsCreatebySite = document.querySelector('#createby_site'),
@@ -154,9 +154,9 @@ for(let z = 0; z < zm.view.length; z++){
   elView.appendChild(nodeOption.cloneNode(true))
 }
 /* build zm end credit */
-for(let z = 0; z < elsOutsource.length; z++){
-  elsOutsource[z].textContent = outsource.content[z].text
-  elsOutsource[z].href = outsource.content[z].link
+for(let z = 0; z < elssourceused.length; z++){
+  elssourceused[z].textContent = sourceused.content[z].text
+  elssourceused[z].href = sourceused.content[z].link
 }
 for(let z = 0; z < elsCreateby.length; z++){
   elsCreateby[z].href = createby.content[z].link
@@ -227,7 +227,7 @@ function setLang(i){
   document.documentElement.style.fontFamily = font[i]
 
   elGreet.textContent = greet[i]
-  elOutsource.textContent = outsource.title[i]
+  elsourceused.textContent = sourceused.title[i]
   elCreateby.textContent = createby.title[i]
 
   elSetDocTypeLabel.textContent = set.docType[i]

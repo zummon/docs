@@ -52,7 +52,7 @@ greet = [
   'Create Document',
   'สร้างเอกสาร',
 ],
-outsource = {
+sourceused = {
   title: [ 'Source Usage',
     'แหล่งการใช้งาน',
   ],
