@@ -5,7 +5,7 @@ if(!window.XMLHttpRequest && 'ActiveXObject' in window){
   return new ActiveXObject('MSXML2.XMLHttp');
   };
 }
-//https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
+// https://developer.mozilla.org/en-US/docs/Web/API/Element/closest
 if(!Element.prototype.matches){
   Element.prototype.matches = Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector
 }
@@ -18,4 +18,8 @@ if(!Element.prototype.closest){
   } while (el !== null && el.nodeType === 1)
   return null
   }
+}
+// https://dev.opera.com/articles/better-error-handling-with-window-onerror/
+window.onerror = function(message, url, linenumber) {
+	alert('JavaScript error: ' + message + ' on line ' + linenumber + ' for ' + url);
 }

@@ -78,15 +78,14 @@ const userLinkObj = (function(url){
   }
   return obj;
 })()
-if (userLinkObj) {
 for (const key in userLinkObj) {
   if (userLinkObj.hasOwnProperty(key)) {
     user[key] = userLinkObj[key]
   }
 }
 delete user.fbclid
-}
-/* set the existing option */
+
+/* set the existing options */
 function setDisc(key){
   // force user data to be existed value, and for getting index easily
   disc[key] = zm[key].map(function(t){return t.type}).indexOf(user[key])
