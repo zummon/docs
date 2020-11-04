@@ -1,7 +1,7 @@
 const
 setofDateFormat = (function (){
 /* import include
-    identify language: disc.lang */
+    identify language: zm_disc.lang */
 
 /* special text set */
 const month = {
@@ -70,19 +70,19 @@ return {
     dmmmyy: { text: ['1 Dec 20','1 ธ.ค. 20'],
         call: function(d){
             d = d.split('-')
-            return parseInt(d[2]) +' '+ month.short[parseInt(d[1])][disc.lang] +' '+ d[0].slice(2)
+            return parseInt(d[2]) +' '+ month.short[parseInt(d[1])][zm_disc.lang] +' '+ d[0].slice(2)
         }
     },
     dmmmyyyy: { text: ['31 Dec 2020','31 ธ.ค. 2020'],
         call: function(d){
             d = d.split('-')
-            return parseInt(d[2]) +' '+ month.short[parseInt(d[1])][disc.lang] +' '+ d[0]
+            return parseInt(d[2]) +' '+ month.short[parseInt(d[1])][zm_disc.lang] +' '+ d[0]
         }
     },
     dmmmmyyyy: { text: ['2 December 2020','2 ธันวาคม 2020'],
         call: function(d){
             d = d.split('-')
-            return parseInt(d[2]) +' '+ month.full[parseInt(d[1])][disc.lang] +' '+ d[0]
+            return parseInt(d[2]) +' '+ month.full[parseInt(d[1])][zm_disc.lang] +' '+ d[0]
         }
     },
 }

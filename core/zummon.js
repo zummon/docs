@@ -1,6 +1,10 @@
-var disc = {}, user = {}, activeFillup, docAsset,
-zm = {
-  /* array of object */
+let zm_disc = {}, zm_user,
+/* temporary element going to fill by using modal */
+zm_active,
+/* selected data doc set */
+zm_docAsset
+/* array of object */
+const zm = {
   lang: [
     { type: 'english', text: 'English' },
     { type: 'thai', text: 'ไทย' },
@@ -40,111 +44,8 @@ zm = {
     },
   ],
 },
-font = [
-  'Varela Round, sans-serif',
-  'K2D, sans-serif',
-],
-title = [
-  'Create Document - zummon webapp (Updating)',
-  'สร้างเอกสาร - zummon เว็บแอป (พัฒนาเรื่อยๆ)',
-],
-greet = [
-  'Create Document',
-  'สร้างเอกสาร',
-],
-sourceused = {
-  title: [ 'Source Usage',
-    'แหล่งการใช้งาน',
-  ],
-  content: [
-    { text: 'AutoNumeric',
-      link: 'http://autonumeric.org/',
-    },
-    { text: 'Font Awesome',
-      link: 'https://fontawesome.com/',
-    },
-    { text: 'Google Fonts',
-      link: 'https://fonts.google.com/',
-    },
-    { text: 'UIkit',
-      link: 'https://getuikit.com/',
-    },
-    { text: 'unDraw',
-      link: 'https://undraw.co/',
-    },
-  ],
-},
-createby = {
-  title: [ 'Created by',
-    'สร้างโดย',
-  ],
-  content: [
-    { text: [ 'Donate to support (PayPal: zummontt)',
-        'โอนเงินเพื่อสนับสนุน (PayPal: zummontt)',
-      ],
-      link: 'https://www.paypal.me/zummontt'
-    },
-    { text: [ 'Report issues (GitHub)',
-        'แจ้งปัญหา (กิตฮับ)',
-      ],
-      link: 'https://github.com/zummon/docs/issues'
-    },
-    { text: [ 'Social (Facebook)',
-        'พูดคุย (เฟซบุ๊ก)',
-      ],
-      link: 'https://www.facebook.com/zummontt/posts/185150049682455'
-    },
-    { text: [ 'Main website',
-      'เว็บไซต์หลัก',
-    ],
-      link: 'https://zummon.github.io/site',
-    },
-  ],
-},
 /* others */
-set = {
-  docType: [
-    'Style Type',
-    'ประเภทรูปแบบ'
-  ],
-  dateFormat: [
-    'Date Format',
-    'รูปแบบวันที่'
-  ],
-  anPrice: [
-    'Currency',
-    'สกุลเงิน'
-  ],
-  anQty: [
-    'Qty',
-    'หน่วยนับ'
-  ],
-  lines: [
-    'Rows',
-    'บรรทัน'
-  ],
-  vatRate: [
-    'VAT rate',
-    'อัตราภาษีมูลค่าเพิ่ม'
-  ],
-  whtRate: [
-    'Withholding tax rate',
-    'อัตราภาษีหัก ณ ที่จ่าย'
-  ],
-  docFont: [
-    'Font',
-    'ตัวอักษร'
-  ],
-  actPrint: [
-    'Print',
-    'พิมพ์'
-  ],
-  actBack: [
-    'Back',
-    'ย้อนกลับ'
-  ],
-},
-tmps = {
+zm_tmps = {
   tagcard: {
     name: 'Tagcard',
     css: '',
@@ -196,7 +97,55 @@ tmps = {
   //   ],
   // },
 },
-modal = {
+zm_font = [
+  'Varela Round, sans-serif',
+  'K2D, sans-serif',
+],
+zm_set = {
+  /* main page */
+  docType: [
+    'Style Type',
+    'ประเภทรูปแบบ'
+  ],
+  dateFormat: [
+    'Date Format',
+    'รูปแบบวันที่'
+  ],
+  anPrice: [
+    'Currency',
+    'สกุลเงิน'
+  ],
+  anQty: [
+    'Qty',
+    'หน่วยนับ'
+  ],
+  lines: [
+    'Rows',
+    'บรรทัน'
+  ],
+  vatRate: [
+    'VAT rate',
+    'อัตราภาษีมูลค่าเพิ่ม'
+  ],
+  whtRate: [
+    'Withholding tax rate',
+    'อัตราภาษีหัก ณ ที่จ่าย'
+  ],
+  /* editing doc page */
+  docFont: [
+    'Font',
+    'ตัวอักษร'
+  ],
+  actPrint: [
+    'Print',
+    'พิมพ์'
+  ],
+  actBack: [
+    'Back',
+    'ย้อนกลับ'
+  ],
+},
+zm_modal = {
   date: {
     title: [
       'Enter date',
@@ -240,8 +189,66 @@ modal = {
     ],
   },
 },
-/* page */
-browse = {
+/* main text  */
+zm_title = [
+  'Create Document - zummon webapp (Updating)',
+  'สร้างเอกสาร - zummon เว็บแอป (พัฒนาเรื่อยๆ)',
+],
+zm_greet = [
+  'Create Document',
+  'สร้างเอกสาร',
+],
+zm_sourceused = {
+  title: [ 'Source Usage',
+    'แหล่งการใช้งาน',
+  ],
+  content: [
+    { text: 'AutoNumeric',
+      link: 'http://autonumeric.org/',
+    },
+    { text: 'Font Awesome',
+      link: 'https://fontawesome.com/',
+    },
+    { text: 'Google Fonts',
+      link: 'https://fonts.google.com/',
+    },
+    { text: 'UIkit',
+      link: 'https://getuikit.com/',
+    },
+    { text: 'unDraw',
+      link: 'https://undraw.co/',
+    },
+  ],
+},
+zm_createby = {
+  title: [ 'Created by',
+    'สร้างโดย',
+  ],
+  content: [
+    { text: [ 'Donate to support (PayPal: zummontt)',
+        'โอนเงินเพื่อสนับสนุน (PayPal: zummontt)',
+      ],
+      link: 'https://www.paypal.me/zummontt'
+    },
+    { text: [ 'Report issues (GitHub)',
+        'แจ้งปัญหา (กิตฮับ)',
+      ],
+      link: 'https://github.com/zummon/docs/issues'
+    },
+    { text: [ 'Social (Facebook)',
+        'พูดคุย (เฟซบุ๊ก)',
+      ],
+      link: 'https://www.facebook.com/zummontt/posts/185150049682455'
+    },
+    { text: [ 'Main website',
+      'เว็บไซต์หลัก',
+    ],
+      link: 'https://zummon.github.io/site',
+    },
+  ],
+},
+/* each page text */
+zm_browse = {
   title: [
     'Select the template you want to use',
     'เลือกแบบที่คุณต้องการใช้'

@@ -19,7 +19,8 @@ if(!Element.prototype.closest){
   return null
   }
 }
+/* dev tool to check, is mobiles usable */
 // https://dev.opera.com/articles/better-error-handling-with-window-onerror/
 window.onerror = function(message, url, linenumber) {
-	alert(message +' on line '+ linenumber +' for '+ url);
+	alert(message +' on line '+ linenumber +' for '+ url)
 }

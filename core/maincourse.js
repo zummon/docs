@@ -25,16 +25,16 @@ browseLoad = function(){
   elHoldImg = elWrapDiv.querySelector('.uk-card-media-top'),
   elHoldText = elWrapDiv.querySelector('.uk-card-body')
   /* build elements */
-  for (const key in tmps) {
-    if (tmps.hasOwnProperty(key)) {
+  for (const key in zm_tmps) {
+    if (zm_tmps.hasOwnProperty(key)) {
       /* to identify which form, an user selects to create */
       elAnchor.dataset.tmp = key
       /* showing */
-      elHoldImg.style.backgroundImage = 'url('+ tmps[key].img +')'
-      elHoldText.textContent = tmps[key].name
+      elHoldImg.style.backgroundImage = 'url('+ zm_tmps[key].img +')'
+      elHoldText.textContent = zm_tmps[key].name
       /* to show and hide the options selected, like filtering */
-      elWrapDiv.dataset.type = tmps[key].type
-      elWrapDiv.className = tmps[key].doc.join(' ')
+      elWrapDiv.dataset.type = zm_tmps[key].type
+      elWrapDiv.className = zm_tmps[key].doc.join(' ')
       elBrowse.appendChild(elWrapDiv.cloneNode(true))
     }
   }
@@ -45,11 +45,11 @@ browseLoad = function(){
   elsBrowseA = elBrowse.querySelectorAll('a')
   
   function setBrowseLang(){
-    let i = disc.lang
-    elBrowseTitle.textContent = browse.title[i]
-  }; setBrowseLang();
+    let i = zm_disc.lang
+    elBrowseTitle.textContent = zm_browse.title[i]
+  }; setBrowseLang()
   function setBrowseTheme(){
-    let i = disc.theme
+    let i = zm_disc.theme
     elBrowseTitle.style.color = [
       '',
       '#fff',
@@ -62,7 +62,7 @@ browseLoad = function(){
       'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-flex-center uk-flex-middle uk-grid',
       'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-flex-center uk-flex-middle uk-grid uk-light',
     ][i]
-  }; setBrowseTheme();
+  }; setBrowseTheme()
   function setBrowseView(){
     elSetDocType.classList.remove('uk-hidden')
     elSetDateFormat.classList.remove('uk-hidden')
@@ -71,7 +71,7 @@ browseLoad = function(){
     elSetLines.classList.remove('uk-hidden')
     elSetVatRate.classList.remove('uk-hidden')
     elSetWhtRate.classList.remove('uk-hidden')
-    if (['inv','tinv','qn'].indexOf(user.view) >= 0) {
+    if (['inv','tinv','qn'].indexOf(zm_user.view) >= 0) {
       elSetWhtRate.classList.add('uk-hidden')
     }
     /* revealDoc (view) */
@@ -80,22 +80,22 @@ browseLoad = function(){
     }
     /* re-select the elements */
     const
-    elsBrowseSelect = elBrowse.querySelectorAll('.'+ user.view)
+    elsBrowseSelect = elBrowse.querySelectorAll('.'+ zm_user.view)
     for (let z = 0; z < elsBrowseSelect.length; z++) {
       elsBrowseSelect[z].classList.remove('uk-hidden')
     }
-  }; setBrowseView();
+  }; setBrowseView()
   function revealDocType(){
     for (let z = 0; z < elsWrapDiv.length; z++) {
       elsWrapDiv[z].classList.add('uk-hidden')
     }
     /* re-select the elements */
     const 
-    elsBrowseSelect = elBrowse.querySelectorAll('[data-type='+ user.docType +']')
+    elsBrowseSelect = elBrowse.querySelectorAll('[data-type='+ zm_user.docType +']')
     for (let z = 0; z < elsBrowseSelect.length; z++) {
       elsBrowseSelect[z].classList.remove('uk-hidden')
     }
-  }; revealDocType();
+  }; revealDocType()
   elLang.onchange = setBrowseLang
   elTheme.onchange = setBrowseTheme
   elView.onchange = setBrowseView
@@ -110,13 +110,13 @@ browseLoad = function(){
 })},
 docLoad = function(key){
   const
-  tmp = tmps[key],
-  json = './doc_'+ user.view +'/asset.json',
-  html = './doc_'+ user.view +'/'+ key +'.html'
+  tmp = zm_tmps[key],
+  json = './doc_'+ zm_user.view +'/asset.json',
+  html = './doc_'+ zm_user.view +'/'+ key +'.html'
   
   loadFileXmlHr(json,function(){
   /* resetting */
-  docAsset = JSON.parse(this.responseText)
+  zm_docAsset = JSON.parse(this.responseText)
   elView.disabled = true
 
   elDisplay.classList.add('uk-box-shadow-large')
@@ -152,16 +152,16 @@ docLoad = function(key){
   elDataZmVatRate = elDoc.querySelector('[data-zm=vatRate]'),
   elDataZmWhtRate = elDoc.querySelector('[data-zm=whtRate]')
   /* build rows */
-  for (let z = 1; z <= user.lines; z++) {
+  for (let z = 1; z <= zm_user.lines; z++) {
     const lineNum = elDataZmLine.querySelector('[data-zm=lineNum]')
     if (lineNum) setElemValue(lineNum, z)
     elDataZmLines.appendChild(elDataZmLine.cloneNode(true))
   }
   elDataZmLines.removeChild(elDataZmLine)
   /* build tax rate % label */
-  setElemValue(elDataZmVatRate, (user.vatRate*100).toFixed(2) +'%' )
+  setElemValue(elDataZmVatRate, (zm_user.vatRate*100).toFixed(2) +'%' )
   if (elDataZmWhtRate) {
-    setElemValue(elDataZmWhtRate, (-user.whtRate*100).toFixed(2) +'%' )
+    setElemValue(elDataZmWhtRate, (-zm_user.whtRate*100).toFixed(2) +'%' )
   }
   /* get elements after build */
   const
@@ -180,27 +180,27 @@ docLoad = function(key){
   elsItemAmtAdj = elDoc.querySelectorAll('[data-docs=itemAmount], [data-docs=totalAdjust]');
 
   function setDocLang(){
-    let i = disc.lang
-    const label = docAsset.label
+    let i = zm_disc.lang
+    const label = zm_docAsset.label
     for (let z = 0; z < elsDataLabel.length; z++) {
       // console.log(elsDataLabel[z].dataset.label);
       setElemValue(elsDataLabel[z], label[
         elsDataLabel[z].dataset.label
       ][i])
     }
-  }; setDocLang();
+  }; setDocLang()
   function setDocFont(){
     for (let z = 0; z < elsDataFont.length; z++) {
       elsDataFont[z].style.fontFamily = elDocSetFontSelect.value
     }
-  }; setDocFont();
+  }; setDocFont()
   function setDocTheme(){
-  }; setDocTheme();
+  }; setDocTheme()
 
   /* build date and date modal selection */
   for (let z = 0; z < elsDate.length; z++) {
     elsDate[z].addEventListener('click',function(){
-      activeFillup = this
+      zm_active = this
       UIkit.modal('#modal-date').show()
       elMdDateInput.focus()
     })
@@ -209,14 +209,14 @@ docLoad = function(key){
   for(let z = 0; z < elsImgLogo.length; z++){
     elsImgLogo[z].src = 'https://i.imgur.com/WzWR2nA.png'
     elsImgLogo[z].addEventListener('click',function(){
-      activeFillup = this
+      zm_active = this
       UIkit.modal('#modal-upload').show()
       elMdUpInput.focus()
     })
   }
   /* fill up from user data */
   for (let z = 0; z < elsDataDocsNotitem.length; z++) {
-    const entry = user[elsDataDocsNotitem[z].dataset.docs]
+    const entry = zm_user[elsDataDocsNotitem[z].dataset.docs]
     if (AutoNumeric.isManagedByAutoNumeric(elsDataDocsNotitem[z])) {
       AutoNumeric.set(elsDataDocsNotitem[z], entry || '')
       if (!isElemInput(elsDataDocsNotitem[z])) {
@@ -233,10 +233,10 @@ docLoad = function(key){
   }
   for (let z = 0; z < elsDocsitemDesc.length; z++) {
     elsDocsitemDesc[z].contentEditable = true
-    if (user.itemDesc) {
-      if (!user.itemDesc[z]) {continue}
-      else if (typeof user.itemDesc == 'string') {user.itemDesc = [user.itemDesc]}
-      setElemValue(elsDocsitemDesc[z], user.itemDesc[z])
+    if (zm_user.itemDesc) {
+      if (!zm_user.itemDesc[z]) {continue}
+      else if (typeof zm_user.itemDesc == 'string') {zm_user.itemDesc = [zm_user.itemDesc]}
+      setElemValue(elsDocsitemDesc[z], zm_user.itemDesc[z])
     }
   }
   for (let z = 0; z < elsDocsitemPrice.length; z++) {
@@ -253,31 +253,31 @@ docLoad = function(key){
     '[data-docs=itemSaletax],'+
     '[data-docs=itemAmount],'+
     '[data-docs^=total]',
-    setofAnPrice[user.anPrice].option
+    setofAnPrice[zm_user.anPrice].option
   )
   AutoNumeric.multiple(
     '[data-docs=itemQty]',
-    setofAnQty[user.anQty].option
+    setofAnQty[zm_user.anQty].option
   )
-  if (user.itemPrice) {
+  if (zm_user.itemPrice) {
     for (let z = 0; z < elsDocsitemPrice.length; z++) {
-      if (!user.itemPrice[z]) {continue}
-      else if (typeof user.itemPrice == 'string') {user.itemPrice = [user.itemPrice]}
-      AutoNumeric.set(elsDocsitemPrice[z], user.itemPrice[z])
+      if (!zm_user.itemPrice[z]) {continue}
+      else if (typeof zm_user.itemPrice == 'string') {zm_user.itemPrice = [zm_user.itemPrice]}
+      AutoNumeric.set(elsDocsitemPrice[z], zm_user.itemPrice[z])
     }
   }
-  if (user.itemQty) {
+  if (zm_user.itemQty) {
     for (let z = 0; z < elsDocsitemQty.length; z++) {
-      if (!user.itemQty[z]) {continue}
-      else if (typeof user.itemQty == 'string') {user.itemQty = [user.itemQty]}
-      AutoNumeric.set(elsDocsitemQty[z], user.itemQty[z])
+      if (!zm_user.itemQty[z]) {continue}
+      else if (typeof zm_user.itemQty == 'string') {zm_user.itemQty = [zm_user.itemQty]}
+      AutoNumeric.set(elsDocsitemQty[z], zm_user.itemQty[z])
     }
   }
-  if (user.itemAmount) {
+  if (zm_user.itemAmount) {
     for (let z = 0; z < elsDocsitemAmount.length; z++) {
-      if (!user.itemAmount[z]) {continue}
-      else if (typeof user.itemAmount == 'string') {user.itemAmount = [user.itemAmount]}
-      AutoNumeric.set(elsDocsitemAmount[z], user.itemAmount[z])
+      if (!zm_user.itemAmount[z]) {continue}
+      else if (typeof zm_user.itemAmount == 'string') {zm_user.itemAmount = [zm_user.itemAmount]}
+      AutoNumeric.set(elsDocsitemAmount[z], zm_user.itemAmount[z])
     }
   }
   /* auto calculate after fill */
@@ -330,8 +330,8 @@ calculateTotal = function(){
     total += AutoNumeric.getNumber(elems[z])
   }
   let
-  saletax = total * user.vatRate,
-  incometax = total * user.whtRate
+  saletax = total * zm_user.vatRate,
+  incometax = total * zm_user.whtRate
   AutoNumeric.set('[data-docs=totalAmount]',total)
   AutoNumeric.set('[data-docs=totalVat]',saletax)
   if (document.querySelector('[data-docs=totalWht]')) {
@@ -348,44 +348,26 @@ gatherUserFill = function(){
   // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
   // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
 
-  user.itemDesc = []
-  user.itemPrice = []
-  user.itemQty = []
-  user.itemAmount = []
+  zm_user.itemDesc = []
+  zm_user.itemPrice = []
+  zm_user.itemQty = []
+  zm_user.itemAmount = []
 
   for (let z = 0; z < elsDataDocs.length; z++) {
     const value = getElemValue(elsDataDocs[z])
     if (value) {
-      user[elsDataDocs[z].dataset.docs] = value
+      zm_user[elsDataDocs[z].dataset.docs] = value
     }
   }
   for (let z = 0; z < elsDocsitem.length; z++) {
     const value = getElemValue(elsDocsitem[z])
     const docs = elsDocsitem[z].dataset.docs
     if (value) {
-      if (!user[docs]) user[docs] = []
-      user[docs].push(value)
+      if (!zm_user[docs]) zm_user[docs] = []
+      zm_user[docs].push(value)
     }
   }
 
-},
-// https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
-getObjStr = function(obj) {
-  var str = [];
-  for (var p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      var paste = obj[p]
-      if (paste.constructor !== Array) paste = [paste]
-      for (let z = 0; z < paste.length; z++) {
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(paste[z]))   
-      }
-    }
-  }
-  return str.join("&");
-},
-// https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates
-onlyUnique = function(value,index,self){
-  return self.indexOf(value) === index;
 },
 loadFileXmlHr = function(file,cb){
   var xhr= new XMLHttpRequest()

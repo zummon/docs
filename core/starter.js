@@ -1,19 +1,23 @@
 /* declare global elements */
 const 
-elView = document.querySelector('#view'),
-elLang = document.querySelector('#lang'),
-elTheme = document.querySelector('#theme'),
+/* select main elements */
+elAbove = document.querySelector('#above'),
+  elView = elAbove.querySelector('#view'),
+  elLang = elAbove.querySelector('#lang'),
+  elTheme = elAbove.querySelector('#theme'),
+elNav = document.querySelector('#nav'),
+  elGreet = elNav.querySelector('#greet'),
 /* select setting elements */
-elSetDocType = document.querySelector('#set-docType'),
-elSetDateFormat = document.querySelector('#set-dateFormat'),
-elSetAnPrice = document.querySelector('#set-anPrice'),
-elSetAnQty = document.querySelector('#set-anQty'),
-elSetLines = document.querySelector('#set-lines'),
-elSetVatRate = document.querySelector('#set-vatRate'),
-elSetWhtRate = document.querySelector('#set-whtRate'),
-elDocSetFont = document.querySelector('#docSet-font'),
-elDocActBack = document.querySelector('#docAct-back'),
-elDocActPrint = document.querySelector('#docAct-print'),
+elSetDocType = elNav.querySelector('#set-docType'),
+elSetDateFormat = elNav.querySelector('#set-dateFormat'),
+elSetAnPrice = elNav.querySelector('#set-anPrice'),
+elSetAnQty = elNav.querySelector('#set-anQty'),
+elSetLines = elNav.querySelector('#set-lines'),
+elSetVatRate = elNav.querySelector('#set-vatRate'),
+elSetWhtRate = elNav.querySelector('#set-whtRate'),
+elDocSetFont = elNav.querySelector('#docSet-font'),
+elDocActBack = elNav.querySelector('#docAct-back'),
+elDocActPrint = elNav.querySelector('#docAct-print'),
 /* select inside the elements */
 elSetDocTypeSelect = elSetDocType.querySelector('select'),
 elSetDateFormatSelect = elSetDateFormat.querySelector('select'),
@@ -24,17 +28,17 @@ elSetVatRateInput = elSetVatRate.querySelector('input'),
 elSetWhtRateInput = elSetWhtRate.querySelector('input'),
 elDocSetFontSelect = elDocSetFont.querySelector('select'),
 /* select modal elements */
-elMdUpload = document.querySelector('#modal-upload'),
 elMdDate = document.querySelector('#modal-date'),
-
-elMdUpInput = elMdUpload.querySelector('#modal-upload-input'),
-elMdDateInput = elMdDate.querySelector('#modal-date-input'),
+  elMdDateInput = elMdDate.querySelector('#modal-date-input'),
+elMdUpload = document.querySelector('#modal-upload'),
+  elMdUpInput = elMdUpload.querySelector('#modal-upload-input'),
 /* other */
 nodeOption = document.createElement('option');
 
 (function(){
 /* set user data not to get error of undefined */
-user = { lang: '', theme: '', view: 'inv',
+zm_user = { lang: '', theme: '',
+  view: 'inv',
   docType: 'Standard',
   dateFormat: 'dmmmyyyy',
   anPrice: 'num',
@@ -43,8 +47,8 @@ user = { lang: '', theme: '', view: 'inv',
   vatRate: 0.07,
   whtRate: -0.03,
 }
-/* get link pasting */
-const userLinkObj = (function(url){
+/* convert string to object */
+function getStrObj(url){
   // https://www.sitepoint.com/get-url-parameters-with-javascript/
   var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
   var obj = {};
@@ -77,38 +81,54 @@ const userLinkObj = (function(url){
     }
   }
   return obj;
-})()
+}
+/* get link paste to user data */
+const userLinkObj = getStrObj()
 for (const key in userLinkObj) {
   if (userLinkObj.hasOwnProperty(key)) {
-    user[key] = userLinkObj[key]
+    zm_user[key] = userLinkObj[key]
   }
-}
-delete user.fbclid
+}; delete zm_user.fbclid
 
 /* set the existing options */
 function setDisc(key){
   // force user data to be existed value, and for getting index easily
-  disc[key] = zm[key].map(function(t){return t.type}).indexOf(user[key])
-  if (disc[key] == -1) {
-    user[key] = zm[key][0].type
-    disc[key] = 0
+  zm_disc[key] = zm[key].map(function(t){return t.type}).indexOf(zm_user[key])
+  if (zm_disc[key] == -1) {
+    zm_user[key] = zm[key][0].type
+    zm_disc[key] = 0
   }
-}; setDisc('lang'); setDisc('theme');
+}; setDisc('lang'); setDisc('theme')
+/* convert object to string */
+function getObjStr(obj) {
+  // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
+  var str = [];
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      var paste = obj[p]
+      if (paste.constructor !== Array) paste = [paste]
+      for (let z = 0; z < paste.length; z++) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(paste[z]))   
+      }
+    }
+  }
+  return str.join("&");
+}
 
 document.addEventListener('DOMContentLoaded',function(){
 const
 /* select main elements */
-elAbove = document.querySelector('#above'),
-elNav = document.querySelector('#nav'),
-  elGreet = document.querySelector('#greet'),
 elEnd = document.querySelector('#end'),
-  elsourceused = document.querySelector('#sourceused span'),
-  elCreateby = document.querySelector('#createby span'),
-  elssourceused = document.querySelectorAll('#sourceused [target]'),
-  elsCreateby = document.querySelectorAll('#createby [target]'),
-  /* get specific connect elements */
-  elsCreatebySite = document.querySelector('#createby_site'),
+  elSourceused = elEnd.querySelector('#sourceused'),
+  elCreateby = elEnd.querySelector('#createby'),
+
 /* select inside the elements */
+elSourceusedSpan = elSourceused.querySelector('span'),
+elsSourceusedTarget = elSourceused.querySelectorAll('[target]'),
+elCreatebySpan = elCreateby.querySelector('span'),
+elsCreatebyTarget = elCreateby.querySelectorAll('[target]'),
+elCreatebySite = elCreateby.querySelector('#createby_site'),
+
 elSetDocTypeLabel = elSetDocType.querySelector('label'),
 elSetDateFormatLabel = elSetDateFormat.querySelector('label'),
 elSetAnPriceLabel = elSetAnPrice.querySelector('label'),
@@ -117,6 +137,7 @@ elSetLinesLabel = elSetLines.querySelector('label'),
 elSetVatRateLabel = elSetVatRate.querySelector('label'),
 elSetWhtRateLabel = elSetWhtRate.querySelector('label'),
 elDocSetFontLabel = elDocSetFont.querySelector('label'),
+
 /* select modal elements */
 elMdPrint = document.querySelector('#modal-print'),
 
@@ -141,7 +162,7 @@ elMdPrintDone = elMdPrint.querySelector('#modal-print-done')
 
 /* build options to select from zm[array of object] */
 for(let z = 0; z < zm.lang.length; z++){
-  nodeOption.textContent = zm.lang[z].text
+  nodeOption.text = zm.lang[z].text
   nodeOption.value = zm.lang[z].type
   elLang.appendChild(nodeOption.cloneNode(true))
 }
@@ -154,29 +175,28 @@ for(let z = 0; z < zm.view.length; z++){
   elView.appendChild(nodeOption.cloneNode(true))
 }
 /* build zm end credit */
-for(let z = 0; z < elssourceused.length; z++){
-  elssourceused[z].textContent = sourceused.content[z].text
-  elssourceused[z].href = sourceused.content[z].link
+for(let z = 0; z < elsSourceusedTarget.length; z++){
+  elsSourceusedTarget[z].textContent = zm_sourceused.content[z].text
+  elsSourceusedTarget[z].href = zm_sourceused.content[z].link
 }
-for(let z = 0; z < elsCreateby.length; z++){
-  elsCreateby[z].href = createby.content[z].link
+for(let z = 0; z < elsCreatebyTarget.length; z++){
+  elsCreatebyTarget[z].href = zm_createby.content[z].link
 }
 /* build setting options */
 let options = [];
-for (const key in tmps) {
-  if (tmps.hasOwnProperty(key)) {
-    if (options.indexOf(tmps[key].type) == -1) {
-      nodeOption.value = tmps[key].type
-      nodeOption.text = tmps[key].type
+for (const key in zm_tmps) {
+  if (zm_tmps.hasOwnProperty(key)) {
+    if (options.indexOf(zm_tmps[key].type) == -1) {
+      nodeOption.value = zm_tmps[key].type
+      nodeOption.text = zm_tmps[key].type
       elSetDocTypeSelect.appendChild(nodeOption.cloneNode(true))
-      options.push(tmps[key].type)
+      options.push(zm_tmps[key].type)
     }
   }
 }
 for (const key in setofDateFormat) {
   if (setofDateFormat.hasOwnProperty(key)) {
     nodeOption.value = key
-    nodeOption.text = setofDateFormat[key].text[disc.lang]
     elSetDateFormatSelect.appendChild(nodeOption.cloneNode(true))
   }
 }
@@ -195,69 +215,75 @@ for (const key in setofAnQty) {
   }
 }
 
-elLang.value = user.lang
-elTheme.value = user.theme
-elView.value = user.view
-elSetDocTypeSelect.value = user.docType
-elSetDateFormatSelect.value = user.dateFormat
-elSetAnPriceSelect.value = user.anPrice
-elSetAnQtySelect.value = user.anQty
-elSetLinesInput.value = user.lines
-elSetVatRateInput.value = user.vatRate
-elSetWhtRateInput.value = user.whtRate
+elLang.value = zm_user.lang
+elTheme.value = zm_user.theme
+elView.value = zm_user.view
+elSetDocTypeSelect.value = zm_user.docType
+elSetDateFormatSelect.value = zm_user.dateFormat
+elSetAnPriceSelect.value = zm_user.anPrice
+elSetAnQtySelect.value = zm_user.anQty
+elSetLinesInput.value = zm_user.lines
+elSetVatRateInput.value = zm_user.vatRate
+elSetWhtRateInput.value = zm_user.whtRate
 
-/* get elements for changing languages */
+/* get elements for changing languages only */
 const
 elsTheme = elTheme.querySelectorAll('option'),
 elsView = elView.querySelectorAll('option'),
+elSetDateFormatOption = elSetDateFormatSelect.querySelectorAll('option'),
 elActBackLabel = elDocActBack.querySelector('label'),
-elActPrintLabel = elDocActPrint.querySelector('label');
+elActPrintLabel = elDocActPrint.querySelector('label')
 /* setup language */
-function setLang(i){
+function setLang(){ let i = zm_disc.lang
   for (let z = 0; z < elsTheme.length; z++) {
-    elsTheme[z].textContent = zm.theme[z].text[i]
+    elsTheme[z].text = zm.theme[z].text[i]
   }
   for (let z = 0; z < elsView.length; z++) {
-    elsView[z].textContent = zm.view[z].text[i]
+    elsView[z].text = zm.view[z].text[i]
   }
-  for (let z = 0; z < elsCreateby.length; z++) {
-    elsCreateby[z].textContent = createby.content[z].text[i]
+  for (let z = 0; z < elSetDateFormatOption.length; z++) {
+    elSetDateFormatOption[z].text = setofDateFormat[
+      elSetDateFormatOption[z].value
+    ].text[i]
   }
-  document.title = title[i]
-  document.documentElement.style.fontFamily = font[i]
+  for (let z = 0; z < elsCreatebyTarget.length; z++) {
+    elsCreatebyTarget[z].textContent = zm_createby.content[z].text[i]
+  }
+  document.title = zm_title[i]
+  document.documentElement.style.fontFamily = zm_font[i]
 
-  elGreet.textContent = greet[i]
-  elsourceused.textContent = sourceused.title[i]
-  elCreateby.textContent = createby.title[i]
+  elGreet.textContent = zm_greet[i]
+  elSourceusedSpan.textContent = zm_sourceused.title[i]
+  elCreatebySpan.textContent = zm_createby.title[i]
 
-  elSetDocTypeLabel.textContent = set.docType[i]
-  elSetDateFormatLabel.textContent = set.dateFormat[i]
-  elSetAnPriceLabel.textContent = set.anPrice[i]
-  elSetAnQtyLabel.textContent = set.anQty[i]
-  elSetLinesLabel.textContent = set.lines[i]
-  elSetVatRateLabel.textContent = set.vatRate[i]
-  elSetWhtRateLabel.textContent = set.whtRate[i]
+  elSetDocTypeLabel.textContent = zm_set.docType[i]
+  elSetDateFormatLabel.textContent = zm_set.dateFormat[i]
+  elSetAnPriceLabel.textContent = zm_set.anPrice[i]
+  elSetAnQtyLabel.textContent = zm_set.anQty[i]
+  elSetLinesLabel.textContent = zm_set.lines[i]
+  elSetVatRateLabel.textContent = zm_set.vatRate[i]
+  elSetWhtRateLabel.textContent = zm_set.whtRate[i]
 
-  elDocSetFontLabel.textContent = set.docFont[i]
-  elActBackLabel.textContent = set.actBack[i]
-  elActPrintLabel.textContent = set.actPrint[i]
+  elDocSetFontLabel.textContent = zm_set.docFont[i]
+  elActBackLabel.textContent = zm_set.actBack[i]
+  elActPrintLabel.textContent = zm_set.actPrint[i]
 
-  elMdDateTitle.textContent = modal.date.title[i]
-  elMdDateInputLabel.textContent = modal.date.input[i]
-  elMdDateOutputLabel.textContent = modal.date.output[i]
-  elMdUpTitle.textContent = modal.upload.title[i]
-  elMdUpInputLabel.textContent = modal.upload.input[i]
-  elMdUpWidthLabel.textContent = modal.upload.width[i]
-  elMdUpHeightLabel.textContent = modal.upload.height[i]
-  elMdPrintOutputTitle.textContent = modal.print.title[i]
-  elMdPrintOutputLabel.textContent = modal.print.output[i]
+  elMdDateTitle.textContent = zm_modal.date.title[i]
+  elMdDateInputLabel.textContent = zm_modal.date.input[i]
+  elMdDateOutputLabel.textContent = zm_modal.date.output[i]
+  elMdUpTitle.textContent = zm_modal.upload.title[i]
+  elMdUpInputLabel.textContent = zm_modal.upload.input[i]
+  elMdUpWidthLabel.textContent = zm_modal.upload.width[i]
+  elMdUpHeightLabel.textContent = zm_modal.upload.height[i]
+  elMdPrintOutputTitle.textContent = zm_modal.print.title[i]
+  elMdPrintOutputLabel.textContent = zm_modal.print.output[i]
 
-}; setLang(disc.lang);
+}; setLang()
 /* get the elements for changing theme only */
 const
-elsCssModal = document.querySelectorAll('.uk-modal-dialog');
+elsCssModal = document.querySelectorAll('.uk-modal-dialog')
 /* setup Theme */
-function setTheme(i){
+function setTheme(){ let i = zm_disc.theme
   for (let z = 0; z < elsCssModal.length; z++) {
     elsCssModal[z].className = [
       'uk-modal-dialog uk-modal-body',
@@ -280,55 +306,56 @@ function setTheme(i){
     '',
     'uk-background-secondary',
   ][i]
-}; setTheme(disc.theme);
+}; setTheme()
 /* setup current URL */
 function setUrl(){
-  const userStr = getObjStr(user)
+  const userStr = getObjStr(zm_user)
   window.history.replaceState('','','?'+ userStr)
   /* connect and paste URL parameters to zummon web creations */
   const
-  langStr = 'lang='+ user.lang,
-  themeStr = 'theme='+ user.theme
-  elsCreatebySite.href = elsCreatebySite.href.split('?')[0] +'?'+ langStr +'&'+ themeStr
+  langStr = 'lang='+ zm_user.lang,
+  themeStr = 'theme='+ zm_user.theme
+
+  elCreatebySite.href = elCreatebySite.href.split('?')[0] +'?'+ langStr +'&'+ themeStr
 }; setUrl()
 /* main select event listener */
 elLang.addEventListener('change',function(){
-  user.lang = this.value
+  zm_user.lang = this.value
   setDisc('lang')
-  setLang(disc.lang)
+  setLang()
   setUrl()
 })
 elTheme.addEventListener('change',function(){
-  user.theme = this.value
+  zm_user.theme = this.value
   setDisc('theme')
-  setTheme(disc.theme)
+  setTheme()
   setUrl()
 })
 elView.addEventListener('change',function(){
-  user.view = this.value
+  zm_user.view = this.value
   setUrl()
 })
 /* setting of event listener */
 elSetDocTypeSelect.addEventListener('change',function(){
-  user.docType = this.value
+  zm_user.docType = this.value
 })
 elSetDateFormatSelect.addEventListener('change',function(){
-  user.dateFormat = this.value
+  zm_user.dateFormat = this.value
 })
 elSetAnPriceSelect.addEventListener('change',function(){
-  user.anPrice = this.value
+  zm_user.anPrice = this.value
 })
 elSetAnQtySelect.addEventListener('change',function(){
-  user.anQty = this.value
+  zm_user.anQty = this.value
 })
 elSetLinesInput.addEventListener('change',function(){
-  user.lines = this.value
+  zm_user.lines = this.value
 })
 elSetVatRateInput.addEventListener('change',function(){
-  user.vatRate = this.value
+  zm_user.vatRate = this.value
 })
 elSetWhtRateInput.addEventListener('change',function(){
-  user.whtRate = this.value
+  zm_user.whtRate = this.value
 })
 
 /* buttons of event listener */
@@ -338,13 +365,13 @@ elDocActPrint.addEventListener('click',function(){
 })
 /* handle modals which these need opening from editing form page first */
 elMdDateInput.addEventListener('change',function(){
-  elMdDateOutput.value = setofDateFormat[user.dateFormat].call(this.value)
+  elMdDateOutput.value = setofDateFormat[zm_user.dateFormat].call(this.value)
 })
 elMdDateDone.addEventListener('click',function(){
-  setElemValue(activeFillup, elMdDateOutput.value)
+  setElemValue(zm_active, elMdDateOutput.value)
   UIkit.modal('#modal-date').hide()
-  activeFillup.focus()
-  activeFillup = undefined
+  zm_active.focus()
+  zm_active = undefined
 })
 
 elMdUpDone.addEventListener('click',function(){
@@ -352,23 +379,23 @@ elMdUpDone.addEventListener('click',function(){
   if (elMdUpInput.files.length > 0){
     imgSrc = window.URL.createObjectURL(elMdUpInput.files[0])
   }
-  activeFillup.src = imgSrc
+  zm_active.src = imgSrc
   const width = elMdUpWidth.value
   const height = elMdUpHeight.value
-  if(width){activeFillup.width = width}else{activeFillup.removeAttribute('width')}
-  if(height){activeFillup.height = height}else{activeFillup.removeAttribute('height')}
+  if(width){zm_active.width = width}else{zm_active.removeAttribute('width')}
+  if(height){zm_active.height = height}else{zm_active.removeAttribute('height')}
   UIkit.modal('#modal-upload').hide()
-  activeFillup.focus()
-  activeFillup = undefined
+  zm_active.focus()
+  zm_active = undefined
 })
 
 elMdPrintDone.addEventListener('click',function(){
   window.location.href = elMdPrintOutput.value
 })
 /* print completed */
-const afterPrint = function(){
+function afterPrint(){
   gatherUserFill()
-  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ getObjStr(user)
+  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ getObjStr(zm_user)
   UIkit.modal('#modal-print').show()
 }
 /* print listener command */
