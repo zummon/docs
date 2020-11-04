@@ -374,7 +374,7 @@ const afterPrint = function(){
 /* print listener command */
 if (window.matchMedia) {
   // https://stackoverflow.com/questions/18325025/how-to-detect-window-print-finish
-  window.matchMedia('print').addEventListener('change',function(mql){
+  window.matchMedia('print').addListener(function(mql){
     if (!mql.matches) afterPrint()
   })
 } else {
