@@ -1,5 +1,5 @@
-let disc = {}, user = {}, activeFillup, docAsset
-const zm = {
+var disc = {}, user = {}, activeFillup, docAsset,
+zm = {
   /* array of object */
   lang: [
     { type: 'english', text: 'English' },
