@@ -1,8 +1,85 @@
-/* declare global elements */
 const
+/* declare global elements */
 elDisplay = document.querySelector('#display'),
 elCssDocStyle = document.querySelector('#css-docStyle'),
 elCssDocFont = document.querySelector('#css-docFont'),
+// elScrDoc = document.querySelector('#scr-doc'),
+/* declare global function */
+isElemInput = function(elem){
+  return [
+    'INPUT',
+    'TEXTAREA'
+  ].indexOf(elem.tagName) >= 0
+},
+getElemValue = function(elem){
+  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
+    return AutoNumeric.getNumber(elem)
+  } else {
+    return elem[isElemInput(elem) ? 'value' : 'textContent']
+  }
+},
+setElemValue = function(elem,val){
+  // console.log(elem);
+  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
+    AutoNumeric.set(elem, val)
+  } else {
+    elem[isElemInput(elem) ? 'value' : 'textContent'] = val
+  }
+},
+loadFileXmlHr = function(file,cb){
+  var xhr= new XMLHttpRequest()
+  xhr.onload = typeof cb === 'function' ? cb : function(){
+    console.log('** Need a callback function, otherwise nothing happens')
+  }
+  xhr.open('GET', file)
+  xhr.send()
+},
+calculateTotal = function(){
+  const elems = document.querySelectorAll('[data-docs=itemAmount]')
+  let total = 0
+  for(let z = 0; z < elems.length; z++){
+    total += AutoNumeric.getNumber(elems[z])
+  }
+  let
+  saletax = total * zm_user.vatRate,
+  incometax = total * zm_user.whtRate
+  AutoNumeric.set('[data-docs=totalAmount]',total)
+  AutoNumeric.set('[data-docs=totalVat]',saletax)
+  if (document.querySelector('[data-docs=totalWht]')) {
+    AutoNumeric.set('[data-docs=totalWht]',incometax)
+  } else {incometax = 0}
+  AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + saletax + incometax)
+},
+getDocFill = function(){
+  const 
+  elsDataDocs = elDisplay.querySelectorAll('[data-docs]:not([data-docs^=item])'),
+  elsDocsitem = elDisplay.querySelectorAll('[data-docs^=item]')
+  // elsDocsitemDesc = elDisplay.querySelectorAll('[data-docs=itemDesc]'),
+  // elsDocsitemPrice = elDisplay.querySelectorAll('[data-docs=itemPrice]'),
+  // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
+  // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
+
+  zm_user.itemDesc = []
+  zm_user.itemPrice = []
+  zm_user.itemQty = []
+  zm_user.itemAmount = []
+
+  for (let z = 0; z < elsDataDocs.length; z++) {
+    const value = getElemValue(elsDataDocs[z])
+    if (value) {
+      zm_user[elsDataDocs[z].dataset.docs] = value
+    }
+  }
+  for (let z = 0; z < elsDocsitem.length; z++) {
+    const value = getElemValue(elsDocsitem[z])
+    const docs = elsDocsitem[z].dataset.docs
+    if (value) {
+      if (!zm_user[docs]) zm_user[docs] = []
+      zm_user[docs].push(value)
+    }
+  }
+
+},
 /* declare changing page */
 browseLoad = function(){
 
@@ -48,6 +125,7 @@ browseLoad = function(){
     let i = zm_disc.lang
     elBrowseTitle.textContent = zm_browse.title[i]
   }; setBrowseLang()
+
   function setBrowseTheme(){
     let i = zm_disc.theme
     elBrowseTitle.style.color = [
@@ -63,6 +141,7 @@ browseLoad = function(){
       'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-flex-center uk-flex-middle uk-grid uk-light',
     ][i]
   }; setBrowseTheme()
+
   function setBrowseView(){
     elSetDocType.classList.remove('uk-hidden')
     elSetDateFormat.classList.remove('uk-hidden')
@@ -85,6 +164,7 @@ browseLoad = function(){
       elsBrowseSelect[z].classList.remove('uk-hidden')
     }
   }; setBrowseView()
+
   function revealDocType(){
     for (let z = 0; z < elsWrapDiv.length; z++) {
       elsWrapDiv[z].classList.add('uk-hidden')
@@ -96,6 +176,7 @@ browseLoad = function(){
       elsBrowseSelect[z].classList.remove('uk-hidden')
     }
   }; revealDocType()
+
   elLang.onchange = setBrowseLang
   elTheme.onchange = setBrowseTheme
   elView.onchange = setBrowseView
@@ -111,11 +192,13 @@ browseLoad = function(){
 docLoad = function(key){
   const
   tmp = zm_tmps[key],
-  json = './doc_'+ zm_user.view +'/asset.json',
+  js = './doc_'+ zm_user.view +'/asset.json',
   html = './doc_'+ zm_user.view +'/'+ key +'.html'
   
-  loadFileXmlHr(json,function(){
+  // elScrDoc.src = js
+  loadFileXmlHr(js,function(){
   /* resetting */
+  // elScrDoc.onload = (function(){
   zm_docAsset = JSON.parse(this.responseText)
   elView.disabled = true
 
@@ -189,11 +272,13 @@ docLoad = function(key){
       ][i])
     }
   }; setDocLang()
+
   function setDocFont(){
     for (let z = 0; z < elsDataFont.length; z++) {
       elsDataFont[z].style.fontFamily = elDocSetFontSelect.value
     }
   }; setDocFont()
+
   function setDocTheme(){
   }; setDocTheme()
 
@@ -294,86 +379,11 @@ docLoad = function(key){
   }
 
   elLang.onchange = setDocLang
-  elDocSetFontSelect.onchange = setDocFont
   elTheme.onchange = setDocTheme
+  elDocSetFontSelect.onchange = setDocFont
 
   })
   
   })
-},
-/* declare global variable */
-isElemInput = function(elem){
-  return [
-    'INPUT',
-    'TEXTAREA'
-  ].indexOf(elem.tagName) >= 0
-},
-getElemValue = function(elem){
-  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
-    return AutoNumeric.getNumber(elem)
-  } else {
-    return elem[isElemInput(elem) ? 'value' : 'textContent']
-  }
-},
-setElemValue = function(elem,val){
-  // console.log(elem);
-  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
-    AutoNumeric.set(elem, val)
-  } else {
-    elem[isElemInput(elem) ? 'value' : 'textContent'] = val
-  }
-},
-calculateTotal = function(){
-  const elems = document.querySelectorAll('[data-docs=itemAmount]')
-  let total = 0
-  for(let z = 0; z < elems.length; z++){
-    total += AutoNumeric.getNumber(elems[z])
-  }
-  let
-  saletax = total * zm_user.vatRate,
-  incometax = total * zm_user.whtRate
-  AutoNumeric.set('[data-docs=totalAmount]',total)
-  AutoNumeric.set('[data-docs=totalVat]',saletax)
-  if (document.querySelector('[data-docs=totalWht]')) {
-    AutoNumeric.set('[data-docs=totalWht]',incometax)
-  } else {incometax = 0}
-  AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + saletax + incometax)
-},
-gatherUserFill = function(){
-  const 
-  elsDataDocs = elDisplay.querySelectorAll('[data-docs]:not([data-docs^=item])'),
-  elsDocsitem = elDisplay.querySelectorAll('[data-docs^=item]')
-  // elsDocsitemDesc = elDisplay.querySelectorAll('[data-docs=itemDesc]'),
-  // elsDocsitemPrice = elDisplay.querySelectorAll('[data-docs=itemPrice]'),
-  // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
-  // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
-
-  zm_user.itemDesc = []
-  zm_user.itemPrice = []
-  zm_user.itemQty = []
-  zm_user.itemAmount = []
-
-  for (let z = 0; z < elsDataDocs.length; z++) {
-    const value = getElemValue(elsDataDocs[z])
-    if (value) {
-      zm_user[elsDataDocs[z].dataset.docs] = value
-    }
-  }
-  for (let z = 0; z < elsDocsitem.length; z++) {
-    const value = getElemValue(elsDocsitem[z])
-    const docs = elsDocsitem[z].dataset.docs
-    if (value) {
-      if (!zm_user[docs]) zm_user[docs] = []
-      zm_user[docs].push(value)
-    }
-  }
-
-},
-loadFileXmlHr = function(file,cb){
-  var xhr= new XMLHttpRequest()
-  xhr.onload = typeof cb === 'function' ? cb : function(){
-    console.log('** Need a callback function, otherwise nothing happens')
-  }
-  xhr.open('GET', file)
-  xhr.send()
+  // ();
 }

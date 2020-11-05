@@ -255,7 +255,6 @@ zm_browse = {
   ],
 }
 /* to do
-Fix to reset user data, when create the next doc some data still showing
 
 * for taking a pic
 

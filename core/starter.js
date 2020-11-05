@@ -47,6 +47,19 @@ zm_user = { lang: '', theme: '',
   vatRate: 0.07,
   whtRate: -0.03,
 }
+/* reset user data before print */
+function clearUserData(){
+  zm_user = { lang: zm_user.lang, theme: zm_user.theme,
+    view: zm_user.view,
+    docType: zm_user.docType,
+    dateFormat: zm_user.dateFormat,
+    anPrice: zm_user.anPrice,
+    anQty: zm_user.anQty,
+    lines: zm_user.lines,
+    vatRate: zm_user.vatRate,
+    whtRate: zm_user.whtRate,
+  }
+}
 /* convert string to object */
 function getStrObj(url){
   // https://www.sitepoint.com/get-url-parameters-with-javascript/
@@ -394,7 +407,8 @@ elMdPrintDone.addEventListener('click',function(){
 })
 /* print completed */
 function afterPrint(){
-  gatherUserFill()
+  clearUserData()
+  getDocFill()
   elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ getObjStr(zm_user)
   UIkit.modal('#modal-print').show()
 }
