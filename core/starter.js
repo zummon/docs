@@ -2,13 +2,13 @@
 const 
 /* select main elements */
 elAbove = document.querySelector('#above'),
-  elView = elAbove.querySelector('#view'),
-  elLang = elAbove.querySelector('#lang'),
-  elTheme = elAbove.querySelector('#theme'),
 elNav = document.querySelector('#nav'),
-  elGreet = elNav.querySelector('#greet'),
+elLang = elAbove.querySelector('#lang'),
+elTheme = elAbove.querySelector('#theme'),
+elGreet = elNav.querySelector('#greet'),
 /* select setting elements */
-elSetDocType = elNav.querySelector('#set-docType'),
+elSetDoc = elNav.querySelector('#set-doc'),
+elSetDocStyle = elNav.querySelector('#set-docStyle'),
 elSetDateFormat = elNav.querySelector('#set-dateFormat'),
 elSetAnPrice = elNav.querySelector('#set-anPrice'),
 elSetAnQty = elNav.querySelector('#set-anQty'),
@@ -19,7 +19,8 @@ elDocSetFont = elNav.querySelector('#docSet-font'),
 elDocActBack = elNav.querySelector('#docAct-back'),
 elDocActPrint = elNav.querySelector('#docAct-print'),
 /* select inside the elements */
-elSetDocTypeSelect = elSetDocType.querySelector('select'),
+elSetDocSelect = elSetDoc.querySelector('select'),
+elSetDocStyleSelect = elSetDocStyle.querySelector('select'),
 elSetDateFormatSelect = elSetDateFormat.querySelector('select'),
 elSetAnPriceSelect = elSetAnPrice.querySelector('select'),
 elSetAnQtySelect = elSetAnQty.querySelector('select'),
@@ -29,39 +30,13 @@ elSetWhtRateInput = elSetWhtRate.querySelector('input'),
 elDocSetFontSelect = elDocSetFont.querySelector('select'),
 /* select modal elements */
 elMdDate = document.querySelector('#modal-date'),
-  elMdDateInput = elMdDate.querySelector('#modal-date-input'),
 elMdUpload = document.querySelector('#modal-upload'),
-  elMdUpInput = elMdUpload.querySelector('#modal-upload-input'),
-/* other */
-nodeOption = document.createElement('option');
-
-(function(){
-/* set user data not to get error of undefined */
-zm_user = { lang: '', theme: '',
-  view: 'inv',
-  docType: 'Standard',
-  dateFormat: 'dmmmyyyy',
-  anPrice: 'num',
-  anQty: 'integer',
-  lines: 4,
-  vatRate: 0.07,
-  whtRate: -0.03,
-}
-/* reset user data before print */
-function clearUserData(){
-  zm_user = { lang: zm_user.lang, theme: zm_user.theme,
-    view: zm_user.view,
-    docType: zm_user.docType,
-    dateFormat: zm_user.dateFormat,
-    anPrice: zm_user.anPrice,
-    anQty: zm_user.anQty,
-    lines: zm_user.lines,
-    vatRate: zm_user.vatRate,
-    whtRate: zm_user.whtRate,
-  }
-}
-/* convert string to object */
-function getStrObj(url){
+elMdDateInput = elMdDate.querySelector('#modal-date-input'),
+elMdUpInput = elMdUpload.querySelector('#modal-upload-input'),
+/* temporary element */
+nodeOption = document.createElement('option'),
+/* declare global function */
+zm_getStrObj = function(url){
   // https://www.sitepoint.com/get-url-parameters-with-javascript/
   var queryString = url ? url.split('?')[1] : window.location.search.slice(1);
   var obj = {};
@@ -94,9 +69,49 @@ function getStrObj(url){
     }
   }
   return obj;
+},
+zm_getObjStr = function(obj) {
+  // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
+  var str = [];
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      var paste = obj[p]
+      if (paste.constructor !== Array) paste = [paste]
+      for (let z = 0; z < paste.length; z++) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(paste[z]))   
+      }
+    }
+  }
+  return str.join("&");
+};
+
+(function(){
+/* set user data not to get error of undefined */
+zm_user = { lang: '', theme: '',
+  doc: 'invoice',
+  docStyle: 'Standard',
+  dateFormat: 'dmmmyyyy',
+  anPrice: 'num',
+  anQty: 'integer',
+  lines: 4,
+  vatRate: 0.07,
+  whtRate: -0.03,
+}
+/* reset user data before print */
+function clearUserData(){
+  zm_user = { lang: zm_user.lang, theme: zm_user.theme,
+    doc: zm_user.doc,
+    docStyle: zm_user.docStyle,
+    dateFormat: zm_user.dateFormat,
+    anPrice: zm_user.anPrice,
+    anQty: zm_user.anQty,
+    lines: zm_user.lines,
+    vatRate: zm_user.vatRate,
+    whtRate: zm_user.whtRate,
+  }
 }
 /* get link paste to user data */
-const userLinkObj = getStrObj()
+const userLinkObj = zm_getStrObj()
 for (const key in userLinkObj) {
   if (userLinkObj.hasOwnProperty(key)) {
     zm_user[key] = userLinkObj[key]
@@ -112,29 +127,13 @@ function setDisc(key){
     zm_disc[key] = 0
   }
 }; setDisc('lang'); setDisc('theme')
-/* convert object to string */
-function getObjStr(obj) {
-  // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
-  var str = [];
-  for (var p in obj) {
-    if (obj.hasOwnProperty(p)) {
-      var paste = obj[p]
-      if (paste.constructor !== Array) paste = [paste]
-      for (let z = 0; z < paste.length; z++) {
-        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(paste[z]))   
-      }
-    }
-  }
-  return str.join("&");
-}
 
 document.addEventListener('DOMContentLoaded',function(){
 const
 /* select main elements */
 elEnd = document.querySelector('#end'),
-  elSourceused = elEnd.querySelector('#sourceused'),
-  elCreateby = elEnd.querySelector('#createby'),
-
+elSourceused = elEnd.querySelector('#sourceused'),
+elCreateby = elEnd.querySelector('#createby'),
 /* select inside the elements */
 elSourceusedSpan = elSourceused.querySelector('span'),
 elsSourceusedTarget = elSourceused.querySelectorAll('[target]'),
@@ -142,7 +141,8 @@ elCreatebySpan = elCreateby.querySelector('span'),
 elsCreatebyTarget = elCreateby.querySelectorAll('[target]'),
 elCreatebySite = elCreateby.querySelector('#createby_site'),
 
-elSetDocTypeLabel = elSetDocType.querySelector('label'),
+elSetDocLabel = elSetDoc.querySelector('label'),
+elSetDocStyleLabel = elSetDocStyle.querySelector('label'),
 elSetDateFormatLabel = elSetDateFormat.querySelector('label'),
 elSetAnPriceLabel = elSetAnPrice.querySelector('label'),
 elSetAnQtyLabel = elSetAnQty.querySelector('label'),
@@ -150,11 +150,10 @@ elSetLinesLabel = elSetLines.querySelector('label'),
 elSetVatRateLabel = elSetVatRate.querySelector('label'),
 elSetWhtRateLabel = elSetWhtRate.querySelector('label'),
 elDocSetFontLabel = elDocSetFont.querySelector('label'),
-
 /* select modal elements */
 elMdPrint = document.querySelector('#modal-print'),
 
-elMdUpTitle = elMdUpload.querySelector('.uk-modal-title'),
+elMdUpTitle = elMdUpload.querySelector('h4'),
 elMdUpInputLabel = elMdUpload.querySelector('[for=modal-upload-input]'),
 elMdUpWidth = elMdUpload.querySelector('#modal-upload-width'),
 elMdUpWidthLabel = elMdUpload.querySelector('[for=modal-upload-width]'),
@@ -162,76 +161,75 @@ elMdUpHeight = elMdUpload.querySelector('#modal-upload-height'),
 elMdUpHeightLabel = elMdUpload.querySelector('[for=modal-upload-height]'),
 elMdUpDone = elMdUpload.querySelector('#modal-upload-done'),
 
-elMdDateTitle = elMdDate.querySelector('.uk-modal-title'),
+elMdDateTitle = elMdDate.querySelector('h4'),
 elMdDateInputLabel = elMdDate.querySelector('[for=modal-date-input]'),
 elMdDateOutput = elMdDate.querySelector('#modal-date-output'),
 elMdDateOutputLabel = elMdDate.querySelector('[for=modal-date-output]'),
 elMdDateDone = elMdDate.querySelector('#modal-date-done'),
 
-elMdPrintOutputTitle = elMdPrint.querySelector('.uk-modal-title'),
+elMdPrintOutputTitle = elMdPrint.querySelector('h4'),
 elMdPrintOutput = elMdPrint.querySelector('#modal-print-output'),
 elMdPrintOutputLabel = elMdPrint.querySelector('[for=modal-print-output]'),
 elMdPrintDone = elMdPrint.querySelector('#modal-print-done')
 
 /* build options to select from zm[array of object] */
-for(let z = 0; z < zm.lang.length; z++){
+for (let z = 0; z < zm.lang.length; z++) {
   nodeOption.text = zm.lang[z].text
   nodeOption.value = zm.lang[z].type
   elLang.appendChild(nodeOption.cloneNode(true))
 }
-for(let z = 0; z < zm.theme.length; z++){
+for (let z = 0; z < zm.theme.length; z++) {
   nodeOption.value = zm.theme[z].type
   elTheme.appendChild(nodeOption.cloneNode(true))
 }
-for(let z = 0; z < zm.view.length; z++){
-  nodeOption.value = zm.view[z].type
-  elView.appendChild(nodeOption.cloneNode(true))
+for (const key in zm_docs) {
+  if (zm_docs.hasOwnProperty(key)) {
+    nodeOption.value = key
+    nodeOption.dataset = zm_docs[key].type // for filter tmps
+    elSetDocSelect.appendChild(nodeOption.cloneNode(true))
+  }
 }
 /* build zm end credit */
-for(let z = 0; z < elsSourceusedTarget.length; z++){
+for (let z = 0; z < elsSourceusedTarget.length; z++) {
   elsSourceusedTarget[z].textContent = zm_sourceused.content[z].text
   elsSourceusedTarget[z].href = zm_sourceused.content[z].link
 }
-for(let z = 0; z < elsCreatebyTarget.length; z++){
+for (let z = 0; z < elsCreatebyTarget.length; z++) {
   elsCreatebyTarget[z].href = zm_createby.content[z].link
 }
 /* build setting options */
-let options = [];
-for (const key in zm_tmps) {
-  if (zm_tmps.hasOwnProperty(key)) {
-    if (options.indexOf(zm_tmps[key].type) == -1) {
-      nodeOption.value = zm_tmps[key].type
-      nodeOption.text = zm_tmps[key].type
-      elSetDocTypeSelect.appendChild(nodeOption.cloneNode(true))
-      options.push(zm_tmps[key].type)
-    }
+for (const key in zm_setofDocType) {
+  if (zm_setofDocType.hasOwnProperty(key)) {
+    nodeOption.value = key
+    nodeOption.text = key
+    elSetDocStyleSelect.appendChild(nodeOption.cloneNode(true))
   }
 }
-for (const key in setofDateFormat) {
-  if (setofDateFormat.hasOwnProperty(key)) {
+for (const key in zm_setofDateFormat) {
+  if (zm_setofDateFormat.hasOwnProperty(key)) {
     nodeOption.value = key
     elSetDateFormatSelect.appendChild(nodeOption.cloneNode(true))
   }
 }
-for (const key in setofAnPrice) {
-  if (setofAnPrice.hasOwnProperty(key)) {
+for (const key in zm_setofAnPrice) {
+  if (zm_setofAnPrice.hasOwnProperty(key)) {
     nodeOption.value = key
-    nodeOption.text = setofAnPrice[key].text
+    nodeOption.text = zm_setofAnPrice[key].text
     elSetAnPriceSelect.appendChild(nodeOption.cloneNode(true))
   }
 }
-for (const key in setofAnQty) {
-  if (setofAnQty.hasOwnProperty(key)) {
+for (const key in zm_setofAnQty) {
+  if (zm_setofAnQty.hasOwnProperty(key)) {
     nodeOption.value = key
-    nodeOption.text = setofAnQty[key].text
+    nodeOption.text = zm_setofAnQty[key].text
     elSetAnQtySelect.appendChild(nodeOption.cloneNode(true))
   }
 }
-
+/* setting selected value */
 elLang.value = zm_user.lang
 elTheme.value = zm_user.theme
-elView.value = zm_user.view
-elSetDocTypeSelect.value = zm_user.docType
+elSetDocSelect.value = zm_user.doc
+elSetDocStyleSelect.value = zm_user.docStyle
 elSetDateFormatSelect.value = zm_user.dateFormat
 elSetAnPriceSelect.value = zm_user.anPrice
 elSetAnQtySelect.value = zm_user.anQty
@@ -240,9 +238,8 @@ elSetVatRateInput.value = zm_user.vatRate
 elSetWhtRateInput.value = zm_user.whtRate
 
 /* get elements for changing languages only */
-const
-elsTheme = elTheme.querySelectorAll('option'),
-elsView = elView.querySelectorAll('option'),
+const elsTheme = elTheme.querySelectorAll('option'),
+elSetDocOption = elSetDocSelect.querySelectorAll('option'),
 elSetDateFormatOption = elSetDateFormatSelect.querySelectorAll('option'),
 elActBackLabel = elDocActBack.querySelector('label'),
 elActPrintLabel = elDocActPrint.querySelector('label')
@@ -251,11 +248,11 @@ function setLang(){ let i = zm_disc.lang
   for (let z = 0; z < elsTheme.length; z++) {
     elsTheme[z].text = zm.theme[z].text[i]
   }
-  for (let z = 0; z < elsView.length; z++) {
-    elsView[z].text = zm.view[z].text[i]
+  for (let z = 0; z < elSetDocOption.length; z++) {
+    elSetDocOption[z].text = zm_docs[elSetDocOption[z].value].text[i]
   }
   for (let z = 0; z < elSetDateFormatOption.length; z++) {
-    elSetDateFormatOption[z].text = setofDateFormat[
+    elSetDateFormatOption[z].text = zm_setofDateFormat[
       elSetDateFormatOption[z].value
     ].text[i]
   }
@@ -269,7 +266,8 @@ function setLang(){ let i = zm_disc.lang
   elSourceusedSpan.textContent = zm_sourceused.title[i]
   elCreatebySpan.textContent = zm_createby.title[i]
 
-  elSetDocTypeLabel.textContent = zm_set.docType[i]
+  elSetDocLabel.textContent = zm_set.doc[i]
+  elSetDocStyleLabel.textContent = zm_set.docStyle[i]
   elSetDateFormatLabel.textContent = zm_set.dateFormat[i]
   elSetAnPriceLabel.textContent = zm_set.anPrice[i]
   elSetAnQtyLabel.textContent = zm_set.anQty[i]
@@ -293,8 +291,7 @@ function setLang(){ let i = zm_disc.lang
 
 }; setLang()
 /* get the elements for changing theme only */
-const
-elsCssModal = document.querySelectorAll('.uk-modal-dialog')
+const elsCssModal = document.querySelectorAll('.uk-modal-dialog')
 /* setup Theme */
 function setTheme(){ let i = zm_disc.theme
   for (let z = 0; z < elsCssModal.length; z++) {
@@ -322,7 +319,7 @@ function setTheme(){ let i = zm_disc.theme
 }; setTheme()
 /* setup current URL */
 function setUrl(){
-  const userStr = getObjStr(zm_user)
+  const userStr = zm_getObjStr(zm_user)
   window.history.replaceState('','','?'+ userStr)
   /* connect and paste URL parameters to zummon web creations */
   const
@@ -344,44 +341,30 @@ elTheme.addEventListener('change',function(){
   setTheme()
   setUrl()
 })
-elView.addEventListener('change',function(){
-  zm_user.view = this.value
+elSetDocSelect.addEventListener('change',function(){
+  zm_user.doc = this.value
   setUrl()
 })
 /* setting of event listener */
-elSetDocTypeSelect.addEventListener('change',function(){
-  zm_user.docType = this.value
-})
-elSetDateFormatSelect.addEventListener('change',function(){
-  zm_user.dateFormat = this.value
-})
-elSetAnPriceSelect.addEventListener('change',function(){
-  zm_user.anPrice = this.value
-})
-elSetAnQtySelect.addEventListener('change',function(){
-  zm_user.anQty = this.value
-})
-elSetLinesInput.addEventListener('change',function(){
-  zm_user.lines = this.value
-})
-elSetVatRateInput.addEventListener('change',function(){
-  zm_user.vatRate = this.value
-})
-elSetWhtRateInput.addEventListener('change',function(){
-  zm_user.whtRate = this.value
-})
+elSetDocStyleSelect.addEventListener('change',function(){ zm_user.docStyle = this.value })
+elSetDateFormatSelect.addEventListener('change',function(){ zm_user.dateFormat = this.value })
+elSetAnPriceSelect.addEventListener('change',function(){ zm_user.anPrice = this.value })
+elSetAnQtySelect.addEventListener('change',function(){ zm_user.anQty = this.value })
+elSetLinesInput.addEventListener('change',function(){ zm_user.lines = this.value })
+elSetVatRateInput.addEventListener('change',function(){ zm_user.vatRate = this.value })
+elSetWhtRateInput.addEventListener('change',function(){ zm_user.whtRate = this.value })
 
 /* buttons of event listener */
-elDocActBack.addEventListener('click',browseLoad)
+elDocActBack.addEventListener('click',zm_browseLoad)
 elDocActPrint.addEventListener('click',function(){
   window.print()
 })
-/* handle modals which these need opening from editing form page first */
+/* handle modals to fill form in doc page */
 elMdDateInput.addEventListener('change',function(){
-  elMdDateOutput.value = setofDateFormat[zm_user.dateFormat].call(this.value)
+  elMdDateOutput.value = zm_setofDateFormat[zm_user.dateFormat].call(this.value)
 })
 elMdDateDone.addEventListener('click',function(){
-  setElemValue(zm_active, elMdDateOutput.value)
+  zm_setElemValue(zm_active, elMdDateOutput.value)
   UIkit.modal('#modal-date').hide()
   zm_active.focus()
   zm_active = undefined
@@ -393,10 +376,18 @@ elMdUpDone.addEventListener('click',function(){
     imgSrc = window.URL.createObjectURL(elMdUpInput.files[0])
   }
   zm_active.src = imgSrc
-  const width = elMdUpWidth.value
-  const height = elMdUpHeight.value
-  if(width){zm_active.width = width}else{zm_active.removeAttribute('width')}
-  if(height){zm_active.height = height}else{zm_active.removeAttribute('height')}
+  const width = elMdUpWidth.value,
+  height = elMdUpHeight.value
+  if (width) {
+    zm_active.width = width
+  } else {
+    zm_active.removeAttribute('width')
+  }
+  if (height) {
+    zm_active.height = height
+  } else {
+    zm_active.removeAttribute('height')
+  }
   UIkit.modal('#modal-upload').hide()
   zm_active.focus()
   zm_active = undefined
@@ -409,10 +400,10 @@ elMdPrintDone.addEventListener('click',function(){
 function afterPrint(){
   clearUserData()
   getDocFill()
-  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ getObjStr(zm_user)
+  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ zm_getObjStr(zm_user)
   UIkit.modal('#modal-print').show()
 }
-/* print listener command */
+/* listen to call print */
 if (window.matchMedia) {
   // https://stackoverflow.com/questions/18325025/how-to-detect-window-print-finish
   window.matchMedia('print').addListener(function(mql){
@@ -422,7 +413,7 @@ if (window.matchMedia) {
   window.onafterprint = afterPrint
 }
 
-browseLoad()
+zm_browseLoad()
 
 })
 

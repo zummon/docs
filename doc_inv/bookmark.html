@@ -16,8 +16,8 @@
         <div>
           <input data-docs="date" type="text" class="uk-input uk-form-blank">
         </div>
-        <div data-label="duedate" class="uk-text-bold uk-text-right"></div>
-        <div>
+        <div data-label="duedate" data-hide="_receipt" class="uk-text-bold uk-text-right"></div>
+        <div data-hide="_receipt">
           <input data-docs="duedate" type="text" class="uk-input uk-form-blank">
         </div>
       </div>
@@ -26,7 +26,7 @@
   <div class="uk-child-width-1-2 uk-flex-middle uk-grid uk-margin uk-margin-left uk-margin-right" uk-grid>
     <div>
       <p data-label="client" class="uk-heading-divider uk-text-bold uk-form-success uk-margin-remove"></p>
-      <h3 data-docs="clientName" class="uk-text-success uk-margin-remove"></h3>
+      <h4 data-docs="clientName" class="uk-margin-remove"></h4>
       <input data-docs="clientId" class="uk-input uk-form-blank">
       <textarea data-docs="clientAddress" class="uk-textarea uk-form-blank uk-resize-vertical"></textarea>
     </div>
@@ -59,7 +59,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td class="uk-text-center" colspan="2" rowspan="4">
+        <td class="uk-text-center" colspan="2" rowspan="5">
           <div class="uk-flex">
             <div class="uk-border-pill uk-box-shadow-medium">
               <label data-label="vendorSign" class="uk-text-bold"></label>
@@ -82,6 +82,13 @@
           <span data-zm="vatRate"></span>
         </td>
         <td data-docs="totalVat" class="uk-text-right"></td>
+      </tr>
+      <tr class="uk-text-bold" data-hide="_invoice_taxinvoice_quotation">
+        <td class="uk-text-center" colspan="2">
+          <span data-label="totalWht"></span> 
+          <span data-zm="whtRate"></span>
+        </td>
+        <td data-docs="totalWht" class="uk-text-right"></td>
       </tr>
       <tr class="uk-text-bold">
         <td data-label="totalAdjust" class="uk-text-center" colspan="2"></td>

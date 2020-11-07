@@ -19,7 +19,7 @@
       <input data-docs="ref" class="uk-input uk-form-small uk-form-blank">
       <input data-docs="date" class="uk-input uk-form-small uk-form-blank">
       <div class="uk-tile uk-tile-muted uk-margin-small-top">
-        <div>
+        <div data-hide="_receipt">
           <label data-label="duedate" class="uk-form-label"></label>
           <input data-docs="duedate" class="uk-input uk-form-small">
         </div>
@@ -55,7 +55,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="2" rowspan="4">
+        <td colspan="2" rowspan="5">
           <div class="uk-tile uk-tile-muted">
             <label data-label="clientSign" class="uk-form-label"></label>
             <textarea data-docs="clientSignName" class="uk-textarea uk-form-small uk-resize-vertical"></textarea>
@@ -72,10 +72,18 @@
         </td>
         <td data-docs="totalVat" class="uk-text-right"></td>
       </tr>
+      <tr data-hide="_invoice_taxinvoice_quotation">
+        <td colspan="2">
+          <span data-label="totalWht"></span>
+          <span data-zm="whtRate"></span>
+        </td>
+        <td data-docs="totalWht" class="uk-text-right"></td>
+      </tr>
       <tr>
         <td data-label="totalAdjust" colspan="2"></td>
         <td data-docs="totalAdjust" class="uk-text-right"></td>
       </tr>
+      <tr></tr>
     </tfoot>
   </table>
   <div class="uk-child-width-1-2 uk-margin-bottom uk-grid-small uk-grid" uk-grid>

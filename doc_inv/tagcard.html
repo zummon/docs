@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="uk-width-1-2">
-      <div>
+      <div data-hide="_receipt">
         <span data-label="duedate" class="uk-badge uk-background-secondary"></span>
         <input data-docs="duedate" class="uk-input uk-form-blank">
       </div>
@@ -63,7 +63,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="2" rowspan="3">
+        <td colspan="2" rowspan="4">
           <div>
             <span data-label="note" class="uk-badge uk-background-secondary"></span>
             <textarea data-docs="note" class="uk-textarea uk-form-blank uk-resize-vertical" rows="3"></textarea>
@@ -78,6 +78,13 @@
           <span data-zm="vatRate" class="uk-badge uk-background-secondary"></span>
         </td>
         <td data-docs="totalVat" class="uk-text-right"></td>
+      </tr>
+      <tr data-hide="_invoice_taxinvoice_quotation">
+        <td class="uk-text-right" colspan="3">
+          <span data-label="totalWht"></span> 
+          <span data-zm="whtRate" class="uk-badge uk-background-secondary"></span>
+        </td>
+        <td data-docs="totalWht" class="uk-text-right"></td>
       </tr>
       <tr>
         <td data-label="totalAdjust" class="uk-text-right" colspan="3"></td>
