@@ -88,8 +88,8 @@ zm_browseLoad = function(){
       'uk-text-lead uk-margin uk-text-center',
     ][i]
     elBrowse.className = [
-      'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-flex-center uk-flex-middle uk-grid',
-      'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@l uk-flex-center uk-flex-middle uk-grid uk-light',
+      'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@xl uk-flex-center uk-flex-middle uk-grid',
+      'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@xl uk-flex-center uk-flex-middle uk-grid uk-light',
     ][i]
   }; setBrowseTheme()
 
