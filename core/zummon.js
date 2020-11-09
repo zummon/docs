@@ -313,7 +313,7 @@ zm_tmps = {
     type: ['Standard'],
     img: './tmp_img/bookmark.png',
     css: '',
-    // https://fonts.google.com/?category=Sans+Serif&selection.family=Athiti|Major+Mono+Display&subset=thai
+    // https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
     font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
     fontStyle: [
       'Athiti, sans-serif',
@@ -347,6 +347,18 @@ zm_tmps = {
     css: './tmp_css/majors.css',
     font: '',
     fontStyle: zm_font,
+  },
+  chocchip: { name: 'ChocChip',
+    doc: zm_setofDoc.inv,
+    type: ['Standard'],
+    img: './tmp_img/chocchip.png',
+    css: './tmp_css/chocchip.css',
+    // https://fonts.google.com/?selection.family=Itim|Pacifico
+    font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
+    fontStyle: [
+      'Itim, cursive',
+      'Pacifico, cursive',
+    ],
   },
 },
 zm_set = {
@@ -511,7 +523,7 @@ zm_browse = {
 
 * for taking a pic
 
-http://127.0.0.1:5500/?lang=english&theme=dark&doc=invoice&docStyle=Standard&dateFormat=dmmmyyyy&anPrice=dollar&anQty=integer&lines=6&vatRate=0.07&whtRate=-0.03&itemDesc=creative%20fee%20(example)&itemPrice=1000&itemQty=10&itemAmount=10000&vendorName=example%20zummon%20co%20ltd&vendorId=register%20%23%23%23&vendorAddress=address%20...&ref=NO%20%23%23%23&date=7%20Nov%202020&clientName=Customer%20name&clientId=register%20%23%23%23&clientAddress=address%20...&duedate=30%20Nov%202020&paymethod=pay%20to%20my%20PayPal...&totalFinal=10600&note=Adjust%20-100%20is%20discount&totalAmount=10000&totalVat=700&totalAdjust=-100&vendorSignName=Zummon&clientSignName=Customer
+http://127.0.0.1:5500/?lang=english&theme=dark&doc=invoice&docStyle=Standard&dateFormat=dmmmyyyy&anPrice=dollar&anQty=integer&lines=6&vatRate=0.07&whtRate=-0.03&itemDesc=Item%201...&itemDesc=Item%202...&itemPrice=600&itemPrice=1000&itemQty=10&itemQty=4&itemAmount=6000&itemAmount=4000&ref=DOC%20%23%23%23%23%23%23&date=9%20Nov%202020&duedate=30%20Nov%202020&vendorName=Vendor%20name...&vendorId=register%20%23%23%23&vendorAddress=address%20...&clientName=Customer%20name...&clientId=register%20%23%23%23&clientAddress=address%20...&paymethod=pay%20to%20my%20PayPal...&subject=create%20templates...&totalFinal=10600&totalAmount=10000&totalVat=700&totalAdjust=-100&note=Adjust%20-100%20is%20discount...&clientSignName=Customer%20name...&clientSignRank=Position...&clientSignDate=9%20Nov%202020&vendorSignName=Vendor%20name...&vendorSignRank=Position...&vendorSignDate=9%20Nov%202020
 
 http://127.0.0.1:5500/?lang=thai&theme=dark&doc=receipt&docStyle=Standard&dateFormat=dmmmyyyy&anPrice=baht&anQty=integer&lines=6&vatRate=0.07&whtRate=-0.03&itemDesc=%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%20%E0%B8%A5%E0%B8%A7%E0%B8%94%E0%B8%A5%E0%B8%B2%E0%B8%A2%20(%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87)&itemPrice=1000&itemQty=10&itemAmount=10000&vendorName=%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97%20%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%20%E0%B8%8B%E0%B8%B1%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%99%20%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94&vendorId=%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99%20%23%23%23&vendorAddress=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88...&ref=%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%97%E0%B8%B5%E0%B9%88%20%23%23%23&date=2%20%E0%B8%9E.%E0%B8%A2.%202020&clientName=%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%84%E0%B9%89%E0%B8%B2&clientId=%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99...&clientAddress=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88&paymethod=%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%82%E0%B8%AD%E0%B8%99%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99%20PayPal...&totalFinal=10200&note=%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%9B%E0%B8%A3%E0%B8%B8%E0%B8%87%20-200%20%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%A5%E0%B8%94&totalAmount=10000&totalVat=700&totalWht=-300&totalAdjust=-200&vendorSignName=%E0%B8%8B%E0%B8%B1%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%99&clientSignName=%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%84%E0%B9%89%E0%B8%B2
 

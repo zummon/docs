@@ -77,7 +77,7 @@ zm_getObjStr = function(obj) {
     if (obj.hasOwnProperty(p)) {
       var paste = obj[p]
       if (paste.constructor !== Array) paste = [paste]
-      for (let z = 0; z < paste.length; z++) {
+      for (var z = 0; z < paste.length; z++) {
         str.push(encodeURIComponent(p) + "=" + encodeURIComponent(paste[z]))   
       }
     }
