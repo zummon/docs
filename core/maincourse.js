@@ -104,7 +104,7 @@ zm_browseLoad = function(){
     elSetVatRate.classList.remove('uk-hidden')
     elSetWhtRate.classList.remove('uk-hidden')
     /* show the setting needed */
-    if (['invoice','taxinvoice','quotation'].indexOf(doc) >= 0) {
+    if (['document','invoice','taxinvoice','quotation'].indexOf(doc) >= 0) {
       // receipt,
       elSetWhtRate.classList.add('uk-hidden')
     }
@@ -192,7 +192,7 @@ zm_docLoad = function(key){
   elDataZmVatRate = elDoc.querySelector('[data-zm=vatRate]'),
   elDataZmWhtRate = elDoc.querySelector('[data-zm=whtRate]'),
 
-  elsDataHide = elDoc.querySelectorAll('[data-hide*=_'+ doc +']');
+  elsDataHide = elDoc.querySelectorAll('[data-hide*=_'+ doc +'_]');
   
   for (let z = 0; z < elsDataHide.length; z++) {
     elsDataHide[z].remove()

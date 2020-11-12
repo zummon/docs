@@ -1,0 +1,105 @@
+
+<div id="doc" class="uk-background-default" data-font>
+  <div class="uk-child-width-1-2 uk-label-warning uk-padding uk-grid" uk-grid>
+    <div>
+      <h1 data-label="title" class="uk-heading-medium"></h1>
+      <div class="uk-child-width-1-2 uk-grid-small uk-grid" uk-grid>
+        <div data-label="ref"></div>
+        <div data-docs="ref"></div>
+        <div data-label="date"></div>
+        <div data-docs="date"></div>
+        <div data-label="duedate" data-hide="_receipt_"></div>
+        <div data-docs="duedate" data-hide="_receipt_"></div>
+      </div>
+    </div>
+    <div>
+      <h4 data-docs="vendorName" class="uk-margin-remove"></h4>
+      <p data-docs="vendorId" class="uk-margin-remove"></p>
+      <p data-docs="vendorAddress" class="uk-margin-remove"></p>
+    </div>
+  </div>
+  <div class="uk-child-width-1-2 uk-padding uk-grid" uk-grid>
+    <div>
+      <label data-label="paymethod" class="uk-form-label"></label>
+      <textarea data-docs="paymethod" rows="2" class="uk-textarea uk-resize-vertical uk-form-small uk-border-rounded" style="border-color: #f0506e;"></textarea>
+
+      <label data-label="subject" class="uk-form-label"></label>
+      <input data-docs="subject" class="uk-input uk-form-small uk-border-rounded" style="border-color: #f0506e;">
+    </div>
+    <div>
+      <label data-label="client" class="uk-form-label"></label>
+      <input data-docs="clientName" class="uk-input uk-form-small uk-border-rounded" style="border-color: #f0506e;">
+      <input data-docs="clientId" class="uk-input uk-form-small uk-border-rounded">
+      <textarea data-docs="clientAddress" rows="2" class="uk-textarea uk-resize-vertical uk-form-small uk-border-rounded"></textarea>
+    </div>
+  </div>
+  <table class="uk-table uk-table-small">
+    <thead>
+      <tr>
+        <td data-label="line" class="uk-text-right uk-text-nowrap uk-table-shrink" style="border-color: #f0506e;"></td>
+        <td data-label="itemDesc" style="border-color: #f0506e;"></td>
+        <td data-label="itemPrice" class="uk-text-right uk-text-nowrap uk-table-shrink" style="border-color: #f0506e;"></td>
+        <td data-label="itemQty" class="uk-text-right uk-text-nowrap uk-table-shrink" style="border-color: #f0506e;"></td>
+        <td data-label="itemAmount" class="uk-text-right uk-text-nowrap uk-table-shrink" style="border-color: #f0506e;"></td>
+      </tr>
+    </thead>
+    <tbody data-zm="lines">
+      <tr data-zm="line">
+        <td data-zm="lineNum"></td>
+        <td data-docs="itemDesc"></td>
+        <td data-docs="itemPrice" class="uk-text-right"></td>
+        <td data-docs="itemQty" class="uk-text-right"></td>
+        <td data-docs="itemAmount" class="uk-text-right"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr class="uk-text-right">
+        <td data-label="totalAmount" colspan="4" style="border-color: #f0506e;"></td>
+        <td data-docs="totalAmount" style="border-color: #f0506e;"></td>
+      </tr>
+    </tfoot>
+  </table>
+  <div class="uk-child-width-1-2 uk-grid uk-padding" uk-grid>
+    <div>
+      <label data-label="note" class="uk-form-label"></label>
+      <textarea data-docs="note" rows="2" class="uk-textarea uk-resize-vertical uk-form-small uk-border-rounded" style="border-color: #f0506e;"></textarea>
+    </div>
+    <div>
+      <div class="uk-child-width-1-2 uk-grid-small uk-grid uk-text-right" uk-grid>
+        <div>
+          <span data-label="totalVat"></span>
+          <span data-zm="vatRate"></span>
+        </div>
+        <div data-docs="totalVat"></div>
+
+        <div data-hide="_invoice_taxinvoice_quotation_document_">
+          <span data-label="totalWht"></span>
+          <span data-zm="whtRate"></span>
+        </div>
+        <div data-docs="totalWht" data-hide="_invoice_taxinvoice_quotation_document_"></div>
+
+        <div data-label="totalAdjust"></div>
+        <div data-docs="totalAdjust"></div>
+
+        <div data-label="totalFinal"></div>
+        <div data-docs="totalFinal"></div>
+      </div>
+    </div>
+  </div>
+  <div class="uk-child-width-1-3 uk-grid uk-padding uk-margin-remove-top" uk-grid>
+    <div>
+      <label data-label="vendorSign" class="uk-form-label"></label>
+      <textarea data-docs="vendorSign" rows="2" class="uk-textarea uk-resize-vertical uk-form-small uk-border-rounded" style="border-color: #f0506e;"></textarea>
+      <input data-docs="vendorRank" class="uk-input uk-form-small uk-border-rounded">
+    </div>
+    <div>
+      <label data-label="clientSign" class="uk-form-label"></label>
+      <textarea data-docs="clientSignName" rows="2" class="uk-textarea uk-resize-vertical uk-form-small uk-border-rounded" style="border-color: #f0506e;"></textarea>
+      <input data-docs="clientSignRank" class="uk-input uk-form-small uk-border-rounded">
+    </div>
+    <div class="uk-text-center">
+      <h4 data-label="thankMessage" style="color: #f0506e;"></h4>
+      <img data-img="vendorStamp">
+    </div>
+  </div>
+</div>

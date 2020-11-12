@@ -50,7 +50,7 @@ const zm = {
 /* options for setting */
 zm_setofDoc = {
   /* basic doc for tmps only */
-  inv: ['invoice','taxinvoice','quotation','receipt'],
+  inv: ['document','invoice','taxinvoice','quotation','receipt'],
 },
 zm_setofDocType = {
   Standard: [],
@@ -285,6 +285,11 @@ zm_font = [
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
 ],
 zm_docs = {
+  document: { type: 'inv',
+    text: ['Document',
+      'เอกสาร',
+    ],
+  },
   invoice: { type: 'inv',
     text: ['Invoice',
       'ใบแจ้งหนี้',
@@ -303,6 +308,11 @@ zm_docs = {
   taxinvoice: { type: 'inv',
     text: ['Tax Invoice*',
       'ใบกำกับภาษี*',
+    ],
+  },
+  cashsale: { type: 'cashsale',
+    text: ['Cash Sale*',
+      'บิลเงินสด*',
     ],
   },
 },
@@ -360,6 +370,22 @@ zm_tmps = {
       'Pacifico, cursive',
     ],
   },
+  // hero: { name: 'Hero',
+  //   doc: zm_setofDoc.inv,
+  //   type: ['Standard'],
+  //   img: './tmp_img/hero.png',
+  //   css: './tmp_css/hero.css',
+  //   font: '',
+  //   fontStyle: zm_font,
+  // },
+  // basicbill: { name: 'Basic Bill',
+  //   doc: ['cashsale'],
+  //   type: ['Standard'],
+  //   img: './tmp_img/hero.png',
+  //   css: './tmp_css/hero.css',
+  //   font: '',
+  //   fontStyle: zm_font,
+  // },
 },
 zm_set = {
   /* main page */
@@ -526,13 +552,5 @@ zm_browse = {
 http://127.0.0.1:5500/?lang=english&theme=dark&doc=invoice&docStyle=Standard&dateFormat=dmmmyyyy&anPrice=dollar&anQty=integer&lines=6&vatRate=0.07&whtRate=-0.03&itemDesc=Item%201...&itemDesc=Item%202...&itemPrice=600&itemPrice=1000&itemQty=10&itemQty=4&itemAmount=6000&itemAmount=4000&ref=DOC%20%23%23%23%23%23%23&date=9%20Nov%202020&duedate=30%20Nov%202020&vendorName=Vendor%20name...&vendorId=register%20%23%23%23&vendorAddress=address%20...&clientName=Customer%20name...&clientId=register%20%23%23%23&clientAddress=address%20...&paymethod=pay%20to%20my%20PayPal...&subject=create%20templates...&totalFinal=10600&totalAmount=10000&totalVat=700&totalAdjust=-100&note=Adjust%20-100%20is%20discount...&clientSignName=Customer%20name...&clientSignRank=Position...&clientSignDate=9%20Nov%202020&vendorSignName=Vendor%20name...&vendorSignRank=Position...&vendorSignDate=9%20Nov%202020
 
 http://127.0.0.1:5500/?lang=thai&theme=dark&doc=receipt&docStyle=Standard&dateFormat=dmmmyyyy&anPrice=baht&anQty=integer&lines=6&vatRate=0.07&whtRate=-0.03&itemDesc=%E0%B8%AD%E0%B8%AD%E0%B8%81%E0%B9%81%E0%B8%9A%E0%B8%9A%20%E0%B8%A5%E0%B8%A7%E0%B8%94%E0%B8%A5%E0%B8%B2%E0%B8%A2%20(%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87)&itemPrice=1000&itemQty=10&itemAmount=10000&vendorName=%E0%B8%9A%E0%B8%A3%E0%B8%B4%E0%B8%A9%E0%B8%B1%E0%B8%97%20%E0%B8%95%E0%B8%B1%E0%B8%A7%E0%B8%AD%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%87%20%E0%B8%8B%E0%B8%B1%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%99%20%E0%B8%88%E0%B8%B3%E0%B8%81%E0%B8%B1%E0%B8%94&vendorId=%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99%20%23%23%23&vendorAddress=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88...&ref=%E0%B9%80%E0%B8%A5%E0%B8%82%E0%B8%97%E0%B8%B5%E0%B9%88%20%23%23%23&date=2%20%E0%B8%9E.%E0%B8%A2.%202020&clientName=%E0%B8%8A%E0%B8%B7%E0%B9%88%E0%B8%AD%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%84%E0%B9%89%E0%B8%B2&clientId=%E0%B8%97%E0%B8%B0%E0%B9%80%E0%B8%9A%E0%B8%B5%E0%B8%A2%E0%B8%99...&clientAddress=%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%AD%E0%B8%A2%E0%B8%B9%E0%B9%88&paymethod=%E0%B9%82%E0%B8%94%E0%B8%A2%E0%B9%82%E0%B8%AD%E0%B8%99%E0%B8%9C%E0%B9%88%E0%B8%B2%E0%B8%99%20PayPal...&totalFinal=10200&note=%E0%B8%9B%E0%B8%A3%E0%B8%B1%E0%B8%9A%E0%B8%9B%E0%B8%A3%E0%B8%B8%E0%B8%87%20-200%20%E0%B8%AA%E0%B9%88%E0%B8%A7%E0%B8%99%E0%B8%A5%E0%B8%94&totalAmount=10000&totalVat=700&totalWht=-300&totalAdjust=-200&vendorSignName=%E0%B8%8B%E0%B8%B1%E0%B8%A1%E0%B8%A1%E0%B8%AD%E0%B8%99&clientSignName=%E0%B8%A5%E0%B8%B9%E0%B8%81%E0%B8%84%E0%B9%89%E0%B8%B2
-
-  "title": ["Document","เอกสาร"],
-  "ref": ["No","เลขที่"],
-  "date": ["Date","วันที่"],
-
-  "title": ["Invoice","ใบแจ้งหนี้"],
-  "ref": ["Inv-No","เลขที่"],
-  "date": ["Inv-Date","วันที่"],
 
 created by zummontt */
