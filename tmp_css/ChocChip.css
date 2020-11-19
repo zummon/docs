@@ -1,0 +1,24 @@
+/* Bootstrap */
+#doc {
+    color: #000;
+}
+#doc .uk-label {
+    background-color: #8B4513;
+    text-transform: none !important;
+}
+#doc .uk-label,
+#doc tfoot {
+    font-size: 1rem !important;
+}
+#doc h1,
+#doc h4 {
+    color: #8B4513;
+}
+#doc hr {
+    border-width: 2px;
+    border-color: #ffdd57;
+}
+#doc thead tr:first-child,
+#doc tfoot tr:first-child {
+    background-color: #ffdd57;
+}
