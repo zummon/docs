@@ -1,4 +1,11 @@
-/* dev tool to check, is mobiles usable */
+// polyfill faster maybe, leave it here
+// https://stackoverflow.com/questions/3535055/load-html-file-contents-to-div-without-the-use-of-iframes
+if(!window.XMLHttpRequest && 'ActiveXObject' in window){
+  window.XMLHttpRequest = function(){
+    return new ActiveXObject('MSXML2.XMLHttp')
+  }
+}
+// to check, is a mobile usable
 // https://dev.opera.com/articles/better-error-handling-with-window-onerror/
 window.onerror = function(message,url,linenumber){
   UIkit.modal.dialog('<div class="uk-card uk-card-body uk-card-small">'+
@@ -23,529 +30,174 @@ window.onerror = function(message,url,linenumber){
     '</p>'+
   '</div>')
 }
-let zm_disc = {}, zm_user,
-/* temporary element going to fill by using modal */
-zm_active,
-/* selected data doc set */
-zm_docAsset
-/* array of object */
-const zm = {
-  lang: [
-    { type: 'english', text: 'English' },
-    { type: 'thai', text: 'ไทย' },
-  ],
-  theme: [
-    { type: 'light',
-      text: ['Light',
-        'สว่าง',
-      ]
-    },
-    { type: 'dark',
-      text: ['Dark',
-        'มืด',
-      ]
-    },
-  ],
+// declare uneditable global variables
+const zm_anPrices = zummon.autoNumeric(),
+zm_anQtys = {
+  integer: zm_anPrices.integer,
+  integerD: zm_anPrices.integerD,
+  num: zm_anPrices.num,
+  numD: zm_anPrices.numD,
 },
-/* options for setting */
-zm_setofDoc = {
-  /* basic doc for tmps only */
-  inv: ['document','invoice','taxinvoice','quotation','receipt'],
-},
-zm_setofDocType = {
-  Standard: [],
-},
-zm_setofDateFormat = (function(){
-  /* import include
-    identify language: zm_disc.lang */
-  
-  /* special text set */
-  const month = {
-    short: [
-      [],
-      ['Jan', 'ม.ค.'],
-      ['Feb', 'ก.พ.'],
-      ['Mar', 'มี.ค.'],
-      ['Apr', 'เม.ย.'],
-      ['May', 'พ.ค.'],
-      ['Jun', 'มิ.ย.'],
-      ['Jul', 'ก.ค.'],
-      ['Aug', 'ส.ค.'],
-      ['Sep', 'ก.ย.'],
-      ['Oct', 'ต.ค.'],
-      ['Nov', 'พ.ย.'],
-      ['Dec', 'ธ.ค.'],
-    ],
-    full: [
-      [],
-      ['January', 'มกราคม'],
-      ['February', 'กุมภาพันธ์'],
-      ['March', 'มีนาคม'],
-      ['April', 'เมษายน'],
-      ['May', 'พฤษภาคม'],
-      ['June', 'มิถุนายน'],
-      ['July', 'กรกฎาคม'],
-      ['August', 'สิงหาคม'],
-      ['September', 'กันยายน'],
-      ['October', 'ตุลาคม'],
-      ['November', 'พฤศจิกายน'],
-      ['December', 'ธันวาคม'],
-    ],
-  }
-  /* read from date input that look like "2020-12-31" */
-  return {
-    yyyyDmmDdd: { text: ['2020-12-31','2020-12-31'],
-      call: function(d){
-        return d
-      }
-    },
-    mmDddDyyyy: { text: ['12-31-2020','12-31-2020'],
-      call: function(d){
-        d = d.split('-')
-        return d[1] +'-'+ d[2] +'-'+ d[0]
-      }
-    },
-    ddDmmDyyyy: { text: ['31-12-2020','31-12-2020'],
-      call: function(d){
-        d = d.split('-')
-        return d[2] +'-'+ d[1] +'-'+ d[0]
-      }
-    },
-    ddSmmSyyyy: { text: ['31/12/2020','31/12/2020'],
-      call: function(d){
-        d = d.split('-')
-        return d[2] +'/'+ d[1] +'/'+ d[0]
-      }
-    },
-    dSmSyy: { text: ['d/m/yy','ว/ด/ปป'],
-      call: function(d){
-        d = d.split('-')
-        return parseInt(d[2]) +'/'+ parseInt(d[1]) +'/'+ d[0].slice(2)
-      }
-    },
-    dmmmyy: { text: ['1 Dec 20','1 ธ.ค. 20'],
-      call: function(d){
-        d = d.split('-')
-        return parseInt(d[2]) +' '+ month.short[parseInt(d[1])][zm_disc.lang] +' '+ d[0].slice(2)
-      }
-    },
-    dmmmyyyy: { text: ['31 Dec 2020','31 ธ.ค. 2020'],
-      call: function(d){
-        d = d.split('-')
-        return parseInt(d[2]) +' '+ month.short[parseInt(d[1])][zm_disc.lang] +' '+ d[0]
-      }
-    },
-    dmmmmyyyy: { text: ['2 December 2020','2 ธันวาคม 2020'],
-      call: function(d){
-        d = d.split('-')
-        return parseInt(d[2]) +' '+ month.full[parseInt(d[1])][zm_disc.lang] +' '+ d[0]
-      }
-    },
-  }
-})(),
-zm_setofAnPrice = (function(){
-  return {
-    num: { text: '9,999.99',
-      option: {},
-    },
-    numD: { text:'9.999,00',
-      option: { 
-        decimalPlaces: 0, 
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    integer: { text: '9,999',
-      option: { 
-        decimalPlaces: 0,
-      }
-    },
-    integerD: { text:'9.999',
-      option: { 
-        decimalPlaces: 0,
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    baht: { text: '฿ 9,999.00',
-      option: { 
-        currencySymbol: '฿' 
-      }
-    },
-    bahtSuffix: { text: '9,999.00 ฿',
-      option: { 
-        currencySymbol: '฿', 
-        currencySymbolPlacement: 's' 
-      }
-    },
-    dollar: { text: '$ 9,999.00',
-      option: { 
-        currencySymbol: '$' 
-      },
-    },
-    dollarSuffix: { text: '9,999.00 $',
-      option: { 
-        currencySymbol: '$',
-        currencySymbolPlacement: 's',
-      }
-    },
-    french: { text: '€ 9.999,00',
-      option: { 
-        currencySymbol: '€',
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    frenchSuffix: { text: '9.999,00 €',
-      option: { 
-        currencySymbol: '€',
-        currencySymbolPlacement: 's',
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    pound: { text: '£ 9,999.00',
-      option: { 
-        currencySymbol: '£' 
-      }
-    },
-    poundSuffix: { text: '9,999.00 £',
-      option: { 
-        currencySymbol: '£', 
-        currencySymbolPlacement: 's' 
-      }
-    },
-    yen: { text: '¥ 9,999.00',
-      option: { 
-        currencySymbol: '¥',
-      }
-    },
-    yenSuffix: { text: '9,999.00 ¥',
-      option: { 
-        currencySymbol: '¥', 
-        currencySymbolPlacement: 's',
-      }
-    },
-    swiss: { text: 'CHF 9,999.00',
-      option: { 
-        currencySymbol: 'CHF',
-        digitGroupSeparator: '\'',
-      }
-    },
-    swissSuffix: { text: '9,999.00 CHF',
-      option: { 
-        currencySymbol: 'CHF',
-        currencySymbolPlacement: 's',
-        digitGroupSeparator: '\'',
-      }
-    },
-    brazilian: { text: 'R$ 9.999,00',
-      option: { 
-        currencySymbol: 'R$',
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    brazilianSuffix: { text: '9.999,00 R$',
-      option: { 
-        currencySymbol: 'R$',
-        currencySymbolPlacement: 's',
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    turkish: { text: '₺ 9.999,00',
-      option: { 
-        currencySymbol: '₺',
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-    turkishSuffix: { text: '9.999,00 ₺',
-      option: { 
-        currencySymbol: '₺',
-        currencySymbolPlacement: 's',
-        digitGroupSeparator: '.', 
-        decimalCharacter: ',',
-      }
-    },
-  }
-})(),
-zm_setofAnQty = {
-  integer: zm_setofAnPrice.integer,
-  integerD: zm_setofAnPrice.integerD,
-  num: zm_setofAnPrice.num,
-  numD: zm_setofAnPrice.numD,
-},
-/* others */
-zm_font = [
-  'Varela Round, sans-serif',
-  'K2D, sans-serif',
-  /* basic font for tmps only */
-  '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+zm_createbyLinks = [
+  'https://www.paypal.me/zummontt',//paypal
+  'https://github.com/zummon/docs/issues',//github
+  'https://www.facebook.com/zummontt/posts/185150049682455',//facebook
+  'https://zummon.github.io/site',//website
 ],
+zm_dateFormats = zummon.dateFormat(),
 zm_docs = {
-  // document: { type: 'inv',
-  //   text: ['Document',
-  //     'เอกสาร',
-  //   ],
-  // },
-  invoice: { type: 'inv',
-    text: ['Invoice',
-      'ใบแจ้งหนี้',
-    ],
-  },
-  quotation: { type: 'inv',
-    text: ['Quotation*',
-      'ใบเสนอราคา*',
-    ],
-  },
-  receipt: { type: 'inv',
-    text: ['Receipt',
-      'ใบเสร็จรับเงิน',
-    ],
-  },
-  taxinvoice: { type: 'inv',
-    text: ['Tax Invoice*',
-      'ใบกำกับภาษี*',
-    ],
-  },
-  // cashsale: { type: 'cashsale',
-  //   text: ['Cash Sale*',
-  //     'บิลเงินสด*',
-  //   ],
-  // },
+  // cashsale: 'inv',
+  // document: 'inv',
+  invoice: 'inv',
+  quotation: 'inv',
+  receipt: 'inv',
+  taxinvoice: 'inv',
 },
+zm_eras = {
+  christ: true,
+  buddhist: true,
+},
+zm_langs = {
+  english: 'English',
+  thai: 'ไทย',
+},
+zm_themes = {
+  light: true,
+  dark: true,
+},
+zm_sourceusedContent = [
+  { text: 'AutoNumeric',
+    link: 'http://autonumeric.org/',
+  },
+  { text: 'Font Awesome',
+    link: 'https://fontawesome.com/',
+  },
+  { text: 'Google Fonts',
+    link: 'https://fonts.google.com/',
+  },
+  { text: 'UIkit',
+    link: 'https://getuikit.com/',
+  },
+  { text: 'unDraw',
+    link: 'https://undraw.co/',
+  },
+],
 zm_tmps = {
-  /* {doc} and {type} keys don't be the same word, to stop collide filtering */
-  bookmark: { name: 'Bookmark',
-    doc: zm_setofDoc.inv,
-    type: ['Standard'],
-    img: './tmp_img/bookmark.png',
+  Bookmark: {
     css: '',
-    // https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt',
+    ],
     font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
-    fontStyle: [
+    fontStyle: [// https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
       'Athiti, sans-serif',
       'Major Mono Display, monospace',
     ],
+    img: './tmp_img/Bookmark.png',
   },
-  business: { name: 'Business',
-    doc: zm_setofDoc.inv,
-    type: ['Standard'],
-    img: './tmp_img/business.png',
+  Business: {
     css: '',
-    font: '',
-    fontStyle: zm_font,
-  },
-  tagcard: { name: 'Tagcard',
-    doc: zm_setofDoc.inv,
-    type: ['Standard'],
-    img: './tmp_img/tagcard.png',
-    css: '',
-    // https://fonts.google.com/?selection.family=Kaushan+Script|Srisakdi:wght@700
-    font: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Srisakdi:wght@700&display=swap',
-    fontStyle: [
-      'Srisakdi, cursive',
-      'Kaushan Script, cursive',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
     ],
-  },
-  majors: { name: 'Majors',
-    doc: zm_setofDoc.inv,
-    type: ['Standard'],
-    img: './tmp_img/majors.png',
-    css: './tmp_css/majors.css',
     font: '',
-    fontStyle: zm_font,
-  },
-  chocchip: { name: 'ChocChip',
-    doc: zm_setofDoc.inv,
-    type: ['Standard'],
-    img: './tmp_img/chocchip.png',
-    css: './tmp_css/chocchip.css',
-    // https://fonts.google.com/?selection.family=Itim|Pacifico
-    font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
     fontStyle: [
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    ],
+    img: './tmp_img/Business.png',
+  },
+  ChocChip: {
+    css: './tmp_css/ChocChip.css',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Itim|Pacifico
       'Itim, cursive',
       'Pacifico, cursive',
     ],
+    img: './tmp_img/ChocChip.png',
   },
-  // hero: { name: 'Hero',
-  //   doc: zm_setofDoc.inv,
-  //   type: ['Standard'],
-  //   img: './tmp_img/hero.png',
-  //   css: './tmp_css/hero.css',
+  // Hero: {
+  //   css: './tmp_css/Hero.css',
+  //   doc: [
+  //     'document','invoice','taxinvoice','quotation','receipt'
+  //   ],
   //   font: '',
-  //   fontStyle: zm_font,
+  //   fontStyle: [
+  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  //   ],
+  //   img: './tmp_img/Hero.png',
   // },
-  // basicbill: { name: 'Basic Bill',
-  //   doc: ['cashsale'],
-  //   type: ['Standard'],
-  //   img: './tmp_img/hero.png',
-  //   css: './tmp_css/hero.css',
+  // Lite: {
+  //   css: '',
+  //   doc: [
+  //     'cashsale',
+  //   ],
   //   font: '',
-  //   fontStyle: zm_font,
+  //   fontStyle: [
+  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  //   ],
+  //   img: './tmp_img/Lite.png',
   // },
-},
-zm_set = {
-  /* main page */
-  doc: [
-    'Form',
-    'ฟอร์ม'
-  ],
-  docStyle: [
-    'Style',
-    'รูปแบบ'
-  ],
-  dateFormat: [
-    'Date Format',
-    'รูปแบบวันที่'
-  ],
-  anPrice: [
-    'Currency',
-    'สกุลเงิน'
-  ],
-  anQty: [
-    'Qty',
-    'หน่วยนับ'
-  ],
-  lines: [
-    'Rows',
-    'บรรทัด'
-  ],
-  vatRate: [
-    'Value Added Tax Rate',
-    'อัตราภาษีมูลค่าเพิ่ม'
-  ],
-  whtRate: [
-    'Withholding Tax Rate',
-    'อัตราภาษีหัก ณ ที่จ่าย'
-  ],
-  /* editing doc page */
-  docFont: [
-    'Font',
-    'ตัวอักษร'
-  ],
-  actPrint: [
-    'Print',
-    'พิมพ์'
-  ],
-  actBack: [
-    'Back',
-    'ย้อนกลับ'
-  ],
-},
-zm_modal = {
-  date: {
-    title: [
-      'Enter date',
-      'ใส่วันที่'
+  Majors: {
+    css: './tmp_css/Majors.css',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
     ],
-    input: [
-      'Select date',
-      'เลือกวันที่'
+    font: '',
+    fontStyle: [
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
     ],
-    output: [
-      'Display',
-      'แสดง'
-    ],
+    img: './tmp_img/Majors.png',
   },
-  upload: {
-    title: [
-      'Upload Image',
-      'ใส่รูปภาพ'
+  Tagcard: {
+    css: '',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
     ],
-    input: [
-      'Select Image',
-      'เลือกรูปภาพ'
+    font: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Srisakdi:wght@700&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Kaushan+Script|Srisakdi:wght@700
+      'Srisakdi, cursive',
+      'Kaushan Script, cursive',
     ],
-    height: [
-      'Height (px)',
-      'ยาว (px)'
-    ],
-    width: [
-      'Width (px)',
-      'กว้าง (px)'
-    ],
+    img: './tmp_img/Tagcard.png',
   },
-  print: {
-    title: [
-      'Get your document data',
-      'รับข้อมูลเอกสารของคุณ'
-    ],
-    output: [
-      'Copy and save this link, [X] to go back to edit',
-      'คัดลอก และเก็บลิงค์นี้, [X] เพื่อกลับไปแก้ไข'
-    ],
-  },
-},
-/* main text  */
-zm_title = [
-  'Create Document - zummon webapp (Updating)',
-  'สร้างเอกสาร - zummon เว็บแอป (พัฒนาเรื่อยๆ)',
-],
-zm_greet = [
-  'Create Document',
-  'สร้างเอกสาร',
-],
-zm_sourceused = {
-  title: [ 'Source Usage',
-    'แหล่งการใช้งาน',
-  ],
-  content: [
-    { text: 'AutoNumeric',
-      link: 'http://autonumeric.org/',
-    },
-    { text: 'Font Awesome',
-      link: 'https://fontawesome.com/',
-    },
-    { text: 'Google Fonts',
-      link: 'https://fonts.google.com/',
-    },
-    { text: 'UIkit',
-      link: 'https://getuikit.com/',
-    },
-    { text: 'unDraw',
-      link: 'https://undraw.co/',
-    },
-  ],
-},
-zm_createby = {
-  title: [ 'Created by',
-    'สร้างโดย',
-  ],
-  content: [
-    { text: [ 'Donate to support (PayPal: zummontt)',
-        'โอนเงินเพื่อสนับสนุน (PayPal: zummontt)',
-      ],
-      link: 'https://www.paypal.me/zummontt'
-    },
-    { text: [ 'Report issues (GitHub)',
-        'แจ้งปัญหา (กิตฮับ)',
-      ],
-      link: 'https://github.com/zummon/docs/issues'
-    },
-    { text: [ 'Social (Facebook)',
-        'พูดคุย (เฟซบุ๊ก)',
-      ],
-      link: 'https://www.facebook.com/zummontt/posts/185150049682455'
-    },
-    { text: [ 'Main website',
-      'เว็บไซต์หลัก',
-    ],
-      link: 'https://zummon.github.io/site',
-    },
-  ],
-},
-/* each page text */
-zm_browse = {
-  title: [
-    'Select the template you want to use',
-    'เลือกแบบที่คุณต้องการใช้'
-  ],
 }
+// declare editable global variables
+// user interaction data
+let zm_user,
+// temporary element going to fill by using modal
+zm_active,
+// replacing from core lang
+zm_browse,
+zm_createby,
+zm_createbyTexts,
+zm_docActBack,
+zm_docActPrint,
+zm_docLabel,
+zm_docSetFont,
+zm_docsTexts,
+zm_eraTexts,
+zm_font,
+zm_greet,
+zm_modal_date,
+zm_modal_upload,
+zm_modal_print,
+zm_setAnPrice,
+zm_setAnQty,
+zm_setDateFormat,
+zm_setDoc,
+zm_setLines,
+zm_setVatRate,
+zm_setWhtRate,
+zm_sourceused,
+zm_themesTexts,
+zm_title
 
-/* to do
+/* to fix
+
+currently none
 
 * for taking a pic
 

@@ -1,23 +1,25 @@
 
 <div id="doc" class="uk-background-default" data-font>
-  <div class="uk-child-width-1-2 uk-label-warning uk-padding uk-grid" uk-grid>
-    <div>
-      <h1 data-label="title" class="uk-heading-medium"></h1>
-      <div class="uk-child-width-1-2 uk-grid-small uk-grid" uk-grid>
-        <div data-label="ref"></div>
-        <div data-docs="ref"></div>
-        <div data-label="date"></div>
-        <div data-docs="date"></div>
-        <div data-label="duedate" data-hide="_receipt_"></div>
-        <div data-docs="duedate" data-hide="_receipt_"></div>
+  <section class="uk-section uk-section-xsmall uk-label-warning uk-padding">
+    <div class="uk-child-width-1-2 uk-grid" uk-grid>
+      <div>
+        <h1 data-label="title" class="uk-heading-medium"></h1>
+        <div class="uk-child-width-1-2 uk-grid-small uk-grid" uk-grid>
+          <div data-label="ref"></div>
+          <div data-docs="ref"></div>
+          <div data-label="date"></div>
+          <div data-docs="date"></div>
+          <div data-label="duedate" data-hide="_receipt_"></div>
+          <div data-docs="duedate" data-hide="_receipt_"></div>
+        </div>
+      </div>
+      <div>
+        <h4 data-docs="vendorName" class="uk-margin-remove"></h4>
+        <p data-docs="vendorId" class="uk-margin-remove"></p>
+        <p data-docs="vendorAddress" class="uk-margin-remove"></p>
       </div>
     </div>
-    <div>
-      <h4 data-docs="vendorName" class="uk-margin-remove"></h4>
-      <p data-docs="vendorId" class="uk-margin-remove"></p>
-      <p data-docs="vendorAddress" class="uk-margin-remove"></p>
-    </div>
-  </div>
+  </section>
   <div class="uk-child-width-1-2 uk-padding uk-grid" uk-grid>
     <div>
       <label data-label="paymethod" class="uk-form-label"></label>
@@ -33,7 +35,7 @@
       <textarea data-docs="clientAddress" rows="2" class="uk-textarea uk-resize-vertical uk-form-small uk-border-rounded"></textarea>
     </div>
   </div>
-  <table class="uk-table uk-table-small">
+  <table class="uk-table uk-table-small uk-table-divider">
     <thead>
       <tr>
         <td data-label="line" class="uk-text-right uk-text-nowrap uk-table-shrink" style="border-color: #f0506e;"></td>

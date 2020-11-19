@@ -1,0 +1,48 @@
+<div id="doc" class="uk-background-default uk-padding">
+  <div class="uk-margin uk-grid" uk-grid>
+    <div class="uk-width-2-3">
+      <input data-docs="vendorName" class="uk-input">
+      <input data-docs="vendorId" class="uk-input">
+      <textarea data-docs="vendorAddress" class="uk-textarea uk-resize-vertical"></textarea>
+    </div>
+    <div class="uk-width-1-3">
+      <label data-label="ref"></label>
+      <input data-docs="ref">
+    </div>
+  </div>
+  <div>
+    <h1 data-label="title"></h1>
+  </div>
+  <div class="uk-margin uk-grid" uk-grid>
+    <div>
+      <input data-docs="clientName">
+    </div>
+    <div>
+      <input data-docs="date">
+    </div>
+  </div>
+  <input data-docs="clientAddress">
+  <input data-docs="clientId">
+  <table class="uk-table uk-table-small">
+    <thead>
+      <th data-label="itemQty" class="uk-table-shrink uk-text-nowrap"></th>
+      <th data-label="itemDesc" class="uk-table-expand"></th>
+      <th data-label="itemPrice" class="uk-table-shrink uk-text-nowrap"></th>
+      <th data-label="itemAmount" class="uk-table-shrink uk-text-nowrap"></th>
+    </thead>
+    <tbody>
+      <td data-docs="itemQty"></td>
+      <td data-docs="itemDesc"></td>
+      <td data-docs="itemPrice"></td>
+      <td data-docs="itemAmount"></td>
+    </tbody>
+    <tfoot>
+      <th></th>
+      <th></th>
+      <th data-label="totalAmount"></th>
+      <th data-docs="totalAmount"></th>
+    </tfoot>
+  </table>
+  <label data-label="vendorSign"></label>
+  <textarea data-docs="vendorSignName"></textarea>
+</div>
