@@ -11,112 +11,63 @@ zm_docLoadAsset = function(html,doc,lang){
 
     elsDataHide = elDoc.querySelectorAll('[data-hide*=_'+ doc +'_]')
 
-    if (doc == 'receipt') {
-      zm_docCalTotal = function(){
-        var elems = document.querySelectorAll('[data-docs=itemAmount]'),
-        total = 0
-        for (let z = 0; z < elems.length; z++) {
-          total += AutoNumeric.getNumber(elems[z])
-        }
-        var vat = total * zm_user.vatRate,
-        wht = total * zm_user.whtRate
-        AutoNumeric.set('[data-docs=totalAmount]',total)
-        AutoNumeric.set('[data-docs=totalVat]',vat)
+    zm_docCalTotal = function(){
+      var elems = document.querySelectorAll('[data-docs=itemAmount]'),
+      total = 0
+      for (let z = 0; z < elems.length; z++) {
+        total += AutoNumeric.getNumber(elems[z])
+      }
+      var vat = total * zm_user.vatRate,
+      wht = total * zm_user.whtRate
+      AutoNumeric.set('[data-docs=totalAmount]',total)
+      AutoNumeric.set('[data-docs=totalVat]',vat)
+      if (doc == 'receipt'){
         AutoNumeric.set('[data-docs=totalWht]',wht)
-        AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + vat + wht)
+      } else {
+        wht = 0
       }
-      zm_docGetData = function(){
-        zm_user = {
-          lang: zm_user.lang,
-          doc: zm_user.doc,
-          dateFormat: zm_user.dateFormat,
-          anPrice: zm_user.anPrice,
-          anQty: zm_user.anQty,
-          lines: zm_user.lines,
-          tmp: zm_user.tmp,
-          vatRate: zm_user.vatRate,
-          whtRate: zm_user.whtRate,
-        }
-
-        const elsDataDocs = elDisplay.querySelectorAll('[data-docs]:not([data-docs^=item])'),
-        elsDocsitem = elDisplay.querySelectorAll('[data-docs^=item]')
-        // elsDocsitemDesc = elDisplay.querySelectorAll('[data-docs=itemDesc]'),
-        // elsDocsitemPrice = elDisplay.querySelectorAll('[data-docs=itemPrice]'),
-        // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
-        // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
-
-        zm_user.itemDesc = []
-        zm_user.itemPrice = []
-        zm_user.itemQty = []
-        zm_user.itemAmount = []
-
-        for (let z = 0; z < elsDataDocs.length; z++) {
-          const value = zm_getElemValue(elsDataDocs[z])
-          if (value) {
-            zm_user[elsDataDocs[z].dataset.docs] = value
-          }
-        }
-        for (let z = 0; z < elsDocsitem.length; z++) {
-          const value = zm_getElemValue(elsDocsitem[z])
-          const docs = elsDocsitem[z].dataset.docs
-          if (value) {
-            if (!zm_user[docs]) zm_user[docs] = []
-            zm_user[docs].push(value)
-          }
-        }
+      AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + vat + wht)
+    }
+    zm_docGetData = function(){
+      zm_user = {
+        lang: zm_user.lang,
+        doc: zm_user.doc,
+        dateFormat: zm_user.dateFormat,
+        anPrice: zm_user.anPrice,
+        anQty: zm_user.anQty,
+        lines: zm_user.lines,
+        tmp: zm_user.tmp,
+        vatRate: zm_user.vatRate,
+      }
+      if (doc == 'receipt'){
+        zm_user.whtRate = zm_user.whtRate
       }
 
-    } else {
-      zm_docCalTotal = function(){
-        const elems = document.querySelectorAll('[data-docs=itemAmount]')
-        var total = 0
-        for (let z = 0; z < elems.length; z++) {
-          total += AutoNumeric.getNumber(elems[z])
+      const elsDataDocs = elDisplay.querySelectorAll('[data-docs]:not([data-docs^=item])'),
+      elsDocsitem = elDisplay.querySelectorAll('[data-docs^=item]')
+      // elsDocsitemDesc = elDisplay.querySelectorAll('[data-docs=itemDesc]'),
+      // elsDocsitemPrice = elDisplay.querySelectorAll('[data-docs=itemPrice]'),
+      // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
+      // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
+
+      zm_user.itemDesc = []
+      zm_user.itemPrice = []
+      zm_user.itemQty = []
+      zm_user.itemAmount = []
+
+      for (let z = 0; z < elsDataDocs.length; z++) {
+        const value = zm_getElemValue(elsDataDocs[z])
+        if (value) {
+          zm_user[elsDataDocs[z].dataset.docs] = value
         }
-        var vat = total * zm_user.vatRate
-        AutoNumeric.set('[data-docs=totalAmount]',total)
-        AutoNumeric.set('[data-docs=totalVat]',vat)
-        AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + vat)
       }
-      zm_docGetData = function(){
-        zm_user = {
-          anPrice: zm_user.anPrice,
-          anQty: zm_user.anQty,
-          dateFormat: zm_user.dateFormat,
-          doc: zm_user.doc,
-          era: zm_user.era,
-          lang: zm_user.lang,
-          lines: zm_user.lines,
-          vatRate: zm_user.vatRate,
+      for (let z = 0; z < elsDocsitem.length; z++) {
+        const value = zm_getElemValue(elsDocsitem[z])
+        const docs = elsDocsitem[z].dataset.docs
+        if (value) {
+          if (!zm_user[docs]) zm_user[docs] = []
+          zm_user[docs].push(value)
         }
-      
-        const elsDataDocs = elDisplay.querySelectorAll('[data-docs]:not([data-docs^=item])'),
-        elsDocsitem = elDisplay.querySelectorAll('[data-docs^=item]')
-        // elsDocsitemDesc = elDisplay.querySelectorAll('[data-docs=itemDesc]'),
-        // elsDocsitemPrice = elDisplay.querySelectorAll('[data-docs=itemPrice]'),
-        // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
-        // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
-      
-        zm_user.itemDesc = []
-        zm_user.itemPrice = []
-        zm_user.itemQty = []
-        zm_user.itemAmount = []
-      
-        for (let z = 0; z < elsDataDocs.length; z++) {
-          const value = zm_getElemValue(elsDataDocs[z])
-          if (value) {
-            zm_user[elsDataDocs[z].dataset.docs] = value
-          }
-        }
-        for (let z = 0; z < elsDocsitem.length; z++) {
-          const value = zm_getElemValue(elsDocsitem[z])
-          const docs = elsDocsitem[z].dataset.docs
-          if (value) {
-            if (!zm_user[docs]) zm_user[docs] = []
-            zm_user[docs].push(value)
-          }
-        }
-      
       }
     }
     
