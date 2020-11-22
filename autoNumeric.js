@@ -94,7 +94,7 @@ zummon.autoNumeric = function(options){
     },
   }
 
-  if (result.hasOwnProperty(form)) {
+  if (!result.hasOwnProperty(form)) {
     form = 'num'
   }
 
