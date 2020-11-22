@@ -63,7 +63,7 @@ thai: ['','มกราคม','กุมภาพันธ์','มีนาค
     },
   }
 
-  if (result.hasOwnProperty(form)) {
+  if (!result.hasOwnProperty(form)) {
     form = 'yyyy-mm-dd'
   }
 
