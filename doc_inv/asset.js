@@ -39,7 +39,7 @@ zm_docLoadAsset = function(html,doc,lang){
         tmp: zm_user.tmp,
         vatRate: zm_user.vatRate,
       }
-      if (doc == 'receipt'){
+      if (doc == 'receipt') {
         zm_user.whtRate = zm_user.whtRate
       }
 
@@ -195,9 +195,12 @@ zm_docLoadAsset = function(html,doc,lang){
     }
     zm_setLangPage(doc,lang)
 
-    elTheme.onchange = function(){
+    zm_setThemePage = function(){
     }
-    elTheme.onchange()
+    zm_setThemePage()
+    var elDocSetFontSelect = elDocSetFont.querySelector('select'),
+    elMdDateInput = elMdDate.querySelector('#modal-date-input'),
+    elMdUpInput = elMdUpload.querySelector('#modal-upload-input')
 
     elDocSetFontSelect.onchange = function(){
       for (let z = 0; z < elsDataFont.length; z++) {
