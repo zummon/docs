@@ -44,6 +44,40 @@ zm_docLabel = {
   vendorSignName: 'ชื่อผู้ขาย',
   vendorSignRank: 'ตำแหน่ง',
 }
+zm_docLabelActive = {
+  cashsale: {
+    client: 'รับเงินจาก',
+    date: 'วันที่',
+    ref: 'เลขที่',
+    title: 'บิลเงินสด',
+  },
+  invoice: {
+    client: 'ส่งถึง',
+    date: 'วันที่',
+    ref: 'เลขที่',
+    title: 'ใบแจ้งหนี้',
+  },
+  receipt: {
+    client: 'รับเงินจาก',
+    date: 'วันที่',
+    ref: 'เลขที่',
+    title: 'ใบเสร็จรับเงิน',
+    totalFinal: 'ยอดชำระ',
+  },
+  quotation: {
+    client: 'ส่งถึง',
+    date: 'วันที่',
+    duedate: 'สั่งซื้อก่อนวันที่',
+    ref: 'เลขที่',
+    title: 'ใบเสนอราคา',
+  },
+  taxinvoice: {
+    client: 'ส่งถึง',
+    date: 'วันที่',
+    ref: 'เลขที่',
+    title: 'ใบกำกับภาษี',
+  },
+}
 zm_docSetFont = 'ตัวอักษร'
 zm_docsTexts = {
   cashsale: 'บิลเงินสด*',

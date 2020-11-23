@@ -1,5 +1,11 @@
-zm_docLoadAsset = function(html,doc,lang){
-
+zm_docLoadAsset = function(html,doc){
+// "image": {
+//   "clientSignImage": ["",""],
+//   "itemImage": ["",""],
+//   "vendorImage": ["",""],
+//   "vendorStamp": ["",""],
+//   "vendorSignImage": ["",""]
+// }
   zm_loadFile(html,function(){
     elDisplay.innerHTML = this.responseText
     // get elements
@@ -103,88 +109,8 @@ zm_docLoadAsset = function(html,doc,lang){
 
     elsItemAmtAdj = elDoc.querySelectorAll('[data-docs=itemAmount], [data-docs=totalAdjust]')
 
-    zm_setLangPage = function(doc,lang){
-      var label = {}
-      if (lang == 'english') {
-        if (doc == 'invoice') {
-          label = {
-            client: 'Bill to',
-            date: 'Inv-Date',
-            ref: 'Inv-No',
-            title: 'Invoice',
-          }
-        } else if (doc == 'receipt') {
-          label = {
-            client: 'Received from',
-            date: 'Rec-Date',
-            ref: 'Rec-No',
-            title: 'Receipt',
-            totalFinal: 'Paid Amount',
-          }
-        } else if (doc == 'taxinvoice') {
-          label = {
-            client: 'Bill to',
-            date: 'TaxInv-Date',
-            ref: 'TaxInv-No',
-            title: 'Tax Invoice',
-          }
-        } else if (doc == 'quotation') {
-          label = {
-            client: 'Offer to',
-            date: 'Qn-Date',
-            duedate: 'Offer Until',
-            ref: 'Qn-No',
-            title: 'Quotation',
-          }
-        } else if (doc == 'cashsale') {
-          label = {
-            client: 'Received from',
-            date: 'Rec-Date',
-            ref: 'Rec-No',
-            title: 'Cash Sale',
-          }
-        }
-      } else if (lang == 'thai') {
-        if (doc == 'invoice') {
-          label = {
-            client: 'ส่งถึง',
-            date: 'วันที่',
-            ref: 'เลขที่',
-            title: 'ใบแจ้งหนี้',
-          }
-        } else if (doc == 'receipt') {
-          label = {
-            client: 'รับเงินจาก',
-            date: 'วันที่',
-            ref: 'เลขที่',
-            title: 'ใบเสร็จรับเงิน',
-            totalFinal: 'ยอดชำระ',
-          }
-        } else if (doc == 'taxinvoice') {
-          label = {
-            client: 'ส่งถึง',
-            date: 'วันที่',
-            ref: 'เลขที่',
-            title: 'ใบกำกับภาษี',
-          }
-        } else if (doc == 'quotation') {
-          label = {
-            client: 'ส่งถึง',
-            date: 'วันที่',
-            duedate: 'สั่งซื้อก่อนวันที่',
-            ref: 'เลขที่',
-            title: 'ใบเสนอราคา',
-          }
-        } else if (doc == 'cashsale') {
-          label = {
-            client: 'รับเงินจาก',
-            date: 'วันที่',
-            ref: 'เลขที่',
-            title: 'บิลเงินสด',
-          }
-        }
-      }
-      label = Object.assign(zm_docLabel, label)
+    zm_setLangPage = function(doc){
+      var label = Object.assign(zm_docLabel, zm_docLabelActive[doc])
 
       for (let z = 0; z < elsDataLabel.length; z++) {
         // console.log(elsDataLabel[z].dataset.label);
@@ -193,7 +119,7 @@ zm_docLoadAsset = function(html,doc,lang){
         ])
       }
     }
-    zm_setLangPage(doc,lang)
+    zm_setLangPage(doc)
 
     zm_setThemePage = function(){
     }
@@ -218,7 +144,7 @@ zm_docLoadAsset = function(html,doc,lang){
       })
     }
     // build logos, source: https://imgur.com/WzWR2nA
-    for(let z = 0; z < elsImgLogo.length; z++){
+    for (let z = 0; z < elsImgLogo.length; z++) {
       elsImgLogo[z].src = 'https://i.imgur.com/WzWR2nA.png'
       elsImgLogo[z].addEventListener('click',function(){
         zm_active = this
@@ -305,7 +231,7 @@ zm_docLoadAsset = function(html,doc,lang){
       }
     }
     // auto calculate after fill
-    for(let z = 0; z < elsDocsitemQty.length; z++){
+    for (let z = 0; z < elsDocsitemQty.length; z++) {
       elsDocsitemQty[z].addEventListener('change',function(){
         const elemPrice = this.closest('[data-zm=line]').querySelector('[data-docs=itemPrice]'),
         elemAmount = this.closest('[data-zm=line]').querySelector('[data-docs=itemAmount]')
@@ -313,17 +239,9 @@ zm_docLoadAsset = function(html,doc,lang){
         zm_docCalTotal()
       })
     }
-    for(let z = 0; z < elsItemAmtAdj.length; z++){
+    for (let z = 0; z < elsItemAmtAdj.length; z++) {
       elsItemAmtAdj[z].addEventListener('change',zm_docCalTotal)
     }
 
   })
 }
-
-// "image": {
-//   "clientSignImage": ["",""],
-//   "itemImage": ["",""],
-//   "vendorImage": ["",""],
-//   "vendorStamp": ["",""],
-//   "vendorSignImage": ["",""]
-// }

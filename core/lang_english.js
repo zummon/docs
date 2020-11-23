@@ -44,6 +44,40 @@ zm_docLabel = {
   vendorSignName: 'Vendor Name',
   vendorSignRank: 'Position',
 }
+zm_docLabelActive = {
+  cashsale: {
+    client: 'Received from',
+    date: 'Date',
+    ref: 'No',
+    title: 'Cash Sale',
+  },
+  invoice: {
+    client: 'Bill to',
+    date: 'Inv-Date',
+    ref: 'Inv-No',
+    title: 'Invoice',
+  },
+  receipt: {
+    client: 'Received from',
+    date: 'Rec-Date',
+    ref: 'Rec-No',
+    title: 'Receipt',
+    totalFinal: 'Paid Amount',
+  },
+  quotation: {
+    client: 'Offer to',
+    date: 'Qn-Date',
+    duedate: 'Offer Until',
+    ref: 'Qn-No',
+    title: 'Quotation',
+  },
+  taxinvoice: {
+    client: 'Bill to',
+    date: 'TaxInv-Date',
+    ref: 'TaxInv-No',
+    title: 'Tax Invoice',
+  },
+}
 zm_docSetFont = 'Font'
 zm_docsTexts = {
   cashsale: 'Cash Sale*',

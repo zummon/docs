@@ -8,8 +8,8 @@
 <script src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=K2D&family=Varela+Round&display=swap">
-<link id="css-docStyle" rel="stylesheet" href="">
-<link id="css-docFont" rel="stylesheet" href="">
+<script src="autoNumeric.js"></script>
+<script src="dateFormat.js"></script>
 <style>
 /* [INDEX] to my preference */
 /* default of document size should not be lower */
@@ -333,10 +333,6 @@ textarea {
   </div>
 </div>
 
-<script src="autoNumeric.js"></script>
-<script src="dateFormat.js"></script>
-<script src="core/zummon.js"></script>
-
 <script>
 // [INDEX] to tell users when any error occur
 // https://dev.opera.com/articles/better-error-handling-with-window-onerror/
@@ -388,14 +384,25 @@ zm_loadFile = function(file,call){
 zm_loadScript = function(id,url,call){
   // https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
   // delete an old script
-  var elScrDoc = document.querySelector('#'+ id)
-  if (elScrDoc) elScrDoc.remove()
+  var elem = document.querySelector('#'+ id)
+  if (elem) elem.remove()
   // add a script
   var script = document.createElement('script')
   script.id = id
   script.src = url
   script.onload = call
   document.body.appendChild(script)
+},
+zm_loadLinkCss = function(id,url){
+  // delete an old css
+  var elem = document.querySelector('#'+ id)
+  if (elem) elem.remove()
+  // add a css
+  var link = document.createElement('link')
+  link.id = id
+  link.rel = 'stylesheet'
+  link.href = url
+  document.head.appendChild(link)
 },
 zm_getObjStr = function(obj){
   // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
@@ -478,6 +485,118 @@ zm_setElemValue = function(elem,val){
   }
 }
 
+// declare uneditable global variables
+const zm_anPrices = zummon.autoNumeric(),
+zm_anQtys = {
+  integer: zm_anPrices.integer,
+  integerD: zm_anPrices.integerD,
+  num: zm_anPrices.num,
+  numD: zm_anPrices.numD,
+},
+zm_dateFormats = zummon.dateFormat(),
+zm_docs = {
+  // cashsale: 'inv',
+  // document: 'inv',
+  invoice: 'inv',
+  quotation: 'inv',
+  receipt: 'inv',
+  taxinvoice: 'inv',
+},
+zm_eras = {
+  christ: true,
+  buddhist: true,
+},
+zm_langs = {
+  english: 'English',
+  thai: 'ไทย',
+},
+zm_themes = {
+  light: true,
+  dark: true,
+},
+zm_tmps = {
+  Bookmark: {
+    css: '',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt',
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
+      'Athiti, sans-serif',
+      'Major Mono Display, monospace',
+    ],
+    img: './tmp_img/Bookmark.png',
+  },
+  Business: {
+    css: '',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
+    ],
+    font: '',
+    fontStyle: [
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    ],
+    img: './tmp_img/Business.png',
+  },
+  ChocChip: {
+    css: './tmp_css/ChocChip.css',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Itim|Pacifico
+      'Itim, cursive',
+      'Pacifico, cursive',
+    ],
+    img: './tmp_img/ChocChip.png',
+  },
+  // Hero: {
+  //   css: './tmp_css/Hero.css',
+  //   doc: [
+  //     'document','invoice','taxinvoice','quotation','receipt'
+  //   ],
+  //   font: '',
+  //   fontStyle: [
+  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  //   ],
+  //   img: './tmp_img/Hero.png',
+  // },
+  // Lite: {
+  //   css: '',
+  //   doc: [
+  //     'cashsale',
+  //   ],
+  //   font: '',
+  //   fontStyle: [
+  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  //   ],
+  //   img: './tmp_img/Lite.png',
+  // },
+  Majors: {
+    css: './tmp_css/Majors.css',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
+    ],
+    font: '',
+    fontStyle: [
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    ],
+    img: './tmp_img/Majors.png',
+  },
+  Tagcard: {
+    css: '',
+    doc: [
+      'document','invoice','taxinvoice','quotation','receipt'
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Srisakdi:wght@700&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Kaushan+Script|Srisakdi:wght@700
+      'Srisakdi, cursive',
+      'Kaushan Script, cursive',
+    ],
+    img: './tmp_img/Tagcard.png',
+  },
+}
+
 // declare editable global variables
 // user interaction data
 // set user data not to get error of undefined
@@ -494,12 +613,36 @@ let zm_user = {
   whtRate: -0.03,
 },
 // temporary element going to fill by using modal
-zm_active
+zm_active,
+// replacing from core lang
+zm_browse,
+zm_createby,
+zm_createbyTexts,
+zm_docActBack,
+zm_docActPrint,
+zm_docLabel,
+zm_docLabelActive,
+zm_docSetFont,
+zm_docsTexts,
+zm_eraTexts,
+zm_font,
+zm_greet,
+zm_modal_date,
+zm_modal_upload,
+zm_modal_print,
+zm_setAnPrice,
+zm_setAnQty,
+zm_setDateFormat,
+zm_setDoc,
+zm_setLines,
+zm_setVatRate,
+zm_setWhtRate,
+zm_sourceused,
+zm_themesTexts,
+zm_title
 
 // declare uneditable global elements
-const elCssDocStyle = document.querySelector('#css-docStyle'),
-elCssDocFont = document.querySelector('#css-docFont'),
-elAbove = document.querySelector('#above'),
+const elAbove = document.querySelector('#above'),
 elNav = document.querySelector('#nav'),
 elDisplay = document.querySelector('#display'),
 elEnd = document.querySelector('#end'),
@@ -623,7 +766,7 @@ const zm_setLang = function(){
     zm_user.lang = lang
   }
   // load which lang
-  zm_loadScript('scr-lang','./core_lang/'+ lang +'.js',function(){
+  zm_loadScript('scr-lang','./core/lang_'+ lang +'.js',function(){
     // get elements for changing language
     var elsEra = document.querySelectorAll('#era option'),
     elsTheme = document.querySelectorAll('#theme option'),
@@ -708,6 +851,8 @@ zm_setTheme = function(){
     light: '',
     dark: 'uk-background-secondary',
   }[theme]
+
+  zm_setThemePage()
 }
 
 // declare editable global functions
@@ -740,8 +885,8 @@ zm_browseLoad = function(){
     elDocSetFont.classList.add('uk-hidden')
     elDocActBack.classList.add('uk-hidden')
     elDocActPrint.classList.add('uk-hidden')
-    elCssDocStyle.href = ''
-    elCssDocFont.href = ''
+    zm_loadLinkCss('css-docStyle','')
+    zm_loadLinkCss('css-docFont','')
     // get elements
     const elBrowseTitle = elDisplay.querySelector('#browse-title'),
     elBrowse = elDisplay.querySelector('#browse'),
@@ -831,10 +976,13 @@ zm_docLoad = function(){
   tmp = zm_user.tmp,
   opt = zm_tmps[tmp],
   type = zm_docs[doc],
-  asset = './doc_'+ type +'/asset.js',
-  html = './doc_'+ type +'/'+ tmp +'.html'
+  asset = './doc/as_'+ type +'.js',
+  as_doc = './doc/'+ doc +'.js',
+  html = './tmp_html/'+ tmp +'.html'
   
   zm_loadScript('scr-docAsset',asset,function(){
+  zm_loadScript('scr-docAsDoc',as_doc,function(){
+
     var elDocSetFontSelect = elDocSetFont.querySelector('select'),
     nodeOption = document.createElement('option')
     // resetting
@@ -852,8 +1000,8 @@ zm_docLoad = function(){
     elDocActPrint.classList.remove('uk-hidden')
     elDocSetFontSelect.innerHTML = ''
 
-    elCssDocStyle.href = opt.css
-    elCssDocFont.href = opt.font
+    zm_loadLinkCss('css-docStyle',opt.css)
+    zm_loadLinkCss('css-docFont',opt.font)
     // build docFonts to select
     for (let z = 0; z < opt.fontStyle.length; z++) {
       nodeOption.value = opt.fontStyle[z]
@@ -862,6 +1010,7 @@ zm_docLoad = function(){
     }
     zm_docLoadAsset(html,doc,lang)
   
+  })
   })
 }
 
