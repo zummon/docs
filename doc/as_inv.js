@@ -7,79 +7,14 @@ zm_docLoadAsset = function(html,doc){
 //   "vendorSignImage": ["",""]
 // }
   zm_loadFile(html,function(){
-    elDisplay.innerHTML = this.responseText
+    document.querySelector('#display').innerHTML = this.responseText
     // get elements
-    const elDoc = elDisplay.querySelector('#doc'),
-    elDataZmLines = elDoc.querySelector('[data-zm=lines]'),
-    elDataZmLine = elDoc.querySelector('[data-zm=line]'),
-    elDataZmVatRate = elDoc.querySelector('[data-zm=vatRate]'),
-    elDataZmWhtRate = elDoc.querySelector('[data-zm=whtRate]'),
-
-    elsDataHide = elDoc.querySelectorAll('[data-hide*=_'+ doc +'_]')
-
-    zm_docCalTotal = function(){
-      var elems = document.querySelectorAll('[data-docs=itemAmount]'),
-      total = 0
-      for (let z = 0; z < elems.length; z++) {
-        total += AutoNumeric.getNumber(elems[z])
-      }
-      var vat = total * zm_user.vatRate,
-      wht = total * zm_user.whtRate
-      AutoNumeric.set('[data-docs=totalAmount]',total)
-      AutoNumeric.set('[data-docs=totalVat]',vat)
-      if (doc == 'receipt'){
-        AutoNumeric.set('[data-docs=totalWht]',wht)
-      } else {
-        wht = 0
-      }
-      AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + vat + wht)
-    }
-    zm_docGetData = function(){
-      zm_user = {
-        lang: zm_user.lang,
-        doc: zm_user.doc,
-        dateFormat: zm_user.dateFormat,
-        anPrice: zm_user.anPrice,
-        anQty: zm_user.anQty,
-        lines: zm_user.lines,
-        tmp: zm_user.tmp,
-        vatRate: zm_user.vatRate,
-      }
-      if (doc == 'receipt') {
-        zm_user.whtRate = zm_user.whtRate
-      }
-
-      const elsDataDocs = elDisplay.querySelectorAll('[data-docs]:not([data-docs^=item])'),
-      elsDocsitem = elDisplay.querySelectorAll('[data-docs^=item]')
-      // elsDocsitemDesc = elDisplay.querySelectorAll('[data-docs=itemDesc]'),
-      // elsDocsitemPrice = elDisplay.querySelectorAll('[data-docs=itemPrice]'),
-      // elsDocsitemQty = elDisplay.querySelectorAll('[data-docs=itemQty]'),
-      // elsDocsitemAmount = elDisplay.querySelectorAll('[data-docs=itemAmount]')
-
-      zm_user.itemDesc = []
-      zm_user.itemPrice = []
-      zm_user.itemQty = []
-      zm_user.itemAmount = []
-
-      for (let z = 0; z < elsDataDocs.length; z++) {
-        const value = zm_getElemValue(elsDataDocs[z])
-        if (value) {
-          zm_user[elsDataDocs[z].dataset.docs] = value
-        }
-      }
-      for (let z = 0; z < elsDocsitem.length; z++) {
-        const value = zm_getElemValue(elsDocsitem[z])
-        const docs = elsDocsitem[z].dataset.docs
-        if (value) {
-          if (!zm_user[docs]) zm_user[docs] = []
-          zm_user[docs].push(value)
-        }
-      }
-    }
+    var elDataZmLines = document.querySelector('[data-zm=lines]'),
+    elDataZmLine = document.querySelector('[data-zm=line]'),
+    elsDataHide = document.querySelectorAll('[data-hide*=_'+ doc +'_]')
     
     for (let z = 0; z < elsDataHide.length; z++) {
       elsDataHide[z].remove()
-      // elsDataHide[z].classList.add('uk-hidden')
     }
 
     // build rows
@@ -88,32 +23,25 @@ zm_docLoadAsset = function(html,doc){
       if (lineNum) zm_setElemValue(lineNum, z)
       elDataZmLines.appendChild(elDataZmLine.cloneNode(true))
     }
-    elDataZmLines.removeChild(elDataZmLine)
-    // build tax rate % label
-    zm_setElemValue(elDataZmVatRate, (zm_user.vatRate*100).toFixed(2) +'%' )
-    if (elDataZmWhtRate) {
-      zm_setElemValue(elDataZmWhtRate, (-zm_user.whtRate*100).toFixed(2) +'%' )
-    }
+    elDataZmLine.remove()
+
     // get elements after build
-    const elsDataLabel = elDoc.querySelectorAll('[data-label]'),
-    elsDataFont = elDisplay.querySelectorAll('[data-font]'),
-    elsDate = elDoc.querySelectorAll('[data-docs$=date], [data-docs$=Date]'),
-    elsImgLogo = elDoc.querySelectorAll('[data-img=vendorImage], [data-img=vendorStamp]'),
-
-    // elsDataDocs = elDoc.querySelectorAll('[data-docs]'),
-    elsDataDocsNotitem = elDoc.querySelectorAll('[data-docs]:not([data-docs^=item])'),
-    elsDocsitemDesc = elDoc.querySelectorAll('[data-docs=itemDesc]'),
-    elsDocsitemPrice = elDoc.querySelectorAll('[data-docs=itemPrice]'),
-    elsDocsitemQty = elDoc.querySelectorAll('[data-docs=itemQty]'),
-    elsDocsitemAmount = elDoc.querySelectorAll('[data-docs=itemAmount]'),
-
-    elsItemAmtAdj = elDoc.querySelectorAll('[data-docs=itemAmount], [data-docs=totalAdjust]')
+    const elsDataLabel = document.querySelectorAll('[data-label]'),
+    elsDataFont = document.querySelectorAll('[data-font]'),
+    elsDate = document.querySelectorAll('[data-docs$=date], [data-docs$=Date]'),
+    elsImgLogo = document.querySelectorAll('[data-img=vendorImage], [data-img=vendorStamp]'),
+    elsDataDocsNotitem = document.querySelectorAll('[data-docs]:not([data-docs^=item])'),
+    elsDocsitemDesc = document.querySelectorAll('[data-docs=itemDesc]'),
+    elsDocsitemPrice = document.querySelectorAll('[data-docs=itemPrice]'),
+    elsDocsitemQty = document.querySelectorAll('[data-docs=itemQty]'),
+    elsDocsitemAmount = document.querySelectorAll('[data-docs=itemAmount]'),
+    elsItemAmtAdj = document.querySelectorAll('[data-docs=itemAmount], [data-docs=totalAdjust]')
 
     zm_setLangPage = function(doc){
       var label = Object.assign(zm_docLabel, zm_docLabelActive[doc])
 
       for (let z = 0; z < elsDataLabel.length; z++) {
-        // console.log(elsDataLabel[z].dataset.label);
+        // console.log(elsDataLabel[z].dataset.label)
         zm_setElemValue(elsDataLabel[z], label[
           elsDataLabel[z].dataset.label
         ])
@@ -124,13 +52,11 @@ zm_docLoadAsset = function(html,doc){
     zm_setThemePage = function(){
     }
     zm_setThemePage()
-    var elDocSetFontSelect = elDocSetFont.querySelector('select'),
-    elMdDateInput = elMdDate.querySelector('#modal-date-input'),
-    elMdUpInput = elMdUpload.querySelector('#modal-upload-input')
 
+    var elDocSetFontSelect = document.querySelector('#docSet-font select')
     elDocSetFontSelect.onchange = function(){
       for (let z = 0; z < elsDataFont.length; z++) {
-        elsDataFont[z].style.fontFamily = elDocSetFontSelect.value
+        elsDataFont[z].style.fontFamily = this.value
       }
     }
     elDocSetFontSelect.onchange()
@@ -140,7 +66,7 @@ zm_docLoadAsset = function(html,doc){
       elsDate[z].addEventListener('click',function(){
         zm_active = this
         UIkit.modal('#modal-date').show()
-        elMdDateInput.focus()
+        document.querySelector('#modal-date-input').focus()
       })
     }
     // build logos, source: https://imgur.com/WzWR2nA
@@ -149,7 +75,7 @@ zm_docLoadAsset = function(html,doc){
       elsImgLogo[z].addEventListener('click',function(){
         zm_active = this
         UIkit.modal('#modal-upload').show()
-        elMdUpInput.focus()
+        document.querySelector('#modal-upload-input').focus()
       })
     }
     // fill up user data
@@ -239,9 +165,19 @@ zm_docLoadAsset = function(html,doc){
         zm_docCalTotal()
       })
     }
+    for (let z = 0; z < elsDocsitemPrice.length; z++) {
+      elsDocsitemPrice[z].addEventListener('change',function(){
+        const elemPrice = this.closest('[data-zm=line]').querySelector('[data-docs=itemQty]'),
+        elemAmount = this.closest('[data-zm=line]').querySelector('[data-docs=itemAmount]')
+        AutoNumeric.set(elemAmount, AutoNumeric.getNumber(elemPrice) * AutoNumeric.getNumber(this))
+        zm_docCalTotal()
+      })
+    }
     for (let z = 0; z < elsItemAmtAdj.length; z++) {
       elsItemAmtAdj[z].addEventListener('change',zm_docCalTotal)
     }
+
+    zm_docLoadAsType()
 
   })
 }

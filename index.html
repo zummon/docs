@@ -40,6 +40,12 @@ textarea {
     margin: 0 !important;
     padding: 0 !important;
   }
+  .uk-modal {
+    opacity: 0 !important;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 }
 </style>
 
@@ -422,8 +428,8 @@ zm_getStrObj = function(url){
   // https://www.sitepoint.com/get-url-parameters-with-javascript/
   var obj = {}
   var queryString = url ? url.split('?')[1] : window.location.search.slice(1)
+  queryString = queryString.split('#')[0]
   if (queryString) {
-    queryString = queryString.split('#')[0]
     var arr = queryString.split('&')
     for (var i = 0; i < arr.length; i++) {
       var a = arr[i].split('=')
@@ -495,7 +501,7 @@ zm_anQtys = {
 },
 zm_dateFormats = zummon.dateFormat(),
 zm_docs = {
-  // cashsale: 'inv',
+  cashsale: 'inv',
   // document: 'inv',
   invoice: 'inv',
   quotation: 'inv',
@@ -561,17 +567,17 @@ zm_tmps = {
   //   ],
   //   img: './tmp_img/Hero.png',
   // },
-  // Lite: {
-  //   css: '',
-  //   doc: [
-  //     'cashsale',
-  //   ],
-  //   font: '',
-  //   fontStyle: [
-  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
-  //   ],
-  //   img: './tmp_img/Lite.png',
-  // },
+  Lite: {
+    css: '',
+    doc: [
+      'cashsale',
+    ],
+    font: '',
+    fontStyle: [
+      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+    ],
+    img: './tmp_img/Lite.png',
+  },
   Majors: {
     css: './tmp_css/Majors.css',
     doc: [
@@ -790,8 +796,6 @@ const zm_setLang = function(){
     document.documentElement.style.fontFamily = zm_font
 
     elNav.querySelector('#greet').textContent = zm_greet
-    elEnd.querySelector('#sourceused span').textContent = zm_sourceused
-    elEnd.querySelector('#createby span').textContent = zm_createby
 
     elNav.querySelector('#set-doc label').textContent = zm_setDoc
     elNav.querySelector('#set-dateFormat label').textContent = zm_setDateFormat
@@ -804,6 +808,9 @@ const zm_setLang = function(){
     elNav.querySelector('#docSet-font label').textContent = zm_docSetFont
     elNav.querySelector('#docAct-back label').textContent = zm_docActBack
     elNav.querySelector('#docAct-print label').textContent = zm_docActPrint
+
+    elEnd.querySelector('#sourceused span').textContent = zm_sourceused
+    elEnd.querySelector('#createby span').textContent = zm_createby
 
     elMdDate.querySelector('h4').textContent = zm_modal_date.title
     elMdDate.querySelector('[for=modal-date-input]').textContent = zm_modal_date.input
@@ -858,6 +865,9 @@ zm_setTheme = function(){
 // declare editable global functions
 let zm_docLoadAsset = function(html){
   // load the chosen doc
+},
+zm_docLoadAsType = function(){
+  // for as_type to load
 },
 zm_docCalTotal = function(){
   // calculate total amount of the doc
@@ -945,8 +955,10 @@ zm_browseLoad = function(){
       elSetVatRate.classList.remove('uk-hidden')
       elSetWhtRate.classList.remove('uk-hidden')
       // show the setting needed
-      if (['document','invoice','taxinvoice','quotation'].indexOf(doc) >= 0) {
-        // receipt,
+      if (['cashsale'].indexOf(doc) >= 0) {
+        elSetVatRate.classList.add('uk-hidden')
+        elSetWhtRate.classList.add('uk-hidden')
+      } else if (['document','invoice','taxinvoice','quotation'].indexOf(doc) >= 0) {
         elSetWhtRate.classList.add('uk-hidden')
       }
       // resetting all items

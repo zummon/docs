@@ -50,6 +50,7 @@ zm_docLabelActive = {
     date: 'Date',
     ref: 'No',
     title: 'Cash Sale',
+    totalAmount: 'Total',
   },
   invoice: {
     client: 'Bill to',
