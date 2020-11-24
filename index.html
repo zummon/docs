@@ -428,8 +428,8 @@ zm_getStrObj = function(url){
   // https://www.sitepoint.com/get-url-parameters-with-javascript/
   var obj = {}
   var queryString = url ? url.split('?')[1] : window.location.search.slice(1)
-  queryString = queryString.split('#')[0]
   if (queryString) {
+    queryString = queryString.split('#')[0]
     var arr = queryString.split('&')
     for (var i = 0; i < arr.length; i++) {
       var a = arr[i].split('=')
@@ -494,27 +494,27 @@ zm_setElemValue = function(elem,val){
 // declare uneditable global variables
 const zm_anPrices = zummon.autoNumeric(),
 zm_anQtys = {
-  integer: zm_anPrices.integer,
-  integerD: zm_anPrices.integerD,
-  num: zm_anPrices.num,
-  numD: zm_anPrices.numD,
+  Integer: zm_anPrices.Integer,
+  IntegerD: zm_anPrices.IntegerD,
+  Number: zm_anPrices.Number,
+  NumberD: zm_anPrices.NumberD,
 },
 zm_dateFormats = zummon.dateFormat(),
 zm_docs = {
-  cashsale: 'inv',
+  CashSale: 'inv',
   // document: 'inv',
-  invoice: 'inv',
-  quotation: 'inv',
-  receipt: 'inv',
-  taxinvoice: 'inv',
+  Invoice: 'inv',
+  Quotation: 'inv',
+  Receipt: 'inv',
+  TaxInvoice: 'inv',
 },
 zm_eras = {
-  christ: true,
-  buddhist: true,
+  Christ: true,
+  Buddhist: true,
 },
 zm_langs = {
-  english: 'English',
-  thai: 'ไทย',
+  English: 'English',
+  Thai: 'ไทย',
 },
 zm_themes = {
   light: true,
@@ -524,7 +524,7 @@ zm_tmps = {
   Bookmark: {
     css: '',
     doc: [
-      'document','invoice','taxinvoice','quotation','receipt',
+      'document','Invoice','TaxInvoice','Quotation','Receipt',
     ],
     font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
     fontStyle: [// https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
@@ -536,7 +536,7 @@ zm_tmps = {
   Business: {
     css: '',
     doc: [
-      'document','invoice','taxinvoice','quotation','receipt'
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
     ],
     font: '',
     fontStyle: [
@@ -547,7 +547,7 @@ zm_tmps = {
   ChocChip: {
     css: './tmp_css/ChocChip.css',
     doc: [
-      'document','invoice','taxinvoice','quotation','receipt'
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
     ],
     font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
     fontStyle: [// https://fonts.google.com/?selection.family=Itim|Pacifico
@@ -559,7 +559,7 @@ zm_tmps = {
   // Hero: {
   //   css: './tmp_css/Hero.css',
   //   doc: [
-  //     'document','invoice','taxinvoice','quotation','receipt'
+  //     'document','Invoice','TaxInvoice','Quotation','Receipt'
   //   ],
   //   font: '',
   //   fontStyle: [
@@ -570,7 +570,7 @@ zm_tmps = {
   Lite: {
     css: '',
     doc: [
-      'cashsale',
+      'CashSale',
     ],
     font: '',
     fontStyle: [
@@ -581,7 +581,7 @@ zm_tmps = {
   Majors: {
     css: './tmp_css/Majors.css',
     doc: [
-      'document','invoice','taxinvoice','quotation','receipt'
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
     ],
     font: '',
     fontStyle: [
@@ -592,7 +592,7 @@ zm_tmps = {
   Tagcard: {
     css: '',
     doc: [
-      'document','invoice','taxinvoice','quotation','receipt'
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
     ],
     font: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Srisakdi:wght@700&display=swap',
     fontStyle: [// https://fonts.google.com/?selection.family=Kaushan+Script|Srisakdi:wght@700
@@ -607,12 +607,12 @@ zm_tmps = {
 // user interaction data
 // set user data not to get error of undefined
 let zm_user = {
-  anPrice: 'num',
-  anQty: 'integer',
+  anPrice: 'Number',
+  anQty: 'Integer',
   dateFormat: 'd mmm yyyy',
-  doc: 'invoice',
-  era: 'christ',
-  lang: 'english',
+  doc: 'Invoice',
+  era: 'Christ',
+  lang: 'English',
   lines: 4,
   tmp: 'Bookmark',
   vatRate: 0.07,
@@ -955,10 +955,10 @@ zm_browseLoad = function(){
       elSetVatRate.classList.remove('uk-hidden')
       elSetWhtRate.classList.remove('uk-hidden')
       // show the setting needed
-      if (['cashsale'].indexOf(doc) >= 0) {
+      if (['CashSale'].indexOf(doc) >= 0) {
         elSetVatRate.classList.add('uk-hidden')
         elSetWhtRate.classList.add('uk-hidden')
-      } else if (['document','invoice','taxinvoice','quotation'].indexOf(doc) >= 0) {
+      } else if (['document','Invoice','TaxInvoice','Quotation'].indexOf(doc) >= 0) {
         elSetWhtRate.classList.add('uk-hidden')
       }
       // resetting all items

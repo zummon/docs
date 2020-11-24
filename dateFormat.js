@@ -8,24 +8,24 @@ zummon.dateFormat = function(options){
 
   var month = {
     short: {
-english: ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-thai: ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'],
+English: ['','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+Thai: ['','ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'],
     },
     long: {
-english: ['','January','February','March','April','May','June','July','August','September','October','November','December'],
-thai: ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],
+English: ['','January','February','March','April','May','June','July','August','September','October','November','December'],
+Thai: ['','มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'],
     },
   }
   var year = {
-    christ: 0,
-    buddhist: 543,
+    Christ: 0,
+    Buddhist: 543,
   }
 
-  if (['english','thai'].indexOf(lang) == -1) {
-    lang = 'english'
+  if (['English','Thai'].indexOf(lang) == -1) {
+    lang = 'English'
   }
-  if (['christ','buddhist'].indexOf(era) == -1) {
-    era = 'christ'
+  if (['Christ','Buddhist'].indexOf(era) == -1) {
+    era = 'Christ'
   }
 
   var result = {
