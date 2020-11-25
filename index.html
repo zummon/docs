@@ -2,12 +2,11 @@
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=K2D&family=Varela+Round&display=swap">
 <link rel="stylesheet" href="core/uikit.css">
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.9/dist/js/uikit.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/uikit@3.5.9/dist/js/uikit-icons.min.js"></script>
 <script src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=K2D&family=Varela+Round&display=swap">
 <script src="autoNumeric.js"></script>
 <script src="dateFormat.js"></script>
 <style>
@@ -32,7 +31,7 @@ textarea {
   tfoot {
     display: table-row-group;
   }
-  #above, #nav, #end {
+  #above, #nav, #end, ::-webkit-scrollbar {
     display: none;
   }
   #display {
@@ -43,9 +42,6 @@ textarea {
   .uk-modal {
     opacity: 0 !important;
   }
-  ::-webkit-scrollbar {
-    display: none;
-  }
 }
 </style>
 
@@ -54,7 +50,7 @@ textarea {
 <div id="above" class="uk-container uk-container-small uk-margin-large-top">
   <div class="uk-flex-right uk-grid-small uk-grid uk-text-primary" uk-grid>
     <div>
-      <i class="fas fa-globe"></i>
+      <span uk-icon="world"></span>
       <select id="lang" class="uk-select uk-border-rounded uk-width-auto"
       onchange="(function(value){
         zm_setUrl('lang',value)
@@ -63,12 +59,12 @@ textarea {
       })(this.value)"></select>
     </div>
     <div>
-      <i class="fab fa-pied-piper-hat"></i>
+      <span uk-icon="italic"></span>
       <select id="era" class="uk-select uk-border-rounded uk-width-auto"
       onchange="zm_setUrl('era',this.value)"></select>
     </div>
     <div>
-      <i class="fas fa-fill"></i>
+      <span uk-icon="paint-bucket"></span>
       <select id="theme" class="uk-select uk-border-rounded uk-width-auto"
       onchange="(function(value){
         window.localStorage.setItem('theme',value)
@@ -134,13 +130,13 @@ textarea {
     </div>
     <a id="docAct-back" class="uk-text-lead uk-text-primary uk-margin-right uk-hidden"
     onclick="zm_browseLoad()">
-      <i class="fas fa-chevron-left"></i>
+      <span uk-icon="chevron-left"></span>
       <label style="cursor: pointer;"></label>
     </a>
     <a id="docAct-print" class="uk-text-lead uk-text-primary uk-margin-right uk-hidden" href="#end" uk-scroll
     onclick="window.print()">
       <label style="cursor: pointer;"></label>
-      <i class="fas fa-print"></i>
+      <span uk-icon="print"></span>
     </a>
   </div>
   <div class="uk-background-contain uk-height-large" style="background-image: url(core/upload.svg);"></div>
@@ -201,7 +197,6 @@ textarea {
         </a>
         <ul class="uk-nav-sub">
           <li><a target="_blank" href="http://autonumeric.org/">AutoNumeric</a></li>
-          <li><a target="_blank" href="https://fontawesome.com/">Font Awesome</a></li>
           <li><a target="_blank" href="https://fonts.google.com/">Google Fonts</a></li>
           <li><a target="_blank" href="https://getuikit.com/">UIkit</a></li>
           <li><a target="_blank" href="https://undraw.co/">unDraw</a></li>
@@ -236,7 +231,7 @@ textarea {
             date: value,
             format: zm_user.dateFormat,
             language: zm_user.lang, 
-            era: zm_user.era
+            era: zm_user.era,
           })
         })(this.value)">
       </div>
@@ -252,13 +247,14 @@ textarea {
       onclick="(function(){
         zm_setElemValue(zm_active, document.querySelector('#modal-date-output').value)
         UIkit.modal('#modal-date').hide()
+        zm_active.dataset.raw = document.querySelector('#modal-date-input').value
         zm_active.focus()
         zm_active = undefined
       })()">
-        <i class="fas fa-check"></i>
+        <span uk-icon="check"></span>
       </a>
       <a id="modal-date-close" class="uk-button uk-button-default uk-modal-close">
-        <i class="fas fa-times"></i>
+        <span uk-icon="close"></span>
       </a>
     </p>
   </div>
@@ -292,7 +288,7 @@ textarea {
         var imgSrc = 'https://i.imgur.com/WzWR2nA.png'
         var elMdUpInput = document.querySelector('#modal-upload-input')
 
-        if (elMdUpInput.files.length > 0){
+        if (elMdUpInput.files.length > 0) {
           imgSrc = window.URL.createObjectURL(elMdUpInput.files[0])
         }
         zm_active.src = imgSrc
@@ -312,10 +308,10 @@ textarea {
         zm_active.focus()
         zm_active = undefined
       })()">
-        <i class="fas fa-check"></i>
+        <span uk-icon="check"></span>
       </a>
       <a id="modal-upload-close" class="uk-button uk-button-default uk-modal-close">
-        <i class="fas fa-times"></i>
+        <span uk-icon="close"></span>
       </a>
     </p>
   </div>
@@ -324,16 +320,16 @@ textarea {
   <div class="uk-modal-dialog uk-modal-body">
     <h4></h4>
     <label for="modal-print-output"></label>
-    <textarea id="modal-print-output" type="text" class="uk-textarea uk-resize-vertical" rows="5" onclick="this.select()" readonly></textarea>
+    <textarea id="modal-print-output" class="uk-textarea uk-resize-vertical" rows="5" onclick="this.select()" readonly></textarea>
     <p class="uk-text-right">
       <a id="modal-print-done" class="uk-button uk-button-primary"
       onclick="(function(){
         window.location.href = document.querySelector('#modal-print-output').value
       })()">
-        <i class="fas fa-check"></i>
+        <span uk-icon="check"></span>
       </a>
       <a id="modal-print-close" class="uk-button uk-button-default uk-modal-close">
-        <i class="fas fa-times"></i>
+        <span uk-icon="close"></span>
       </a>
     </p>
   </div>
@@ -360,7 +356,7 @@ window.onerror = function(msg,url,line){
     <p class="uk-text-center uk-margin-remove uk-text-truncate">${url}</p>
     <p class="uk-text-right">
       <a class="uk-button uk-button-primary uk-modal-close">
-        <i class="fas fa-check"></i>
+        <span uk-icon="check"></span>
       </a>
     </p>
   </div>`)
@@ -673,20 +669,20 @@ document.addEventListener('DOMContentLoaded',function(){
   // temporary elements for preparing
   var nodeOption = document.createElement('option'),
   // select the elements
-  elLang = elAbove.querySelector('#lang'),
-  elEra = elAbove.querySelector('#era'),
-  elTheme = elAbove.querySelector('#theme'),
+  elLang = document.querySelector('#lang'),
+  elEra = document.querySelector('#era'),
+  elTheme = document.querySelector('#theme'),
 
-  elSetDocSelect = elNav.querySelector('#set-doc select'),
-  elSetDateFormatSelect = elNav.querySelector('#set-dateFormat select'),
-  elSetAnPriceSelect = elNav.querySelector('#set-anPrice select'),
-  elSetAnQtySelect = elNav.querySelector('#set-anQty select'),
-  elSetLinesInput = elNav.querySelector('#set-lines input'),
-  elSetVatRateInput = elNav.querySelector('#set-vatRate input'),
-  elSetWhtRateInput = elNav.querySelector('#set-whtRate input'),
-
+  elSetDocSelect = document.querySelector('#set-doc select'),
+  elSetDateFormatSelect = document.querySelector('#set-dateFormat select'),
+  elSetAnPriceSelect = document.querySelector('#set-anPrice select'),
+  elSetAnQtySelect = document.querySelector('#set-anQty select'),
+  elSetLinesInput = document.querySelector('#set-lines input'),
+  elSetVatRateInput = document.querySelector('#set-vatRate input'),
+  elSetWhtRateInput = document.querySelector('#set-whtRate input'),
   // get link parameters paste to user data
   userLinkObj = zm_getStrObj()
+  
   for (const key in userLinkObj) {
     if (userLinkObj.hasOwnProperty(key)) {
       zm_user[key] = userLinkObj[key]
@@ -705,13 +701,13 @@ document.addEventListener('DOMContentLoaded',function(){
     nodeOption.text = value
     elLang.appendChild(nodeOption.cloneNode(true))
   }
-  for (const key of Object.keys(zm_themes)) {
-    nodeOption.value = key
-    elTheme.appendChild(nodeOption.cloneNode(true))
-  }
   for (const key of Object.keys(zm_eras)) {
     nodeOption.value = key
     elEra.appendChild(nodeOption.cloneNode(true))
+  }
+  for (const key of Object.keys(zm_themes)) {
+    nodeOption.value = key
+    elTheme.appendChild(nodeOption.cloneNode(true))
   }
   for (const key in zm_docs) {
     if (zm_docs.hasOwnProperty(key)) {

@@ -1,4 +1,4 @@
-zm_docLoadAsType = function(){
+zm_docLoadAsType = function(elsDataDate){
 
   var vat = (zm_user.vatRate *100).toFixed(2), depth = vat % 1 == 0 ? 0 : 2
   zm_setElemValue(document.querySelector('[data-zm=vatRate]'), Number(vat).toFixed(depth) +'%')
@@ -35,21 +35,27 @@ zm_docLoadAsType = function(){
       itemAmount: [],
     }
 
-    const elsDataDocs = document.querySelectorAll('[data-docs]:not([data-docs^=item])'),
+    var elsDataDocs = document.querySelectorAll('[data-docs]:not([data-docs^=item])'),
     elsDocsitem = document.querySelectorAll('[data-docs^=item]')
 
     for (let z = 0; z < elsDataDocs.length; z++) {
-      const value = zm_getElemValue(elsDataDocs[z])
+      var value = zm_getElemValue(elsDataDocs[z])
       if (value) {
         zm_user[elsDataDocs[z].dataset.docs] = value
       }
     }
     for (let z = 0; z < elsDocsitem.length; z++) {
-      const value = zm_getElemValue(elsDocsitem[z]),
+      var value = zm_getElemValue(elsDocsitem[z]),
       docs = elsDocsitem[z].dataset.docs
       if (value) {
         if (!zm_user[docs]) zm_user[docs] = []
         zm_user[docs].push(value)
+      }
+    }
+    for (let z = 0; z < elsDataDate.length; z++) {
+      var value = elsDataDate[z].dataset.raw
+      if (value) {
+        zm_user[elsDataDate[z].dataset.date] = value
       }
     }
   }

@@ -1,35 +1,28 @@
 zm_docLoadAsset = function(html,doc){
-// "image": {
-//   "clientSignImage": ["",""],
-//   "itemImage": ["",""],
-//   "vendorImage": ["",""],
-//   "vendorStamp": ["",""],
-//   "vendorSignImage": ["",""]
-// }
+
   zm_loadFile(html,function(){
     document.querySelector('#display').innerHTML = this.responseText
-    // get elements
+    // get elements for building stuff
     var elDataZmLines = document.querySelector('[data-zm=lines]'),
     elDataZmLine = document.querySelector('[data-zm=line]'),
     elsDataHide = document.querySelectorAll('[data-hide*=_'+ doc +'_]')
-    
+    // building stuff
     for (let z = 0; z < elsDataHide.length; z++) {
       elsDataHide[z].remove()
     }
-
-    // build rows
     for (let z = 1; z <= zm_user.lines; z++) {
-      const lineNum = elDataZmLine.querySelector('[data-zm=lineNum]')
+      var lineNum = elDataZmLine.querySelector('[data-zm=lineNum]')
       if (lineNum) zm_setElemValue(lineNum, z)
       elDataZmLines.appendChild(elDataZmLine.cloneNode(true))
     }
     elDataZmLine.remove()
 
     // get elements after build
-    const elsDataLabel = document.querySelectorAll('[data-label]'),
+    var elsDataLabel = document.querySelectorAll('[data-label]'),
     elsDataFont = document.querySelectorAll('[data-font]'),
-    elsDate = document.querySelectorAll('[data-docs$=date], [data-docs$=Date]'),
-    elsImgLogo = document.querySelectorAll('[data-img=vendorImage], [data-img=vendorStamp]'),
+    elsDataImg = document.querySelectorAll('[data-img]'),
+    elsDataDate = document.querySelectorAll('[data-date]'),
+
     elsDataDocsNotitem = document.querySelectorAll('[data-docs]:not([data-docs^=item])'),
     elsDocsitemDesc = document.querySelectorAll('[data-docs=itemDesc]'),
     elsDocsitemPrice = document.querySelectorAll('[data-docs=itemPrice]'),
@@ -62,21 +55,36 @@ zm_docLoadAsset = function(html,doc){
     elDocSetFontSelect.onchange()
 
     // build date and date modal selection
-    for (let z = 0; z < elsDate.length; z++) {
-      elsDate[z].addEventListener('click',function(){
+    for (let z = 0; z < elsDataDate.length; z++) {
+      let attr = 'value'
+      if (!zm_isElemInput(elsDataDate[z])) {
+        elsDataDate[z].contentEditable = true
+        attr = 'textContent'
+      }
+      const value = zm_user[elsDataDate[z].dataset.date]
+      if (value) {
+        elsDataDate[z][attr] = zummon.dateFormat({
+          date: value,
+          format: zm_user.dateFormat,
+          language: zm_user.lang,
+          era: zm_user.era,
+        })
+        elsDataDate[z].dataset.raw = value
+      }
+      elsDataDate[z].onclick = function(){
         zm_active = this
         UIkit.modal('#modal-date').show()
         document.querySelector('#modal-date-input').focus()
-      })
+      }
     }
     // build logos, source: https://imgur.com/WzWR2nA
-    for (let z = 0; z < elsImgLogo.length; z++) {
-      elsImgLogo[z].src = 'https://i.imgur.com/WzWR2nA.png'
-      elsImgLogo[z].addEventListener('click',function(){
+    for (let z = 0; z < elsDataImg.length; z++) {
+      elsDataImg[z].src = 'https://i.imgur.com/WzWR2nA.png'
+      elsDataImg[z].onclick = function(){
         zm_active = this
         UIkit.modal('#modal-upload').show()
         document.querySelector('#modal-upload-input').focus()
-      })
+      }
     }
     // fill up user data
     for (let z = 0; z < elsDataDocsNotitem.length; z++) {
@@ -96,7 +104,9 @@ zm_docLoadAsset = function(html,doc){
       }
     }
     for (let z = 0; z < elsDocsitemDesc.length; z++) {
-      elsDocsitemDesc[z].contentEditable = true
+      if (!zm_isElemInput(elsDocsitemDesc[z])) {
+        elsDocsitemDesc[z].contentEditable = true
+      }
       if (zm_user.itemDesc) {
         if (!zm_user.itemDesc[z]) {
           continue
@@ -107,13 +117,19 @@ zm_docLoadAsset = function(html,doc){
       }
     }
     for (let z = 0; z < elsDocsitemPrice.length; z++) {
-      elsDocsitemPrice[z].contentEditable = true
+      if (!zm_isElemInput(elsDocsitemPrice[z])) {
+        elsDocsitemPrice[z].contentEditable = true
+      }
     }
     for (let z = 0; z < elsDocsitemQty.length; z++) {
-      elsDocsitemQty[z].contentEditable = true
+      if (!zm_isElemInput(elsDocsitemQty[z])) {
+        elsDocsitemQty[z].contentEditable = true
+      }
     }
     for (let z = 0; z < elsDocsitemAmount.length; z++) {
-      elsDocsitemAmount[z].contentEditable = true
+      if (!zm_isElemInput(elsDocsitemAmount[z])) {
+        elsDocsitemAmount[z].contentEditable = true
+      }
     }
     AutoNumeric.multiple(
       '[data-docs=itemPrice],'+
@@ -158,26 +174,26 @@ zm_docLoadAsset = function(html,doc){
     }
     // auto calculate after fill
     for (let z = 0; z < elsDocsitemQty.length; z++) {
-      elsDocsitemQty[z].addEventListener('change',function(){
+      elsDocsitemQty[z].onchange = function(){
         const elemPrice = this.closest('[data-zm=line]').querySelector('[data-docs=itemPrice]'),
         elemAmount = this.closest('[data-zm=line]').querySelector('[data-docs=itemAmount]')
         AutoNumeric.set(elemAmount, AutoNumeric.getNumber(elemPrice) * AutoNumeric.getNumber(this))
         zm_docCalTotal()
-      })
+      }
     }
     for (let z = 0; z < elsDocsitemPrice.length; z++) {
-      elsDocsitemPrice[z].addEventListener('change',function(){
+      elsDocsitemPrice[z].onchange = function(){
         const elemPrice = this.closest('[data-zm=line]').querySelector('[data-docs=itemQty]'),
         elemAmount = this.closest('[data-zm=line]').querySelector('[data-docs=itemAmount]')
         AutoNumeric.set(elemAmount, AutoNumeric.getNumber(elemPrice) * AutoNumeric.getNumber(this))
         zm_docCalTotal()
-      })
+      }
     }
     for (let z = 0; z < elsItemAmtAdj.length; z++) {
-      elsItemAmtAdj[z].addEventListener('change',zm_docCalTotal)
+      elsItemAmtAdj[z].onchange = zm_docCalTotal
     }
 
-    zm_docLoadAsType()
+    zm_docLoadAsType(elsDataDate)
 
   })
 }

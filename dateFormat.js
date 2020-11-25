@@ -71,6 +71,11 @@ Thai: ['','มกราคม','กุมภาพันธ์','มีนาค
     return result
   }
 
-  return result[form](date)
+  result = result[form](date)
+  if (result.indexOf('NaN') !== -1 || result.indexOf('undefined') !== -1) {
+    result = date
+  }
+
+  return result
 
 }

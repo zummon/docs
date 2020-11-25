@@ -44,6 +44,8 @@ zm_docLabel = {
   vendorSignName: 'Vendor Name',
   vendorSignRank: 'Position',
 }
+// vendorImage
+// vendorStamp
 zm_docLabelActive = {
   CashSale: {
     client: 'Received from',
