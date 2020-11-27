@@ -11,7 +11,7 @@ zm_docLoadAsset = function(html,doc){
       elsDataHide[z].remove()
     }
     for (let z = 1; z <= zm_user.lines; z++) {
-      var lineNum = elDataZmLine.querySelector('[data-zm=lineNum]')
+      const lineNum = elDataZmLine.querySelector('[data-zm=lineNum]')
       if (lineNum) zm_setElemValue(lineNum, z)
       elDataZmLines.appendChild(elDataZmLine.cloneNode(true))
     }
@@ -73,7 +73,12 @@ zm_docLoadAsset = function(html,doc){
       }
       elsDataDate[z].onclick = function(){
         zm_active = this
-        UIkit.modal('#modal-date').show()
+        var elem = document.querySelector('#modal-date')
+        elem.classList.add('uk-open')
+        elem.style.display = 'block'
+        document.body.style.overflowY = 'scroll'
+        document.documentElement.classList.add('uk-modal-page')
+        // UIkit.modal('#modal-date').show()
         document.querySelector('#modal-date-input').focus()
       }
     }
@@ -82,7 +87,12 @@ zm_docLoadAsset = function(html,doc){
       elsDataImg[z].src = 'https://i.imgur.com/WzWR2nA.png'
       elsDataImg[z].onclick = function(){
         zm_active = this
-        UIkit.modal('#modal-upload').show()
+        var elem = document.querySelector('#modal-upload')
+        elem.classList.add('uk-open')
+        elem.style.display = 'block'
+        document.body.style.overflowY = 'scroll'
+        document.documentElement.classList.add('uk-modal-page')
+        // UIkit.modal('#modal-upload').show()
         document.querySelector('#modal-upload-input').focus()
       }
     }
@@ -136,11 +146,11 @@ zm_docLoadAsset = function(html,doc){
       '[data-docs=itemSaletax],'+
       '[data-docs=itemAmount],'+
       '[data-docs^=total]',
-      zm_anPrices[zm_user.anPrice]
+      zummon.autoNumeric[zm_user.anPrice]
     )
     AutoNumeric.multiple(
       '[data-docs=itemQty]',
-      zm_anQtys[zm_user.anQty]
+      zummon.autoNumeric[zm_user.anQty]
     )
     if (zm_user.itemPrice) {
       for (let z = 0; z < elsDocsitemPrice.length; z++) {

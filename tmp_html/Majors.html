@@ -1,5 +1,5 @@
 <div id="doc" class="uk-background-default uk-padding" data-font>
-  <div class="uk-child-width-1-2 uk-grid" uk-grid>
+  <div class="uk-child-width-1-2 uk-grid">
     <div>
       <div class="uk-card uk-card-small uk-card-body uk-box-shadow-large uk-margin">
         <h4 data-docs="vendorName" class="uk-margin-remove"></h4>
@@ -22,15 +22,15 @@
       </div>
       <div class="uk-card uk-card-small uk-card-body uk-box-shadow-large uk-margin">
         <h1 data-label="title" class="uk-text-center uk-margin-small"></h1>
-        <div class="uk-child-width-1-2 uk-grid-small uk-grid" uk-grid>
-          <div class="uk-text-right" data-label="ref"></div>
+        <div class="uk-child-width-1-2 uk-grid-small uk-grid">
+          <div data-label="ref" class="uk-text-right"></div>
           <div data-docs="ref"></div>
 
-          <div class="uk-text-right" data-label="date"></div>
-          <div data-date="date"></div>
+          <div data-label="date" class="uk-text-right uk-grid-margin"></div>
+          <div data-date="date" class="uk-grid-margin"></div>
 
-          <div class="uk-text-right" data-label="duedate" data-hide="_Receipt_"></div>
-          <div data-date="duedate" data-hide="_Receipt_"></div>
+          <div data-label="duedate" data-hide="_Receipt_" class="uk-text-right uk-grid-margin"></div>
+          <div data-date="duedate" data-hide="_Receipt_" class="uk-grid-margin"></div>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@
       </tr>
     </tfoot>
   </table>
-  <div class="uk-child-width-1-2 uk-grid" uk-grid>
+  <div class="uk-child-width-1-2 uk-grid">
     <div>
       <div class="uk-card uk-card-small uk-box-shadow-large uk-margin">
         <div data-label="note" class="uk-card-header uk-text-center"></div>
@@ -79,24 +79,24 @@
     </div>
     <div>
       <div class="uk-card uk-card-small uk-card-body uk-box-shadow-large uk-margin">
-        <div class="uk-child-width-1-2 uk-grid-small uk-grid" uk-grid>
+        <div class="uk-child-width-1-2 uk-grid-small uk-grid">
           <div class="uk-text-right">
             <span data-label="totalVat"></span>
             <span data-zm="vatRate"></span>
           </div>
           <div data-docs="totalVat"></div>
 
-          <div class="uk-text-right" data-hide="_Invoice_TaxInvoice_Quotation_document_">
+          <div data-hide="_Invoice_TaxInvoice_Quotation_document_" class="uk-text-right uk-grid-margin">
             <span data-label="totalWht"></span>
             <span data-zm="whtRate"></span>
           </div>
-          <div data-docs="totalWht" data-hide="_Invoice_TaxInvoice_Quotation_document_"></div>
+          <div data-docs="totalWht" data-hide="_Invoice_TaxInvoice_Quotation_document_" class="uk-grid-margin"></div>
 
-          <div data-label="totalAdjust" class="uk-text-right"></div>
-          <div data-docs="totalAdjust"></div>
+          <div data-label="totalAdjust" class="uk-text-right uk-grid-margin"></div>
+          <div data-docs="totalAdjust" class="uk-grid-margin"></div>
 
-          <div data-label="totalFinal" class="uk-text-right uk-text-bold"></div>
-          <div data-docs="totalFinal" class="uk-text-bold"></div>
+          <div data-label="totalFinal" class="uk-text-right uk-text-bold uk-grid-margin"></div>
+          <div data-docs="totalFinal" class="uk-text-bold uk-grid-margin"></div>
         </div>
       </div>
       <div class="uk-card uk-card-small uk-box-shadow-large uk-margin">
