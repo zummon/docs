@@ -141,16 +141,17 @@ zm_docLoadAsset = function(html,doc){
         elsDocsitemAmount[z].contentEditable = true
       }
     }
+    var optAn = zummon.autoNumeric()
     AutoNumeric.multiple(
       '[data-docs=itemPrice],'+
       '[data-docs=itemSaletax],'+
       '[data-docs=itemAmount],'+
       '[data-docs^=total]',
-      zummon.autoNumeric[zm_user.anPrice]
+      optAn[zm_user.anPrice]
     )
     AutoNumeric.multiple(
       '[data-docs=itemQty]',
-      zummon.autoNumeric[zm_user.anQty]
+      optAn[zm_user.anQty]
     )
     if (zm_user.itemPrice) {
       for (let z = 0; z < elsDocsitemPrice.length; z++) {
