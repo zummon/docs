@@ -133,12 +133,18 @@ textarea {
       <select class="uk-select uk-border-rounded uk-width-auto"></select>
     </div>
     <a id="docAct-back" class="uk-text-lead uk-text-primary uk-margin-right uk-hidden"
-    onclick="zm_browseLoad()">
+    onclick="(function(m){
+      m.preventDefault()
+      zm_browseLoad()
+    })(event)">
       <span class="uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="chevron-left"><polyline fill="none" stroke="#000" stroke-width="1.03" points="13 16 7 10 13 4"></polyline></svg></span>
       <label style="cursor: pointer;"></label>
     </a>
     <a id="docAct-print" class="uk-text-lead uk-text-primary uk-margin-right uk-hidden" href="#end" 
-    onclick="window.print()">
+    onclick="(function(m){
+      m.preventDefault()
+      window.print()
+    })(event)">
       <label style="cursor: pointer;"></label>
       <span class="uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="print"><polyline fill="none" stroke="#000" points="4.5 13.5 1.5 13.5 1.5 6.5 18.5 6.5 18.5 13.5 15.5 13.5"></polyline><polyline fill="none" stroke="#000" points="15.5 6.5 15.5 2.5 4.5 2.5 4.5 6.5"></polyline><rect fill="none" stroke="#000" width="11" height="6" x="4.5" y="11.5"></rect><rect width="8" height="1" x="6" y="13"></rect><rect width="8" height="1" x="6" y="15"></rect></svg></span>
     </a>
@@ -441,11 +447,13 @@ zm_loadLinkCss = function(id,url){
   var elem = document.querySelector('#'+ id)
   if (elem) elem.remove()
   // add a css
-  var link = document.createElement('link')
-  link.id = id
-  link.rel = 'stylesheet'
-  link.href = url
-  document.head.appendChild(link)
+  if (url) {
+    var link = document.createElement('link')
+    link.id = id
+    link.href = url
+    link.rel = 'stylesheet'
+    document.head.appendChild(link)
+  }
 },
 zm_setConnect = function(){ // paste URL parameters to zummon web creations
   var elCreatebySite = document.querySelector('#createby_site'),
@@ -725,7 +733,7 @@ const zm_setLang = function(){
   // get existing value
   var lang = zm_user.lang
   if (!zm_langs.hasOwnProperty(lang)) {
-    lang = Object.keys(zm_langs)[0]
+    lang = 'English'
     zm_user.lang = lang
   }
   // load which lang
@@ -786,7 +794,7 @@ zm_setTheme = function(){
   // get existing value
   var theme = window.localStorage.getItem('theme')
   if (!zm_themes.hasOwnProperty(theme)) {
-    theme = Object.keys(zm_themes)[0]
+    theme = 'light'
     window.localStorage.setItem('theme',theme)
   }
   // get the elements for changing theme
@@ -845,7 +853,7 @@ zm_setDocExtra = function(){
 // declare changing page
 zm_browseLoad = function(){
   zm_loadFile('./core/browse.html',function(){
-    const elDisplay = document.querySelector('#display')
+    var elDisplay = document.querySelector('#display')
     elDisplay.innerHTML = this.responseText
     // resetting the setting
     elDisplay.classList.remove('uk-box-shadow-large')
@@ -934,10 +942,11 @@ zm_browseLoad = function(){
 
     // go to the selected form
     for (let z = 0; z < elsBrowseA.length; z++) {
-      elsBrowseA[z].addEventListener('click',function(){
+      elsBrowseA[z].onclick = function(m){
+        m.preventDefault()
         zm_user.tmp = this.dataset.tmp
         zm_docLoad()
-      })
+      }
     }
   })
 },

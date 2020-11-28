@@ -66,9 +66,13 @@ zm_loadScript = function(id,url,call){
   var elem = document.querySelector('#'+ id)
   if (elem) elem.remove()
   // add a script
-  var script = document.createElement('script')
-  script.id = id
-  script.src = url
-  script.onload = call
-  document.body.appendChild(script)
+  if (url) {
+    var script = document.createElement('script')
+    if (typeof call === 'function') {
+      script.onload = call
+    }
+    script.id = id
+    script.src = url
+    document.body.appendChild(script)
+  }
 }
