@@ -16,7 +16,7 @@ zm_getObjStr = function(obj){
   for (var p in obj) {
     if (obj.hasOwnProperty(p)) {
       var paste = obj[p]
-      if (typeof paste === 'string') {
+      if (!Array.isArray(paste)) {
         paste = [paste]
       }
       for (var z = 0; z < paste.length; z++) {
