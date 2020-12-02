@@ -16,7 +16,7 @@ zm_getObjStr = function(obj){
   for (var p in obj) {
     if (obj.hasOwnProperty(p)) {
       var paste = obj[p]
-      if (typeof paste === 'string') {
+      if (!Array.isArray(paste)) {
         paste = [paste]
       }
       for (var z = 0; z < paste.length; z++) {
@@ -59,6 +59,13 @@ zm_getStrObj = function(str){
     }
   }
   return obj
+},
+zm_loadFile = function(file,call){
+  // load html, json,...
+  var xhr = new XMLHttpRequest()
+  xhr.onload = call
+  xhr.open('GET', file)
+  xhr.send()
 },
 zm_loadScript = function(id,url,call){
   // https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file

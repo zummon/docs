@@ -1,10 +1,10 @@
 zm_browse = 'เลือกแบบที่คุณต้องการใช้'
 zm_createby = 'สร้างโดย'
 zm_createbyTexts = [
-  'โอนเงินเพื่อสนับสนุน (PayPal: zummontt)',//paypal
   'แจ้งปัญหา (กิตฮับ)',//github
   'พูดคุย (เฟซบุ๊ก)',//facebook
   'เว็บไซต์หลัก',//website
+  'โอนเงินเพื่อสนับสนุน (PayPal)',//paypal
 ]
 zm_docActBack = 'ย้อนกลับ'
 zm_docActPrint = 'พิมพ์'

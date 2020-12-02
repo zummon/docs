@@ -1,10 +1,10 @@
 zm_browse = 'Select the template you want to use'
 zm_createby = 'Created by'
 zm_createbyTexts = [
-  'Donate to support (PayPal: zummontt)',//paypal
   'Report issues (GitHub)',//github
   'Social (Facebook)',//facebook
   'Main website',//website
+  'Donate to support (PayPal)',//paypal
 ]
 zm_docActBack = 'Back'
 zm_docActPrint = 'Print'

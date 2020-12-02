@@ -47,30 +47,46 @@ textarea {
 </head><body>
 
 <div id="above" class="uk-container uk-container-small uk-margin-large-top">
-  <div class="uk-flex-right uk-grid-small uk-grid uk-text-primary">
+  <div class="uk-flex-right uk-grid-small uk-grid">
     <div>
       <label class="uk-icon" for="lang">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="world"><path fill="none" stroke="#000" d="M1,10.5 L19,10.5"></path><path fill="none" stroke="#000" d="M2.35,15.5 L17.65,15.5"></path><path fill="none" stroke="#000" d="M2.35,5.5 L17.523,5.5"></path><path fill="none" stroke="#000" d="M10,19.46 L9.98,19.46 C7.31,17.33 5.61,14.141 5.61,10.58 C5.61,7.02 7.33,3.83 10,1.7 C10.01,1.7 9.99,1.7 10,1.7 L10,1.7 C12.67,3.83 14.4,7.02 14.4,10.58 C14.4,14.141 12.67,17.33 10,19.46 L10,19.46 L10,19.46 L10,19.46 Z"></path><circle fill="none" stroke="#000" cx="10" cy="10.5" r="9"></circle></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="world">
+          <path fill="none" stroke="#000" d="M1,10.5 L19,10.5"></path>
+          <path fill="none" stroke="#000" d="M2.35,15.5 L17.65,15.5"></path>
+          <path fill="none" stroke="#000" d="M2.35,5.5 L17.523,5.5"></path>
+          <path fill="none" stroke="#000" d="M10,19.46 L9.98,19.46 C7.31,17.33 5.61,14.141 5.61,10.58 C5.61,7.02 7.33,3.83 10,1.7 C10.01,1.7 9.99,1.7 10,1.7 L10,1.7 C12.67,3.83 14.4,7.02 14.4,10.58 C14.4,14.141 12.67,17.33 10,19.46 L10,19.46 L10,19.46 L10,19.46 Z"></path>
+          <circle fill="none" stroke="#000" cx="10" cy="10.5" r="9"></circle>
+        </svg>
       </label>
-      <select id="lang" class="uk-select uk-form-blank uk-border-rounded uk-width-auto" 
+      <select id="lang" class="uk-select uk-form-blank uk-border-pill uk-width-auto" 
       onchange="(function(value){
-        zm_setUrl('lang',value)
+        zm_user.lang = value
+        zm_setUrl()
         zm_setLang()
         zm_setConnect()
       })(this.value)"></select>
     </div>
     <div>
       <label class="uk-icon" for="era">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="italic"><path d="M12.63,5.48 L10.15,14.52 C10,15.08 10.37,15.25 11.92,15.3 L11.72,16 L6,16 L6.2,15.31 C7.78,15.26 8.19,15.09 8.34,14.53 L10.82,5.49 C10.97,4.92 10.63,4.76 9.09,4.71 L9.28,4 L15,4 L14.81,4.69 C13.23,4.75 12.78,4.91 12.63,5.48 L12.63,5.48 Z"></path></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="italic">
+          <path d="M12.63,5.48 L10.15,14.52 C10,15.08 10.37,15.25 11.92,15.3 L11.72,16 L6,16 L6.2,15.31 C7.78,15.26 8.19,15.09 8.34,14.53 L10.82,5.49 C10.97,4.92 10.63,4.76 9.09,4.71 L9.28,4 L15,4 L14.81,4.69 C13.23,4.75 12.78,4.91 12.63,5.48 L12.63,5.48 Z"></path>
+        </svg>
       </label>
-      <select id="era" class="uk-select uk-form-blank uk-border-rounded uk-width-auto"
-      onchange="zm_setUrl('era',this.value)"></select>
+      <select id="era" class="uk-select uk-form-blank uk-border-pill uk-width-auto"
+      onchange="(function(value){
+        zm_user.era = value
+        zm_setUrl()
+      })(this.value)"></select>
     </div>
     <div>
       <label class="uk-icon" for="theme">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="paint-bucket"><path d="M10.21,1 L0,11.21 L8.1,19.31 L18.31,9.1 L10.21,1 L10.21,1 Z M16.89,9.1 L15,11 L1.7,11 L10.21,2.42 L16.89,9.1 Z"></path><path fill="none" stroke="#000" stroke-width="1.1" d="M6.42,2.33 L11.7,7.61"></path><path d="M18.49,12 C18.49,12 20,14.06 20,15.36 C20,16.28 19.24,17 18.49,17 L18.49,17 C17.74,17 17,16.28 17,15.36 C17,14.06 18.49,12 18.49,12 L18.49,12 Z"></path></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="paint-bucket">
+          <path d="M10.21,1 L0,11.21 L8.1,19.31 L18.31,9.1 L10.21,1 L10.21,1 Z M16.89,9.1 L15,11 L1.7,11 L10.21,2.42 L16.89,9.1 Z"></path>
+          <path fill="none" stroke="#000" stroke-width="1.1" d="M6.42,2.33 L11.7,7.61"></path>
+          <path d="M18.49,12 C18.49,12 20,14.06 20,15.36 C20,16.28 19.24,17 18.49,17 L18.49,17 C17.74,17 17,16.28 17,15.36 C17,14.06 18.49,12 18.49,12 L18.49,12 Z"></path>
+        </svg>
       </label>
-      <select id="theme" class="uk-select uk-form-blank uk-border-rounded uk-width-auto"
+      <select id="theme" class="uk-select uk-form-blank uk-border-pill uk-width-auto"
       onchange="(function(value){
         window.localStorage.setItem('theme',value)
         zm_setUrl()
@@ -81,73 +97,98 @@ textarea {
   </div>
 </div>
 <div id="nav" class="uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid uk-animation-fade">
-  <div class="uk-text-right">
-    <p class="uk-heading-small uk-text-primary uk-margin-left uk-margin-right uk-margin" style="cursor: default;">
-      <span id="greet"></span>
-    </p>
+  <div class="uk-text-right uk-text-secondary">
+    <label id="greet" class="uk-heading-small uk-text-primary uk-margin-left uk-margin"></label>
     <!-- setting -->
-    <div id="set-doc" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <select class="uk-select uk-width-auto uk-border-rounded" 
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-doc"></label>
+      <select id="set-doc" class="uk-select uk-width-auto uk-border-rounded" 
       onchange="(function(value){
-        zm_setUrl('doc',value)
+        zm_user.doc = value
+        zm_setUrl()
         zm_setDocExtra()
       })(this.value)"></select>
     </div>
-    <div id="set-dateFormat" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <select class="uk-select uk-width-auto uk-border-rounded" 
-      onchange="zm_setUrl('dateFormat',this.value)"></select>
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-dateFormat"></label>
+      <select id="set-dateFormat" class="uk-select uk-width-auto uk-border-rounded" 
+      onchange="(function(value){
+        zm_user.dateFormat = value
+        zm_setUrl()
+      })(this.value)"></select>
     </div>
-    <div id="set-anPrice" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <select class="uk-select uk-width-auto uk-border-rounded" 
-      onchange="zm_setUrl('anPrice',this.value)"></select>
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-anPrice"></label>
+      <select id="set-anPrice" class="uk-select uk-width-auto uk-border-rounded" 
+      onchange="(function(value){
+        zm_user.anPrice = value
+        zm_setUrl()
+      })(this.value)"></select>
     </div>
-    <div id="set-anQty" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <select class="uk-select uk-width-auto uk-border-rounded" 
-      onchange="zm_setUrl('anQty',this.value)"></select>
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-anQty"></label>
+      <select id="set-anQty" class="uk-select uk-width-auto uk-border-rounded" 
+      onchange="(function(value){
+        zm_user.anQty = value
+        zm_setUrl()
+      })(this.value)"></select>
     </div>
-    <div id="set-lines" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <input class="uk-input uk-border-rounded" 
-      onchange="zm_setUrl('lines',this.value)" 
-      style="width: 80px;" max="32" min="1" type="number" step="1">
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-lines"></label>
+      <input id="set-lines" class="uk-input uk-border-rounded" 
+      onchange="(function(value){
+        zm_user.lines = value
+        zm_setUrl()
+      })(this.value)" 
+      style="width: 70px;" max="32" min="1" type="number" step="1">
     </div>
-    <div id="set-vatRate" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <input class="uk-input uk-border-rounded" 
-      onchange="zm_setUrl('vatRate',this.value)" 
-      style="width: 120px;" max="1" min="-1" type="number" step="0.0001">
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-vatRate"></label>
+      <input id="set-vatRate" class="uk-input uk-border-rounded" 
+      onchange="(function(value){
+        zm_user.vatRate = value
+        zm_setUrl()
+      })(this.value)" 
+      style="width: 100px;" max="1" min="-1" type="number" step="0.0001">
     </div>
-    <div id="set-whtRate" class="uk-margin-large-right uk-margin">
-      <label class="uk-text-primary"></label>
-      <input class="uk-input uk-border-rounded" 
-      onchange="zm_setUrl('whtRate',this.value)" 
-      style="width: 120px;" max="1" min="-1" type="number" step="0.0001">
+    <div class="uk-margin-large-right uk-margin">
+      <label for="set-whtRate"></label>
+      <input id="set-whtRate" class="uk-input uk-border-rounded" 
+      onchange="(function(value){
+        zm_user.whtRate = value
+        zm_setUrl()
+      })(this.value)" 
+      style="width: 100px;" max="1" min="-1" type="number" step="0.0001">
     </div>
     <!-- doc setting -->
-    <div id="docSet-font" class="uk-margin-large-right uk-margin uk-hidden">
-      <label class="uk-text-primary"></label>
-      <select class="uk-select uk-border-rounded uk-width-auto"></select>
+    <div class="uk-margin-large-right uk-margin uk-hidden">
+      <label for="docSet-font"></label>
+      <select id="docSet-font" class="uk-select uk-border-rounded uk-width-auto"></select>
     </div>
-    <a id="docAct-back" class="uk-text-lead uk-text-primary uk-margin-right uk-hidden"
-    onclick="(function(m){
-      m.preventDefault()
-      zm_browseLoad()
-    })(event)">
-      <span class="uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="chevron-left"><polyline fill="none" stroke="#000" stroke-width="1.03" points="13 16 7 10 13 4"></polyline></svg></span>
-      <label style="cursor: pointer;"></label>
-    </a>
-    <a id="docAct-print" class="uk-text-lead uk-text-primary uk-margin-right uk-hidden" href="#end" 
-    onclick="(function(m){
-      m.preventDefault()
-      window.print()
-    })(event)">
-      <label style="cursor: pointer;"></label>
-      <span class="uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="print"><polyline fill="none" stroke="#000" points="4.5 13.5 1.5 13.5 1.5 6.5 18.5 6.5 18.5 13.5 15.5 13.5"></polyline><polyline fill="none" stroke="#000" points="15.5 6.5 15.5 2.5 4.5 2.5 4.5 6.5"></polyline><rect fill="none" stroke="#000" width="11" height="6" x="4.5" y="11.5"></rect><rect width="8" height="1" x="6" y="13"></rect><rect width="8" height="1" x="6" y="15"></rect></svg></span>
-    </a>
+    <div class="uk-margin-large-right uk-margin uk-hidden">
+      <span class="uk-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="reply">
+          <path d="M17.7,13.11 C16.12,10.02 13.84,7.85 11.02,6.61 C10.57,6.41 9.75,6.13 9,5.91 L9,2 L1,9 L9,16 L9,12.13 C10.78,12.47 12.5,13.19 14.09,14.25 C17.13,16.28 18.56,18.54 18.56,18.54 C18.56,18.54 18.81,15.28 17.7,13.11 L17.7,13.11 Z M14.82,13.53 C13.17,12.4 11.01,11.4 8,10.92 L8,13.63 L2.55,9 L8,4.25 L8,6.8 C8.3,6.86 9.16,7.02 10.37,7.49 C13.3,8.65 15.54,10.96 16.65,13.08 C16.97,13.7 17.48,14.86 17.68,16 C16.87,15.05 15.73,14.15 14.82,13.53 L14.82,13.53 Z"></path>
+        </svg>
+      </span>
+      <a id="docAct-back" class="uk-button uk-button-text uk-text-default"
+      onclick="(function(m){
+        m.preventDefault()
+        zm_browseLoad()
+      })(event)">
+      </a>
+    </div>
+    <div class="uk-margin-large-right uk-margin uk-hidden">
+      <span class="uk-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="print"><polyline fill="none" stroke="#000" points="4.5 13.5 1.5 13.5 1.5 6.5 18.5 6.5 18.5 13.5 15.5 13.5"></polyline><polyline fill="none" stroke="#000" points="15.5 6.5 15.5 2.5 4.5 2.5 4.5 6.5"></polyline><rect fill="none" stroke="#000" width="11" height="6" x="4.5" y="11.5"></rect><rect width="8" height="1" x="6" y="13"></rect><rect width="8" height="1" x="6" y="15"></rect></svg>
+      </span>
+      <a id="docAct-print" href="#end" class="uk-button uk-button-text uk-text-default"
+      onclick="(function(m){
+        m.preventDefault()
+        window.print()
+      })(event)">
+      </a>
+    </div>
   </div>
   <div class="uk-background-contain uk-height-large" style="background-image: url(core/upload.svg);"></div>
 </div>
@@ -199,42 +240,60 @@ textarea {
 <div id="end" class="uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid uk-animation-fade">
   <div class="uk-background-contain uk-height-large" style="background-image: url(core/design.svg);"></div>
   <div>
-    <ul class="uk-nav uk-nav-primary uk-link-reset uk-margin-left">
-      <li id="sourceused" class="uk-parent">
-        <a style="cursor: default;">
-          <span class="uk-text-primary"></span>
-        </a>
-        <ul class="uk-nav-sub">
-          <li><a target="_blank" href="http://autonumeric.org/">AutoNumeric</a></li>
-          <li><a target="_blank" href="https://fonts.google.com/">Google Fonts</a></li>
-          <li><a target="_blank" href="https://getuikit.com/">UIkit</a></li>
-          <li><a target="_blank" href="https://undraw.co/">unDraw</a></li>
-        </ul>
-      </li>
-      <li id="createby" class="uk-parent">
-        <a style="cursor: default;">
-          <span class="uk-text-primary"></span>
-        </a>
-        <ul class="uk-nav-sub">
-          <li><a target="_blank" href="https://www.paypal.me/zummontt"></a></li>
-          <li><a target="_blank" href="https://github.com/zummon/docs/issues"></a></li>
-          <li><a target="_blank" href="https://www.facebook.com/zummontt/posts/185150049682455"></a></li>
-          <li><a target="_blank" href="https://zummon.github.io/site" id="createby_site"></a></li>
-        </ul>
-      </li>
-    </ul>
+    <div id="sourceused" class="uk-margin-medium uk-margin-left">
+      <label class="uk-text-primary uk-text-large"></label>
+      <ul class="uk-list uk-margin-medium-left">
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="http://autonumeric.org/">AutoNumeric</a>
+        </li>
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://fonts.google.com/">Google Fonts</a>
+        </li>
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://getuikit.com/">UIkit</a>
+        </li>
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://undraw.co/">unDraw</a>
+        </li>
+      </ul>
+    </div>
+    <div id="createby" class="uk-margin-medium uk-margin-left">
+      <label class="uk-text-primary uk-text-large"></label>
+      <ul class="uk-list uk-margin-medium-left">
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://github.com/zummon/docs/issues"></a>
+        </li>
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://www.facebook.com/zummontt/posts/185150049682455"></a>
+        </li>
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://zummon.github.io/site" id="createby_site"></a>
+        </li>
+        <li>
+          <a class="uk-button uk-button-text uk-text-default" 
+          target="_blank" href="https://www.paypal.me/zummontt"></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
 <div id="modal-date" class="uk-modal">
-  <div class="uk-modal-dialog uk-modal-body">
+  <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
     <h4></h4>
     <div class="uk-child-width-1-2@s uk-grid-small uk-flex-middle uk-grid">
       <div class="uk-text-right@s uk-grid-margin">
         <label for="modal-date-input"></label>
       </div>
       <div class="uk-grid-margin">
-        <input id="modal-date-input" class="uk-input" type="date" 
+        <input id="modal-date-input" class="uk-input uk-border-rounded" type="date" 
         onchange="(function(value){
           document.querySelector('#modal-date-output').value = zummon.dateFormat({
             date: value,
@@ -248,11 +307,11 @@ textarea {
         <label for="modal-date-output"></label>
       </div>
       <div class="uk-grid-margin">
-        <input id="modal-date-output" class="uk-input">
+        <input id="modal-date-output" class="uk-input uk-border-rounded">
       </div>
     </div>
     <p class="uk-text-right">
-      <a id="modal-date-done" class="uk-button uk-button-primary uk-icon"
+      <a id="modal-date-done" class="uk-button uk-button-primary uk-border-rounded uk-icon"
       onclick="(function(){
         zm_setElemValue(zm_active, document.querySelector('#modal-date-output').value)
         var elem = document.querySelector('#modal-date')
@@ -265,9 +324,11 @@ textarea {
         zm_active.focus()
         zm_active = undefined
       })()">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check"><polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check">
+          <polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline>
+        </svg>
       </a>
-      <a id="modal-date-close" class="uk-button uk-button-default uk-icon"
+      <a id="modal-date-close" class="uk-button uk-button-default uk-border-rounded uk-icon"
       onclick="(function(){
         var elem = document.querySelector('#modal-date')
         elem.classList.remove('uk-open')
@@ -275,36 +336,39 @@ textarea {
         document.body.style.overflowY = ''
         document.documentElement.classList.remove('uk-modal-page')
       })()">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close"><path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path><path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close">
+          <path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path>
+          <path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path>
+        </svg>
       </a>
     </p>
   </div>
 </div>
 <div id="modal-upload" class="uk-modal">
-  <div class="uk-modal-dialog uk-modal-body">
+  <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
     <h4></h4>
     <div class="uk-child-width-1-2@s uk-grid-small uk-flex-middle uk-grid">
       <div class="uk-text-right@s uk-grid-margin">
         <label for="modal-upload-input"></label>
       </div>
       <div class="uk-grid-margin">
-        <input id="modal-upload-input" type="file" class="uk-input">
+        <input id="modal-upload-input" type="file" class="uk-input uk-border-rounded">
       </div>
       <div class="uk-text-right@s uk-grid-margin">
         <label for="modal-upload-height"></label>
       </div>
       <div class="uk-grid-margin">
-        <input id="modal-upload-height" type="number" class="uk-input">
+        <input id="modal-upload-height" type="number" class="uk-input uk-border-rounded">
       </div>
       <div class="uk-text-right@s uk-grid-margin">
         <label for="modal-upload-width"></label>
       </div>
       <div class="uk-grid-margin">
-        <input id="modal-upload-width" type="number" class="uk-input">
+        <input id="modal-upload-width" type="number" class="uk-input uk-border-rounded">
       </div>
     </div>
     <p class="uk-text-right">
-      <a id="modal-upload-done" class="uk-button uk-button-primary uk-icon"
+      <a id="modal-upload-done" class="uk-button uk-button-primary uk-border-rounded uk-icon"
       onclick="(function(){
         var imgSrc = 'https://i.imgur.com/WzWR2nA.png'
         var elMdUpInput = document.querySelector('#modal-upload-input')
@@ -334,9 +398,11 @@ textarea {
         zm_active.focus()
         zm_active = undefined
       })()">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check"><polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check">
+          <polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline>
+        </svg>
       </a>
-      <a id="modal-upload-close" class="uk-button uk-button-default uk-icon"
+      <a id="modal-upload-close" class="uk-button uk-button-default uk-border-rounded uk-icon"
       onclick="(function(){
         var elem = document.querySelector('#modal-upload')
         elem.classList.remove('uk-open')
@@ -344,24 +410,30 @@ textarea {
         document.body.style.overflowY = ''
         document.documentElement.classList.remove('uk-modal-page')
       })()">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close"><path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path><path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close">
+          <path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path>
+          <path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path>
+        </svg>
       </a>
     </p>
   </div>
 </div>
 <div id="modal-print" class="uk-modal">
-  <div class="uk-modal-dialog uk-modal-body">
+  <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
     <h4></h4>
     <label for="modal-print-output"></label>
-    <textarea id="modal-print-output" class="uk-textarea uk-resize-vertical" rows="5" onclick="this.select()" readonly></textarea>
+    <textarea class="uk-textarea uk-resize-vertical uk-border-rounded" rows="5" readonly 
+    id="modal-print-output" onclick="this.select()"></textarea>
     <p class="uk-text-right">
-      <a id="modal-print-done" class="uk-button uk-button-primary uk-icon"
+      <a id="modal-print-done" class="uk-button uk-button-primary uk-border-rounded uk-icon"
       onclick="(function(){
         window.location.href = document.querySelector('#modal-print-output').value
       })()">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check"><polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check">
+          <polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline>
+        </svg>
       </a>
-      <a id="modal-print-close" class="uk-button uk-button-default uk-icon"
+      <a id="modal-print-close" class="uk-button uk-button-default uk-border-rounded uk-icon"
       onclick="(function(){
         var elem = document.querySelector('#modal-print')
         elem.classList.remove('uk-open')
@@ -369,7 +441,10 @@ textarea {
         document.body.style.overflowY = ''
         document.documentElement.classList.remove('uk-modal-page')
       })()">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close"><path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path><path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close">
+          <path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path>
+          <path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path>
+        </svg>
       </a>
     </p>
   </div>
@@ -381,7 +456,7 @@ textarea {
 window.onerror = function(msg,url,line){
   document.body.insertAdjacentHTML('beforeend',
   `<div id="modal-error" class="uk-modal uk-open" style="display: block;">
-    <div class="uk-modal-dialog uk-modal-body">
+    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
       <h5 class="uk-margin">
         *Something went wrong. Let tell the developer 
         <a href="https://github.com/zummon/docs/issues" target="_blank">GitHub</a> or 
@@ -397,7 +472,7 @@ window.onerror = function(msg,url,line){
       <p class="uk-text-center uk-margin-remove">${line}</p>
       <p class="uk-text-center uk-margin-remove uk-text-truncate">${url}</p>
       <p class="uk-text-right">
-        <a class="uk-button uk-button-primary uk-icon"
+        <a class="uk-button uk-button-primary uk-border-rounded uk-icon"
         onclick="(function(){
           var elem = document.querySelector('#modal-error')
           elem.classList.remove('uk-open')
@@ -410,8 +485,7 @@ window.onerror = function(msg,url,line){
         </a>
       </p>
     </div>
-  </div>`
-  )
+  </div>`)
   document.body.style.overflowY = 'scroll'
   document.documentElement.classList.add('uk-modal-page')
 }
@@ -424,25 +498,8 @@ if (window.matchMedia) {
 } else {
   window.onafterprint = zm_afterPrint
 }
-// declare uneditable global functions
-const zm_afterPrint = function(){ // print completed
-  var elMdPrintOutput = document.querySelector('#modal-print-output')
-  zm_docGetData()
-  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ zm_getObjStr(zm_user)
-  var elem = document.querySelector('#modal-print')
-  elem.classList.add('uk-open')
-  elem.style.display = 'block'
-  document.body.style.overflowY = 'scroll'
-  document.documentElement.classList.add('uk-modal-page')
-  // UIkit.modal('#modal-print').show()
-},
-zm_loadFile = function(file,call){
-  var xhr = new XMLHttpRequest()
-  xhr.onload = call
-  xhr.open('GET', file)
-  xhr.send()
-},
-zm_loadLinkCss = function(id,url){
+// declare functions
+const zm_loadLinkCss = function(id,url){
   // delete an old css
   var elem = document.querySelector('#'+ id)
   if (elem) elem.remove()
@@ -454,17 +511,6 @@ zm_loadLinkCss = function(id,url){
     link.rel = 'stylesheet'
     document.head.appendChild(link)
   }
-},
-zm_setConnect = function(){ // paste URL parameters to zummon web creations
-  var elCreatebySite = document.querySelector('#createby_site'),
-  langStr = 'lang='+ zm_user.lang,
-  themeStr = 'theme='+ window.localStorage.getItem('theme')
-
-  elCreatebySite.href = elCreatebySite.href.split('?')[0] +'?'+ langStr +'&'+ themeStr
-},
-zm_setUrl = function(key,val){ // refresh the url
-  if (key || val) zm_user[key] = val
-  window.history.replaceState('','','?'+ zm_getObjStr(zm_user))
 },
 zm_isElemInput = function(elem){
   return [
@@ -486,6 +532,127 @@ zm_setElemValue = function(elem,val){
   } else {
     elem[zm_isElemInput(elem) ? 'value' : 'textContent'] = val
   }
+},
+// declare functions doing stuff
+zm_afterPrint = function(){ // print completed
+  var elMdPrintOutput = document.querySelector('#modal-print-output')
+  zm_docGetData()
+  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ zm_getObjStr(zm_user)
+  var elem = document.querySelector('#modal-print')
+  elem.classList.add('uk-open')
+  elem.style.display = 'block'
+  document.body.style.overflowY = 'scroll'
+  document.documentElement.classList.add('uk-modal-page')
+  // UIkit.modal('#modal-print').show()
+},
+zm_setConnect = function(){ // paste URL parameters to zummon web creations
+  var elCreatebySite = document.querySelector('#createby_site'),
+  langStr = 'lang='+ zm_user.lang,
+  themeStr = 'theme='+ window.localStorage.getItem('theme')
+
+  elCreatebySite.href = elCreatebySite.href.split('?')[0] +'?'+ langStr +'&'+ themeStr
+},
+zm_setUrl = function(key,val){ // refresh the url
+  if (key || val) zm_user[key] = val
+  window.history.replaceState('','','?'+ zm_getObjStr(zm_user))
+},
+zm_setLang = function(){
+  // get existing value
+  var lang = zm_user.lang
+  if (!zm_langs.hasOwnProperty(lang)) {
+    lang = 'English'
+    zm_user.lang = lang
+  }
+  // load which lang
+  zm_loadScript('scr-lang','./core/lang_'+ lang +'.js',function(){
+    // get elements for changing language
+    var elsEra = document.querySelectorAll('#era option'),
+    elsTheme = document.querySelectorAll('#theme option'),
+    elSetDocOption = document.querySelectorAll('#set-doc option'),
+    elsCreatebyTarget = document.querySelectorAll('#createby [target]'),
+    elsForFont = document.querySelectorAll('#above, #nav, #end, div[id^=modal]')
+
+    // doing
+    for (let z = 0; z < elsTheme.length; z++) {
+      elsTheme[z].text = zm_themesTexts[elsTheme[z].value]
+    }
+    for (let z = 0; z < elsEra.length; z++) {
+      elsEra[z].text = zm_eraTexts[elsEra[z].value]
+    }
+    for (let z = 0; z < elSetDocOption.length; z++) {
+      elSetDocOption[z].text = zm_docsTexts[elSetDocOption[z].value]
+    }
+    for (let z = 0; z < elsCreatebyTarget.length; z++) {
+      elsCreatebyTarget[z].textContent = zm_createbyTexts[z]
+    }
+    for (let z = 0; z < elsForFont.length; z++) {
+      elsForFont[z].style.fontFamily = zm_font
+    }
+    document.title = zm_title
+    document.querySelector('#greet').textContent = zm_greet
+
+    document.querySelector('[for=set-doc]').textContent = zm_setDoc
+    document.querySelector('[for=set-dateFormat]').textContent = zm_setDateFormat
+    document.querySelector('[for=set-anPrice]').textContent = zm_setAnPrice
+    document.querySelector('[for=set-anQty]').textContent = zm_setAnQty
+    document.querySelector('[for=set-lines]').textContent = zm_setLines
+    document.querySelector('[for=set-vatRate]').textContent = zm_setVatRate
+    document.querySelector('[for=set-whtRate]').textContent = zm_setWhtRate
+
+    document.querySelector('[for=docSet-font]').textContent = zm_docSetFont
+    document.querySelector('#docAct-back').textContent = zm_docActBack
+    document.querySelector('#docAct-print').textContent = zm_docActPrint
+
+    document.querySelector('#sourceused label').textContent = zm_sourceused
+    document.querySelector('#createby label').textContent = zm_createby
+
+    document.querySelector('#modal-date h4').textContent = zm_modal_date.title
+    document.querySelector('[for=modal-date-input]').textContent = zm_modal_date.input
+    document.querySelector('[for=modal-date-output]').textContent = zm_modal_date.output
+    document.querySelector('#modal-upload h4').textContent = zm_modal_upload.title
+    document.querySelector('[for=modal-upload-input]').textContent = zm_modal_upload.input
+    document.querySelector('[for=modal-upload-width]').textContent = zm_modal_upload.width
+    document.querySelector('[for=modal-upload-height]').textContent = zm_modal_upload.height
+    document.querySelector('#modal-print h4').textContent = zm_modal_print.title
+    document.querySelector('[for=modal-print-output]').textContent = zm_modal_print.output
+
+    zm_setLangPage(zm_user.doc, zm_user.lang)
+  })
+},
+zm_setTheme = function(){
+  // get existing value
+  var theme = window.localStorage.getItem('theme')
+  if (!zm_themes.hasOwnProperty(theme)) {
+    theme = 'light'
+    window.localStorage.setItem('theme',theme)
+  }
+  // get the elements for changing theme
+  var elsCssModal = document.querySelectorAll('.uk-modal-dialog')
+  // doing
+  for (let z = 0; z < elsCssModal.length; z++) {
+    elsCssModal[z].className = {
+      light: 'uk-modal-dialog uk-modal-body uk-border-rounded',
+      dark: 'uk-modal-dialog uk-modal-body uk-border-rounded uk-background-secondary uk-light',
+    }[theme]
+  }
+  document.querySelector('#above').className = {
+    light: 'uk-container uk-container-small uk-margin-large-top',
+    dark: 'uk-container uk-container-small uk-margin-large-top uk-light',
+  }[theme]
+  document.querySelector('#nav').className = {
+    light: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid',
+    dark: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid uk-light',
+  }[theme]
+  document.querySelector('#end').className = {
+    light: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid',
+    dark: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid uk-light',
+  }[theme]
+  document.documentElement.className = {
+    light: '',
+    dark: 'uk-background-secondary',
+  }[theme]
+
+  zm_setThemePage()
 }
 
 // declare uneditable global variables
@@ -517,7 +684,7 @@ zm_tmps = {
     ],
     font: '',
     fontStyle: [
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      '',
     ],
     img: './tmp_img/Business.png',
   },
@@ -540,7 +707,7 @@ zm_tmps = {
   //   ],
   //   font: '',
   //   fontStyle: [
-  //     '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+  //     '',
   //   ],
   //   img: './tmp_img/Hero.png',
   // },
@@ -551,7 +718,7 @@ zm_tmps = {
     ],
     font: '',
     fontStyle: [
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      '',
     ],
     img: './tmp_img/Lite.png',
   },
@@ -562,7 +729,7 @@ zm_tmps = {
     ],
     font: '',
     fontStyle: [
-      '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"',
+      '',
     ],
     img: './tmp_img/Majors.png',
   },
@@ -627,19 +794,19 @@ zm_title
 // begin to load up
 document.addEventListener('DOMContentLoaded',function(){
   // temporary elements for preparing
-  var nodeOption = document.createElement('option'),
+  const nodeOption = document.createElement('option'),
   // select the elements
   elLang = document.querySelector('#lang'),
   elEra = document.querySelector('#era'),
   elTheme = document.querySelector('#theme'),
 
-  elSetDocSelect = document.querySelector('#set-doc select'),
-  elSetDateFormatSelect = document.querySelector('#set-dateFormat select'),
-  elSetAnPriceSelect = document.querySelector('#set-anPrice select'),
-  elSetAnQtySelect = document.querySelector('#set-anQty select'),
-  elSetLinesInput = document.querySelector('#set-lines input'),
-  elSetVatRateInput = document.querySelector('#set-vatRate input'),
-  elSetWhtRateInput = document.querySelector('#set-whtRate input'),
+  elSetDocSelect = document.querySelector('#set-doc'),
+  elSetDateFormatSelect = document.querySelector('#set-dateFormat'),
+  elSetAnPriceSelect = document.querySelector('#set-anPrice'),
+  elSetAnQtySelect = document.querySelector('#set-anQty'),
+  elSetLinesInput = document.querySelector('#set-lines'),
+  elSetVatRateInput = document.querySelector('#set-vatRate'),
+  elSetWhtRateInput = document.querySelector('#set-whtRate'),
   // for building
   zm_dateFormats = zummon.dateFormat(),
   zm_anPrices = zummon.autoNumeric(),
@@ -728,103 +895,6 @@ document.addEventListener('DOMContentLoaded',function(){
   zm_browseLoad()
 
 })
-// doing stuff
-const zm_setLang = function(){
-  // get existing value
-  var lang = zm_user.lang
-  if (!zm_langs.hasOwnProperty(lang)) {
-    lang = 'English'
-    zm_user.lang = lang
-  }
-  // load which lang
-  zm_loadScript('scr-lang','./core/lang_'+ lang +'.js',function(){
-    // get elements for changing language
-    var elsEra = document.querySelectorAll('#era option'),
-    elsTheme = document.querySelectorAll('#theme option'),
-    elSetDocOption = document.querySelectorAll('#set-doc option'),
-    elsCreatebyTarget = document.querySelectorAll('#createby [target]')
-
-    // doing
-    for (let z = 0; z < elsTheme.length; z++) {
-      elsTheme[z].text = zm_themesTexts[elsTheme[z].value]
-    }
-    for (let z = 0; z < elsEra.length; z++) {
-      elsEra[z].text = zm_eraTexts[elsEra[z].value]
-    }
-    for (let z = 0; z < elSetDocOption.length; z++) {
-      elSetDocOption[z].text = zm_docsTexts[elSetDocOption[z].value]
-    }
-    for (let z = 0; z < elsCreatebyTarget.length; z++) {
-      elsCreatebyTarget[z].textContent = zm_createbyTexts[z]
-    }
-    document.title = zm_title
-    document.documentElement.style.fontFamily = zm_font
-
-    document.querySelector('#greet').textContent = zm_greet
-
-    document.querySelector('#set-doc label').textContent = zm_setDoc
-    document.querySelector('#set-dateFormat label').textContent = zm_setDateFormat
-    document.querySelector('#set-anPrice label').textContent = zm_setAnPrice
-    document.querySelector('#set-anQty label').textContent = zm_setAnQty
-    document.querySelector('#set-lines label').textContent = zm_setLines
-    document.querySelector('#set-vatRate label').textContent = zm_setVatRate
-    document.querySelector('#set-whtRate label').textContent = zm_setWhtRate
-
-    document.querySelector('#docSet-font label').textContent = zm_docSetFont
-    document.querySelector('#docAct-back label').textContent = zm_docActBack
-    document.querySelector('#docAct-print label').textContent = zm_docActPrint
-
-    document.querySelector('#sourceused span').textContent = zm_sourceused
-    document.querySelector('#createby span').textContent = zm_createby
-
-    document.querySelector('#modal-date h4').textContent = zm_modal_date.title
-    document.querySelector('[for=modal-date-input]').textContent = zm_modal_date.input
-    document.querySelector('[for=modal-date-output]').textContent = zm_modal_date.output
-    document.querySelector('#modal-upload h4').textContent = zm_modal_upload.title
-    document.querySelector('[for=modal-upload-input]').textContent = zm_modal_upload.input
-    document.querySelector('[for=modal-upload-width]').textContent = zm_modal_upload.width
-    document.querySelector('[for=modal-upload-height]').textContent = zm_modal_upload.height
-    document.querySelector('#modal-print h4').textContent = zm_modal_print.title
-    document.querySelector('[for=modal-print-output]').textContent = zm_modal_print.output
-
-    zm_setLangPage(zm_user.doc, zm_user.lang)
-  })
-},
-zm_setTheme = function(){
-  // get existing value
-  var theme = window.localStorage.getItem('theme')
-  if (!zm_themes.hasOwnProperty(theme)) {
-    theme = 'light'
-    window.localStorage.setItem('theme',theme)
-  }
-  // get the elements for changing theme
-  var elsCssModal = document.querySelectorAll('.uk-modal-dialog')
-  // doing
-  for (let z = 0; z < elsCssModal.length; z++) {
-    elsCssModal[z].className = {
-      light: 'uk-modal-dialog uk-modal-body',
-      dark: 'uk-modal-dialog uk-modal-body uk-background-secondary uk-light',
-    }[theme]
-  }
-  document.querySelector('#above').className = {
-    light: 'uk-container uk-container-small uk-margin-large-top',
-    dark: 'uk-container uk-container-small uk-margin-large-top uk-light',
-  }[theme]
-  document.querySelector('#nav').className = {
-    light: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid',
-    dark: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid uk-light',
-  }[theme]
-  document.querySelector('#end').className = {
-    light: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid',
-    dark: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid uk-light',
-  }[theme]
-  document.documentElement.className = {
-    light: '',
-    dark: 'uk-background-secondary',
-  }[theme]
-
-  zm_setThemePage()
-}
 
 // declare editable global functions
 let zm_docLoadAsset = function(html){
@@ -837,8 +907,60 @@ zm_docCalTotal = function(){
   // calculate total amount of the doc
 },
 zm_docGetData = function(){
+  const doc = zm_user.doc
+
   // reset user data before print
+  zm_user = {
+    lang: zm_user.lang,
+    doc: zm_user.doc,
+    dateFormat: zm_user.dateFormat,
+    anPrice: zm_user.anPrice,
+    anQty: zm_user.anQty,
+    lines: zm_user.lines,
+    tmp: zm_user.tmp,
+
+    itemDesc: [],
+    itemPrice: [],
+    itemQty: [],
+    itemAmount: [],
+  }
+
+  // 'CashSale'
+  if (['Invoice','Quotation','TaxInvoice'].indexOf(doc) >= 0) {
+    zm_user.vatRate = zm_user.vatRate
+
+  } else if (['Receipt'].indexOf(doc) >= 0) {
+    zm_user.vatRate = zm_user.vatRate
+    zm_user.whtRate = zm_user.whtRate
+
+  }
+
   // get all fill form data
+  const elsDataDate = document.querySelectorAll('[data-date]'),
+  elsDataDocs = document.querySelectorAll('[data-docs]:not([data-docs^=item])'),
+  elsDocsitem = document.querySelectorAll('[data-docs^=item]')
+
+  for (let z = 0; z < elsDataDate.length; z++) {
+    const value = elsDataDate[z].dataset.raw
+    if (value) {
+      zm_user[elsDataDate[z].dataset.date] = value
+    }
+  }
+  for (let z = 0; z < elsDataDocs.length; z++) {
+    const value = zm_getElemValue(elsDataDocs[z])
+    if (value) {
+      zm_user[elsDataDocs[z].dataset.docs] = value
+    }
+  }
+  for (let z = 0; z < elsDocsitem.length; z++) {
+    const value = zm_getElemValue(elsDocsitem[z]),
+    docs = elsDocsitem[z].dataset.docs
+    if (value) {
+      if (!zm_user[docs]) zm_user[docs] = []
+      zm_user[docs].push(value)
+    }
+  }
+
 },
 zm_setLangPage = function(){
   // each page has different texts to display
@@ -853,13 +975,13 @@ zm_setDocExtra = function(){
 // declare changing page
 zm_browseLoad = function(){
   zm_loadFile('./core/browse.html',function(){
-    var elDisplay = document.querySelector('#display')
+    const elDisplay = document.querySelector('#display')
     elDisplay.innerHTML = this.responseText
     // resetting the setting
     elDisplay.classList.remove('uk-box-shadow-large')
-    document.querySelector('#docSet-font').classList.add('uk-hidden')
-    document.querySelector('#docAct-back').classList.add('uk-hidden')
-    document.querySelector('#docAct-print').classList.add('uk-hidden')
+    document.querySelector('#docSet-font').parentElement.classList.add('uk-hidden')
+    document.querySelector('#docAct-back').parentElement.classList.add('uk-hidden')
+    document.querySelector('#docAct-print').parentElement.classList.add('uk-hidden')
     zm_loadLinkCss('css-docStyle','')
     zm_loadLinkCss('css-docFont','')
     // get elements
@@ -888,6 +1010,7 @@ zm_browseLoad = function(){
     elsBrowseA = elBrowse.querySelectorAll('a')
     
     zm_setLangPage = function(){
+      document.querySelector('#display').style.fontFamily = zm_font
       elBrowseTitle.textContent = zm_browse
     }
     zm_setLangPage()
@@ -899,8 +1022,8 @@ zm_browseLoad = function(){
         dark: '#fff',
       }[theme]
       elBrowseTitle.className = {
-        light: 'uk-text-lead uk-margin uk-text-primary uk-text-center',
-        dark: 'uk-text-lead uk-margin uk-text-center',
+        light: 'uk-text-large uk-margin uk-text-primary uk-text-center',
+        dark: 'uk-text-large uk-margin uk-text-center',
       }[theme]
       elBrowse.className = {
         light: 'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@xl uk-flex-center uk-flex-middle uk-grid',
@@ -910,15 +1033,15 @@ zm_browseLoad = function(){
     zm_setThemePage()
 
     zm_setDocExtra = function(){
-      var doc = zm_user.doc,
-      elSetWhtRate = document.querySelector('#set-whtRate'),
-      elSetVatRate = document.querySelector('#set-vatRate')
+      const doc = zm_user.doc,
+      elSetVatRate = document.querySelector('#set-vatRate').parentElement,
+      elSetWhtRate = document.querySelector('#set-whtRate').parentElement
       // resetting the setting
-      document.querySelector('#set-doc').classList.remove('uk-hidden')
-      document.querySelector('#set-dateFormat').classList.remove('uk-hidden')
-      document.querySelector('#set-anPrice').classList.remove('uk-hidden')
-      document.querySelector('#set-anQty').classList.remove('uk-hidden')
-      document.querySelector('#set-lines').classList.remove('uk-hidden')
+      document.querySelector('#set-doc').parentElement.classList.remove('uk-hidden')
+      document.querySelector('#set-dateFormat').parentElement.classList.remove('uk-hidden')
+      document.querySelector('#set-anPrice').parentElement.classList.remove('uk-hidden')
+      document.querySelector('#set-anQty').parentElement.classList.remove('uk-hidden')
+      document.querySelector('#set-lines').parentElement.classList.remove('uk-hidden')
       elSetVatRate.classList.remove('uk-hidden')
       elSetWhtRate.classList.remove('uk-hidden')
       // show the setting needed
@@ -951,7 +1074,7 @@ zm_browseLoad = function(){
   })
 },
 zm_docLoad = function(){
-  var doc = zm_user.doc,
+  const doc = zm_user.doc,
   lang = zm_user.lang,
   tmp = zm_user.tmp,
   opt = zm_tmps[tmp],
@@ -963,24 +1086,24 @@ zm_docLoad = function(){
   zm_loadScript('scr-docAsset',asset,function(){
   zm_loadScript('scr-docAsDoc',as_doc,function(){
 
-    var elSetVatRate = document.querySelector('#set-vatRate'),
-    elSetWhtRate = document.querySelector('#set-whtRate'),
-    elDocSetFont = document.querySelector('#docSet-font'),
-    elDocSetFontSelect = elDocSetFont.querySelector('select'),
+    const elSetVatRate = document.querySelector('#set-vatRate').parentElement,
+    elSetWhtRate = document.querySelector('#set-whtRate').parentElement,
+    elDocSetFont = document.querySelector('#docSet-font').parentElement,
+    elDocSetFontSelect = document.querySelector('#docSet-font'),
     nodeOption = document.createElement('option')
     // resetting
     document.querySelector('#display').classList.add('uk-box-shadow-large')
-    document.querySelector('#set-doc').classList.add('uk-hidden')
-    document.querySelector('#set-dateFormat').classList.add('uk-hidden')
-    document.querySelector('#set-anPrice').classList.add('uk-hidden')
-    document.querySelector('#set-anQty').classList.add('uk-hidden')
-    document.querySelector('#set-lines').classList.add('uk-hidden')
+    document.querySelector('#set-doc').parentElement.classList.add('uk-hidden')
+    document.querySelector('#set-dateFormat').parentElement.classList.add('uk-hidden')
+    document.querySelector('#set-anPrice').parentElement.classList.add('uk-hidden')
+    document.querySelector('#set-anQty').parentElement.classList.add('uk-hidden')
+    document.querySelector('#set-lines').parentElement.classList.add('uk-hidden')
     elSetVatRate.classList.add('uk-hidden')
     elSetWhtRate.classList.add('uk-hidden')
 
     elDocSetFont.classList.remove('uk-hidden')
-    document.querySelector('#docAct-back').classList.remove('uk-hidden')
-    document.querySelector('#docAct-print').classList.remove('uk-hidden')
+    document.querySelector('#docAct-back').parentElement.classList.remove('uk-hidden')
+    document.querySelector('#docAct-print').parentElement.classList.remove('uk-hidden')
     elDocSetFontSelect.innerHTML = ''
 
     zm_loadLinkCss('css-docStyle',opt.css)

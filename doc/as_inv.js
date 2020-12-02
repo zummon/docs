@@ -3,7 +3,7 @@ zm_docLoadAsset = function(html,doc){
   zm_loadFile(html,function(){
     document.querySelector('#display').innerHTML = this.responseText
     // get elements for building stuff
-    var elDataZmLines = document.querySelector('[data-zm=lines]'),
+    const elDataZmLines = document.querySelector('[data-zm=lines]'),
     elDataZmLine = document.querySelector('[data-zm=line]'),
     elsDataHide = document.querySelectorAll('[data-hide*=_'+ doc +'_]')
     // building stuff
@@ -18,7 +18,7 @@ zm_docLoadAsset = function(html,doc){
     elDataZmLine.remove()
 
     // get elements after build
-    var elsDataLabel = document.querySelectorAll('[data-label]'),
+    const elsDataLabel = document.querySelectorAll('[data-label]'),
     elsDataFont = document.querySelectorAll('[data-font]'),
     elsDataImg = document.querySelectorAll('[data-img]'),
     elsDataDate = document.querySelectorAll('[data-date]'),
@@ -31,7 +31,8 @@ zm_docLoadAsset = function(html,doc){
     elsItemAmtAdj = document.querySelectorAll('[data-docs=itemAmount], [data-docs=totalAdjust]')
 
     zm_setLangPage = function(doc){
-      var label = Object.assign(zm_docLabel, zm_docLabelActive[doc])
+      document.querySelector('#display').style.fontFamily = ''
+      const label = Object.assign(zm_docLabel, zm_docLabelActive[doc])
 
       for (let z = 0; z < elsDataLabel.length; z++) {
         // console.log(elsDataLabel[z].dataset.label)
@@ -46,7 +47,7 @@ zm_docLoadAsset = function(html,doc){
     }
     zm_setThemePage()
 
-    var elDocSetFontSelect = document.querySelector('#docSet-font select')
+    const elDocSetFontSelect = document.querySelector('#docSet-font')
     elDocSetFontSelect.onchange = function(){
       for (let z = 0; z < elsDataFont.length; z++) {
         elsDataFont[z].style.fontFamily = this.value
@@ -73,7 +74,7 @@ zm_docLoadAsset = function(html,doc){
       }
       elsDataDate[z].onclick = function(){
         zm_active = this
-        var elem = document.querySelector('#modal-date')
+        const elem = document.querySelector('#modal-date')
         elem.classList.add('uk-open')
         elem.style.display = 'block'
         document.body.style.overflowY = 'scroll'
@@ -87,7 +88,7 @@ zm_docLoadAsset = function(html,doc){
       elsDataImg[z].src = 'https://i.imgur.com/WzWR2nA.png'
       elsDataImg[z].onclick = function(){
         zm_active = this
-        var elem = document.querySelector('#modal-upload')
+        const elem = document.querySelector('#modal-upload')
         elem.classList.add('uk-open')
         elem.style.display = 'block'
         document.body.style.overflowY = 'scroll'
@@ -141,7 +142,7 @@ zm_docLoadAsset = function(html,doc){
         elsDocsitemAmount[z].contentEditable = true
       }
     }
-    var optAn = zummon.autoNumeric()
+    const optAn = zummon.autoNumeric()
     AutoNumeric.multiple(
       '[data-docs=itemPrice],'+
       '[data-docs=itemSaletax],'+
@@ -204,7 +205,7 @@ zm_docLoadAsset = function(html,doc){
       elsItemAmtAdj[z].onchange = zm_docCalTotal
     }
 
-    zm_docLoadAsType(elsDataDate)
+    zm_docLoadAsType()
 
   })
 }
