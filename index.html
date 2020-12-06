@@ -7,7 +7,6 @@
 <link rel="stylesheet" href="core/uikit.css">
 <script src="core/autoNumeric.js"></script>
 <script src="core/dateFormat.js"></script>
-<script src="core/global.js"></script>
 <style>
 /* change to my preference */
 /* default of document size should not be lower */
@@ -43,6 +42,455 @@ textarea {
   }
 }
 </style>
+<script>
+// install
+// to tell users when any error occur
+window.onerror = function(msg,url,line){
+  // https://dev.opera.com/articles/better-error-handling-with-window-onerror/
+  document.body.insertAdjacentHTML('beforeend',
+  `<div id="modal-error" class="uk-modal uk-open" style="display: block;">
+    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
+      <h5 class="uk-margin">
+        *Something went wrong. Let tell the developer 
+        <a href="https://github.com/zummon/docs/issues" target="_blank">GitHub</a> or 
+        <a href="https://www.facebook.com/zummontt/posts/185150049682455" target="_blank">Facebook</a>
+      </h5>
+      <h5 class="uk-margin">
+        *มีบางอย่างผิดพลาด โปรดแจ้งให้ผู้พัฒนาทราบ 
+        <a href="https://github.com/zummon/docs/issues" target="_blank">กิตฮับ</a> หรือ 
+        <a href="https://www.facebook.com/zummontt/posts/185150049682455" target="_blank">เฟซบุ๊ก</a>
+      </h5>
+      <hr>
+      <p class="uk-text-center uk-margin-remove">${msg}</p>
+      <p class="uk-text-center uk-margin-remove">${line}</p>
+      <p class="uk-text-center uk-margin-remove uk-text-truncate">${url}</p>
+      <p class="uk-text-right">
+        <a class="uk-button uk-button-primary uk-border-rounded uk-icon"
+        onclick="(function(){
+          var elem = document.querySelector('#modal-error')
+          elem.classList.remove('uk-open')
+          elem.style.display = ''
+          document.body.style.overflowY = ''
+          document.documentElement.classList.remove('uk-modal-page')
+          elem.remove()
+        })()">
+          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check">
+            <polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline>
+          </svg>
+        </a>
+      </p>
+    </div>
+  </div>`)
+  document.body.style.overflowY = 'scroll'
+  document.documentElement.classList.add('uk-modal-page')
+}
+
+// glitch theme won't appear
+if (localStorage.getItem('theme') == 'dark') {
+  document.documentElement.className = 'uk-background-secondary'
+}
+
+// declare functions
+const zm_getObjStr = function(obj){
+  // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
+  var str = []
+  for (var p in obj) {
+    if (obj.hasOwnProperty(p)) {
+      var paste = obj[p]
+      if (!Array.isArray(paste)) {
+        paste = [paste]
+      }
+      for (var z = 0; z < paste.length; z++) {
+        str.push(encodeURIComponent(p) +"="+ encodeURIComponent(paste[z]))   
+      }
+    }
+  }
+  return str.join("&")
+}
+const zm_getStrObj = function(str){
+  // https://www.sitepoint.com/get-url-parameters-with-javascript/
+  var obj = {}
+  var queryString = str ? str.split('?')[1] : window.location.search.slice(1)
+  if (queryString) {
+    queryString = queryString.split('#')[0]
+    var arr = queryString.split('&')
+    for (var i = 0; i < arr.length; i++) {
+      var a = arr[i].split('=')
+      var paramName = decodeURIComponent(a[0])
+      var paramValue = decodeURIComponent(a[1])
+      if (paramName.match(/\[(\d+)?\]$/)) {
+        var key = paramName.replace(/\[(\d+)?\]/, '')
+        if (!obj[key]) obj[key] = []
+        if (paramName.match(/\[\d+\]$/)) {
+          var index = /\[(\d+)\]/.exec(paramName)[1]
+          obj[key][index] = paramValue
+        } else {
+          obj[key].push(paramValue)
+        }
+      } else {
+        if (!obj[paramName]) {
+          obj[paramName] = paramValue
+        } else if (obj[paramName] && typeof obj[paramName] === 'string') {
+          obj[paramName] = [obj[paramName]]
+          obj[paramName].push(paramValue)
+        } else {
+          obj[paramName].push(paramValue)
+        }
+      }
+    }
+  }
+  return obj
+}
+const zm_loadFile = function(file,call){
+  // load html, json,...
+  var xhr = new XMLHttpRequest()
+  xhr.onload = call
+  xhr.open('GET', file)
+  xhr.send()
+}
+const zm_loadScript = function(id,url,call){
+  // https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+  // delete an old script
+  var elem = document.querySelector('#'+ id)
+  if (elem) elem.remove()
+  // add a script
+  if (url) {
+    var script = document.createElement('script')
+    if (typeof call === 'function') {
+      script.onload = call
+    }
+    script.id = id
+    script.src = url
+    document.body.appendChild(script)
+  }
+}
+const zm_loadLinkCss = function(id,url){
+  // delete an old css
+  var elem = document.querySelector('#'+ id)
+  if (elem) elem.remove()
+  // add a css
+  if (url) {
+    var link = document.createElement('link')
+    link.id = id
+    link.href = url
+    link.rel = 'stylesheet'
+    document.head.appendChild(link)
+  }
+}
+
+// declare variables
+const zm_eras = {
+  Christ: true,
+  Buddhist: true,
+}
+const zm_docs = {
+  Invoice: 'inv',
+  Receipt: 'inv',
+  CashSale: 'inv',
+  // document: 'inv',
+  Quotation: 'inv',
+  TaxInvoice: 'inv',
+}
+const zm_langs = {
+  English: 'English',
+  Thai: 'ไทย',
+}
+const zm_themes = {
+  light: true,
+  dark: true,
+}
+const zm_views = {
+  browse: true,
+  doc: true,
+}
+const zm_tmps = {
+  Bookmark: {
+    css: '',
+    doc: [
+      'document','Invoice','TaxInvoice','Quotation','Receipt',
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
+      'Athiti, sans-serif',
+      'Major Mono Display, monospace',
+    ],
+    img: './tmp_img/Bookmark.png',
+  },
+  Business: {
+    css: '',
+    doc: [
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
+    ],
+    font: '',
+    fontStyle: [
+      '',
+    ],
+    img: './tmp_img/Business.png',
+  },
+  ChocChip: {
+    css: './tmp_css/ChocChip.css',
+    doc: [
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Itim|Pacifico
+      'Itim, cursive',
+      'Pacifico, cursive',
+    ],
+    img: './tmp_img/ChocChip.png',
+  },
+  // Hero: {
+  //   css: './tmp_css/Hero.css',
+  //   doc: [
+  //     'document','Invoice','TaxInvoice','Quotation','Receipt'
+  //   ],
+  //   font: '',
+  //   fontStyle: [
+  //     '',
+  //   ],
+  //   img: './tmp_img/Hero.png',
+  // },
+  Lite: {
+    css: '',
+    doc: [
+      'CashSale',
+    ],
+    font: '',
+    fontStyle: [
+      '',
+    ],
+    img: './tmp_img/Lite.png',
+  },
+  Majors: {
+    css: './tmp_css/Majors.css',
+    doc: [
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
+    ],
+    font: '',
+    fontStyle: [
+      '',
+    ],
+    img: './tmp_img/Majors.png',
+  },
+  // Table: {
+  //   css: '',
+  //   doc: [
+  //     'document','Invoice','TaxInvoice','Quotation','Receipt'
+  //   ],
+  //   font: '',
+  //   fontStyle: [
+  //     '',
+  //   ],
+  //   img: './tmp_img/Table.png',
+  // },
+  Tagcard: {
+    css: '',
+    doc: [
+      'document','Invoice','TaxInvoice','Quotation','Receipt'
+    ],
+    font: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Srisakdi:wght@700&display=swap',
+    fontStyle: [// https://fonts.google.com/?selection.family=Kaushan+Script|Srisakdi:wght@700
+      'Srisakdi, cursive',
+      'Kaushan Script, cursive',
+    ],
+    img: './tmp_img/Tagcard.png',
+  },
+}
+
+// replaceable variables
+// temporary element going to fill by using modal
+let zm_active
+// set default value not to get error of undefined
+let zm_user = Object.assign({
+  anPrice: 'Number',
+  anQty: 'Integer',
+  dateFormat: 'd mmm yyyy',
+  doc: 'Invoice',
+  era: 'Christ',
+  lang: 'English',
+  lines: 4,
+  theme: 'light',
+  tmp: 'Bookmark',
+  vatRate: 0.07,
+  view: 'browse',
+  whtRate: -0.03,
+},zm_getStrObj());
+
+(function(){
+  // for building
+  const zm_dateFormats = zummon.dateFormat()
+  const zm_anPrices = zummon.autoNumeric()
+  const zm_anQtys = {
+    Integer: zm_anPrices.Integer,
+    IntegerD: zm_anPrices.IntegerD,
+    Number: zm_anPrices.Number,
+    NumberD: zm_anPrices.NumberD,
+  }
+  // get link parameters paste to the web app
+  if (!zm_langs.hasOwnProperty(localStorage.getItem('lang'))) {
+    localStorage.setItem('lang',zm_user.lang)
+  }
+  if (!zm_eras.hasOwnProperty(localStorage.getItem('era'))) {
+    localStorage.setItem('era',zm_user.era)
+  }
+  if (!zm_themes.hasOwnProperty(localStorage.getItem('theme'))) {
+    localStorage.setItem('theme',zm_user.theme)
+  }
+  if (!zm_views.hasOwnProperty(localStorage.getItem('view'))) {
+    localStorage.setItem('view',zm_user.view)
+  }
+  if (!zm_docs.hasOwnProperty(localStorage.getItem('doc'))) {
+    localStorage.setItem('doc',zm_user.doc)
+  }
+  if (!zm_dateFormats.hasOwnProperty(localStorage.getItem('dateFormat'))) {
+    localStorage.setItem('dateFormat',zm_user.dateFormat)
+  }
+  if (!zm_anPrices.hasOwnProperty(localStorage.getItem('anPrice'))) {
+    localStorage.setItem('anPrice',zm_user.anPrice)
+  }
+  if (!zm_anQtys.hasOwnProperty(localStorage.getItem('anQty'))) {
+    localStorage.setItem('anQty',zm_user.anQty)
+  }
+  if (!zm_tmps.hasOwnProperty(localStorage.getItem('tmp'))) {
+    localStorage.setItem('tmp',zm_user.tmp)
+  }
+  localStorage.setItem('lines',zm_user.lines)
+  localStorage.setItem('vatRate',zm_user.vatRate)
+  localStorage.setItem('whtRate',zm_user.whtRate)
+
+  // already in localStorage
+  delete zm_user.anPrice
+  delete zm_user.anQty
+  delete zm_user.dateFormat
+  delete zm_user.doc
+  delete zm_user.era
+  delete zm_user.lang
+  delete zm_user.lines
+  delete zm_user.theme
+  delete zm_user.tmp
+  delete zm_user.vatRate
+  delete zm_user.view
+  delete zm_user.whtRate
+
+  // clear not used parts
+  delete zm_user.fbclid
+
+  // begin to load up
+  document.addEventListener('DOMContentLoaded',function(){
+    // temporary elements for preparing
+    const nodeOption = document.createElement('option')
+    // select the elements
+    const elLang = document.querySelector('#lang')
+    const elEra = document.querySelector('#era')
+    const elTheme = document.querySelector('#theme')
+
+    const elSetDoc = document.querySelector('#set-doc')
+    const elSetDateFormat = document.querySelector('#set-dateFormat')
+    const elSetAnPrice = document.querySelector('#set-anPrice')
+    const elSetAnQty = document.querySelector('#set-anQty')
+    const elSetLines = document.querySelector('#set-lines')
+    const elSetVatRateInput = document.querySelector('#set-vatRate')
+    const elSetWhtRateInput = document.querySelector('#set-whtRate')
+
+    // build options to select
+    for (const [key, value] of Object.entries(zm_langs)) {
+      nodeOption.value = key
+      nodeOption.text = value
+      elLang.appendChild(nodeOption.cloneNode(true))
+    }
+    for (const key of Object.keys(zm_eras)) {
+      nodeOption.value = key
+      elEra.appendChild(nodeOption.cloneNode(true))
+    }
+    for (const key of Object.keys(zm_themes)) {
+      nodeOption.value = key
+      elTheme.appendChild(nodeOption.cloneNode(true))
+    }
+    for (const key in zm_docs) {
+      if (zm_docs.hasOwnProperty(key)) {
+        nodeOption.value = key
+        nodeOption.dataset = zm_docs[key] // for filter tmps
+        elSetDoc.appendChild(nodeOption.cloneNode(true))
+      }
+    }
+    for (const key in zm_dateFormats) {
+      if (zm_dateFormats.hasOwnProperty(key)) {
+        nodeOption.value = key
+        nodeOption.text = key
+        elSetDateFormat.appendChild(nodeOption.cloneNode(true))
+      }
+    }
+    for (const key in zm_anPrices) {
+      if (zm_anPrices.hasOwnProperty(key)) {
+        nodeOption.value = key
+        nodeOption.text = key
+        elSetAnPrice.appendChild(nodeOption.cloneNode(true))
+      }
+    }
+    for (const key in zm_anQtys) {
+      if (zm_anQtys.hasOwnProperty(key)) {
+        nodeOption.value = key
+        nodeOption.text = key
+        elSetAnQty.appendChild(nodeOption.cloneNode(true))
+      }
+    }
+    // set selected option
+    const lang = localStorage.getItem('lang')
+    const theme = localStorage.getItem('theme')
+    const view = localStorage.getItem('view')
+    
+    elSetAnPrice.value = localStorage.getItem('anPrice')
+    elSetAnQty.value = localStorage.getItem('anQty')
+    elSetDateFormat.value = localStorage.getItem('dateFormat')
+    elSetDoc.value = localStorage.getItem('doc')
+    elEra.value = localStorage.getItem('era')
+    elLang.value = lang
+    elSetLines.value = localStorage.getItem('lines')
+    elTheme.value = theme
+    elSetVatRateInput.value = localStorage.getItem('vatRate')
+    elSetWhtRateInput.value = localStorage.getItem('whtRate')
+
+    // set view
+    zm_loadScript('scr-view','core/'+ view +'.js',function(){
+      elTheme.onload()
+      elLang.onload()
+    })
+
+  })
+
+})()
+
+const zm_isElemInput = function(elem){
+  return [
+    'INPUT',
+    'TEXTAREA'
+  ].indexOf(elem.tagName) >= 0
+}
+const zm_getElemValue = function(elem){
+  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
+    return AutoNumeric.getNumber(elem)
+  } else {
+    return elem[zm_isElemInput(elem) ? 'value' : 'textContent']
+  }
+}
+const zm_setElemValue = function(elem,val){
+  // console.log(elem)
+  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
+    AutoNumeric.set(elem,val)
+  } else {
+    elem[zm_isElemInput(elem) ? 'value' : 'textContent'] = val
+  }
+}
+// declare functions doing stuff
+const zm_refreshUrl = function(obj){
+  window.history.replaceState('','','?'+ zm_getObjStr(obj))
+}
+// declare editable global functions
+let zm_docCalTotal = function(){
+  // calculate total amount of the doc
+}
+
+</script>
 
 </head><body>
 
@@ -59,12 +507,16 @@ textarea {
         </svg>
       </label>
       <select id="lang" class="uk-select uk-form-blank uk-border-pill uk-width-auto" 
-      onchange="(function(value){
-        zm_user.lang = value
-        zm_setUrl()
-        zm_setLang()
-        zm_setConnect()
-      })(this.value)"></select>
+      onchange="(function(elem){
+        localStorage.setItem('lang',elem.value)
+        elem.onload()
+      })(this)"
+      onload="(function(){
+        var lang = localStorage.getItem('lang')
+        var view = localStorage.getItem('view')
+        zm_loadScript('scr-lang','core_lang/'+ lang +'.js')
+        zm_loadScript('scr-lang-view','core_lang/'+ lang +'_'+ view +'.js')
+      })()"></select>
     </div>
     <div>
       <label class="uk-icon" for="era">
@@ -74,8 +526,7 @@ textarea {
       </label>
       <select id="era" class="uk-select uk-form-blank uk-border-pill uk-width-auto"
       onchange="(function(value){
-        zm_user.era = value
-        zm_setUrl()
+        localStorage.setItem('era',value)
       })(this.value)"></select>
     </div>
     <div>
@@ -87,58 +538,89 @@ textarea {
         </svg>
       </label>
       <select id="theme" class="uk-select uk-form-blank uk-border-pill uk-width-auto"
-      onchange="(function(value){
-        window.localStorage.setItem('theme',value)
-        zm_setUrl()
-        zm_setTheme()
-        zm_setConnect()
-      })(this.value)"></select>
+      onchange="(function(elem){
+        localStorage.setItem('theme',elem.value)
+        elem.onload()
+      })(this)"
+      onload="(function(){
+        var theme = localStorage.getItem('theme')
+        var view = localStorage.getItem('view')
+        zm_loadScript('scr-theme','core_theme/'+ theme +'.js')
+        if (view == 'browse') {
+          zm_loadScript('scr-theme-view','core_theme/'+ theme +'_'+ view +'.js')
+        }
+      })()"></select>
     </div>
   </div>
 </div>
 <div id="nav" class="uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid uk-animation-fade">
-  <div class="uk-text-right uk-text-secondary">
+  <div class="uk-text-right">
     <label id="greet" class="uk-heading-small uk-text-primary uk-margin-left uk-margin"></label>
     <!-- setting -->
     <div class="uk-margin-large-right uk-margin">
       <label for="set-doc"></label>
       <select id="set-doc" class="uk-select uk-width-auto uk-border-rounded" 
-      onchange="(function(value){
-        zm_user.doc = value
-        zm_setUrl()
-        zm_setDocExtra()
-      })(this.value)"></select>
+      onchange="(function(elem){
+        localStorage.setItem('doc',elem.value)
+        elem.onload()
+      })(this)"
+      onload="(function(){
+        const doc = localStorage.getItem('doc')
+        const elsWrapDiv = document.querySelectorAll('#browse > div')
+        const elsBrowseSelect = document.querySelectorAll('.'+ doc)
+        const elSetVatRate = document.querySelector('#set-vatRate').parentElement
+        const elSetWhtRate = document.querySelector('#set-whtRate').parentElement
+        // resetting the setting
+        document.querySelector('#set-doc').parentElement.classList.remove('uk-hidden')
+        document.querySelector('#set-dateFormat').parentElement.classList.remove('uk-hidden')
+        document.querySelector('#set-anPrice').parentElement.classList.remove('uk-hidden')
+        document.querySelector('#set-anQty').parentElement.classList.remove('uk-hidden')
+        document.querySelector('#set-lines').parentElement.classList.remove('uk-hidden')
+        elSetVatRate.classList.remove('uk-hidden')
+        elSetWhtRate.classList.remove('uk-hidden')
+        // show the setting needed
+        if (['CashSale'].indexOf(doc) >= 0) {
+          elSetVatRate.classList.add('uk-hidden')
+          elSetWhtRate.classList.add('uk-hidden')
+        } else if (['document','Invoice','TaxInvoice','Quotation'].indexOf(doc) >= 0) {
+          elSetWhtRate.classList.add('uk-hidden')
+        }
+        // resetting all items
+        for (let z = 0; z < elsWrapDiv.length; z++) {
+          elsWrapDiv[z].classList.add('uk-hidden')
+        }
+        // re-select the items
+        for (let z = 0; z < elsBrowseSelect.length; z++) {
+          elsBrowseSelect[z].classList.remove('uk-hidden')
+        }
+      })()"></select>
     </div>
     <div class="uk-margin-large-right uk-margin">
       <label for="set-dateFormat"></label>
       <select id="set-dateFormat" class="uk-select uk-width-auto uk-border-rounded" 
       onchange="(function(value){
-        zm_user.dateFormat = value
-        zm_setUrl()
+        localStorage.setItem('dateFormat',value)
       })(this.value)"></select>
     </div>
     <div class="uk-margin-large-right uk-margin">
       <label for="set-anPrice"></label>
       <select id="set-anPrice" class="uk-select uk-width-auto uk-border-rounded" 
       onchange="(function(value){
-        zm_user.anPrice = value
-        zm_setUrl()
+        localStorage.setItem('anPrice',value)
       })(this.value)"></select>
     </div>
     <div class="uk-margin-large-right uk-margin">
       <label for="set-anQty"></label>
       <select id="set-anQty" class="uk-select uk-width-auto uk-border-rounded" 
       onchange="(function(value){
-        zm_user.anQty = value
-        zm_setUrl()
+        localStorage.setItem('anQty',value)
       })(this.value)"></select>
     </div>
     <div class="uk-margin-large-right uk-margin">
       <label for="set-lines"></label>
       <input id="set-lines" class="uk-input uk-border-rounded" 
       onchange="(function(value){
-        zm_user.lines = value
-        zm_setUrl()
+        localStorage.setItem('lines',value)
       })(this.value)" 
       style="width: 70px;" max="32" min="1" type="number" step="1">
     </div>
@@ -146,8 +628,7 @@ textarea {
       <label for="set-vatRate"></label>
       <input id="set-vatRate" class="uk-input uk-border-rounded" 
       onchange="(function(value){
-        zm_user.vatRate = value
-        zm_setUrl()
+        localStorage.setItem('vatRate',value)
       })(this.value)" 
       style="width: 100px;" max="1" min="-1" type="number" step="0.0001">
     </div>
@@ -155,39 +636,130 @@ textarea {
       <label for="set-whtRate"></label>
       <input id="set-whtRate" class="uk-input uk-border-rounded" 
       onchange="(function(value){
-        zm_user.whtRate = value
-        zm_setUrl()
+        localStorage.setItem('whtRate',value)
       })(this.value)" 
       style="width: 100px;" max="1" min="-1" type="number" step="0.0001">
     </div>
     <!-- doc setting -->
     <div class="uk-margin-large-right uk-margin uk-hidden">
       <label for="docSet-font"></label>
-      <select id="docSet-font" class="uk-select uk-border-rounded uk-width-auto"></select>
+      <select id="docSet-font" class="uk-select uk-border-rounded uk-width-auto"
+      onchange="(function(value){
+        var elsDataFont = document.querySelectorAll('[data-font]')
+        for (let z = 0; z < elsDataFont.length; z++) {
+          elsDataFont[z].style.fontFamily = value
+        }
+      })(this.value)"></select>
     </div>
-    <div class="uk-margin-large-right uk-margin uk-hidden">
-      <span class="uk-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="reply">
-          <path d="M17.7,13.11 C16.12,10.02 13.84,7.85 11.02,6.61 C10.57,6.41 9.75,6.13 9,5.91 L9,2 L1,9 L9,16 L9,12.13 C10.78,12.47 12.5,13.19 14.09,14.25 C17.13,16.28 18.56,18.54 18.56,18.54 C18.56,18.54 18.81,15.28 17.7,13.11 L17.7,13.11 Z M14.82,13.53 C13.17,12.4 11.01,11.4 8,10.92 L8,13.63 L2.55,9 L8,4.25 L8,6.8 C8.3,6.86 9.16,7.02 10.37,7.49 C13.3,8.65 15.54,10.96 16.65,13.08 C16.97,13.7 17.48,14.86 17.68,16 C16.87,15.05 15.73,14.15 14.82,13.53 L14.82,13.53 Z"></path>
-        </svg>
-      </span>
-      <a id="docAct-back" class="uk-button uk-button-text uk-text-default"
+    <div class="uk-margin-right uk-margin uk-hidden">
+      <a id="docAct-select" class="uk-button uk-button-text uk-text-default uk-text-capitalize"
       onclick="(function(m){
         m.preventDefault()
-        zm_browseLoad()
+        localStorage.setItem('view','browse')
+        zm_loadScript('scr-view','core/browse.js')
       })(event)">
       </a>
-    </div>
-    <div class="uk-margin-large-right uk-margin uk-hidden">
       <span class="uk-icon">
-        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="print"><polyline fill="none" stroke="#000" points="4.5 13.5 1.5 13.5 1.5 6.5 18.5 6.5 18.5 13.5 15.5 13.5"></polyline><polyline fill="none" stroke="#000" points="15.5 6.5 15.5 2.5 4.5 2.5 4.5 6.5"></polyline><rect fill="none" stroke="#000" width="11" height="6" x="4.5" y="11.5"></rect><rect width="8" height="1" x="6" y="13"></rect><rect width="8" height="1" x="6" y="15"></rect></svg>
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="thumbnails">
+          <rect fill="none" stroke="#000" x="3.5" y="3.5" width="5" height="5" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></rect>
+          <rect fill="none" stroke="#000" x="11.5" y="3.5" width="5" height="5" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></rect>
+          <rect fill="none" stroke="#000" x="11.5" y="11.5" width="5" height="5" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></rect>
+          <rect fill="none" stroke="#000" x="3.5" y="11.5" width="5" height="5" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></rect>
+        </svg>
       </span>
-      <a id="docAct-print" href="#end" class="uk-button uk-button-text uk-text-default"
+    </div>
+    <div class="uk-margin-right uk-margin uk-hidden">
+      <a id="docAct-print" class="uk-button uk-button-text uk-text-default uk-text-capitalize"
       onclick="(function(m){
         m.preventDefault()
         window.print()
       })(event)">
       </a>
+      <span class="uk-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="print">
+          <polyline fill="none" stroke="#000" points="4.5 13.5 1.5 13.5 1.5 6.5 18.5 6.5 18.5 13.5 15.5 13.5"></polyline>
+          <polyline fill="none" stroke="#000" points="15.5 6.5 15.5 2.5 4.5 2.5 4.5 6.5"></polyline>
+          <rect fill="none" stroke="#000" width="11" height="6" x="4.5" y="11.5"></rect>
+          <rect width="8" height="1" x="6" y="13"></rect>
+          <rect width="8" height="1" x="6" y="15"></rect>
+        </svg>
+      </span>
+    </div>
+    <div class="uk-margin-right uk-margin uk-hidden">
+      <a id="docAct-get" class="uk-button uk-button-text uk-text-default uk-text-capitalize"
+      onclick="(function(m){
+        m.preventDefault()
+        
+        const elMdGetOutput = document.querySelector('#modal-get-output')
+        const elMdGet = document.querySelector('#modal-get')
+        const doc = localStorage.getItem('doc')
+
+        // reset user data
+        zm_user = {
+          lang: localStorage.getItem('lang'),
+          doc: localStorage.getItem('doc'),
+          dateFormat: localStorage.getItem('dateFormat'),
+          anPrice: localStorage.getItem('anPrice'),
+          anQty: localStorage.getItem('anQty'),
+          lines: localStorage.getItem('lines'),
+          tmp: localStorage.getItem('tmp'),
+          view: 'doc',
+
+          itemDesc: [],
+          itemPrice: [],
+          itemQty: [],
+          itemAmount: [],
+        }
+
+        // 'CashSale'
+        if (['Invoice','Quotation','TaxInvoice'].indexOf(doc) >= 0) {
+          zm_user.vatRate = localStorage.getItem('vatRate')
+
+        } else if (['Receipt'].indexOf(doc) >= 0) {
+          zm_user.vatRate = localStorage.getItem('vatRate')
+          zm_user.whtRate = localStorage.getItem('whtRate')
+        }
+
+        // get all fill form data
+        const elsDataDate = document.querySelectorAll('[data-date]')
+        const elsDataDocs = document.querySelectorAll('[data-docs]:not([data-docs^=item])')
+        const elsDocsitem = document.querySelectorAll('[data-docs^=item]')
+
+        for (let z = 0; z < elsDataDate.length; z++) {
+          const value = elsDataDate[z].dataset.raw
+          if (value) {
+            zm_user[elsDataDate[z].dataset.date] = value
+          }
+        }
+        for (let z = 0; z < elsDataDocs.length; z++) {
+          const value = zm_getElemValue(elsDataDocs[z])
+          if (value) {
+            zm_user[elsDataDocs[z].dataset.docs] = value
+          }
+        }
+        for (let z = 0; z < elsDocsitem.length; z++) {
+          const value = zm_getElemValue(elsDocsitem[z])
+          const docs = elsDocsitem[z].dataset.docs
+          if (value) {
+            if (!zm_user[docs]) zm_user[docs] = []
+            zm_user[docs].push(value)
+          }
+        }
+        elMdGetOutput.value = window.location.href.split('?')[0] +'?'+ zm_getObjStr(zm_user)
+        elMdGet.classList.add('uk-open')
+        elMdGet.style.display = 'block'
+        document.body.style.overflowY = 'scroll'
+        document.documentElement.classList.add('uk-modal-page')
+
+      })(event)">
+      </a>
+      <span class="uk-icon">
+        <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="link">
+          <path fill="none" stroke="#000" stroke-width="1.1" d="M10.625,12.375 L7.525,15.475 C6.825,16.175 5.925,16.175 5.225,15.475 L4.525,14.775 C3.825,14.074 3.825,13.175 4.525,12.475 L7.625,9.375" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></path>
+          <path fill="none" stroke="#000" stroke-width="1.1" d="M9.325,7.375 L12.425,4.275 C13.125,3.575 14.025,3.575 14.724,4.275 L15.425,4.975 C16.125,5.675 16.125,6.575 15.425,7.275 L12.325,10.375" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></path>
+          <path fill="none" stroke="#000" stroke-width="1.1" d="M7.925,11.875 L11.925,7.975" data-darkreader-inline-fill="" data-darkreader-inline-stroke="" style="--darkreader-inline-fill:none; --darkreader-inline-stroke:#e8e6e3;"></path>
+        </svg>
+      </span>
     </div>
   </div>
   <div class="uk-background-contain uk-height-large" style="background-image: url(core/upload.svg);"></div>
@@ -244,19 +816,19 @@ textarea {
       <label class="uk-text-primary uk-text-large"></label>
       <ul class="uk-list uk-margin-medium-left">
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="http://autonumeric.org/">AutoNumeric</a>
         </li>
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="https://fonts.google.com/">Google Fonts</a>
         </li>
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="https://getuikit.com/">UIkit</a>
         </li>
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="https://undraw.co/">unDraw</a>
         </li>
       </ul>
@@ -265,19 +837,19 @@ textarea {
       <label class="uk-text-primary uk-text-large"></label>
       <ul class="uk-list uk-margin-medium-left">
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="https://github.com/zummon/docs/issues"></a>
         </li>
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="https://www.facebook.com/zummontt/posts/185150049682455"></a>
         </li>
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
-          target="_blank" href="https://zummon.github.io/site" id="createby_site"></a>
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
+          target="_blank" href="https://zummon.github.io/site"></a>
         </li>
         <li>
-          <a class="uk-button uk-button-text uk-text-default" 
+          <a class="uk-button uk-button-text uk-text-default uk-text-capitalize" 
           target="_blank" href="https://www.paypal.me/zummontt"></a>
         </li>
       </ul>
@@ -297,9 +869,9 @@ textarea {
         onchange="(function(value){
           document.querySelector('#modal-date-output').value = zummon.dateFormat({
             date: value,
-            format: zm_user.dateFormat,
-            language: zm_user.lang, 
-            era: zm_user.era,
+            format: localStorage.getItem('dateFormat'),
+            language: localStorage.getItem('lang'), 
+            era: localStorage.getItem('era'),
           })
         })(this.value)">
       </div>
@@ -377,8 +949,8 @@ textarea {
           imgSrc = window.URL.createObjectURL(elMdUpInput.files[0])
         }
         zm_active.src = imgSrc
-        var width = document.querySelector('#modal-upload-width').value,
-        height = document.querySelector('#modal-upload-height').value
+        var width = document.querySelector('#modal-upload-width').value
+        var height = document.querySelector('#modal-upload-height').value
         if (width) {
           zm_active.width = width
         } else {
@@ -418,29 +990,32 @@ textarea {
     </p>
   </div>
 </div>
-<div id="modal-print" class="uk-modal">
+<div id="modal-get" class="uk-modal">
   <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
     <h4></h4>
-    <label for="modal-print-output"></label>
-    <textarea class="uk-textarea uk-resize-vertical uk-border-rounded" rows="5" readonly 
-    id="modal-print-output" onclick="this.select()"></textarea>
+    <!-- <a id="modal-get-copy" class="uk-text-center uk-display-block"></a>
+    <a id="modal-get-post" class="uk-text-center uk-display-block"></a> -->
+    <textarea id="modal-get-output" class="uk-textarea uk-resize-vertical uk-border-rounded" 
+    rows="5" readonly onclick="this.select()"></textarea>
     <p class="uk-text-right">
-      <a id="modal-print-done" class="uk-button uk-button-primary uk-border-rounded uk-icon"
-      onclick="(function(){
-        window.location.href = document.querySelector('#modal-print-output').value
-      })()">
+      <a id="modal-get-done" class="uk-button uk-button-primary uk-border-rounded uk-icon"
+      onclick="(function(m){
+        m.preventDefault()
+        window.location.href = document.querySelector('#modal-get-output').value
+      })(event)">
         <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check">
           <polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline>
         </svg>
       </a>
-      <a id="modal-print-close" class="uk-button uk-button-default uk-border-rounded uk-icon"
-      onclick="(function(){
-        var elem = document.querySelector('#modal-print')
+      <a id="modal-get-close" class="uk-button uk-button-default uk-border-rounded uk-icon"
+      onclick="(function(m){
+        m.preventDefault()
+        var elem = document.querySelector('#modal-get')
         elem.classList.remove('uk-open')
         elem.style.display = ''
         document.body.style.overflowY = ''
         document.documentElement.classList.remove('uk-modal-page')
-      })()">
+      })(event)">
         <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="close">
           <path fill="none" stroke="#000" stroke-width="1.06" d="M16,16 L4,4"></path>
           <path fill="none" stroke="#000" stroke-width="1.06" d="M16,4 L4,16"></path>
@@ -449,677 +1024,5 @@ textarea {
     </p>
   </div>
 </div>
-
-<script>
-// to tell users when any error occur
-// https://dev.opera.com/articles/better-error-handling-with-window-onerror/
-window.onerror = function(msg,url,line){
-  document.body.insertAdjacentHTML('beforeend',
-  `<div id="modal-error" class="uk-modal uk-open" style="display: block;">
-    <div class="uk-modal-dialog uk-modal-body uk-border-rounded">
-      <h5 class="uk-margin">
-        *Something went wrong. Let tell the developer 
-        <a href="https://github.com/zummon/docs/issues" target="_blank">GitHub</a> or 
-        <a href="https://www.facebook.com/zummontt/posts/185150049682455" target="_blank">Facebook</a>
-      </h5>
-      <h5 class="uk-margin">
-        *มีบางอย่างผิดพลาด โปรดแจ้งให้ผู้พัฒนาทราบ 
-        <a href="https://github.com/zummon/docs/issues" target="_blank">กิตฮับ</a> หรือ 
-        <a href="https://www.facebook.com/zummontt/posts/185150049682455" target="_blank">เฟซบุ๊ก</a>
-      </h5>
-      <hr>
-      <p class="uk-text-center uk-margin-remove">${msg}</p>
-      <p class="uk-text-center uk-margin-remove">${line}</p>
-      <p class="uk-text-center uk-margin-remove uk-text-truncate">${url}</p>
-      <p class="uk-text-right">
-        <a class="uk-button uk-button-primary uk-border-rounded uk-icon"
-        onclick="(function(){
-          var elem = document.querySelector('#modal-error')
-          elem.classList.remove('uk-open')
-          elem.style.display = ''
-          document.body.style.overflowY = ''
-          document.documentElement.classList.remove('uk-modal-page')
-          elem.remove()
-        })()">
-          <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="check"><polyline fill="none" stroke="#000" stroke-width="1.1" points="4,10 8,15 17,4"></polyline></svg>
-        </a>
-      </p>
-    </div>
-  </div>`)
-  document.body.style.overflowY = 'scroll'
-  document.documentElement.classList.add('uk-modal-page')
-}
-// listen to call print
-if (window.matchMedia) {
-  // https://stackoverflow.com/questions/18325025/how-to-detect-window-print-finish
-  window.matchMedia('print').addListener(function(mql){
-    if (!mql.matches) zm_afterPrint()
-  })
-} else {
-  window.onafterprint = zm_afterPrint
-}
-// declare functions
-const zm_loadLinkCss = function(id,url){
-  // delete an old css
-  var elem = document.querySelector('#'+ id)
-  if (elem) elem.remove()
-  // add a css
-  if (url) {
-    var link = document.createElement('link')
-    link.id = id
-    link.href = url
-    link.rel = 'stylesheet'
-    document.head.appendChild(link)
-  }
-},
-zm_isElemInput = function(elem){
-  return [
-    'INPUT',
-    'TEXTAREA'
-  ].indexOf(elem.tagName) >= 0
-},
-zm_getElemValue = function(elem){
-  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
-    return AutoNumeric.getNumber(elem)
-  } else {
-    return elem[zm_isElemInput(elem) ? 'value' : 'textContent']
-  }
-},
-zm_setElemValue = function(elem,val){
-  // console.log(elem)
-  if (AutoNumeric.isManagedByAutoNumeric(elem)) {
-    AutoNumeric.set(elem,val)
-  } else {
-    elem[zm_isElemInput(elem) ? 'value' : 'textContent'] = val
-  }
-},
-// declare functions doing stuff
-zm_afterPrint = function(){ // print completed
-  var elMdPrintOutput = document.querySelector('#modal-print-output')
-  zm_docGetData()
-  elMdPrintOutput.value = window.location.href.split('?')[0] +'?'+ zm_getObjStr(zm_user)
-  var elem = document.querySelector('#modal-print')
-  elem.classList.add('uk-open')
-  elem.style.display = 'block'
-  document.body.style.overflowY = 'scroll'
-  document.documentElement.classList.add('uk-modal-page')
-  // UIkit.modal('#modal-print').show()
-},
-zm_setConnect = function(){ // paste URL parameters to zummon web creations
-  var elCreatebySite = document.querySelector('#createby_site'),
-  langStr = 'lang='+ zm_user.lang,
-  themeStr = 'theme='+ window.localStorage.getItem('theme')
-
-  elCreatebySite.href = elCreatebySite.href.split('?')[0] +'?'+ langStr +'&'+ themeStr
-},
-zm_setUrl = function(key,val){ // refresh the url
-  if (key || val) zm_user[key] = val
-  window.history.replaceState('','','?'+ zm_getObjStr(zm_user))
-},
-zm_setLang = function(){
-  // get existing value
-  var lang = zm_user.lang
-  if (!zm_langs.hasOwnProperty(lang)) {
-    lang = 'English'
-    zm_user.lang = lang
-  }
-  // load which lang
-  zm_loadScript('scr-lang','./core/lang_'+ lang +'.js',function(){
-    // get elements for changing language
-    var elsEra = document.querySelectorAll('#era option'),
-    elsTheme = document.querySelectorAll('#theme option'),
-    elSetDocOption = document.querySelectorAll('#set-doc option'),
-    elsCreatebyTarget = document.querySelectorAll('#createby [target]'),
-    elsForFont = document.querySelectorAll('#above, #nav, #end, div[id^=modal]')
-
-    // doing
-    for (let z = 0; z < elsTheme.length; z++) {
-      elsTheme[z].text = zm_themesTexts[elsTheme[z].value]
-    }
-    for (let z = 0; z < elsEra.length; z++) {
-      elsEra[z].text = zm_eraTexts[elsEra[z].value]
-    }
-    for (let z = 0; z < elSetDocOption.length; z++) {
-      elSetDocOption[z].text = zm_docsTexts[elSetDocOption[z].value]
-    }
-    for (let z = 0; z < elsCreatebyTarget.length; z++) {
-      elsCreatebyTarget[z].textContent = zm_createbyTexts[z]
-    }
-    for (let z = 0; z < elsForFont.length; z++) {
-      elsForFont[z].style.fontFamily = zm_font
-    }
-    document.title = zm_title
-    document.querySelector('#greet').textContent = zm_greet
-
-    document.querySelector('[for=set-doc]').textContent = zm_setDoc
-    document.querySelector('[for=set-dateFormat]').textContent = zm_setDateFormat
-    document.querySelector('[for=set-anPrice]').textContent = zm_setAnPrice
-    document.querySelector('[for=set-anQty]').textContent = zm_setAnQty
-    document.querySelector('[for=set-lines]').textContent = zm_setLines
-    document.querySelector('[for=set-vatRate]').textContent = zm_setVatRate
-    document.querySelector('[for=set-whtRate]').textContent = zm_setWhtRate
-
-    document.querySelector('[for=docSet-font]').textContent = zm_docSetFont
-    document.querySelector('#docAct-back').textContent = zm_docActBack
-    document.querySelector('#docAct-print').textContent = zm_docActPrint
-
-    document.querySelector('#sourceused label').textContent = zm_sourceused
-    document.querySelector('#createby label').textContent = zm_createby
-
-    document.querySelector('#modal-date h4').textContent = zm_modal_date.title
-    document.querySelector('[for=modal-date-input]').textContent = zm_modal_date.input
-    document.querySelector('[for=modal-date-output]').textContent = zm_modal_date.output
-    document.querySelector('#modal-upload h4').textContent = zm_modal_upload.title
-    document.querySelector('[for=modal-upload-input]').textContent = zm_modal_upload.input
-    document.querySelector('[for=modal-upload-width]').textContent = zm_modal_upload.width
-    document.querySelector('[for=modal-upload-height]').textContent = zm_modal_upload.height
-    document.querySelector('#modal-print h4').textContent = zm_modal_print.title
-    document.querySelector('[for=modal-print-output]').textContent = zm_modal_print.output
-
-    zm_setLangPage(zm_user.doc, zm_user.lang)
-  })
-},
-zm_setTheme = function(){
-  // get existing value
-  var theme = window.localStorage.getItem('theme')
-  if (!zm_themes.hasOwnProperty(theme)) {
-    theme = 'light'
-    window.localStorage.setItem('theme',theme)
-  }
-  // get the elements for changing theme
-  var elsCssModal = document.querySelectorAll('.uk-modal-dialog')
-  // doing
-  for (let z = 0; z < elsCssModal.length; z++) {
-    elsCssModal[z].className = {
-      light: 'uk-modal-dialog uk-modal-body uk-border-rounded',
-      dark: 'uk-modal-dialog uk-modal-body uk-border-rounded uk-background-secondary uk-light',
-    }[theme]
-  }
-  document.querySelector('#above').className = {
-    light: 'uk-container uk-container-small uk-margin-large-top',
-    dark: 'uk-container uk-container-small uk-margin-large-top uk-light',
-  }[theme]
-  document.querySelector('#nav').className = {
-    light: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid',
-    dark: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-grid uk-light',
-  }[theme]
-  document.querySelector('#end').className = {
-    light: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid',
-    dark: 'uk-child-width-1-2 uk-grid-collapse uk-margin-large uk-flex-middle uk-grid uk-light',
-  }[theme]
-  document.documentElement.className = {
-    light: '',
-    dark: 'uk-background-secondary',
-  }[theme]
-
-  zm_setThemePage()
-}
-
-// declare uneditable global variables
-const zm_docs = {
-  CashSale: 'inv',
-  // document: 'inv',
-  Invoice: 'inv',
-  Quotation: 'inv',
-  Receipt: 'inv',
-  TaxInvoice: 'inv',
-},
-zm_tmps = {
-  Bookmark: {
-    css: '',
-    doc: [
-      'document','Invoice','TaxInvoice','Quotation','Receipt',
-    ],
-    font: 'https://fonts.googleapis.com/css2?family=Athiti&family=Major+Mono+Display&display=swap',
-    fontStyle: [// https://fonts.google.com/?selection.family=Athiti|Major+Mono+Display
-      'Athiti, sans-serif',
-      'Major Mono Display, monospace',
-    ],
-    img: './tmp_img/Bookmark.png',
-  },
-  Business: {
-    css: '',
-    doc: [
-      'document','Invoice','TaxInvoice','Quotation','Receipt'
-    ],
-    font: '',
-    fontStyle: [
-      '',
-    ],
-    img: './tmp_img/Business.png',
-  },
-  ChocChip: {
-    css: './tmp_css/ChocChip.css',
-    doc: [
-      'document','Invoice','TaxInvoice','Quotation','Receipt'
-    ],
-    font: 'https://fonts.googleapis.com/css2?family=Itim&family=Pacifico&display=swap',
-    fontStyle: [// https://fonts.google.com/?selection.family=Itim|Pacifico
-      'Itim, cursive',
-      'Pacifico, cursive',
-    ],
-    img: './tmp_img/ChocChip.png',
-  },
-  // Hero: {
-  //   css: './tmp_css/Hero.css',
-  //   doc: [
-  //     'document','Invoice','TaxInvoice','Quotation','Receipt'
-  //   ],
-  //   font: '',
-  //   fontStyle: [
-  //     '',
-  //   ],
-  //   img: './tmp_img/Hero.png',
-  // },
-  Lite: {
-    css: '',
-    doc: [
-      'CashSale',
-    ],
-    font: '',
-    fontStyle: [
-      '',
-    ],
-    img: './tmp_img/Lite.png',
-  },
-  Majors: {
-    css: './tmp_css/Majors.css',
-    doc: [
-      'document','Invoice','TaxInvoice','Quotation','Receipt'
-    ],
-    font: '',
-    fontStyle: [
-      '',
-    ],
-    img: './tmp_img/Majors.png',
-  },
-  Tagcard: {
-    css: '',
-    doc: [
-      'document','Invoice','TaxInvoice','Quotation','Receipt'
-    ],
-    font: 'https://fonts.googleapis.com/css2?family=Kaushan+Script&family=Srisakdi:wght@700&display=swap',
-    fontStyle: [// https://fonts.google.com/?selection.family=Kaushan+Script|Srisakdi:wght@700
-      'Srisakdi, cursive',
-      'Kaushan Script, cursive',
-    ],
-    img: './tmp_img/Tagcard.png',
-  },
-}
-
-// declare editable global variables
-// user interaction data
-// set user data not to get error of undefined
-let zm_user = {
-  anPrice: 'Number',
-  anQty: 'Integer',
-  dateFormat: 'd mmm yyyy',
-  doc: 'Invoice',
-  era: 'Christ',
-  lang: 'English',
-  lines: 4,
-  tmp: 'Bookmark',
-  vatRate: 0.07,
-  whtRate: -0.03,
-},
-// temporary element going to fill by using modal
-zm_active,
-// replacing from core lang
-zm_browse,
-zm_createby,
-zm_createbyTexts,
-zm_docActBack,
-zm_docActPrint,
-zm_docLabel,
-zm_docLabelActive,
-zm_docSetFont,
-zm_docsTexts,
-zm_eraTexts,
-zm_font,
-zm_greet,
-zm_modal_date,
-zm_modal_upload,
-zm_modal_print,
-zm_setAnPrice,
-zm_setAnQty,
-zm_setDateFormat,
-zm_setDoc,
-zm_setLines,
-zm_setVatRate,
-zm_setWhtRate,
-zm_sourceused,
-zm_themesTexts,
-zm_title
-
-// begin to load up
-document.addEventListener('DOMContentLoaded',function(){
-  // temporary elements for preparing
-  const nodeOption = document.createElement('option'),
-  // select the elements
-  elLang = document.querySelector('#lang'),
-  elEra = document.querySelector('#era'),
-  elTheme = document.querySelector('#theme'),
-
-  elSetDocSelect = document.querySelector('#set-doc'),
-  elSetDateFormatSelect = document.querySelector('#set-dateFormat'),
-  elSetAnPriceSelect = document.querySelector('#set-anPrice'),
-  elSetAnQtySelect = document.querySelector('#set-anQty'),
-  elSetLinesInput = document.querySelector('#set-lines'),
-  elSetVatRateInput = document.querySelector('#set-vatRate'),
-  elSetWhtRateInput = document.querySelector('#set-whtRate'),
-  // for building
-  zm_dateFormats = zummon.dateFormat(),
-  zm_anPrices = zummon.autoNumeric(),
-  zm_anQtys = {
-    Integer: zm_anPrices.Integer,
-    IntegerD: zm_anPrices.IntegerD,
-    Number: zm_anPrices.Number,
-    NumberD: zm_anPrices.NumberD,
-  },
-  // get link parameters paste to user data
-  userLinkObj = zm_getStrObj()
-  
-  for (const key in userLinkObj) {
-    if (userLinkObj.hasOwnProperty(key)) {
-      zm_user[key] = userLinkObj[key]
-    }
-  }
-  // paste to local storage
-  if (zm_themes.hasOwnProperty(zm_user.theme)) {
-    window.localStorage.setItem('theme',zm_user.theme)
-  }
-  // clear not used parts
-  delete zm_user.fbclid
-  delete zm_user.theme
-  // build options to select
-  for (const [key, value] of Object.entries(zm_langs)) {
-    nodeOption.value = key
-    nodeOption.text = value
-    elLang.appendChild(nodeOption.cloneNode(true))
-  }
-  for (const key of Object.keys(zm_eras)) {
-    nodeOption.value = key
-    elEra.appendChild(nodeOption.cloneNode(true))
-  }
-  for (const key of Object.keys(zm_themes)) {
-    nodeOption.value = key
-    elTheme.appendChild(nodeOption.cloneNode(true))
-  }
-  for (const key in zm_docs) {
-    if (zm_docs.hasOwnProperty(key)) {
-      nodeOption.value = key
-      nodeOption.dataset = zm_docs[key] // for filter tmps
-      elSetDocSelect.appendChild(nodeOption.cloneNode(true))
-    }
-  }
-  for (const key in zm_dateFormats) {
-    if (zm_dateFormats.hasOwnProperty(key)) {
-      nodeOption.value = key
-      nodeOption.text = key
-      elSetDateFormatSelect.appendChild(nodeOption.cloneNode(true))
-    }
-  }
-  for (const key in zm_anPrices) {
-    if (zm_anPrices.hasOwnProperty(key)) {
-      nodeOption.value = key
-      nodeOption.text = key
-      elSetAnPriceSelect.appendChild(nodeOption.cloneNode(true))
-    }
-  }
-  for (const key in zm_anQtys) {
-    if (zm_anQtys.hasOwnProperty(key)) {
-      nodeOption.value = key
-      nodeOption.text = key
-      elSetAnQtySelect.appendChild(nodeOption.cloneNode(true))
-    }
-  }
-  // set selected option
-  elTheme.value = window.localStorage.getItem('theme')
-  elLang.value = zm_user.lang
-  elEra.value = zm_user.era
-  
-  elSetDocSelect.value = zm_user.doc
-  elSetDateFormatSelect.value = zm_user.dateFormat
-  elSetAnPriceSelect.value = zm_user.anPrice
-  elSetAnQtySelect.value = zm_user.anQty
-  elSetLinesInput.value = zm_user.lines
-  elSetVatRateInput.value = zm_user.vatRate
-  elSetWhtRateInput.value = zm_user.whtRate
-
-  // run functions
-  zm_setLang()
-  zm_setTheme()
-  zm_setUrl()
-  zm_setConnect()
-
-  zm_browseLoad()
-
-})
-
-// declare editable global functions
-let zm_docLoadAsset = function(html){
-  // load the chosen doc
-},
-zm_docLoadAsType = function(){
-  // for as_type to load
-},
-zm_docCalTotal = function(){
-  // calculate total amount of the doc
-},
-zm_docGetData = function(){
-  const doc = zm_user.doc
-
-  // reset user data before print
-  zm_user = {
-    lang: zm_user.lang,
-    doc: zm_user.doc,
-    dateFormat: zm_user.dateFormat,
-    anPrice: zm_user.anPrice,
-    anQty: zm_user.anQty,
-    lines: zm_user.lines,
-    tmp: zm_user.tmp,
-
-    itemDesc: [],
-    itemPrice: [],
-    itemQty: [],
-    itemAmount: [],
-  }
-
-  // 'CashSale'
-  if (['Invoice','Quotation','TaxInvoice'].indexOf(doc) >= 0) {
-    zm_user.vatRate = zm_user.vatRate
-
-  } else if (['Receipt'].indexOf(doc) >= 0) {
-    zm_user.vatRate = zm_user.vatRate
-    zm_user.whtRate = zm_user.whtRate
-
-  }
-
-  // get all fill form data
-  const elsDataDate = document.querySelectorAll('[data-date]'),
-  elsDataDocs = document.querySelectorAll('[data-docs]:not([data-docs^=item])'),
-  elsDocsitem = document.querySelectorAll('[data-docs^=item]')
-
-  for (let z = 0; z < elsDataDate.length; z++) {
-    const value = elsDataDate[z].dataset.raw
-    if (value) {
-      zm_user[elsDataDate[z].dataset.date] = value
-    }
-  }
-  for (let z = 0; z < elsDataDocs.length; z++) {
-    const value = zm_getElemValue(elsDataDocs[z])
-    if (value) {
-      zm_user[elsDataDocs[z].dataset.docs] = value
-    }
-  }
-  for (let z = 0; z < elsDocsitem.length; z++) {
-    const value = zm_getElemValue(elsDocsitem[z]),
-    docs = elsDocsitem[z].dataset.docs
-    if (value) {
-      if (!zm_user[docs]) zm_user[docs] = []
-      zm_user[docs].push(value)
-    }
-  }
-
-},
-zm_setLangPage = function(){
-  // each page has different texts to display
-},
-zm_setThemePage = function(){
-  // each page has different style to display
-},
-zm_setDocExtra = function(){
-  // extra to filter only browse page
-}
-
-// declare changing page
-zm_browseLoad = function(){
-  zm_loadFile('./core/browse.html',function(){
-    const elDisplay = document.querySelector('#display')
-    elDisplay.innerHTML = this.responseText
-    // resetting the setting
-    elDisplay.classList.remove('uk-box-shadow-large')
-    document.querySelector('#docSet-font').parentElement.classList.add('uk-hidden')
-    document.querySelector('#docAct-back').parentElement.classList.add('uk-hidden')
-    document.querySelector('#docAct-print').parentElement.classList.add('uk-hidden')
-    zm_loadLinkCss('css-docStyle','')
-    zm_loadLinkCss('css-docFont','')
-    // get elements
-    const elBrowseTitle = document.querySelector('#browse-title'),
-    elBrowse = document.querySelector('#browse'),
-    elWrapDiv = elBrowse.firstElementChild,
-    elAnchor = elWrapDiv.querySelector('a'),
-    elHoldImg = elWrapDiv.querySelector('.uk-card-media-top'),
-    elHoldText = elWrapDiv.querySelector('.uk-card-body')
-    // build elements
-    for (const key in zm_tmps) {
-      if (zm_tmps.hasOwnProperty(key)) {
-        // to identify which form, an user selects to create
-        elAnchor.dataset.tmp = key
-        // showing item detail
-        elHoldImg.style.backgroundImage = 'url('+ zm_tmps[key].img +')'
-        elHoldText.textContent = key
-        // to show and hide the options selected, for filtering
-        elWrapDiv.className = zm_tmps[key].doc.join(' ') +' uk-grid-margin'
-        elBrowse.appendChild(elWrapDiv.cloneNode(true))
-      }
-    }
-    elBrowse.removeChild(elWrapDiv)
-    // get elements after build
-    const elsWrapDiv = elBrowse.querySelectorAll(':scope > div'),
-    elsBrowseA = elBrowse.querySelectorAll('a')
-    
-    zm_setLangPage = function(){
-      document.querySelector('#display').style.fontFamily = zm_font
-      elBrowseTitle.textContent = zm_browse
-    }
-    zm_setLangPage()
-
-    zm_setThemePage = function(){
-      var theme = window.localStorage.getItem('theme')
-      elBrowseTitle.style.color = {
-        light: '',
-        dark: '#fff',
-      }[theme]
-      elBrowseTitle.className = {
-        light: 'uk-text-large uk-margin uk-text-primary uk-text-center',
-        dark: 'uk-text-large uk-margin uk-text-center',
-      }[theme]
-      elBrowse.className = {
-        light: 'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@xl uk-flex-center uk-flex-middle uk-grid',
-        dark: 'uk-child-width-1-2 uk-child-width-1-3@m uk-child-width-1-4@xl uk-flex-center uk-flex-middle uk-grid uk-light',
-      }[theme]
-    }
-    zm_setThemePage()
-
-    zm_setDocExtra = function(){
-      const doc = zm_user.doc,
-      elSetVatRate = document.querySelector('#set-vatRate').parentElement,
-      elSetWhtRate = document.querySelector('#set-whtRate').parentElement
-      // resetting the setting
-      document.querySelector('#set-doc').parentElement.classList.remove('uk-hidden')
-      document.querySelector('#set-dateFormat').parentElement.classList.remove('uk-hidden')
-      document.querySelector('#set-anPrice').parentElement.classList.remove('uk-hidden')
-      document.querySelector('#set-anQty').parentElement.classList.remove('uk-hidden')
-      document.querySelector('#set-lines').parentElement.classList.remove('uk-hidden')
-      elSetVatRate.classList.remove('uk-hidden')
-      elSetWhtRate.classList.remove('uk-hidden')
-      // show the setting needed
-      if (['CashSale'].indexOf(doc) >= 0) {
-        elSetVatRate.classList.add('uk-hidden')
-        elSetWhtRate.classList.add('uk-hidden')
-      } else if (['document','Invoice','TaxInvoice','Quotation'].indexOf(doc) >= 0) {
-        elSetWhtRate.classList.add('uk-hidden')
-      }
-      // resetting all items
-      for (let z = 0; z < elsWrapDiv.length; z++) {
-        elsWrapDiv[z].classList.add('uk-hidden')
-      }
-      // re-select the items
-      const elsBrowseSelect = elBrowse.querySelectorAll('.'+ doc)
-      for (let z = 0; z < elsBrowseSelect.length; z++) {
-        elsBrowseSelect[z].classList.remove('uk-hidden')
-      }
-    }
-    zm_setDocExtra()
-
-    // go to the selected form
-    for (let z = 0; z < elsBrowseA.length; z++) {
-      elsBrowseA[z].onclick = function(m){
-        m.preventDefault()
-        zm_user.tmp = this.dataset.tmp
-        zm_docLoad()
-      }
-    }
-  })
-},
-zm_docLoad = function(){
-  const doc = zm_user.doc,
-  lang = zm_user.lang,
-  tmp = zm_user.tmp,
-  opt = zm_tmps[tmp],
-  type = zm_docs[doc],
-  asset = './doc/as_'+ type +'.js',
-  as_doc = './doc/'+ doc +'.js',
-  html = './tmp_html/'+ tmp +'.html'
-  
-  zm_loadScript('scr-docAsset',asset,function(){
-  zm_loadScript('scr-docAsDoc',as_doc,function(){
-
-    const elSetVatRate = document.querySelector('#set-vatRate').parentElement,
-    elSetWhtRate = document.querySelector('#set-whtRate').parentElement,
-    elDocSetFont = document.querySelector('#docSet-font').parentElement,
-    elDocSetFontSelect = document.querySelector('#docSet-font'),
-    nodeOption = document.createElement('option')
-    // resetting
-    document.querySelector('#display').classList.add('uk-box-shadow-large')
-    document.querySelector('#set-doc').parentElement.classList.add('uk-hidden')
-    document.querySelector('#set-dateFormat').parentElement.classList.add('uk-hidden')
-    document.querySelector('#set-anPrice').parentElement.classList.add('uk-hidden')
-    document.querySelector('#set-anQty').parentElement.classList.add('uk-hidden')
-    document.querySelector('#set-lines').parentElement.classList.add('uk-hidden')
-    elSetVatRate.classList.add('uk-hidden')
-    elSetWhtRate.classList.add('uk-hidden')
-
-    elDocSetFont.classList.remove('uk-hidden')
-    document.querySelector('#docAct-back').parentElement.classList.remove('uk-hidden')
-    document.querySelector('#docAct-print').parentElement.classList.remove('uk-hidden')
-    elDocSetFontSelect.innerHTML = ''
-
-    zm_loadLinkCss('css-docStyle',opt.css)
-    zm_loadLinkCss('css-docFont',opt.font)
-    // build docFonts to select
-    for (let z = 0; z < opt.fontStyle.length; z++) {
-      nodeOption.value = opt.fontStyle[z]
-      nodeOption.text = opt.fontStyle[z].split(',')[0]
-      elDocSetFontSelect.appendChild(nodeOption.cloneNode(true))
-    }
-    zm_docLoadAsset(html,doc,lang)
-  
-  })
-  })
-}
-
-</script>
 
 </body></html>

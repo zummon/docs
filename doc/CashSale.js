@@ -1,4 +1,4 @@
-zm_docLoadAsType = function(){
+(function(){
 
   zm_docCalTotal = function(){
     var elems = document.querySelectorAll('[data-docs=itemAmount]'), total = 0
@@ -8,4 +8,4 @@ zm_docLoadAsType = function(){
     AutoNumeric.set('[data-docs=totalAmount]',total)
   }
 
-}
+})()

@@ -18,7 +18,7 @@ html {
   -webkit-text-size-adjust: 100%;
   /* 3 */
   background: #fff;
-  color: #666;
+  /* color: #666; */
 }
 /*
  * Remove the margin in all browsers.
@@ -947,7 +947,7 @@ a.uk-link-reset,
   /* 1 */
   font-size: 0.875rem;
   font-weight: normal;
-  color: #999;
+  /* color: #999; */
   text-transform: uppercase;
 }
 /* Cell
@@ -972,7 +972,7 @@ a.uk-link-reset,
 .uk-table caption {
   font-size: 0.875rem;
   text-align: left;
-  color: #999;
+  /* color: #999; */
 }
 /* Alignment modifier
  ========================================================================== */
@@ -1484,7 +1484,7 @@ button.uk-icon:not(:disabled) {
   /* 4 */
   padding: 0 10px;
   background: #fff;
-  color: #666;
+  /* color: #666; */
   border: 1px solid #e5e5e5;
   transition: 0.2s ease-in-out;
   transition-property: color, background-color, border;
@@ -1523,7 +1523,7 @@ button.uk-icon:not(:disabled) {
 .uk-textarea:focus {
   outline: none;
   background-color: #fff;
-  color: #666;
+  /* color: #666; */
   border-color: #1e87f0;
 }
 /* Disabled */
@@ -1837,7 +1837,7 @@ select.uk-form-width-xsmall {
 /* Label
  ========================================================================== */
 .uk-form-label {
-  color: #333;
+  /* color: #333; */
   font-size: 0.875rem;
 }
 /* Layout

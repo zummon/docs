@@ -1,6 +1,7 @@
-zm_docLoadAsType = function(){
+(function(){
+  var vatRate = Number(localStorage.getItem('vatRate'))
 
-  var vat = (zm_user.vatRate *100).toFixed(2), depth = vat % 1 == 0 ? 0 : 2
+  var vat = (vatRate *100).toFixed(2), depth = vat % 1 == 0 ? 0 : 2
   zm_setElemValue(document.querySelector('[data-zm=vatRate]'), Number(vat).toFixed(depth) +'%')
 
   zm_docCalTotal = function(){
@@ -8,10 +9,10 @@ zm_docLoadAsType = function(){
     for (let z = 0; z < elems.length; z++) {
       total += AutoNumeric.getNumber(elems[z])
     }
-    var vat = total * zm_user.vatRate
+    var vat = total * vatRate
     AutoNumeric.set('[data-docs=totalAmount]',total)
     AutoNumeric.set('[data-docs=totalVat]',vat)
     AutoNumeric.set('[data-docs=totalFinal]',AutoNumeric.getNumber('[data-docs=totalAdjust]') + total + vat)
   }
     
-}
+})()
