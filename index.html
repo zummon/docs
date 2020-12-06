@@ -358,20 +358,6 @@ let zm_user = Object.assign({
   localStorage.setItem('vatRate',zm_user.vatRate)
   localStorage.setItem('whtRate',zm_user.whtRate)
 
-  // already in localStorage
-  delete zm_user.anPrice
-  delete zm_user.anQty
-  delete zm_user.dateFormat
-  delete zm_user.doc
-  delete zm_user.era
-  delete zm_user.lang
-  delete zm_user.lines
-  delete zm_user.theme
-  delete zm_user.tmp
-  delete zm_user.vatRate
-  delete zm_user.view
-  delete zm_user.whtRate
-
   // clear not used parts
   delete zm_user.fbclid
 
