@@ -1,16 +1,5 @@
-if (!zummon) var zummon = {}
+if (!zummon) { var zummon = {} }
 zummon.dateFormat = function(options){
-  var isValidDate = function(dateString){
-    // https://stackoverflow.com/questions/18758772/how-do-i-validate-a-date-in-this-format-yyyy-mm-dd-using-jquery
-    if (!dateString) return false
-    var regEx = /^\d{4}-\d{2}-\d{2}$/;
-    if (!dateString.match(regEx)) return false;  // Invalid format
-    var d = new Date(dateString);
-    var dNum = d.getTime();
-    if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
-    return d.toISOString().slice(0,10) === dateString;
-  }
-
   if (!options) options = {}
   var date = options.date // string '2020-12-31'
   var form = options.format // key 'yyyy-mm-dd'
@@ -70,7 +59,7 @@ zummon.dateFormat = function(options){
     form = 'yyyy-mm-dd'
   }
 
-  if (isValidDate(date)) {
+  if (zummon.isValidDate(date)) {
     date = date.split('-')
     var yyyy = parseInt(date[0]) + years[era]
     var mm = date[1]
@@ -84,4 +73,14 @@ zummon.dateFormat = function(options){
 
   return result
   
+}
+zummon.isValidDate = function(dateString){
+  /*! Thanks to https://stackoverflow.com/questions/18758772/how-do-i-validate-a-date-in-this-format-yyyy-mm-dd-using-jquery */
+  if (!dateString) return false
+  var regEx = /^\d{4}-\d{2}-\d{2}$/;
+  if (!dateString.match(regEx)) return false;  // Invalid format
+  var d = new Date(dateString);
+  var dNum = d.getTime();
+  if (!dNum && dNum !== 0) return false; // NaN value, Invalid date
+  return d.toISOString().slice(0,10) === dateString;
 }

@@ -5,17 +5,13 @@
 <script src="https://unpkg.com/autonumeric@4.6.0/dist/autoNumeric.min.js"></script>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=K2D&family=Varela+Round&display=swap">
 <link rel="stylesheet" href="core/uikit.css">
-<script src="core/autoNumeric.js"></script>
-<script src="core/dateFormat.js"></script>
+<script src="autoNumeric.js"></script>
+<script src="dateFormat.js"></script>
 <style>
 /* change to my preference */
 /* default of document size should not be lower */
 html {
   min-width: 640px;
-}
-/* just for the look */
-select {
-  cursor: pointer;
 }
 /* fix Firefox appearance
 https://stackoverflow.com/questions/7695945/height-of-textarea-does-not-match-the-rows-in-firefox */
@@ -43,6 +39,11 @@ textarea {
 }
 </style>
 <script>
+// fix glitch theme
+if (localStorage.getItem('theme') == 'dark') {
+  document.documentElement.className = 'uk-background-secondary uk-light'
+}
+
 // install
 // to tell users when any error occur
 window.onerror = function(msg,url,line){
@@ -84,13 +85,6 @@ window.onerror = function(msg,url,line){
   document.body.style.overflowY = 'scroll'
   document.documentElement.classList.add('uk-modal-page')
 }
-
-// glitch theme won't appear
-if (localStorage.getItem('theme') == 'dark') {
-  document.documentElement.className = 'uk-background-secondary'
-}
-
-// declare functions
 const zm_getObjStr = function(obj){
   // https://stackoverflow.com/questions/1714786/query-string-encoding-of-a-javascript-object
   var str = []
@@ -164,6 +158,11 @@ const zm_loadScript = function(id,url,call){
     document.body.appendChild(script)
   }
 }
+const zm_refreshUrl = function(obj){
+  window.history.replaceState('','','?'+ zm_getObjStr(obj))
+}
+
+// declare functions
 const zm_loadLinkCss = function(id,url){
   // delete an old css
   var elem = document.querySelector('#'+ id)
@@ -179,10 +178,6 @@ const zm_loadLinkCss = function(id,url){
 }
 
 // declare variables
-const zm_eras = {
-  Christ: true,
-  Buddhist: true,
-}
 const zm_docs = {
   Invoice: 'inv',
   Receipt: 'inv',
@@ -190,14 +185,6 @@ const zm_docs = {
   // document: 'inv',
   Quotation: 'inv',
   TaxInvoice: 'inv',
-}
-const zm_langs = {
-  English: 'English',
-  Thai: 'ไทย',
-}
-const zm_themes = {
-  light: true,
-  dark: true,
 }
 const zm_views = {
   browse: true,
@@ -314,9 +301,11 @@ let zm_user = Object.assign({
   vatRate: 0.07,
   view: 'browse',
   whtRate: -0.03,
-},zm_getStrObj());
+}, zm_getStrObj())
+// clear not used parts
+delete zm_user.fbclid
 
-(function(){
+document.addEventListener('DOMContentLoaded',function(){
   // for building
   const zm_dateFormats = zummon.dateFormat()
   const zm_anPrices = zummon.autoNumeric()
@@ -326,15 +315,31 @@ let zm_user = Object.assign({
     Number: zm_anPrices.Number,
     NumberD: zm_anPrices.NumberD,
   }
-  // get link parameters paste to the web app
-  if (!zm_langs.hasOwnProperty(localStorage.getItem('lang'))) {
-    localStorage.setItem('lang',zm_user.lang)
+
+  // temporary elements for preparing
+  const nodeOption = document.createElement('option')
+  // select the elements
+  const elLang = document.querySelector('#lang')
+  const elEra = document.querySelector('#era')
+  const elTheme = document.querySelector('#theme')
+
+  const elSetDoc = document.querySelector('#set-doc')
+  const elSetDateFormat = document.querySelector('#set-dateFormat')
+  const elSetAnPrice = document.querySelector('#set-anPrice')
+  const elSetAnQty = document.querySelector('#set-anQty')
+  const elSetLines = document.querySelector('#set-lines')
+  const elSetVatRateInput = document.querySelector('#set-vatRate')
+  const elSetWhtRateInput = document.querySelector('#set-whtRate')
+
+  // set the existing value
+  if ([...elLang.options].map(function(t){return t.value}).indexOf(localStorage.getItem('lang')) == -1) {
+    localStorage.setItem('lang',elLang.options[0].value)
   }
-  if (!zm_eras.hasOwnProperty(localStorage.getItem('era'))) {
-    localStorage.setItem('era',zm_user.era)
+  if ([...elEra.options].map(function(t){return t.value}).indexOf(localStorage.getItem('era')) == -1) {
+    localStorage.setItem('era',elEra.options[0].value)
   }
-  if (!zm_themes.hasOwnProperty(localStorage.getItem('theme'))) {
-    localStorage.setItem('theme',zm_user.theme)
+  if ([...elTheme.options].map(function(t){return t.value}).indexOf(localStorage.getItem('theme')) == -1) {
+    localStorage.setItem('theme',elTheme.options[0].value)
   }
   if (!zm_views.hasOwnProperty(localStorage.getItem('view'))) {
     localStorage.setItem('view',zm_user.view)
@@ -358,93 +363,58 @@ let zm_user = Object.assign({
   localStorage.setItem('vatRate',zm_user.vatRate)
   localStorage.setItem('whtRate',zm_user.whtRate)
 
-  // clear not used parts
-  delete zm_user.fbclid
-
-  // begin to load up
-  document.addEventListener('DOMContentLoaded',function(){
-    // temporary elements for preparing
-    const nodeOption = document.createElement('option')
-    // select the elements
-    const elLang = document.querySelector('#lang')
-    const elEra = document.querySelector('#era')
-    const elTheme = document.querySelector('#theme')
-
-    const elSetDoc = document.querySelector('#set-doc')
-    const elSetDateFormat = document.querySelector('#set-dateFormat')
-    const elSetAnPrice = document.querySelector('#set-anPrice')
-    const elSetAnQty = document.querySelector('#set-anQty')
-    const elSetLines = document.querySelector('#set-lines')
-    const elSetVatRateInput = document.querySelector('#set-vatRate')
-    const elSetWhtRateInput = document.querySelector('#set-whtRate')
-
-    // build options to select
-    for (const [key, value] of Object.entries(zm_langs)) {
+  // build options to select
+  for (const key in zm_docs) {
+    if (zm_docs.hasOwnProperty(key)) {
       nodeOption.value = key
-      nodeOption.text = value
-      elLang.appendChild(nodeOption.cloneNode(true))
+      nodeOption.dataset = zm_docs[key] // for filter tmps
+      elSetDoc.appendChild(nodeOption.cloneNode(true))
     }
-    for (const key of Object.keys(zm_eras)) {
+  }
+  for (const key in zm_dateFormats) {
+    if (zm_dateFormats.hasOwnProperty(key)) {
       nodeOption.value = key
-      elEra.appendChild(nodeOption.cloneNode(true))
+      nodeOption.text = key
+      elSetDateFormat.appendChild(nodeOption.cloneNode(true))
     }
-    for (const key of Object.keys(zm_themes)) {
+  }
+  for (const key in zm_anPrices) {
+    if (zm_anPrices.hasOwnProperty(key)) {
       nodeOption.value = key
-      elTheme.appendChild(nodeOption.cloneNode(true))
+      nodeOption.text = key
+      elSetAnPrice.appendChild(nodeOption.cloneNode(true))
     }
-    for (const key in zm_docs) {
-      if (zm_docs.hasOwnProperty(key)) {
-        nodeOption.value = key
-        nodeOption.dataset = zm_docs[key] // for filter tmps
-        elSetDoc.appendChild(nodeOption.cloneNode(true))
-      }
+  }
+  for (const key in zm_anQtys) {
+    if (zm_anQtys.hasOwnProperty(key)) {
+      nodeOption.value = key
+      nodeOption.text = key
+      elSetAnQty.appendChild(nodeOption.cloneNode(true))
     }
-    for (const key in zm_dateFormats) {
-      if (zm_dateFormats.hasOwnProperty(key)) {
-        nodeOption.value = key
-        nodeOption.text = key
-        elSetDateFormat.appendChild(nodeOption.cloneNode(true))
-      }
-    }
-    for (const key in zm_anPrices) {
-      if (zm_anPrices.hasOwnProperty(key)) {
-        nodeOption.value = key
-        nodeOption.text = key
-        elSetAnPrice.appendChild(nodeOption.cloneNode(true))
-      }
-    }
-    for (const key in zm_anQtys) {
-      if (zm_anQtys.hasOwnProperty(key)) {
-        nodeOption.value = key
-        nodeOption.text = key
-        elSetAnQty.appendChild(nodeOption.cloneNode(true))
-      }
-    }
-    // set selected option
-    const lang = localStorage.getItem('lang')
-    const theme = localStorage.getItem('theme')
-    const view = localStorage.getItem('view')
-    
-    elSetAnPrice.value = localStorage.getItem('anPrice')
-    elSetAnQty.value = localStorage.getItem('anQty')
-    elSetDateFormat.value = localStorage.getItem('dateFormat')
-    elSetDoc.value = localStorage.getItem('doc')
-    elEra.value = localStorage.getItem('era')
-    elLang.value = lang
-    elSetLines.value = localStorage.getItem('lines')
-    elTheme.value = theme
-    elSetVatRateInput.value = localStorage.getItem('vatRate')
-    elSetWhtRateInput.value = localStorage.getItem('whtRate')
+  }
+  // set selected option
+  const lang = localStorage.getItem('lang')
+  const theme = localStorage.getItem('theme')
+  const view = localStorage.getItem('view')
+  
+  elEra.value = localStorage.getItem('era')
+  elLang.value = lang
+  elTheme.value = theme
 
-    // set view
-    zm_loadScript('scr-view','core/'+ view +'.js',function(){
-      elTheme.onload()
-      elLang.onload()
-    })
+  elSetAnPrice.value = localStorage.getItem('anPrice')
+  elSetAnQty.value = localStorage.getItem('anQty')
+  elSetDateFormat.value = localStorage.getItem('dateFormat')
+  elSetDoc.value = localStorage.getItem('doc')
+  elSetLines.value = localStorage.getItem('lines')
+  elSetVatRateInput.value = localStorage.getItem('vatRate')
+  elSetWhtRateInput.value = localStorage.getItem('whtRate')
 
-  })
+  // set view
+  zm_loadScript('scr-view','core/'+ view +'.js')
+  zm_loadScript('scr-lang','core_lang/'+ lang +'.js')
+  zm_loadScript('scr-theme','core_theme/'+ theme +'.js')
 
-})()
+})
 
 const zm_isElemInput = function(elem){
   return [
@@ -466,10 +436,6 @@ const zm_setElemValue = function(elem,val){
   } else {
     elem[zm_isElemInput(elem) ? 'value' : 'textContent'] = val
   }
-}
-// declare functions doing stuff
-const zm_refreshUrl = function(obj){
-  window.history.replaceState('','','?'+ zm_getObjStr(obj))
 }
 // declare editable global functions
 let zm_docCalTotal = function(){
@@ -502,7 +468,10 @@ let zm_docCalTotal = function(){
         var view = localStorage.getItem('view')
         zm_loadScript('scr-lang','core_lang/'+ lang +'.js')
         zm_loadScript('scr-lang-view','core_lang/'+ lang +'_'+ view +'.js')
-      })()"></select>
+      })()">
+        <option value="English">English</option>
+        <option value="Thai">ไทย</option>
+      </select>
     </div>
     <div>
       <label class="uk-icon" for="era">
@@ -513,7 +482,10 @@ let zm_docCalTotal = function(){
       <select id="era" class="uk-select uk-form-blank uk-border-pill uk-width-auto"
       onchange="(function(value){
         localStorage.setItem('era',value)
-      })(this.value)"></select>
+      })(this.value)">
+        <option value="Christ"></option>
+        <option value="Buddhist"></option>
+      </select>
     </div>
     <div>
       <label class="uk-icon" for="theme">
@@ -535,7 +507,10 @@ let zm_docCalTotal = function(){
         if (view == 'browse') {
           zm_loadScript('scr-theme-view','core_theme/'+ theme +'_'+ view +'.js')
         }
-      })()"></select>
+      })()">
+        <option value="light"></option>
+        <option value="dark"></option>
+      </select>
     </div>
   </div>
 </div>

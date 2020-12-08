@@ -1,80 +1,73 @@
 (function(){
-  const elsAboveNavEndModal = document.querySelectorAll('#above, #nav, #end, [id^=modal]')
-  const elsEraOption = document.querySelectorAll('#era option')
-  const elsThemeOption = document.querySelectorAll('#theme option')
-  const elSetDocOption = document.querySelectorAll('#set-doc option')
-  const elsCreatebyTarget = document.querySelectorAll('#createby [target]')
+const elsAboveNavEndModal = document.querySelectorAll('#above, #nav, #end, [id^=modal]')
+const elSetDocOption = document.querySelectorAll('#set-doc option')
+const elsCreatebyTarget = document.querySelectorAll('#createby [target]')
 
-  let zm_font = 'K2D, sans-serif'
-  let zm_erasTexts = {
-    Christ: 'คริสต์',
-    Buddhist: 'พุทธ',
-  }
-  let zm_themesTexts = {
-    light: 'สว่าง',
-    dark: 'มืด',
-  }
-  let zm_docsTexts = {
-    CashSale: 'บิลเงินสด*',
-    document: 'เอกสาร*',
-    Invoice: 'ใบแจ้งหนี้',
-    Quotation: 'ใบเสนอราคา*',
-    Receipt: 'ใบเสร็จรับเงิน',
-    TaxInvoice: 'ใบกำกับภาษี*',
-  }
-  let zm_createbyTexts = [
-    'แจ้งปัญหา (กิตฮับ)',
-    'พูดคุย (เฟซบุ๊ก)',
-    'เว็บไซต์หลัก',
-    'โอนเงินเพื่อสนับสนุน (PayPal)',
-  ]
-  
-  for (let z = 0; z < elsAboveNavEndModal.length; z++) {
-    elsAboveNavEndModal[z].style.fontFamily = zm_font
-  }
-  for (let z = 0; z < elsEraOption.length; z++) {
-    elsEraOption[z].text = zm_erasTexts[elsEraOption[z].value]
-  }
-  for (let z = 0; z < elsThemeOption.length; z++) {
-    elsThemeOption[z].text = zm_themesTexts[elsThemeOption[z].value]
-  }
-  for (let z = 0; z < elSetDocOption.length; z++) {
-    elSetDocOption[z].text = zm_docsTexts[elSetDocOption[z].value]
-  }
-  for (let z = 0; z < elsCreatebyTarget.length; z++) {
-    elsCreatebyTarget[z].textContent = zm_createbyTexts[z]
-  }
+let zm_font = 'K2D, sans-serif'
 
-  document.title = 'สร้างเอกสาร - zummon เว็บแอป (พัฒนาเรื่อยๆ)'
-  document.querySelector('#greet').textContent = 'สร้างเอกสาร'
+const elEra = document.querySelector('#era')
+elEra.querySelector('[value=Christ]').text = 'คริสต์'
+elEra.querySelector('[value=Buddhist]').text = 'พุทธ'
 
-  document.querySelector('[for=set-doc]').textContent = 'ฟอร์ม'
-  document.querySelector('[for=set-dateFormat]').textContent = 'รูปแบบวันที่'
-  document.querySelector('[for=set-anPrice]').textContent = 'สกุลเงิน'
-  document.querySelector('[for=set-anQty]').textContent = 'หน่วยนับ'
-  document.querySelector('[for=set-lines]').textContent = 'บรรทัด'
-  document.querySelector('[for=set-vatRate]').textContent = 'อัตราภาษีมูลค่าเพิ่ม'
-  document.querySelector('[for=set-whtRate]').textContent = 'อัตราภาษีหัก ณ ที่จ่าย'
+const elTheme = document.querySelector('#theme')
+elTheme.querySelector('[value=light]').text = 'สว่าง'
+elTheme.querySelector('[value=dark]').text = 'มืด'
 
-  document.querySelector('[for=docSet-font]').textContent = 'ตัวอักษร'
-  document.querySelector('#docAct-select').textContent = 'เลือกแบบ'
-  document.querySelector('#docAct-print').textContent = 'พิมพ์'
-  document.querySelector('#docAct-get').textContent = 'รับข้อมูล'
+let zm_docsTexts = {
+  CashSale: 'บิลเงินสด*',
+  document: 'เอกสาร*',
+  Invoice: 'ใบแจ้งหนี้',
+  Quotation: 'ใบเสนอราคา*',
+  Receipt: 'ใบเสร็จรับเงิน',
+  TaxInvoice: 'ใบกำกับภาษี*',
+}
+let zm_createbyTexts = [
+  'แจ้งปัญหา (กิตฮับ)',
+  'พูดคุย (เฟซบุ๊ก)',
+  'เว็บไซต์หลัก',
+  'โอนเงินเพื่อสนับสนุน (PayPal)',
+]
 
-  document.querySelector('#sourceused label').textContent = 'แหล่งการใช้งาน'
-  document.querySelector('#createby label').textContent = 'สร้างโดย'
+for (let z = 0; z < elsAboveNavEndModal.length; z++) {
+  elsAboveNavEndModal[z].style.fontFamily = zm_font
+}
+for (let z = 0; z < elSetDocOption.length; z++) {
+  elSetDocOption[z].text = zm_docsTexts[elSetDocOption[z].value]
+}
+for (let z = 0; z < elsCreatebyTarget.length; z++) {
+  elsCreatebyTarget[z].textContent = zm_createbyTexts[z]
+}
 
-  document.querySelector('#modal-date h4').textContent = 'ใส่วันที่'
-  document.querySelector('[for=modal-date-input]').textContent = 'เลือกวันที่'
-  document.querySelector('[for=modal-date-output]').textContent = 'แสดง'
+document.title = 'สร้างเอกสาร - zummon เว็บแอป (พัฒนาเรื่อยๆ)'
+document.querySelector('#greet').textContent = 'สร้างเอกสาร'
 
-  document.querySelector('#modal-upload h4').textContent = 'ใส่รูปภาพ'
-  document.querySelector('[for=modal-upload-input]').textContent = 'เลือกรูปภาพ'
-  document.querySelector('[for=modal-upload-height]').textContent = 'ยาว (px)'
-  document.querySelector('[for=modal-upload-width]').textContent = 'กว้าง (px)'
+document.querySelector('[for=set-doc]').textContent = 'ฟอร์ม'
+document.querySelector('[for=set-dateFormat]').textContent = 'รูปแบบวันที่'
+document.querySelector('[for=set-anPrice]').textContent = 'สกุลเงิน'
+document.querySelector('[for=set-anQty]').textContent = 'หน่วยนับ'
+document.querySelector('[for=set-lines]').textContent = 'บรรทัด'
+document.querySelector('[for=set-vatRate]').textContent = 'อัตราภาษีมูลค่าเพิ่ม'
+document.querySelector('[for=set-whtRate]').textContent = 'อัตราภาษีหัก ณ ที่จ่าย'
 
-  document.querySelector('#modal-get h4').textContent = 'รับข้อมูลเอกสารของคุณ'
-  // document.querySelector('#modal-get-copy').textContent = 'คัดลอก และเก็บลิงค์นี้'
-  // document.querySelector('#modal-get-post').textContent = '*โพสต์ไปที่ Mini Dashboard'
-  
+document.querySelector('[for=docSet-font]').textContent = 'ตัวอักษร'
+document.querySelector('#docAct-select').textContent = 'เลือกแบบ'
+document.querySelector('#docAct-print').textContent = 'พิมพ์'
+document.querySelector('#docAct-get').textContent = 'รับข้อมูล'
+
+document.querySelector('#sourceused label').textContent = 'แหล่งการใช้งาน'
+document.querySelector('#createby label').textContent = 'สร้างโดย'
+
+document.querySelector('#modal-date h4').textContent = 'ใส่วันที่'
+document.querySelector('[for=modal-date-input]').textContent = 'เลือกวันที่'
+document.querySelector('[for=modal-date-output]').textContent = 'แสดง'
+
+document.querySelector('#modal-upload h4').textContent = 'ใส่รูปภาพ'
+document.querySelector('[for=modal-upload-input]').textContent = 'เลือกรูปภาพ'
+document.querySelector('[for=modal-upload-height]').textContent = 'ยาว (px)'
+document.querySelector('[for=modal-upload-width]').textContent = 'กว้าง (px)'
+
+document.querySelector('#modal-get h4').textContent = 'รับข้อมูลเอกสารของคุณ'
+// document.querySelector('#modal-get-copy').textContent = 'คัดลอก และเก็บลิงค์นี้'
+// document.querySelector('#modal-get-post').textContent = '*โพสต์ไปที่ Mini Dashboard'
+
 })()

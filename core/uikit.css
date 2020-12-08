@@ -1399,6 +1399,7 @@ button.uk-icon:not(:disabled) {
  * Remove the inheritance of text transform in Firefox.
  */
 .uk-select {
+  cursor: pointer;
   text-transform: none;
 }
 /*
@@ -1411,6 +1412,7 @@ button.uk-icon:not(:disabled) {
   font: inherit;
   /* 2 */
   font-weight: bold;
+  color: #666;
 }
 /*
  * Remove the default vertical scrollbar in IE 10+.

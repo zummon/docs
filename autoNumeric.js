@@ -1,6 +1,6 @@
-// use with http://autonumeric.org/
 if (!zummon) var zummon = {}
 zummon.autoNumeric = function(options){
+  /*! Thanks to http://autonumeric.org/ */
   if (typeof options == 'undefined') options = {}
   var num = options.number // number 9999
   var form = options.format // key Number
