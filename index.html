@@ -39,11 +39,6 @@ textarea {
 }
 </style>
 <script>
-// fix glitch theme
-if (localStorage.getItem('theme') == 'dark') {
-  document.documentElement.className = 'uk-background-secondary uk-light'
-}
-
 // install
 // to tell users when any error occur
 window.onerror = function(msg,url,line){
@@ -157,9 +152,6 @@ const zm_loadScript = function(id,url,call){
     script.src = url
     document.body.appendChild(script)
   }
-}
-const zm_refreshUrl = function(obj){
-  window.history.replaceState('','','?'+ zm_getObjStr(obj))
 }
 
 // declare functions
@@ -287,20 +279,20 @@ const zm_tmps = {
 // replaceable variables
 // temporary element going to fill by using modal
 let zm_active
-// set default value not to get error of undefined
+// set default value
 let zm_user = Object.assign({
-  anPrice: 'Number',
-  anQty: 'Integer',
-  dateFormat: 'd mmm yyyy',
-  doc: 'Invoice',
-  era: 'Christ',
-  lang: 'English',
-  lines: 4,
-  theme: 'light',
-  tmp: 'Bookmark',
-  vatRate: 0.07,
-  view: 'browse',
-  whtRate: -0.03,
+  anPrice: localStorage.getItem('anPrice'),
+  anQty: localStorage.getItem('anQty'),
+  dateFormat: localStorage.getItem('dateFormat'),
+  doc: localStorage.getItem('doc'),
+  era: localStorage.getItem('era'),
+  lang: localStorage.getItem('lang'),
+  lines: localStorage.getItem('lines'),
+  theme: localStorage.getItem('theme'),
+  tmp: localStorage.getItem('tmp'),
+  vatRate: localStorage.getItem('vatRate'),
+  view: localStorage.getItem('view'),
+  whtRate: localStorage.getItem('whtRate'),
 }, zm_getStrObj())
 // clear not used parts
 delete zm_user.fbclid
@@ -315,14 +307,10 @@ document.addEventListener('DOMContentLoaded',function(){
     Number: zm_anPrices.Number,
     NumberD: zm_anPrices.NumberD,
   }
-
-  // temporary elements for preparing
-  const nodeOption = document.createElement('option')
   // select the elements
   const elLang = document.querySelector('#lang')
   const elEra = document.querySelector('#era')
   const elTheme = document.querySelector('#theme')
-
   const elSetDoc = document.querySelector('#set-doc')
   const elSetDateFormat = document.querySelector('#set-dateFormat')
   const elSetAnPrice = document.querySelector('#set-anPrice')
@@ -332,36 +320,49 @@ document.addEventListener('DOMContentLoaded',function(){
   const elSetWhtRateInput = document.querySelector('#set-whtRate')
 
   // set the existing value
-  if ([...elLang.options].map(function(t){return t.value}).indexOf(localStorage.getItem('lang')) == -1) {
-    localStorage.setItem('lang',elLang.options[0].value)
+  if (!zm_anPrices.hasOwnProperty(zm_user.anPrice)) {
+    zm_user.anPrice = 'Number'
   }
-  if ([...elEra.options].map(function(t){return t.value}).indexOf(localStorage.getItem('era')) == -1) {
-    localStorage.setItem('era',elEra.options[0].value)
+  if (!zm_anQtys.hasOwnProperty(zm_user.anQty)) {
+    zm_user.anQty = 'Integer'
   }
-  if ([...elTheme.options].map(function(t){return t.value}).indexOf(localStorage.getItem('theme')) == -1) {
-    localStorage.setItem('theme',elTheme.options[0].value)
+  if (!zm_dateFormats.hasOwnProperty(zm_user.dateFormat)) {
+    zm_user.dateFormat = 'd mmm yyyy'
   }
-  if (!zm_views.hasOwnProperty(localStorage.getItem('view'))) {
-    localStorage.setItem('view',zm_user.view)
+  if (!zm_docs.hasOwnProperty(zm_user.doc)) {
+    zm_user.doc = 'Invoice'
   }
-  if (!zm_docs.hasOwnProperty(localStorage.getItem('doc'))) {
-    localStorage.setItem('doc',zm_user.doc)
+  if ([...elEra.options].map(function(t){return t.value}).indexOf(zm_user.era) == -1) {
+    zm_user.era = elEra.options[0].value
   }
-  if (!zm_dateFormats.hasOwnProperty(localStorage.getItem('dateFormat'))) {
-    localStorage.setItem('dateFormat',zm_user.dateFormat)
+  if ([...elLang.options].map(function(t){return t.value}).indexOf(zm_user.lang) == -1) {
+    zm_user.lang = elLang.options[0].value
   }
-  if (!zm_anPrices.hasOwnProperty(localStorage.getItem('anPrice'))) {
-    localStorage.setItem('anPrice',zm_user.anPrice)
+  if ([...elTheme.options].map(function(t){return t.value}).indexOf(zm_user.theme) == -1) {
+    zm_user.theme = elTheme.options[0].value
   }
-  if (!zm_anQtys.hasOwnProperty(localStorage.getItem('anQty'))) {
-    localStorage.setItem('anQty',zm_user.anQty)
+  if (!zm_tmps.hasOwnProperty(zm_user.tmp)) {
+    zm_user.tmp = 'Bookmark'
   }
-  if (!zm_tmps.hasOwnProperty(localStorage.getItem('tmp'))) {
-    localStorage.setItem('tmp',zm_user.tmp)
+  if (!zm_views.hasOwnProperty(zm_user.view)) {
+    zm_user.view = 'browse'
   }
-  localStorage.setItem('lines',zm_user.lines)
-  localStorage.setItem('vatRate',zm_user.vatRate)
-  localStorage.setItem('whtRate',zm_user.whtRate)
+
+  localStorage.setItem('anPrice',zm_user.anPrice)
+  localStorage.setItem('anQty',zm_user.anQty)
+  localStorage.setItem('dateFormat',zm_user.dateFormat)
+  localStorage.setItem('doc',zm_user.doc)
+  localStorage.setItem('era',zm_user.era)
+  localStorage.setItem('lang',zm_user.lang)
+  localStorage.setItem('lines',zm_user.lines || 4)
+  localStorage.setItem('theme',zm_user.theme)
+  localStorage.setItem('tmp',zm_user.tmp)
+  localStorage.setItem('vatRate',zm_user.vatRate || 0.07)
+  localStorage.setItem('view',zm_user.view)
+  localStorage.setItem('whtRate',zm_user.whtRate || -0.03)
+
+  // temporary elements for preparing
+  const nodeOption = document.createElement('option')
 
   // build options to select
   for (const key in zm_docs) {
@@ -393,26 +394,21 @@ document.addEventListener('DOMContentLoaded',function(){
     }
   }
   // set selected option
-  const lang = localStorage.getItem('lang')
-  const theme = localStorage.getItem('theme')
-  const view = localStorage.getItem('view')
-  
-  elEra.value = localStorage.getItem('era')
-  elLang.value = lang
-  elTheme.value = theme
-
-  elSetAnPrice.value = localStorage.getItem('anPrice')
-  elSetAnQty.value = localStorage.getItem('anQty')
-  elSetDateFormat.value = localStorage.getItem('dateFormat')
-  elSetDoc.value = localStorage.getItem('doc')
-  elSetLines.value = localStorage.getItem('lines')
-  elSetVatRateInput.value = localStorage.getItem('vatRate')
-  elSetWhtRateInput.value = localStorage.getItem('whtRate')
+  elLang.value = zm_user.lang
+  elEra.value = zm_user.era
+  elTheme.value = zm_user.theme
+  elSetDoc.value = zm_user.doc
+  elSetDateFormat.value = zm_user.dateFormat
+  elSetAnPrice.value = zm_user.anPrice
+  elSetAnQty.value = zm_user.anQty
+  elSetLines.value = zm_user.lines
+  elSetVatRateInput.value = zm_user.vatRate
+  elSetWhtRateInput.value = zm_user.whtRate
 
   // set view
-  zm_loadScript('scr-view','core/'+ view +'.js')
-  zm_loadScript('scr-lang','core_lang/'+ lang +'.js')
-  zm_loadScript('scr-theme','core_theme/'+ theme +'.js')
+  zm_loadScript('scr-view','core/'+ zm_user.view +'.js')
+  zm_loadScript('scr-lang','core_lang/'+ zm_user.lang +'.js')
+  zm_loadScript('scr-theme','core_theme/'+ zm_user.theme +'.js')
 
 })
 
@@ -446,9 +442,9 @@ let zm_docCalTotal = function(){
 
 </head><body>
 
-<div id="above" class="uk-container uk-container-small uk-margin-large-top">
+<div id="above" class="uk-container uk-container-small uk-margin-top">
   <div class="uk-flex-right uk-grid-small uk-grid">
-    <div>
+    <div class="uk-grid-margin">
       <label class="uk-icon" for="lang">
         <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="world">
           <path fill="none" stroke="#000" d="M1,10.5 L19,10.5"></path>
@@ -473,7 +469,7 @@ let zm_docCalTotal = function(){
         <option value="Thai">ไทย</option>
       </select>
     </div>
-    <div>
+    <div class="uk-grid-margin">
       <label class="uk-icon" for="era">
         <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="italic">
           <path d="M12.63,5.48 L10.15,14.52 C10,15.08 10.37,15.25 11.92,15.3 L11.72,16 L6,16 L6.2,15.31 C7.78,15.26 8.19,15.09 8.34,14.53 L10.82,5.49 C10.97,4.92 10.63,4.76 9.09,4.71 L9.28,4 L15,4 L14.81,4.69 C13.23,4.75 12.78,4.91 12.63,5.48 L12.63,5.48 Z"></path>
@@ -487,7 +483,7 @@ let zm_docCalTotal = function(){
         <option value="Buddhist"></option>
       </select>
     </div>
-    <div>
+    <div class="uk-grid-margin">
       <label class="uk-icon" for="theme">
         <svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" data-svg="paint-bucket">
           <path d="M10.21,1 L0,11.21 L8.1,19.31 L18.31,9.1 L10.21,1 L10.21,1 Z M16.89,9.1 L15,11 L1.7,11 L10.21,2.42 L16.89,9.1 Z"></path>

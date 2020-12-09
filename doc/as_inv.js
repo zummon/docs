@@ -125,11 +125,11 @@
     '[data-docs=itemSaletax],'+
     '[data-docs=itemAmount],'+
     '[data-docs^=total]',
-    optAn[zm_user.anPrice]
+    optAn[localStorage.getItem('anPrice')]
   )
   AutoNumeric.multiple(
     '[data-docs=itemQty]',
-    optAn[zm_user.anQty]
+    optAn[localStorage.getItem('anQty')]
   )
   if (zm_user.itemPrice) {
     for (let z = 0; z < elsDocsitemPrice.length; z++) {
