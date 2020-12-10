@@ -3,8 +3,6 @@ const elsAboveNavEndModal = document.querySelectorAll('#above, #nav, #end, [id^=
 const elSetDocOption = document.querySelectorAll('#set-doc option')
 const elsCreatebyTarget = document.querySelectorAll('#createby [target]')
 
-let zm_font = 'K2D, sans-serif'
-
 const elEra = document.querySelector('#era')
 elEra.querySelector('[value=Christ]').text = 'คริสต์'
 elEra.querySelector('[value=Buddhist]').text = 'พุทธ'
@@ -29,7 +27,7 @@ let zm_createbyTexts = [
 ]
 
 for (let z = 0; z < elsAboveNavEndModal.length; z++) {
-  elsAboveNavEndModal[z].style.fontFamily = zm_font
+  elsAboveNavEndModal[z].style.fontFamily = 'K2D, sans-serif'
 }
 for (let z = 0; z < elSetDocOption.length; z++) {
   elSetDocOption[z].text = zm_docsTexts[elSetDocOption[z].value]
@@ -38,7 +36,7 @@ for (let z = 0; z < elsCreatebyTarget.length; z++) {
   elsCreatebyTarget[z].textContent = zm_createbyTexts[z]
 }
 
-document.title = 'สร้างเอกสาร - zummon เว็บแอป (พัฒนาเรื่อยๆ)'
+document.title = 'สร้างเอกสาร - zummon เว็บแอป'
 document.querySelector('#greet').textContent = 'สร้างเอกสาร'
 
 document.querySelector('[for=set-doc]').textContent = 'ฟอร์ม'

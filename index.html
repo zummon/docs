@@ -672,9 +672,12 @@ let zm_docCalTotal = function(){
         if (['Invoice','Quotation','TaxInvoice'].indexOf(doc) >= 0) {
           zm_user.vatRate = localStorage.getItem('vatRate')
 
-        } else if (['Receipt'].indexOf(doc) >= 0) {
+        } else if (doc == 'Receipt') {
           zm_user.vatRate = localStorage.getItem('vatRate')
           zm_user.whtRate = localStorage.getItem('whtRate')
+
+        } else if (doc == 'CashSale') {
+          zm_user.totalFinal = zm_getElemValue(document.querySelector('[data-docs=totalAmount]'))
         }
 
         // get all fill form data
