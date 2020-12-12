@@ -332,13 +332,13 @@ document.addEventListener('DOMContentLoaded',function(){
   if (!zm_docs.hasOwnProperty(zm_user.doc)) {
     zm_user.doc = 'Invoice'
   }
-  if ([...elEra.options].map(function(t){return t.value}).indexOf(zm_user.era) == -1) {
+  if (Array.from(elEra.options).map(function(t){return t.value}).indexOf(zm_user.era) == -1) {
     zm_user.era = elEra.options[0].value
   }
-  if ([...elLang.options].map(function(t){return t.value}).indexOf(zm_user.lang) == -1) {
+  if (Array.from(elLang.options).map(function(t){return t.value}).indexOf(zm_user.lang) == -1) {
     zm_user.lang = elLang.options[0].value
   }
-  if ([...elTheme.options].map(function(t){return t.value}).indexOf(zm_user.theme) == -1) {
+  if (Array.from(elTheme.options).map(function(t){return t.value}).indexOf(zm_user.theme) == -1) {
     zm_user.theme = elTheme.options[0].value
   }
   if (!zm_tmps.hasOwnProperty(zm_user.tmp)) {
